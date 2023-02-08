@@ -7,11 +7,11 @@ import Amenities from './WorkSpace/Amenities';
 export default function BushwickLofts() {
     return (
         <div>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mr:5 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mr:12 }}>
                 <Typography variant="h5">Bushwick Lofts</Typography>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mr:5 }}>
-                <ShareIcon sx={{mr:30}}/>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mr:12 }}>
+                <ShareIcon sx={{mr:37}}/>
                 <Rating
                     defaultValue={2.5}
                     name="simple-controlled"
