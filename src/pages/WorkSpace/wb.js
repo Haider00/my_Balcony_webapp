@@ -19,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export const FormWb = ({ handleInfo = ({}) => {} }) => {
+export const FormWb = ({ handleInfo = ({ }) => { } }) => {
   const [info, setInfo] = useState({});
   useEffect(() => {
     handleInfo(info);
@@ -48,10 +48,10 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
           label="address"
           // variant="outlined"
           size="small"
-          // onChange={(e) => {
-          //   setInfo({ ...info, address: e.target.value });
-          // }}
-          // value={info?.address}
+        // onChange={(e) => {
+        //   setInfo({ ...info, address: e.target.value });
+        // }}
+        // value={info?.address}
         />
         <TextInput
           width="80%"
@@ -60,10 +60,10 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
           label="address2"
           // variant="outlined"
           size="small"
-          // onChange={(e) => {
-          //   setInfo({ ...info, address2: e.target.value });
-          // }}
-          // value={info?.address2}
+        // onChange={(e) => {
+        //   setInfo({ ...info, address2: e.target.value });
+        // }}
+        // value={info?.address2}
         />
         <TextInput
           width="80%"
@@ -72,10 +72,10 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
           label="city"
           // variant="outlined"
           size="small"
-          // onChange={(e) => {
-          //   setInfo({ ...info, city: e.target.value });
-          // }}
-          // value={info?.city}
+        // onChange={(e) => {
+        //   setInfo({ ...info, city: e.target.value });
+        // }}
+        // value={info?.city}
         />
         <TextInput
           width="80%"
@@ -84,10 +84,10 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
           label="state"
           // variant="outlined"
           size="small"
-          // onChange={(e) => {
-          //   setInfo({ ...info, state: e.target.value });
-          // }}
-          // value={info?.state}
+        // onChange={(e) => {
+        //   setInfo({ ...info, state: e.target.value });
+        // }}
+        // value={info?.state}
         />
         <TextInput
           width="80%"
@@ -96,10 +96,10 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
           label="country"
           // variant="outlined"
           size="small"
-          // onChange={(e) => {
-          //   setInfo({ ...info, country: e.target.value });
-          // }}
-          // value={info?.country}
+        // onChange={(e) => {
+        //   setInfo({ ...info, country: e.target.value });
+        // }}
+        // value={info?.country}
         />
         <Box
           sx={{
@@ -203,6 +203,8 @@ export const LeftWallpaperWb = () => {
     </Grid>
   );
 };
+
+
 export const WorksapceImages = () => {
   const [mainImage, setMainImage] = useState("");
   const [secondImage, setSecondImage] = useState("");
@@ -336,6 +338,188 @@ export const WorksapceImages = () => {
           {thirdImage && (
             <img height={200} width="50%" src={thirdImage} alt="image" />
           )}
+        </div>
+      </div>
+    </Grid>
+  );
+};
+
+
+export const WorksapceImagesBookingOverview = () => {
+  const [mainImage, setMainImage] = useState("");
+  const [secondImage, setSecondImage] = useState("");
+  const [thirdImage, setThirdImage] = useState("");
+  const [imageType, SetImageType] = useState("");
+  const uploadFileRef = useRef(null);
+
+  const handleUploadImage = (e) => {
+    uploadImages(e.target.files[0]);
+  };
+  const handleUploadImageClick = () => {
+    uploadFileRef.current.click();
+  };
+
+  const uploadImages = (element) => {
+    Resizer.imageFileResizer(
+      element,
+      720,
+      720,
+      "JPEG",
+      100,
+      0,
+      (uri) => {
+        api
+          .uploadImage({ image: uri })
+          .then((res) => {
+            console.log("RESPONSE....", res);
+            if (imageType === "main") {
+              setMainImage(res.Location);
+            } else if (imageType === "second") {
+              setSecondImage(res.Location);
+            } else if (imageType === "third") {
+              setThirdImage(res.Location);
+            }
+            // handleUploadProductImage(res.data, product, element.cover);
+          })
+          .catch((err) => {
+            console.log("RESPONSE....E", err);
+            // setDisplay(true);
+            // setMessage("Something Went Wrong While Adding Your Post");
+          });
+      },
+      "base64"
+    );
+  };
+
+  return (
+    <Grid
+      item
+      xs={12}
+      md={10}
+      sx={{
+        display: "flex",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <input
+        ref={uploadFileRef}
+        onChange={handleUploadImage}
+        type="file"
+        style={{ display: "none" }}
+        id="group_image"
+        accept="image/*"
+      />
+      <div
+        onClick={() => {
+          handleUploadImageClick();
+          SetImageType("main");
+        }}
+        style={{
+          height: 250,
+          width: "100%",
+          borderRadius: 10,
+          backgroundColor: "#000",
+          margin: 1,
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "flex-end",
+        }}
+      >
+        {mainImage && (
+          <img
+            height={200}
+            width="100%"
+            resizeMode="contain"
+            src={mainImage}
+            alt="image"
+          />
+        )}
+        <div style={{
+          height: 80,
+          width: "25%",
+          borderTopLeftRadius: 10,
+          backgroundColor: "#fff",
+          // margin: 1,
+          display: "flex",
+          flexDirection: 'column',
+          justifyContent: "center",
+          alignItems: "flex-start",
+        }}>
+          <Typography sx={{ marginLeft: 2 }} varient='h6'>+</Typography>
+          <Typography sx={{ marginLeft: 2 }} varient='h6'>Add image (Main)</Typography>
+        </div>
+      </div>
+      <div style={{ display: "flex", width: "100%" }}>
+        <div
+          onClick={() => {
+            handleUploadImageClick();
+            SetImageType("second");
+          }}
+          style={{
+            height: 250,
+            width: "100%",
+            borderRadius: 10,
+            backgroundColor: "#000",
+            margin: 1,
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "flex-end",
+          }}
+        >
+          {secondImage && (
+            <img height={200} width="50%" src={secondImage} alt="image" />
+          )}
+          <div style={{
+            height: 70,
+            width: "55%",
+            borderTopLeftRadius: 10,
+            backgroundColor: "#fff",
+            // margin: 1,
+            display: "flex",
+            flexDirection: 'column',
+            justifyContent: "center",
+            alignItems: "flex-start",
+          }}>
+            <Typography sx={{ marginLeft: 2 }} varient='h6'>+</Typography>
+            <Typography sx={{ marginLeft: 2 }} varient='h6'>Add image (Main)</Typography>
+          </div>
+        </div>
+        <div
+          onClick={() => {
+            handleUploadImageClick();
+            SetImageType("third");
+          }}
+          style={{
+            height: 250,
+            width: "100%",
+            borderRadius: 10,
+            backgroundColor: "#000",
+            margin: 1,
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "flex-end",
+          }}
+        >
+          {thirdImage && (
+            <img height={200} width="50%" src={thirdImage} alt="image" />
+          )}
+          <div style={{
+            height: 70,
+            width: "55%",
+            borderTopLeftRadius: 10,
+            backgroundColor: "#fff",
+            // margin: 1,
+            display: "flex",
+            flexDirection: 'column',
+            justifyContent: "center",
+            alignItems: "flex-start",
+          }}>
+            <Typography sx={{ marginLeft: 2 }} varient='h6'>+</Typography>
+            <Typography sx={{ marginLeft: 2 }} varient='h6'>Add image (Main)</Typography>
+          </div>
         </div>
       </div>
     </Grid>
