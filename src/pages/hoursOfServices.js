@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, Typography, Rating, Button } from '@mui/material'
-import Calendar from 'react-calendar'
-
+import Calendar from '../components/calendar/calendar';
 
 export default function HoursOfServices() {
     return (
