@@ -18,10 +18,10 @@
     "url": "https://github.com/colbyfayock/next-leaflet-starter/issues"
   },
   "dependencies": {
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.0",
-    "@mui/material": "^5.7.0",
+    "@mui/material": "^5.11.9",
     "@mui/x-date-pickers": "^5.0.0-alpha.7",
     "@react-google-maps/api": "^2.11.8",
     "add": "^2.0.6",

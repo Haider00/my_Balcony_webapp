@@ -63,7 +63,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Bushwick Lofts</Typography>
+                    <Typography sx={{marginTop:1}}>Bushwick Lofts</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
@@ -107,7 +107,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Bushwick Lofts</Typography>
+                    <Typography sx={{marginTop:1}}>Bushwick Lofts</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
@@ -151,7 +151,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Bushwick Lofts</Typography>
+                    <Typography sx={{marginTop:1}}>Bushwick Lofts</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
@@ -195,7 +195,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Jackson Heights Lofts</Typography>
+                    <Typography sx={{marginTop:1}}>Jackson Heights Lofts</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
@@ -239,7 +239,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Jackson Heights Lofts</Typography>
+                    <Typography sx={{marginTop:1}}>Jackson Heights Lofts</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
@@ -283,7 +283,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Jackson Heights Lofts</Typography>
+                    <Typography sx={{marginTop:1}}>Jackson Heights Lofts</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
@@ -327,7 +327,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Iron Ceilings Tower</Typography>
+                    <Typography sx={{marginTop:1}}>Iron Ceilings Tower</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
@@ -371,7 +371,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Iron Ceilings Tower</Typography>
+                    <Typography sx={{marginTop:1}}>Iron Ceilings Tower</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
@@ -415,7 +415,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Iron Ceilings Tower</Typography>
+                    <Typography sx={{marginTop:1}}>Iron Ceilings Tower</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
@@ -459,7 +459,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Bronxville</Typography>
+                    <Typography sx={{marginTop:1}}>Bronxville</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
@@ -503,7 +503,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Bronxville</Typography>
+                    <Typography sx={{marginTop:1}}>Bronxville</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
@@ -547,7 +547,7 @@ export default function WorkFromIndoorImage() {
                         }}>$56.50</div>
                     </div>
 
-                    <Typography>Bronxville</Typography>
+                    <Typography sx={{marginTop:1}}>Bronxville</Typography>
                     <Rating
                         defaultValue={2.5}
                         name="simple-controlled"
