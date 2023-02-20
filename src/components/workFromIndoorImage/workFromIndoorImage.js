@@ -24,7 +24,12 @@ export default function WorkFromIndoorImage() {
                 
             </Grid>
 
-            <Grid style={{ display: 'flex', justifyContent: 'center', flexWrap:'wrap' }} sx={{ marginY: 2, }} container spacing={4}>
+            <Grid item
+                    md={12}
+                    lg={12}
+                    xs={12}
+                    sm={12}
+                    style={{ display: 'flex', justifyContent: 'center', flexWrap:'wrap' }} sx={{ marginY: 2, }} container spacing={4}>
 
                 <Grid
                     sx={{
@@ -52,14 +57,15 @@ export default function WorkFromIndoorImage() {
                     >
                         <div style={{
                             height: 20,
-                            width: "12%",
+                            width: "13%",
                             borderRadius: 10,
                             marginBottom: 7,
                             marginLeft: 7,
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 
@@ -103,7 +109,8 @@ export default function WorkFromIndoorImage() {
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 
@@ -147,7 +154,8 @@ export default function WorkFromIndoorImage() {
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 
@@ -191,7 +199,8 @@ export default function WorkFromIndoorImage() {
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 
@@ -235,7 +244,8 @@ export default function WorkFromIndoorImage() {
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 
@@ -279,7 +289,8 @@ export default function WorkFromIndoorImage() {
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 
@@ -323,7 +334,8 @@ export default function WorkFromIndoorImage() {
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 
@@ -367,7 +379,8 @@ export default function WorkFromIndoorImage() {
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 
@@ -411,7 +424,8 @@ export default function WorkFromIndoorImage() {
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 
@@ -455,7 +469,8 @@ export default function WorkFromIndoorImage() {
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 
@@ -499,7 +514,8 @@ export default function WorkFromIndoorImage() {
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 
@@ -543,7 +559,8 @@ export default function WorkFromIndoorImage() {
                             backgroundColor: "#fff",
                             fontSize: 10,
                             fontWeight: 'bold',
-                            textAlign: "center"
+                            textAlign: "center",
+                            lineHeight:2
                         }}>$56.50</div>
                     </div>
 

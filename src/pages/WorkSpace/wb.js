@@ -256,6 +256,7 @@ export const WorksapceImages = () => {
       item
       xs={12}
       md={10}
+      sm={12}
       sx={{
         display: "flex",
         flex: 1,
@@ -298,6 +299,7 @@ export const WorksapceImages = () => {
           />
         )}
       </div>
+
       <div style={{ display: "flex", width: "100%" }}>
         <div
           onClick={() => {
@@ -319,6 +321,7 @@ export const WorksapceImages = () => {
             <img height={200} width="50%" src={secondImage} alt="image" />
           )}
         </div>
+        
         <div
           onClick={() => {
             handleUploadImageClick();
@@ -343,7 +346,6 @@ export const WorksapceImages = () => {
     </Grid>
   );
 };
-
 
 export const WorksapceImagesBookingOverview = () => {
   const [mainImage, setMainImage] = useState("");

@@ -33,7 +33,7 @@ const Header = () => {
           component="h5"
           variant="h4"
         >
-          balcony
+          Balcony
         </Typography>
         <Box
           sx={{

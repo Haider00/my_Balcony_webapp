@@ -1,26 +1,30 @@
 import React from 'react'
-import { CustomHeader, ScrollCard, WebTabs } from "../component";
-import Typography from "@mui/material/Typography";
+import { CustomHeader } from "../component";
 import Grid from "@mui/material/Grid";
-import { LeftWallpaperWb, FormWb, WorksapceImages } from "./WorkSpace/wb";
 import { Divider } from '@mui/material';
-import BushwickLofts from '../pages/bushwickLofts';
-import HoursOfServices from '../pages/hoursOfServices';
-import AmenitiesPortion from '../pages/amenitiesPortion';
-import MenuSection from '../pages/menuSection'
-// import Amenities from './WorkSpace/Amenities';
-import dynamic from "next/dynamic";
+import BushwickLofts from './WorkspaceDetail/bushwickLofts';
+import HoursOfServices from './WorkspaceDetail/hoursOfServices';
+import AmenitiesPortion from './WorkspaceDetail/amenitiesPortion';
+import MenuSection from './MenuSection/menuSection';
+import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from '@mui/material';
 
 export default function WorkspaceDetail() {
+
+    const theme = useTheme();
+    const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
+    // const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <>
             <CustomHeader />
 
-            <Grid style={{ display: 'flex', justifyContent: 'center' }} sx={{ marginY: 2, }} container spacing={4}>
+                <Grid style={{ display: 'flex', justifyContent: 'center' }} sx={{ marginY: 2, justifyContent: 'center' }}container spacing={4}>
                 <Grid
                     sx={{
                         display: "flex",
                         flexDirection: "column",
+                        // justifyContent:'center',
                         alignItem: "center",
                         flex: 1,
                     }}
@@ -32,7 +36,7 @@ export default function WorkspaceDetail() {
                 >
                     <BushwickLofts />
                 </Grid>
-                <Divider orientation="vertical" flexItem />
+                {!isMediumScreen && <Divider className='divider' orientation='vertical' flexItem />}
                 <Grid
                     sx={{
                         display: "flex",
@@ -48,7 +52,7 @@ export default function WorkspaceDetail() {
                 >
                     <AmenitiesPortion/>
                 </Grid>
-                <Divider orientation="vertical" flexItem />
+                {!isMediumScreen && <Divider className='divider' orientation='vertical' flexItem />}
                 <Grid
                     sx={{
                         display: "flex",
@@ -76,13 +80,14 @@ export default function WorkspaceDetail() {
             <Grid
                     sx={{
                         display: "flex",
-                        flexDirection: "column",
+                        // flexDirection: "column",
                         alignItem: "center",
-                        flex: 1,
+                        justifyContent: "flex-start",
+                        // flex: 1,
                     }}
                     item
                     md={12}
-                    lg={4}
+                    lg={12}
                     xs={12}
                     sm={12}
                 >
@@ -91,3 +96,4 @@ export default function WorkspaceDetail() {
         </>
     )
 }
+

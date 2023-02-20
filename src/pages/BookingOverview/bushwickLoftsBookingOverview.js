@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Typography, Rating } from '@mui/material'
 import ShareIcon from '@mui/icons-material/Share';  
-import { LeftWallpaperWb, FormWb, WorksapceImagesBookingOverview } from "./WorkSpace/wb";
-import Amenities from './WorkSpace/Amenities';
+import { LeftWallpaperWb, FormWb, WorksapceImagesBookingOverview } from "../WorkSpace/wb";
+import Amenities from '../WorkSpace/Amenities';
 
 export default function BushwickLoftsBookingOverview() {
     return (

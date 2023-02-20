@@ -1,14 +1,17 @@
-import React from 'react'
-import { CustomHeader, ScrollCard, WebTabs } from "../component";
-import Typography from "@mui/material/Typography";
+import React from 'react';
+import { CustomHeader } from "../component";
 import Grid from "@mui/material/Grid";
-import { LeftWallpaperWb, FormWb, WorksapceImages } from "./WorkSpace/wb";
 import { Divider } from '@mui/material';
-import BushwickLoftsBookingOverview from './bushwickLoftsBookingOverview';
-import EditPortion from '../pages/editPortion';
-import MenuSection from '../pages/menuSection'
+import BushwickLoftsBookingOverview from './BookingOverview/bushwickLoftsBookingOverview';
+import EditPortion from './BookingOverview/editPortion';
+import MenuSection from './MenuSection/menuSection';
+import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from '@mui/material';
 
 export default function BookingOverview() {
+
+    const theme = useTheme();
+    const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
     return (
         <>
             <CustomHeader />
@@ -29,9 +32,7 @@ export default function BookingOverview() {
                 >
                     <BushwickLoftsBookingOverview />
                 </Grid>
-                
-                    <Divider sx={{ bgcolor: "black" }} orientation="vertical" flexItem />
-                
+                {!isMediumScreen && <Divider className='divider' orientation='vertical' flexItem />}
                 <Grid
                     sx={{
                         display: "flex",
@@ -51,15 +52,13 @@ export default function BookingOverview() {
             <Grid
                 sx={{
                     display: "flex",
-                    flexDirection: "column",
-                    alignItem: "center",
                     flex: 1,
                     marginLeft: -10,
                     marginY: 20
                 }}
                 item
                 md={12}
-                lg={4}
+                lg={12}
                 xs={12}
                 sm={12}
             >

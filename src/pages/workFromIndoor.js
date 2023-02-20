@@ -1,12 +1,7 @@
 import React from 'react'
-import { CustomHeader, ScrollCard, WebTabs } from "../component";
-import Typography from "@mui/material/Typography";
+import { CustomHeader} from "../component";
 import Grid from "@mui/material/Grid";
-import { LeftWallpaperWb, FormWb, WorksapceImages } from "./WorkSpace/wb";
-import { Divider } from '@mui/material';
-import BushwickLoftsBookingOverview from './bushwickLoftsBookingOverview';
-import EditPortion from '../pages/editPortion';
-import MenuSection from '../pages/menuSection'
+import MenuSection from './MenuSection/menuSection'
 import RightIcons from '@components/rightIcons/rightIcons';
 import WorkFromIndoorImage from '@components/workFromIndoorImage/workFromIndoorImage';
 import Pagination from '@mui/material/Pagination';
@@ -16,7 +11,7 @@ export default function WorkFromIndoor () {
         <>
             <CustomHeader />
 
-            <Grid style={{ display: 'flex' , justifyContent: 'center' }} sx={{ marginY: 1, }} container spacing={4}>
+            <Grid style={{ display: 'flex' , justifyContent: 'center' }} sx={{ marginY: 1, }} container >
                 <Grid
                 marginX={6}
                     sx={{
@@ -49,7 +44,6 @@ export default function WorkFromIndoor () {
                     sm={12}
                 >
                     <WorkFromIndoorImage/>
-                    {/* <EditPortion /> */}
                 </Grid>
             </Grid>
 
@@ -60,7 +54,7 @@ export default function WorkFromIndoor () {
             <Grid
                 sx={{
                     display: "flex",
-                    flexDirection: "column",
+                    // flexDirection: "column",
                     alignItem: "center",
                     flex: 1,
                     marginLeft: -10,
@@ -69,8 +63,8 @@ export default function WorkFromIndoor () {
                 item
                 md={12}
                 lg={4}
-                xs={12}
-                sm={12}
+                xs={4}
+                sm={4}
             >
                 <MenuSection />
             </Grid>

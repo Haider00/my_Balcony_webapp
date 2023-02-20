@@ -1,10 +1,8 @@
 import React from 'react'
 import { Box, Typography, Rating } from '@mui/material'
-import ShareIcon from '@mui/icons-material/Share';
-import { LeftWallpaperWb, FormWb, WorksapceImages } from "./WorkSpace/wb";
-import { Divider, Button } from '@mui/material';
+import { Divider } from '@mui/material';
 import GroupIcon from '@mui/icons-material/Group';
-import DeleteIcon from '@mui/icons-material/Delete';
+import Amenities from '../WorkSpace/Amenities';
 
 
 export default function AmenitiesPortion() {
@@ -13,8 +11,8 @@ export default function AmenitiesPortion() {
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Typography variant="h5">Amenities</Typography>
             </Box>
-
-            <Divider sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 40 }} variant="middle" />
+            <Amenities/>
+            <Divider sx={{ display: 'flex', justifyContent: 'flex-end'}} variant="middle" />
 
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignContent: 'flex-end', marginRight: 5 }}>
                 <Typography variant="h6">$56.50 per person</Typography>
