@@ -1,19 +1,17 @@
 import React from 'react'
-import { Box, Typography, Rating } from '@mui/material'
-import ShareIcon from '@mui/icons-material/Share';  
-import { LeftWallpaperWb, FormWb, WorksapceImagesBookingOverview } from "../WorkSpace/wb";
-import Amenities from '../WorkSpace/Amenities';
+import { Typography, Grid } from '@mui/material'
+import { WorksapceImagesBookingOverview } from "../WorkSpace/wb";
 
 export default function BushwickLoftsBookingOverview() {
     return (
         <div>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
+            <Grid sx={{mt:4, display: 'flex', justifyContent: 'flex-start'}}>
                 <Typography variant="h5">Booking Overview</Typography>
-            </Box>
+            </Grid>
             
-            <Box sx={{ml:-10 ,mt:4}}>
+            <Grid sx={{mt:2, width:550}}>
                 <WorksapceImagesBookingOverview/>
-            </Box>
+            </Grid>
         </div>
     )
 }

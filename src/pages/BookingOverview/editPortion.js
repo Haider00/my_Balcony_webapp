@@ -9,12 +9,12 @@ import { Checkbox } from '@mui/material';
 export default function EditPortion() {
     return (
         <>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginLeft: 20 }}>
+            <Box sx={{mt:4, display: 'flex', justifyContent: 'flex-start'}}>
                 <Typography variant="h5">Edit</Typography>
             </Box>
 
             <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center', marginTop: 2 }}>
-                <Card sx={{ bgcolor: '#f2f7f6', width: '60%' }}>
+                <Card sx={{ bgcolor: '#f2f7f6', width: '100%' }}>
                     <CardContent>
 
                         <Typography variant='h6'>

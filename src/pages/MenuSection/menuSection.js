@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Card, CardContent, Typography } from '@mui/material'
+import Grid from "@mui/material/Grid";
 import Link from 'next/link';
 import MobileStoreButton from 'react-mobile-store-button';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -9,7 +10,7 @@ import CopyrightOutlinedIcon from '@mui/icons-material/CopyrightOutlined';
 
 export default function MenuSection() {
     return (
-        <Box sx={{ marginLeft: 20, marginBottom: 10 }} width='300px'>
+        <Box sx={{ marginLeft: 20, marginBottom: 10 }} width='250px'>
             <Card>
                 <CardContent>
 
