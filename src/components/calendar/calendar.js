@@ -26,6 +26,8 @@ export default function ReactCalendar() {
             <DateRangePicker
                 ranges={[selectionRange]}
                 onChange={handleSelect}
+                inputRanges={[]}
+                staticRanges={[]}
             />
         </div>
     )
