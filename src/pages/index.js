@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { api } from "../utils/api";
 import { useAuthState } from "../context/auth.context";
 import { useRouter } from "next/router";
+import TableBottom from "src/assets/svg/TableBottom";
 
 export default function SignUp() {
   const router = useRouter();
@@ -199,7 +200,8 @@ export default function SignUp() {
         </Grid>
         <Grid item md={9} sx={{ display: { xs: "none", md: "flex" } }}>
           <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <img
+            <TableBottom/>
+            {/* <img
               src={`${"https://wallpaperaccess.com/full/3678503.png"}`}
               srcSet={require("../assets/Wallpaper.png")}
               alt={"Title"}
@@ -209,7 +211,7 @@ export default function SignUp() {
                 borderRadius: 5,
                 // resize: "both",
               }}
-            />
+            /> */}
           </Box>
         </Grid>
       </Grid>

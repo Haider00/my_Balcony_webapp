@@ -19,9 +19,9 @@ export default function HoursOfServices() {
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 2 }}>
                 <Typography sx={{textAlign:'center'}} variant="h5">Chat &/or Call with Workspace Host Before Booking!</Typography>
-                <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', width: '100%', maxWidth: 500 }}>
-                    <Button sx={{ mr: 1, mt: 2, width: '50%', borderRadius:3 }} variant="outlined">CHAT</Button>
-                    <Button sx={{ ml: 1, mt: 2, width: '50%', borderRadius:3 }} variant="outlined">CALL</Button>
+                <Box sx={{ display: 'flex', justifyContent: 'space-around', flexDirection: 'row', width: '100%', maxWidth: 500 }}>
+                    <Button sx={{color:'#000', mr: 1, mt: 2, width: '30%', borderRadius:3, borderColor: '#000', borderWidth:'2px'}} variant="outlined">CHAT</Button>
+                    <Button sx={{color:'#000', ml: 1, mt: 2, width: '30%', borderRadius:3, borderColor: '#000', borderWidth:'2px' }} variant="outlined">CALL</Button>
                 </Box>
             </Box>
         </Box>

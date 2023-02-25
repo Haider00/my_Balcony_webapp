@@ -50,13 +50,13 @@ export default function MenuSection() {
                         <MobileStoreButton
                             width='150px'
                             store="android"
-                            //   url={iOSUrl}
+                            
                             linkProps={{ title: 'Android Store Button' }}
                         />
                         <MobileStoreButton
                             width='150px'
                             store="ios"
-                            //   url={iOSUrl}
+                            
                             linkProps={{ title: 'iOS Store Button' }}
                         />
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>

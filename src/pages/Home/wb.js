@@ -3,10 +3,10 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { IncrementalInput, Title, Button, TextInput } from "../../component";
 import { useRouter } from "next/router";
+import TableTop from "src/assets/svg/TableTop";
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -64,8 +64,8 @@ export const FormWb = () => {
           />
 
           <IncrementalInput />
-          <Button onClick={()=>{
-              router.push("./workspaceDetail");
+          <Button onClick={() => {
+            router.push("./workspaceDetail");
           }} title="SEARCH" />
         </Card>
       </Box>
@@ -75,7 +75,7 @@ export const FormWb = () => {
 export const LeftWallpaperWb = () => {
   return (
     <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={12} md={7}>
-      <Item>xs=12 md=4</Item>
+      <TableTop sx={{ width: "50%", height: "50%" }} />
     </Grid>
   );
 };

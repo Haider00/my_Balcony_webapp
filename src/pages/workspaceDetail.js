@@ -8,6 +8,7 @@ import AmenitiesPortion from "./WorkspaceDetail/amenitiesPortion";
 import MenuSection from "./MenuSection/menuSection";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
+import TableBottom from "src/assets/svg/TableBottom";
 
 export default function WorkspaceDetail() {
   const theme = useTheme();
@@ -63,9 +64,12 @@ export default function WorkspaceDetail() {
         </Grid>
       </Grid>
 
-      <Grid container spacing={4} sx={{ marginTop: 10 }}>
-        <Grid item xs={12} sm={12} md={12} lg={12}>
+      <Grid container spacing={4} sx={{ display: 'flex',marginTop: 10 }}>
+        <Grid sx={{display:'flex', marginTop:8 ,justifyContent: 'center'}} item xs={12} sm={12} md={3} lg={3}>
           <MenuSection />
+        </Grid>
+        <Grid sx={{display:'flex', justifyContent: 'center'}} item xs={12} sm={12} md={7} lg={8}>
+          <TableBottom/>
         </Grid>
       </Grid>
     </>

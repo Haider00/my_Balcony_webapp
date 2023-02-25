@@ -42,13 +42,14 @@ export default function AmenitiesPortion() {
         <div>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant="h5" sx={{ mb: 2 }}>Amenities</Typography>
-                <Amenities/>
-                <Divider sx={{ width: '100%', my: 3 }} variant="middle" />
+                <Amenities />
+                <Divider sx={{ width: '95%', my: 3 }} variant="middle" />
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Typography variant="h6" sx={{ mb: 1 }}>$56.50 per person</Typography>
                     <Typography variant="button" sx={{ mb: 1 }}>Shared Workspace</Typography>
                     <GroupIcon sx={{ mb: 1 }} fontSize="large" />
-                    <Typography variant="caption">This space is shared with other people such as freelancers, starters, students, etc</Typography>
+                    <Typography sx={{width:'95%', textAlign:"center"}} variant="caption">This space is shared with other people such as freelancers, starters, students, etc</Typography>
+                    <Divider sx={{ width: '95%', my: 3 }} variant="middle" />
                 </Box>
             </Box>
         </div>
