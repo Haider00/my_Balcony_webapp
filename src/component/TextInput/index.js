@@ -9,7 +9,7 @@ const Button = ({
   containerWidth = "100%",
   size = "small",
   alignItems = "center",
-  onChange = () => {},
+  onChange = () => { },
 }) => {
   return (
     <div

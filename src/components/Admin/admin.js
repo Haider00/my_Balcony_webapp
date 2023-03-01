@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material';
 import React from 'react'
-import CustomHeader from "../../component/CustomHeader/index";
 import { Card, CardContent, Typography } from '@mui/material';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { Divider } from "@mui/material";
@@ -13,88 +12,67 @@ import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
 import AddCardRoundedIcon from '@mui/icons-material/AddCardRounded';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import styles from './admin.module.css';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useState } from 'react';
 
 export default function Admin() {
+    const [clickedIndex, setClickedIndex] = useState(-1);
+
+    const handleClick = (index) => {
+        setClickedIndex(index === clickedIndex ? -1 : index);
+    };
     return (
         <>
-            <CustomHeader />
-            <Grid sx={{marginTop:4}} display="flex" justifyContent='center'>
-                <Card sx={{ width: 350 }}>
+            <Grid sx={{ marginTop: 4 }} display="flex" justifyContent='center'>
+                <Card sx={{ width: '280px' }}>
                     <CardContent>
-                        <Typography sx={{textAlign:'center', mb: 2 }} variant='h6'>
+                        <Typography sx={{ textAlign: 'center', mb: 2 }} variant='h6'>
                             Admin
                         </Typography>
-                        <Divider sx={{ width: '100%', mb:2 }} />
+                        <Divider sx={{ width: '100%', mb: 2 }} />
 
-                        <Grid className={`${styles.grid}`} sx={{padding: 1, display: 'flex', justifyContent: 'flex-start' }}>
-                            <AcUnitIcon />
-                            <Typography sx={{ marginLeft: 1 }} variant='subtitle1'>
-                                About Us
-                            </Typography>
-                        </Grid>
-
-                        <Grid className={`${styles.grid}`} sx={{padding: 1, display: 'flex', justifyContent: 'flex-start' }}>
-                            <EqualizerIcon />
-                            <Typography sx={{ marginLeft: 1 }} variant='subtitle1'>
-                                Workspace Amenities
-                            </Typography>
-                        </Grid>
-
-                        <Grid className={`${styles.grid}`} sx={{padding: 1, display: 'flex', justifyContent: 'flex-start' }}>
-                            <SwitchAccountIcon />
-                            <Typography sx={{ marginLeft: 1 }} variant='subtitle1'>
-                                File Manager
-                            </Typography>
-                        </Grid>
-
-                        <Grid className={`${styles.grid}`} sx={{padding: 1, display: 'flex', justifyContent: 'flex-start' }}>
-                            <PieChartIcon />
-                            <Typography sx={{ marginLeft: 1 }} variant='subtitle1'>
-                                Traffic Analyzer
-                            </Typography>
-                        </Grid>
-
-                        <Grid className={`${styles.grid}`} sx={{padding: 1, display: 'flex', justifyContent: 'flex-start' }}>
-                            <GroupIcon />
-                            <Typography sx={{ marginLeft: 1 }} variant='subtitle1'>
-                                Users Manager
-                            </Typography>
-                        </Grid>
-
-                        <Grid className={`${styles.grid}`} sx={{padding: 1, display: 'flex', justifyContent: 'flex-start' }}>
-                            <CalendarMonthIcon />
-                            <Typography sx={{ marginLeft: 1 }} variant='subtitle1'>
-                                Calender
-                            </Typography>
-                        </Grid>
-
-                        <Grid className={`${styles.grid}`} sx={{padding: 1, display: 'flex', justifyContent: 'space-between' }}>
-                            <Grid sx={{ display: 'flex', justifyContent: '' }}>
-                                <MessageRoundedIcon />
+                        {menuItems.map((item, index) => (
+                            <Grid
+                                key={index}
+                                onClick={() => handleClick(index)}
+                                className={`${styles.grid}`}
+                                sx={{
+                                    backgroundColor: clickedIndex === index ? 'yellow' : '#FFF',
+                                    padding: 1,
+                                    display: 'flex',
+                                    justifyContent: 'flex-start'
+                                }}
+                            >
+                                {item.icon}
                                 <Typography sx={{ marginLeft: 1 }} variant='subtitle1'>
-                                    Messages
+                                    {item.label}
                                 </Typography>
                             </Grid>
-                            <span style={{ paddingTop: 2, backgroundColor: '#000', color: 'yellow', height: 30, width: 30, textAlign: 'center', borderRadius: '100%' }} sx={{ height: '20px', width: '40px', borderRadius: 50 }}>8</span>
-                        </Grid>
+                        ))}
 
-                        <Grid className={`${styles.grid}`} sx={{padding: 1, display: 'flex', justifyContent: 'flex-start' }}>
-                            <AddCardRoundedIcon />
-                            <Typography sx={{ marginLeft: 1 }} variant='subtitle1'>
-                                Payments
-                            </Typography>
-                        </Grid>
+                        <Divider sx={{ width: '100%', mb: 2, mt: 8 }} />
 
-                        <Grid className={`${styles.grid}`} sx={{padding: 1, display: 'flex', justifyContent: 'flex-start' }}>
-                            <AirplaneTicketIcon />
+                        <Grid className={`${styles.grid}`} sx={{ padding: 1, display: 'flex', justifyContent: 'flex-start' }}>
+                            <LogoutIcon />
                             <Typography sx={{ marginLeft: 1 }} variant='subtitle1'>
-                                Promotions
+                                Logout
                             </Typography>
                         </Grid>
                     </CardContent>
-
                 </Card>
             </Grid>
         </>
     )
 }
+
+const menuItems = [
+    { label: "About Us", icon: <AcUnitIcon /> },
+    { label: "Workspace Amenities", icon: <EqualizerIcon /> },
+    { label: "File Manager", icon: <SwitchAccountIcon /> },
+    { label: "Traffic Analyzer", icon: <PieChartIcon /> },
+    { label: "Users Manager", icon: <GroupIcon /> },
+    { label: "Calender", icon: <CalendarMonthIcon /> },
+    { label: "Messages", icon: <MessageRoundedIcon /> },
+    { label: "Payments", icon: <AddCardRoundedIcon /> },
+    { label: "Promotions", icon: <AirplaneTicketIcon /> },
+];

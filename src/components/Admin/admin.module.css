@@ -1,5 +1,8 @@
 .grid:hover{
     background-color: yellow;
     cursor: pointer;
+    color:'red';
+}
+.grid{
     border-radius: 40px;
 }
