@@ -4,6 +4,9 @@ body {
   background-size: cover;
   box-sizing: border-box;
 }
+img{
+  border-radius: 50%;
+}
 /* side nav bar */
 .side-nav {
   min-width: 70px;

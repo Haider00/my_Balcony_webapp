@@ -13,18 +13,18 @@ export default NextAuth({
       // @ts-ignore
       domain: process.env.AUTH0_DOMAIN,
     }),
-    // FacebookProvider({
-    //   clientId: "753137379194527",
-    //   clientSecret: "6ff5245ac172b178f325f18b15df1b76",
-    // }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_ID,
+      clientSecret: process.env.FACEBOOK_SECRET,
+    }),
     GoogleProvider({
       clientId:process.env.GOOGLE_ID,
       clientSecret:process.env.GOOGLE_SECRET,
     }),
-    // AppleProvider({
-    //   clientId: process.env.APPLE_ID,
-    //   clientSecret: "",
-    // }),
+    AppleProvider({
+      clientId: process.env.APPLE_ID,
+      clientSecret: "",
+    }),
   ],
   secret: process.env.SECRET,
 
