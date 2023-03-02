@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { CustomHeader } from "../component";
 import UserPic from "../assets/svg/Calender";
-import Lowerarea from "./SalesStatistics/transaction";
+import SalesandOrder from "./SalesStatistics/transaction";
+import Rightsiderbar from "../components/Admin/admin";
 import LinearProgress from "@mui/material/LinearProgress";
 import PropTypes from "prop-types";
 import { RadialChart } from "react-vis";
@@ -42,6 +43,16 @@ const BoxContainer = styled.div`
   align-items: center;
   margin: 0 40px;
   flex-wrap: wrap;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 767px) {
+    margin: 0;
+    width: 100%;
+    padding: 0 20px;
+  }
+  @media screen and (max-width: 930px) {
+    justify-content: center;
+  }
 `;
 const Box1 = styled.div`
   flex: 1 0 30%;
@@ -51,9 +62,9 @@ const Box1 = styled.div`
   box-shadow: 0 5px 25px 0 rgba(82, 87, 93, 0.1);
   background-color: #fff;
   border-radius: 20px;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 930px) {
     flex: 0 0 100%;
-    margin: 20px 20px 20px 0;
+    height: 520px;
   }
 `;
 const Box2 = styled.div`
@@ -65,11 +76,16 @@ const Box2 = styled.div`
   background-color: #fff;
   border-radius: 20px;
   position: relative;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 499px) {
     flex: 0 0 100%;
-    margin: 20px 20px 20px 0;
+  
   }
-
+  @media screen and (min-width : 500px) and (max-width : 1470px)  {
+    flex: 0 0 45%;
+    }
+    @media screen and (min-width: 1471px) and (max-width: 1660px) {
+      flex: 0 0 45%;
+    }
 }
 `;
 const Box = styled.div`
@@ -81,11 +97,17 @@ const Box = styled.div`
   background-color: #fff;
   border-radius: 20px;
   position: relative;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 499px) {
     flex: 0 0 100%;
-    margin: 20px 20px 20px 0;
+  
   }
-
+ 
+  @media screen and (min-width : 500px) and (max-width : 1470px)  {
+    flex: 0 0 45%;
+    }
+    @media screen and (min-width: 1471px) and (max-width: 1660px) {
+      flex: 0 0 45%;
+    }
 }
 `;
 
@@ -104,8 +126,9 @@ const Headingcontainer = styled.div`
 
 const List = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   padding: 0;
-  gap: 20px;
+  gap: 10px;
 `;
 const ListItem = styled.li`
   list-style: none;
@@ -144,6 +167,7 @@ const SourceContainer = styled.div`
   height: 330px;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 const SourcePercentage = styled.div`
 position: absolute;
@@ -157,7 +181,8 @@ span{
 const SourceText = styled.div`
 position: absolute;
 top: 65%;
-left: 36%;
+left: 0;
+right: 0;
 span{
   font-size: 14px;
   color: #b3b8bd;
@@ -193,6 +218,19 @@ const TrafficPercentage = styled.span`
   font-size: 16px;
   color: #52575d;
 `;
+const StatisticContainer = styled.div`
+  display: flex;
+  margin: 0 50px;
+  @media screen and (max-width: 900px) {
+    display: inline-block;
+  }
+`;
+const Mainarea = styled.div``;
+const Sidebar = styled.div`
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+`;
 
 const SalesStatistic = (props) => {
   const [progress, setProgress] = React.useState(10);
@@ -208,183 +246,219 @@ const SalesStatistic = (props) => {
     };
   }, []);
 
-  const [selectedOption, setSelectedOption] = useState("all");
+  const [SalesStatistics, setSalesStatistics] = useState("all");
 
-  const handleClick = (option) => {
-    setSelectedOption(option);
+  const handleClick = (selected) => {
+    setSalesStatistics(selected);
   };
+
+  const [chartWidth, setChartWidth] = useState(800); // initial width value
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth >= 992) {
+        setChartWidth(800);
+      } else if (window.innerWidth >= 768) {
+        setChartWidth(500);
+      } else if (window.innerWidth >= 560) {
+        setChartWidth(380);
+      } else if (window.innerWidth >= 400) {
+        setChartWidth(250);
+      } else {
+        setChartWidth(200);
+      }
+    }
+
+    window.addEventListener("resize", handleResize); // add event listener
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // remove event listener
+    };
+  }, []);
+
   return (
     <Wrapper>
       <CustomHeader />
-      <BoxContainer>
-        <Box1>
-          <Headingcontainer>
-            <Heading>Sales Statistics</Heading>
-            <InfoOutlinedIcon style={{ fill: "#b3b8bd" }} />
-          </Headingcontainer>
-          <List>
-            <ListItem selected={selectedOption === "all"}>
-              <button onClick={() => handleClick("all")}>All time</button>
-            </ListItem>
-            <ListItem selected={selectedOption === "year"}>
-              <button onClick={() => handleClick("year")}>This year</button>
-            </ListItem>
-            <ListItem selected={selectedOption === "week"}>
-              <button onClick={() => handleClick("week")}>This week</button>
-            </ListItem>
-            <ListItem selected={selectedOption === "today"}>
-              <button onClick={() => handleClick("today")}>Today</button>
-            </ListItem>
-          </List>
-          <Card style={{ boxShadow: "none" }}>
-            <CardContent>
-              <LineChart width={500} height={240} data={data}>
-                <CartesianGrid strokearray="3" vertical={false} />
-                <XAxis dataKey="name" axisLine={false} />
-                <YAxis axisLine={false} />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="pv"
-                  stroke="#508ff4"
-                  activeDot={{ r: 8 }}
-                  strokeWidth={3}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="uv"
-                  stroke="#006460"
-                  strokeWidth={3}
-                />
-              </LineChart>
-            </CardContent>
-          </Card>
-        </Box1>
-        <Box2>
-          <Headingcontainer>
-            <Heading>Referrals </Heading>
-            <InfoOutlinedIcon style={{ fill: "#b3b8bd" }} />
-          </Headingcontainer>
-          <ReferalContainer>
-            <UserData>
-              {/* <UserImg src={UserPic} /> */}
-              <PersonOutlineOutlinedIcon
-                style={{ position: "relative", top: 5 }}
+      <StatisticContainer>
+        <Sidebar>
+          {" "}
+          <Rightsiderbar />
+        </Sidebar>
+        <Mainarea>
+          <BoxContainer>
+            <Box1>
+              <Headingcontainer>
+                <Heading>Sales Statistics</Heading>
+                <InfoOutlinedIcon style={{ fill: "#b3b8bd" }} />
+              </Headingcontainer>
+              <List>
+                <ListItem selected={SalesStatistics === "all"}>
+                  <button onClick={() => handleClick("all")}>All time</button>
+                </ListItem>
+                <ListItem selected={SalesStatistics === "year"}>
+                  <button onClick={() => handleClick("year")}>This year</button>
+                </ListItem>
+                <ListItem selected={SalesStatistics === "week"}>
+                  <button onClick={() => handleClick("week")}>This week</button>
+                </ListItem>
+                <ListItem selected={SalesStatistics === "today"}>
+                  <button onClick={() => handleClick("today")}>Today</button>
+                </ListItem>
+              </List>
+              <Card style={{ boxShadow: "none" }}>
+                <CardContent>
+                  <LineChart width={chartWidth} height={240} data={data}>
+                    <CartesianGrid strokearray="3" vertical={false} />
+                    <XAxis dataKey="name" axisLine={false} />
+                    <YAxis axisLine={false} />
+                    <Tooltip />
+                    <Legend />
+                    <Line
+                      type="monotone"
+                      dataKey="pv"
+                      stroke="#508ff4"
+                      activeDot={{ r: 8 }}
+                      strokeWidth={3}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="uv"
+                      stroke="#006460"
+                      strokeWidth={3}
+                    />
+                  </LineChart>
+                </CardContent>
+              </Card>
+            </Box1>
+            <Box2>
+              <Headingcontainer>
+                <Heading>Referrals </Heading>
+                <InfoOutlinedIcon style={{ fill: "#b3b8bd" }} />
+              </Headingcontainer>
+              <ReferalContainer>
+                <UserData>
+                  {/* <UserImg src={UserPic} /> */}
+                  <PersonOutlineOutlinedIcon
+                    style={{ position: "relative", top: 5 }}
+                  />
+                  <UserName>Fransesca Mets</UserName>
+                </UserData>
+
+                <UserrRating>21.1k</UserrRating>
+              </ReferalContainer>
+              <ReferalContainer>
+                <UserData>
+                  {/* <UserImg src={UserPic} /> */}
+                  <PersonOutlineOutlinedIcon
+                    style={{ position: "relative", top: 5 }}
+                  />
+                  <UserName>Malcolm Quaday</UserName>
+                </UserData>
+
+                <UserrRating>17.6k</UserrRating>
+              </ReferalContainer>
+            </Box2>
+
+            <Box>
+              <Headingcontainer>
+                <Heading>Traffic</Heading>
+                <InfoOutlinedIcon style={{ fill: "#b3b8bd" }} />
+              </Headingcontainer>
+              <TrafficContainer>
+                <TrafficData>
+                  <TrafficCount>813</TrafficCount>
+                  <TrafficSource>LinkedIn</TrafficSource>
+                </TrafficData>
+
+                <TrafficPercentage>{`${Math.round(
+                  progress
+                )}%`}</TrafficPercentage>
+              </TrafficContainer>
+              <LinearProgress
+                sx={{
+                  borderRadius: 10,
+                  height: 8,
+                  color: "#5289c9",
+                  marginTop: 2,
+                  marginBottom: 2,
+                }}
+                variant="determinate"
+                value={progress}
+                color="inherit"
+                {...props}
               />
-              <UserName>Fransesca Mets</UserName>
-            </UserData>
+              <TrafficContainer>
+                <TrafficData>
+                  <TrafficCount>323</TrafficCount>
+                  <TrafficSource>Behance</TrafficSource>
+                </TrafficData>
 
-            <UserrRating>21.1k</UserrRating>
-          </ReferalContainer>
-          <ReferalContainer>
-            <UserData>
-              {/* <UserImg src={UserPic} /> */}
-              <PersonOutlineOutlinedIcon
-                style={{ position: "relative", top: 5 }}
+                <TrafficPercentage>{`${Math.round(
+                  progress
+                )}%`}</TrafficPercentage>
+              </TrafficContainer>
+
+              <LinearProgress
+                sx={{
+                  borderRadius: 10,
+                  height: 8,
+                  color: "#ff6a81",
+                  marginTop: 2,
+                  marginBottom: 2,
+                }}
+                variant="determinate"
+                value={progress}
+                color="inherit"
+                {...props}
               />
-              <UserName>Malcolm Quaday</UserName>
-            </UserData>
-
-            <UserrRating>17.6k</UserrRating>
-          </ReferalContainer>
-        </Box2>
-      </BoxContainer>
-      <BoxContainer>
-        <Box>
-          <Headingcontainer>
-            <Heading>Traffic</Heading>
-            <InfoOutlinedIcon style={{ fill: "#b3b8bd" }} />
-          </Headingcontainer>
-          <TrafficContainer>
-            <TrafficData>
-              <TrafficCount>813</TrafficCount>
-              <TrafficSource>LinkedIn</TrafficSource>
-            </TrafficData>
-
-            <TrafficPercentage>{`${Math.round(progress)}%`}</TrafficPercentage>
-          </TrafficContainer>
-          <LinearProgress
-            sx={{
-              borderRadius: 10,
-              height: 8,
-              color: "#5289c9",
-              marginTop: 2,
-              marginBottom: 2,
-            }}
-            variant="determinate"
-            value={progress}
-            color="inherit"
-            {...props}
-          />
-          <TrafficContainer>
-            <TrafficData>
-              <TrafficCount>323</TrafficCount>
-              <TrafficSource>Behance</TrafficSource>
-            </TrafficData>
-
-            <TrafficPercentage>{`${Math.round(progress)}%`}</TrafficPercentage>
-          </TrafficContainer>
-
-          <LinearProgress
-            sx={{
-              borderRadius: 10,
-              height: 8,
-              color: "#ff6a81",
-              marginTop: 2,
-              marginBottom: 2,
-            }}
-            variant="determinate"
-            value={progress}
-            color="inherit"
-            {...props}
-          />
-        </Box>
-        <Box>
-          <Headingcontainer>
-            <Heading>Involvement</Heading>
-            <InfoOutlinedIcon style={{ fill: "#b3b8bd" }} />
-          </Headingcontainer>
-          <InvolveContainer>
-            <InvolveRatio>
-              <span>2.2628</span>
-            </InvolveRatio>
-            <InvolveDate>
-              <span>25 April 2019</span>
-            </InvolveDate>
-          </InvolveContainer>
-        </Box>
-        <Box>
-          <Headingcontainer>
-            <Heading>Traffic sources</Heading>
-            <InfoOutlinedIcon style={{ fill: "#b3b8bd" }} />
-          </Headingcontainer>
-          <SourceContainer>
-            <RadialChart
-              data={datas}
-              width={370}
-              height={230}
-              labelsAboveChildren
-              colorType="category"
-              innerRadius={90}
-              colorDomain={[0, COLORS.length - 1]}
-              colorRange={COLORS}
-              radius={100}
-              style={{
-                background: "#fff",
-                fontSize: "12px",
-              }}
-            />
-            <SourcePercentage>
-              <span>38%</span>
-            </SourcePercentage>
-            <SourceText>
-              <span>Total Money Spend</span>
-            </SourceText>
-          </SourceContainer>
-        </Box>
-      </BoxContainer>
-      <Lowerarea />
+            </Box>
+            <Box>
+              <Headingcontainer>
+                <Heading>Involvement</Heading>
+                <InfoOutlinedIcon style={{ fill: "#b3b8bd" }} />
+              </Headingcontainer>
+              <InvolveContainer>
+                <InvolveRatio>
+                  <span>2.2628</span>
+                </InvolveRatio>
+                <InvolveDate>
+                  <span>25 April 2019</span>
+                </InvolveDate>
+              </InvolveContainer>
+            </Box>
+            <Box>
+              <Headingcontainer>
+                <Heading>Traffic sources</Heading>
+                <InfoOutlinedIcon style={{ fill: "#b3b8bd" }} />
+              </Headingcontainer>
+              <SourceContainer>
+                <RadialChart
+                  data={datas}
+                  width={250}
+                  height={230}
+                  labelsAboveChildren
+                  colorType="category"
+                  innerRadius={90}
+                  colorDomain={[0, COLORS.length - 1]}
+                  colorRange={COLORS}
+                  radius={100}
+                  style={{
+                    background: "#fff",
+                    fontSize: "12px",
+                  }}
+                />
+                <SourcePercentage>
+                  <span>38%</span>
+                </SourcePercentage>
+                <SourceText>
+                  <span>Total Money Spend</span>
+                </SourceText>
+              </SourceContainer>
+            </Box>
+          </BoxContainer>
+          <SalesandOrder />
+        </Mainarea>
+      </StatisticContainer>
     </Wrapper>
   );
 };
