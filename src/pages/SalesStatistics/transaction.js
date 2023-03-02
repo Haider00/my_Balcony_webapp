@@ -6,14 +6,22 @@ const Wrapper = styled.section``;
 
 const BoxContainer = styled.div`
   display: flex;
-
-  align-items: center;
   margin: 0 40px;
   flex-wrap: wrap;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    width: 100%;
+    padding: 0 20px;
+  }
+  @media screen and (max-width: 499px) {
+    justify-content: center;
+  }
 `;
 
 const Box = styled.div`
-  flex:  ${(props) => (props.flex ? "0 0 47%" : "0 0 30%")};
+  flex:  ${(props) => (props.flex ? "0 0 45%" : "0 0 30%")};
   height:  ${(props) => (props.height ? "556px" : "216px")};
   margin:  20px 20px 20px 20px;
   padding: 24px 30px 30px 30px;
@@ -21,6 +29,17 @@ const Box = styled.div`
   background-color: #fff;
   border-radius: 20px;
   position: relative;
+  @media screen and (max-width: 499px) {
+    flex: 0 0 100%;
+  
+  }
+ 
+  @media screen and (min-width : 500px) and (max-width : 1470px)  {
+    flex: 0 0 45%;
+    }
+    @media screen and (min-width: 1471px) and (max-width: 1660px) {
+      flex: 0 0 45%;
+    }
 }
 `;
 const Heading = styled.span`
@@ -43,6 +62,7 @@ const Headingcontainer = styled.div`
 `;
 const List = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   padding: 0;
   gap: 20px;
 `;
@@ -91,10 +111,15 @@ const Transactionhistory = styled.span`
 `;
 
 const SalesStatistic = () => {
-  const [selectedOption, setSelectedOption] = useState("all");
+  const [OrdersPending, setOrdersPending] = useState("all");
 
-  const handleClick = (option) => {
-    setSelectedOption(option);
+  const handleClick1 = (option) => {
+    setOrdersPending(option);
+  };
+  const [OrdersComplete, setOrdersComplete] = useState("all");
+
+  const handleClick2 = (option) => {
+    setOrdersComplete(option);
   };
   return (
     <Wrapper>
@@ -126,9 +151,7 @@ const SalesStatistic = () => {
             <Transactionhistory>Transactions history</Transactionhistory>
           </Transactioncontainer>
         </Box>
-      </BoxContainer>
 
-      <BoxContainer>
         <Box height flex>
           <Headingcontainer>
             <Heading2>Orders Pending</Heading2>
@@ -137,23 +160,23 @@ const SalesStatistic = () => {
             </Iconcontainer>
           </Headingcontainer>
           <List>
-            <ListItem selected={selectedOption === "1"}>
-              <button onClick={() => handleClick("1")}>1h</button>
+            <ListItem selected={OrdersPending === "1"}>
+              <button onClick={() => handleClick1("1")}>1h</button>
             </ListItem>
-            <ListItem selected={selectedOption === "3"}>
-              <button onClick={() => handleClick("3")}>3h</button>
+            <ListItem selected={OrdersPending === "3"}>
+              <button onClick={() => handleClick1("3")}>3h</button>
             </ListItem>
-            <ListItem selected={selectedOption === "6"}>
-              <button onClick={() => handleClick("6")}>6h</button>
+            <ListItem selected={OrdersPending === "6"}>
+              <button onClick={() => handleClick1("6")}>6h</button>
             </ListItem>
-            <ListItem selected={selectedOption === "12"}>
-              <button onClick={() => handleClick("12")}>12h</button>
+            <ListItem selected={OrdersPending === "12"}>
+              <button onClick={() => handleClick1("12")}>12h</button>
             </ListItem>
-            <ListItem selected={selectedOption === "day"}>
-              <button onClick={() => handleClick("day")}>Day</button>
+            <ListItem selected={OrdersPending === "day"}>
+              <button onClick={() => handleClick1("day")}>Day</button>
             </ListItem>
-            <ListItem selected={selectedOption === "week"}>
-              <button onClick={() => handleClick("week")}>Week</button>
+            <ListItem selected={OrdersPending === "week"}>
+              <button onClick={() => handleClick1("week")}>Week</button>
             </ListItem>
           </List>
         </Box>
@@ -165,23 +188,23 @@ const SalesStatistic = () => {
             </Iconcontainer>
           </Headingcontainer>
           <List>
-            <ListItem selected={selectedOption === "1"}>
-              <button onClick={() => handleClick("1")}>1h</button>
+            <ListItem selected={OrdersComplete === "one"}>
+              <button onClick={() => handleClick2("one")}>1h</button>
             </ListItem>
-            <ListItem selected={selectedOption === "3"}>
-              <button onClick={() => handleClick("3")}>3h</button>
+            <ListItem selected={OrdersComplete === "three"}>
+              <button onClick={() => handleClick2("three")}>3h</button>
             </ListItem>
-            <ListItem selected={selectedOption === "6"}>
-              <button onClick={() => handleClick("6")}>6h</button>
+            <ListItem selected={OrdersComplete === "six"}>
+              <button onClick={() => handleClick2("six")}>6h</button>
             </ListItem>
-            <ListItem selected={selectedOption === "12"}>
-              <button onClick={() => handleClick("12")}>12h</button>
+            <ListItem selected={OrdersComplete === "twelve"}>
+              <button onClick={() => handleClick2("twelve")}>12h</button>
             </ListItem>
-            <ListItem selected={selectedOption === "day"}>
-              <button onClick={() => handleClick("day")}>Day</button>
+            <ListItem selected={OrdersComplete === "days"}>
+              <button onClick={() => handleClick2("days")}>Day</button>
             </ListItem>
-            <ListItem selected={selectedOption === "week"}>
-              <button onClick={() => handleClick("week")}>Week</button>
+            <ListItem selected={OrdersComplete === "weeks"}>
+              <button onClick={() => handleClick2("weeks")}>Week</button>
             </ListItem>
           </List>
         </Box>
