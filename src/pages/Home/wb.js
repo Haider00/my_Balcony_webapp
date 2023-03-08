@@ -8,7 +8,6 @@ import { IncrementalInput, Title, Button, TextInput } from "../../component";
 import { useRouter } from "next/router";
 import TableTop from "src/assets/svg/TableTop";
 
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -64,9 +63,12 @@ export const FormWb = () => {
           />
 
           <IncrementalInput />
-          <Button onClick={() => {
-            router.push("./workspaceDetail");
-          }} title="SEARCH" />
+          <Button
+            onClick={() => {
+              router.push("./workspaceDetail");
+            }}
+            title="SEARCH"
+          />
         </Card>
       </Box>
     </Grid>
@@ -75,7 +77,7 @@ export const FormWb = () => {
 export const LeftWallpaperWb = () => {
   return (
     <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={12} md={7}>
-      <TableTop sx={{ width: "50%", height: "50%" }} />
+      <TableTop sx={{ width: "20%", height: "50%" }} />
     </Grid>
   );
 };
