@@ -10,7 +10,11 @@ import { TextInput, Title } from "../../component";
 import { useEffect, useRef, useState } from "react";
 import Resizer from "react-image-file-resizer";
 import { api } from "../../utils/api";
-
+import styledcomp from "styled-components";
+const Img = styledcomp.img`
+height:inherit;
+width:auto;
+`;
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -19,10 +23,11 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export const FormWb = ({ handleInfo = ({ }) => { } }) => {
+export const FormWb = ({ handleInfo = ({}) => {} }) => {
   const [info, setInfo] = useState({});
   useEffect(() => {
     handleInfo(info);
+    console.log(info);
   }, [info]);
   return (
     <Grid item xs={12} md={4}>
@@ -48,10 +53,10 @@ export const FormWb = ({ handleInfo = ({ }) => { } }) => {
           label="address"
           // variant="outlined"
           size="small"
-        // onChange={(e) => {
-        //   setInfo({ ...info, address: e.target.value });
-        // }}
-        // value={info?.address}
+          onChange={(e) => {
+            setInfo({ ...info, address: e.target.value });
+          }}
+          value={info?.address}
         />
         <TextInput
           width="80%"
@@ -60,10 +65,10 @@ export const FormWb = ({ handleInfo = ({ }) => { } }) => {
           label="address2"
           // variant="outlined"
           size="small"
-        // onChange={(e) => {
-        //   setInfo({ ...info, address2: e.target.value });
-        // }}
-        // value={info?.address2}
+          onChange={(e) => {
+            setInfo({ ...info, address2: e.target.value });
+          }}
+          value={info?.address2}
         />
         <TextInput
           width="80%"
@@ -72,10 +77,10 @@ export const FormWb = ({ handleInfo = ({ }) => { } }) => {
           label="city"
           // variant="outlined"
           size="small"
-        // onChange={(e) => {
-        //   setInfo({ ...info, city: e.target.value });
-        // }}
-        // value={info?.city}
+          onChange={(e) => {
+            setInfo({ ...info, city: e.target.value });
+          }}
+          value={info?.city}
         />
         <TextInput
           width="80%"
@@ -84,10 +89,10 @@ export const FormWb = ({ handleInfo = ({ }) => { } }) => {
           label="state"
           // variant="outlined"
           size="small"
-        // onChange={(e) => {
-        //   setInfo({ ...info, state: e.target.value });
-        // }}
-        // value={info?.state}
+          onChange={(e) => {
+            setInfo({ ...info, state: e.target.value });
+          }}
+          value={info?.state}
         />
         <TextInput
           width="80%"
@@ -96,10 +101,10 @@ export const FormWb = ({ handleInfo = ({ }) => { } }) => {
           label="country"
           // variant="outlined"
           size="small"
-        // onChange={(e) => {
-        //   setInfo({ ...info, country: e.target.value });
-        // }}
-        // value={info?.country}
+          onChange={(e) => {
+            setInfo({ ...info, country: e.target.value });
+          }}
+          value={info?.country}
         />
         <Box
           sx={{
@@ -204,9 +209,10 @@ export const LeftWallpaperWb = () => {
   );
 };
 
-
 export const WorksapceImages = () => {
-  const [mainImage, setMainImage] = useState("");
+  const [mainImage, setMainImage] = useState(
+    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+  );
   const [secondImage, setSecondImage] = useState("");
   const [thirdImage, setThirdImage] = useState("");
   const [imageType, SetImageType] = useState("");
@@ -220,6 +226,7 @@ export const WorksapceImages = () => {
   };
 
   const uploadImages = (element) => {
+    console.log("ImageRESPONSE....", element);
     Resizer.imageFileResizer(
       element,
       720,
@@ -231,7 +238,6 @@ export const WorksapceImages = () => {
         api
           .uploadImage({ image: uri })
           .then((res) => {
-            console.log("RESPONSE....", res);
             if (imageType === "main") {
               setMainImage(res.Location);
             } else if (imageType === "second") {
@@ -250,7 +256,7 @@ export const WorksapceImages = () => {
       "base64"
     );
   };
-
+  console.log("mainImage>>>>", mainImage);
   return (
     <Grid
       item
@@ -290,11 +296,11 @@ export const WorksapceImages = () => {
         }}
       >
         {mainImage && (
-          <img
-            height={200}
-            width="100%"
+          <Img
             resizeMode="contain"
-            src={mainImage}
+            src={
+              "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+            }
             alt="image"
           />
         )}
@@ -317,11 +323,9 @@ export const WorksapceImages = () => {
             alignItems: "center",
           }}
         >
-          {secondImage && (
-            <img height={200} width="50%" src={secondImage} alt="image" />
-          )}
+          {secondImage && <Img src={secondImage} alt="image" />}
         </div>
-        
+
         <div
           onClick={() => {
             handleUploadImageClick();
@@ -338,9 +342,7 @@ export const WorksapceImages = () => {
             alignItems: "center",
           }}
         >
-          {thirdImage && (
-            <img height={200} width="50%" src={thirdImage} alt="image" />
-          )}
+          {thirdImage && <Img src={thirdImage} alt="image" />}
         </div>
       </div>
     </Grid>
@@ -439,19 +441,25 @@ export const WorksapceImagesBookingOverview = () => {
             alt="image"
           />
         )}
-        <div style={{
-          height: 80,
-          width: "25%",
-          borderTopLeftRadius: 10,
-          backgroundColor: "#fff",
-          // margin: 1,
-          display: "flex",
-          flexDirection: 'column',
-          justifyContent: "center",
-          alignItems: "flex-start",
-        }}>
-          <Typography sx={{ marginLeft: 2 }} varient='h6'>+</Typography>
-          <Typography sx={{ marginLeft: 2 }} varient='h6'>Add image (Main)</Typography>
+        <div
+          style={{
+            height: 80,
+            width: "25%",
+            borderTopLeftRadius: 10,
+            backgroundColor: "#fff",
+            // margin: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "flex-start",
+          }}
+        >
+          <Typography sx={{ marginLeft: 2 }} varient="h6">
+            +
+          </Typography>
+          <Typography sx={{ marginLeft: 2 }} varient="h6">
+            Add image (Main)
+          </Typography>
         </div>
       </div>
       <div style={{ display: "flex", width: "100%" }}>
@@ -474,19 +482,25 @@ export const WorksapceImagesBookingOverview = () => {
           {secondImage && (
             <img height={200} width="50%" src={secondImage} alt="image" />
           )}
-          <div style={{
-            height: 70,
-            width: "55%",
-            borderTopLeftRadius: 10,
-            backgroundColor: "#fff",
-            // margin: 1,
-            display: "flex",
-            flexDirection: 'column',
-            justifyContent: "center",
-            alignItems: "flex-start",
-          }}>
-            <Typography sx={{ marginLeft: 2 }} varient='h6'>+</Typography>
-            <Typography sx={{ marginLeft: 2 }} varient='h6'>Add image (Main)</Typography>
+          <div
+            style={{
+              height: 70,
+              width: "55%",
+              borderTopLeftRadius: 10,
+              backgroundColor: "#fff",
+              // margin: 1,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "flex-start",
+            }}
+          >
+            <Typography sx={{ marginLeft: 2 }} varient="h6">
+              +
+            </Typography>
+            <Typography sx={{ marginLeft: 2 }} varient="h6">
+              Add image (Main)
+            </Typography>
           </div>
         </div>
         <div
@@ -508,19 +522,25 @@ export const WorksapceImagesBookingOverview = () => {
           {thirdImage && (
             <img height={200} width="50%" src={thirdImage} alt="image" />
           )}
-          <div style={{
-            height: 70,
-            width: "55%",
-            borderTopLeftRadius: 10,
-            backgroundColor: "#fff",
-            // margin: 1,
-            display: "flex",
-            flexDirection: 'column',
-            justifyContent: "center",
-            alignItems: "flex-start",
-          }}>
-            <Typography sx={{ marginLeft: 2 }} varient='h6'>+</Typography>
-            <Typography sx={{ marginLeft: 2 }} varient='h6'>Add image (Main)</Typography>
+          <div
+            style={{
+              height: 70,
+              width: "55%",
+              borderTopLeftRadius: 10,
+              backgroundColor: "#fff",
+              // margin: 1,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "flex-start",
+            }}
+          >
+            <Typography sx={{ marginLeft: 2 }} varient="h6">
+              +
+            </Typography>
+            <Typography sx={{ marginLeft: 2 }} varient="h6">
+              Add image (Main)
+            </Typography>
           </div>
         </div>
       </div>

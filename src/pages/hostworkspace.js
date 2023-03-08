@@ -16,10 +16,62 @@ import React, { useState } from "react";
 import { api } from "../utils/api";
 import { Snackbar } from "@mui/material";
 import dynamic from "next/dynamic";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import CropSquare from "@mui/icons-material/CropSquare";
+import Checkbox from "@mui/material/Checkbox";
+import CheckBox from "@mui/icons-material/CheckBox";
+import CloudDoneIcon from "@mui/icons-material/CloudDone";
 
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
 
 export default function HostWorkSpace({}) {
+  const [PhotoId, setPhotoId] = useState(null);
+  const [photoUrl, setPhotoUrl] = useState(null);
+  const [photoName, setphotoName] = useState("+Add photo ID");
+
+  const handlePhotoSelect = (event) => {
+    setPhotoId(event.target.files[0]);
+    const selectedphoto = event.target.files[0];
+    setPhotoUrl(selectedphoto ? URL.createObjectURL(selectedphoto) : null);
+    const photoName = selectedphoto ? "" : "";
+    setphotoName(photoName);
+  };
+
+  const [fileName, setfileName] = useState(
+    "+Add property lease or ownership documents for this properties ***optional"
+  );
+  const [FileId, setFileId] = useState(null);
+
+  const handleFileSelect = (event) => {
+    setFileId(event.target.files[0]);
+    const selectedFile = event.target.files[0];
+    const fileName = selectedFile ? (
+      <div>
+        <CloudDoneIcon />
+        <div>{selectedFile.name}</div>
+      </div>
+    ) : (
+      ""
+    );
+    setfileName(fileName);
+  };
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = (e) => {
+    setIsChecked(!isChecked);
+    setWorkSpace({ ...workSpace, otherFeeName: e.target.value });
+  };
+  const [info, setInfo] = useState({});
+
+  const [currency, setcurrency] = React.useState("");
+
+  const handleChange = (event) => {
+    setcurrency(event.target.value);
+  };
   const [workSpace, setWorkSpace] = useState();
   const [workSpaceAvailability, setWorkSpaceAvailability] = useState();
   const [display, setDisplay] = useState(false);
@@ -73,6 +125,7 @@ export default function HostWorkSpace({}) {
     setWorkPlaceDay([...arrDay]);
     setWorkPlaceDayAndTime([...arr]);
   };
+  console.log("workSpace>>>>>>", workSpace);
 
   return (
     <Box sx={{ flexGrow: 1, paddingX: 1 }}>
@@ -87,7 +140,7 @@ export default function HostWorkSpace({}) {
         }}
         message={<span id="message-id">{message}</span>}
       />
-      <Grid container spacing={2}>
+      <Grid sx={{ justifyContent: "center" }} container spacing={2}>
         <Grid item xs={12}>
           <CustomHeader />
         </Grid>
@@ -137,17 +190,29 @@ export default function HostWorkSpace({}) {
           <Typography sx={{ marginY: 1, fontSize: 18, fontWeight: "500" }}>
             Pricing
           </Typography>
-          <TextField
+          <FormControl
             onChange={(e) => {
               setWorkSpace({ ...workSpace, currency: e.target.value });
+              const inputValue = e.target.value;
+              setValue(inputValue);
             }}
             value={workSpace?.currency}
-            sx={{ marginY: 1, width: "100%" }}
-            id="curreny"
-            label="curreny"
-            variant="outlined"
-            size="small"
-          />
+            fullWidth
+          >
+            <InputLabel id="demo-simple-select-label">Currency</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="curreny"
+              value={currency}
+              label="Currency"
+              onChange={handleChange}
+            >
+              <MenuItem value={10}>POUND</MenuItem>
+              <MenuItem value={20}>DOLLAR</MenuItem>
+              <MenuItem value={30}>PKR</MenuItem>
+            </Select>
+          </FormControl>
+
           <TextField
             sx={{ marginY: 1, width: "100%" }}
             id="per-person"
@@ -158,6 +223,7 @@ export default function HostWorkSpace({}) {
               setWorkSpace({ ...workSpace, perPerson: e.target.value });
             }}
             value={workSpace?.perPerson}
+            type="number"
           />
           <Typography sx={{ marginY: 1, fontSize: 14, fontWeight: "400" }}>
             Do you charge fees?
@@ -170,17 +236,82 @@ export default function HostWorkSpace({}) {
             }
           </Typography>
 
-          <div
-            style={{
+          <Box
+            sx={{
+              marginY: 1.5,
+              width: "80%",
               display: "flex",
               flexDirection: "row",
-              alignItems: "center",
               justifyContent: "space-around",
             }}
           >
-            <CheckBoxLabel title="Flat Fee" />
-            <CheckBoxLabel title="Percentage" />
-          </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <div
+                onClick={() => {
+                  setInfo({ ...info, workspaceType: "FlatFee" });
+                }}
+              >
+                {info?.workspaceType === "FlatFee" ? (
+                  <CheckBox
+                    style={{ color: "#000", fontSize: 15, margin: 10 }}
+                  />
+                ) : (
+                  <CropSquare
+                    style={{ color: "#000", fontSize: 15, margin: 10 }}
+                  />
+                )}
+              </div>
+              <Typography
+                style={{
+                  width: "100%",
+                  fontSize: 14,
+                  color: "#000",
+                }}
+              >
+                Flat Fee
+              </Typography>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <div
+                onClick={() => {
+                  setInfo({ ...info, workspaceType: "Percentage" });
+                }}
+              >
+                {info?.workspaceType === "Percentage" ? (
+                  <CheckBox
+                    style={{ color: "#000", fontSize: 15, margin: 10 }}
+                  />
+                ) : (
+                  <CropSquare
+                    style={{ color: "#000", fontSize: 15, margin: 10 }}
+                  />
+                )}
+              </div>
+
+              <Typography
+                style={{
+                  width: "100%",
+                  fontSize: 14,
+                  color: "#000",
+                }}
+              >
+                Percentage
+              </Typography>
+            </div>
+          </Box>
+
           <CheckBoxInput
             onChange={(e) => {
               setWorkSpace({ ...workSpace, cleaningFee: e.target.value });
@@ -198,18 +329,52 @@ export default function HostWorkSpace({}) {
           >
             Not Listed?
           </Typography>
-          <CheckBoxInput
-            onChange={(e) => {
-              setWorkSpace({ ...workSpace, otherFeeName: e.target.value });
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
             }}
-            title="Enter The Fee Name"
-          />
-          <CheckBoxInput
-            onChange={(e) => {
-              setWorkSpace({ ...workSpace, otherFeeAmount: e.target.value });
-            }}
-            title="Amount"
-          />
+          >
+            <Checkbox
+              sx={{ height: "12px", width: "12px" }}
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+              style={{
+                color: "#000",
+                fontSize: 15,
+                margin: 8,
+                transform: "scale(0.56)",
+              }}
+            />
+            <TextField
+              sx={{
+                marginY: 1.5,
+                width: "100%",
+                "& label": { top: -6 },
+              }}
+              inputProps={{
+                style: {
+                  paddingTop: "8.5px",
+                  paddingBottom: "8.5px",
+                },
+              }}
+              label="Enter The Fee Name"
+              disabled={!isChecked}
+            />
+          </div>
+          {isChecked && (
+            <CheckBoxInput
+              onChange={(e) => {
+                setWorkSpace({
+                  ...workSpace,
+                  otherFeeAmount: e.target.value,
+                });
+              }}
+              title="Amount"
+            />
+          )}
         </Grid>
         <Grid
           sx={{
@@ -337,7 +502,29 @@ export default function HostWorkSpace({}) {
                       fontWeight: "400",
                     }}
                   >
-                    {"+ \nAdd photo ID"}
+                    <input
+                      style={{ display: "none" }}
+                      id="photo-upload"
+                      type="file"
+                      onChange={handlePhotoSelect}
+                      accept=".jpg, .jpeg, .png"
+                    />
+
+                    <label
+                      style={{
+                        cursor: "pointer",
+                      }}
+                      for="photo-upload"
+                    >
+                      {photoName}
+                      {photoUrl && (
+                        <img
+                          src={photoUrl}
+                          alt="Selected photo"
+                          style={{ maxWidth: "100%" }}
+                        />
+                      )}
+                    </label>
                   </Typography>
                 </div>
                 <div
@@ -357,9 +544,22 @@ export default function HostWorkSpace({}) {
                       fontWeight: "400",
                     }}
                   >
-                    {
-                      "+ \nAdd property lease or ownership documents for this properties ***optional"
-                    }
+                    <input
+                      style={{ display: "none" }}
+                      id="file-upload"
+                      type="file"
+                      onChange={handleFileSelect}
+                      accept=".pdf"
+                    />
+
+                    <label
+                      style={{
+                        cursor: "pointer",
+                      }}
+                      for="file-upload"
+                    >
+                      {fileName}
+                    </label>
                   </Typography>
                 </div>
               </div>
