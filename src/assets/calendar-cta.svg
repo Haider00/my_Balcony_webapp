@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="47" height="58" viewBox="0 0 47 58">
+    <g data-name="calendar CTA">
+        <g data-name="Group 44">
+            <path data-name="Rectangle 10" transform="translate(2 .001)" style="fill:none" d="M0 0h43v41H0z"/>
+            <path data-name="Path 13" d="M22.941 37.937H9.668a3.674 3.674 0 0 1-3.793-3.545l.019-24.815a3.657 3.657 0 0 1 3.774-3.545h1.9V2.487h3.793v3.545h15.17V2.487h3.793v3.545h1.9a3.686 3.686 0 0 1 3.784 3.545v10.635h-3.793v-3.545H9.668v17.725h13.273zm19.209-8.88 1.346-1.258a1.685 1.685 0 0 0 0-2.5l-1.346-1.258a1.983 1.983 0 0 0-2.674 0l-1.346 1.258zm-1.346 1.258-10.05 9.394h-4.02v-3.757l10.05-9.394z"/>
+        </g>
+        <text transform="translate(0 54)" style="font-size:14px;font-family:Roboto-Regular,Roboto"><tspan x="0" y="0">planner</tspan></text>
+    </g>
+</svg>

@@ -36,10 +36,11 @@ export default function HostWorkSpace({}) {
         createWorkSpaceTimeAndDay(res);
       })
       .catch((err) => {
-        setMessage("something went wrong while create worksapce");
+        setMessage("something went wrong while create workspace");
         setDisplay(true);
       });
   };
+  console.log(workSpace);
   const createWorkSpaceTimeAndDay = (res) => {
     for (let i = 0; i < workPlaceDayAndTime.length; i++) {
       const element = workPlaceDayAndTime[i];
@@ -58,6 +59,7 @@ export default function HostWorkSpace({}) {
     let arrDay = workPlaceDay;
     if (workPlaceDay.includes(info.day)) {
       arr = [];
+      console.log(arr);
       for (let i = 0; i < workPlaceDayAndTime.length; i++) {
         const element = workPlaceDayAndTime[i];
         if (element.day === info.day) {
@@ -87,7 +89,7 @@ export default function HostWorkSpace({}) {
         }}
         message={<span id="message-id">{message}</span>}
       />
-      <Grid container spacing={2}>
+      <Grid sx={{justifyContent: 'center'}}container spacing={2}>
         <Grid item xs={12}>
           <CustomHeader />
         </Grid>
@@ -105,10 +107,13 @@ export default function HostWorkSpace({}) {
           height: 275,
           display: "flex",
           flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
           flexDirection: "column",
         }}
       >
-        {typeof window !== "undefined" && <Map />}
+        {/* {typeof window !== "undefined" && <Map />} */}
+        <Map/>
       </Grid>
       <Grid sx={{ marginY: 2 }} container>
         <Typography sx={{ marginY: 1, fontSize: 20, fontWeight: "600" }}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { CustomHeader } from "../component";
+import { CustomHeader, WebTabs } from "../component";
 import Grid from "@mui/material/Grid";
 import MenuSection from './MenuSection/menuSection'
 import RightIcons from '@components/rightIcons/rightIcons';
@@ -11,6 +11,8 @@ export default function WorkFromIndoor() {
     return (
         <>
             <CustomHeader />
+            <WebTabs selectedTab={2} />
+
             <Grid style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} sx={{ marginY: 1, }} container >
                 <Grid
                     marginX={6}

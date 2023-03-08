@@ -41,8 +41,9 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
 
   const handleAmenities = (item) => {
     let arr = amenitiesArr;
-    if (arr.includes(item)) {
-      const index = arr.indexOf(item);
+    const titleArr = handleAmenitiesTitleArr();
+    if (titleArr.includes(item)) {
+      const index = titleArr.indexOf(item);
       if (index > -1) {
         arr.splice(index, 1); // 2nd parameter means remove one item only
       }
@@ -55,11 +56,21 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
     handleSelectedAmenities(arr);
   };
   const handleAmenitesColor = (item) => {
-    if (amenitiesArr.includes(item)) {
-      return "#ff0";
+    const titleArr = handleAmenitiesTitleArr();
+    if (titleArr.includes(item)) {
+      return "#ffff00";
     } else {
       return null;
     }
+  };
+
+  const handleAmenitiesTitleArr = () => {
+    let titleArr = [];
+    for (let i = 0; i < amenitiesArr.length; i++) {
+      const element = amenitiesArr[i];
+      titleArr.push(element.title);
+    }
+    return titleArr;
   };
   const handleLargeTabelColor = (type) => {
     if (totalLargeTable > 0) {

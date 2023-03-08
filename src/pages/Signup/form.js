@@ -10,11 +10,12 @@ import { useRouter } from "next/router";
 import { Snackbar } from "@mui/material";
 
 export const Form = () => {
-  const router = useRouter();
+  const router = useRouter(); 
   const [info, setInfo] = useState({});
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
   const authDispatch = useAuthDispatch();
+  
   const handleSubmitSigupForm = () => {
     if (
       info &&

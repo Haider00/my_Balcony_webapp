@@ -68,7 +68,7 @@ export default function WorkspaceDetail() {
         <Grid sx={{display:'flex', marginTop:8 ,justifyContent: 'center'}} item xs={12} sm={12} md={3} lg={3}>
           <MenuSection />
         </Grid>
-        <Grid sx={{display:'flex', justifyContent: 'center'}} item xs={12} sm={12} md={7} lg={8}>
+        <Grid sx={{display:'flex', justifyContent: 'flex-end'}} item xs={12} sm={12} md={7} lg={9}>
           <TableBottom/>
         </Grid>
       </Grid>

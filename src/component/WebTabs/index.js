@@ -1,6 +1,5 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
 import {
   PersonOutline,
   ChatOutlined,
@@ -65,7 +64,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
       >
         <GifBoxOutlined
           onClick={() => {
-            router.push("./");
+            router.push("./workFromIndoor");
           }}
           style={{
             color: selectedTab === 2 ? "#fff" : "#000",
@@ -109,7 +108,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
       >
         <BookmarksOutlined
           onClick={() => {
-            router.push("./");
+            router.push("./bookingOverview");
           }}
           style={{
             color: selectedTab === 4 ? "#fff" : "#000",

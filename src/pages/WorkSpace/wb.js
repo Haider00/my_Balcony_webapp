@@ -10,6 +10,7 @@ import { TextInput, Title } from "../../component";
 import { useEffect, useRef, useState } from "react";
 import Resizer from "react-image-file-resizer";
 import { api } from "../../utils/api";
+import styledcomp from "styled-components";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -18,6 +19,10 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
+const Img = styledcomp.img`
+height:inherit;
+width:auto;
+`;
 
 export const FormWb = ({ handleInfo = ({ }) => { } }) => {
   const [info, setInfo] = useState({});
@@ -210,8 +215,10 @@ export const WorksapceImages = () => {
   const [secondImage, setSecondImage] = useState("");
   const [thirdImage, setThirdImage] = useState("");
   const [imageType, SetImageType] = useState("");
+
   const uploadFileRef = useRef(null);
 
+  console.log(mainImage);
   const handleUploadImage = (e) => {
     uploadImages(e.target.files[0]);
   };
@@ -290,9 +297,7 @@ export const WorksapceImages = () => {
         }}
       >
         {mainImage && (
-          <img
-            height={200}
-            width="100%"
+          <Img
             resizeMode="contain"
             src={mainImage}
             alt="image"
@@ -318,10 +323,10 @@ export const WorksapceImages = () => {
           }}
         >
           {secondImage && (
-            <img height={200} width="50%" src={secondImage} alt="image" />
+            <Img src={secondImage} alt="image" />
           )}
         </div>
-        
+
         <div
           onClick={() => {
             handleUploadImageClick();
@@ -339,14 +344,13 @@ export const WorksapceImages = () => {
           }}
         >
           {thirdImage && (
-            <img height={200} width="50%" src={thirdImage} alt="image" />
+            <Img src={thirdImage} alt="image" />
           )}
         </div>
       </div>
     </Grid>
   );
 };
-
 export const WorksapceImagesBookingOverview = () => {
   const [mainImage, setMainImage] = useState("");
   const [secondImage, setSecondImage] = useState("");

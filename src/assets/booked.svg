@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="57.5" viewBox="0 0 50 57.5">
+    <g data-name="Group 153">
+        <path data-name="Line 20" transform="translate(21.925 1.5)" style="fill:none;stroke:#000;stroke-linecap:round;stroke-width:3px" d="M0 0h17.033"/>
+        <path data-name="Line 21" transform="translate(20.708 23.285)" style="fill:none;stroke:#000;stroke-linecap:round;stroke-width:3px" d="M0 0h18.25"/>
+        <path data-name="Line 23" transform="translate(10.975 34.178)" style="fill:none;stroke:#000;stroke-linecap:round;stroke-width:3px" d="M0 0h19.467"/>
+        <path data-name="Line 22" transform="translate(10.975 12.392)" style="fill:none;stroke:#000;stroke-linecap:round;stroke-width:3px" d="M0 0h19.467"/>
+    </g>
+    <text data-name="booked" transform="translate(0 53.5)" style="font-size:15px;font-family:Roboto-Regular,Roboto"><tspan x="0" y="0">booked</tspan></text>
+</svg>

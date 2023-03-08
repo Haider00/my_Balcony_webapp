@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomHeader } from "../component";
+import { CustomHeader, WebTabs } from "../component";
 import Grid from "@mui/material/Grid";
 import { Divider } from '@mui/material';
 import BushwickLoftsBookingOverview from './BookingOverview/bushwickLoftsBookingOverview';
@@ -11,7 +11,7 @@ export default function BookingOverview() {
     return (
         <>
             <CustomHeader />
-
+            <WebTabs selectedTab={4} />
             <Grid container>
                 <Grid
                     item

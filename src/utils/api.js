@@ -1,6 +1,6 @@
 import axios from "axios";
-const url = "http://192.168.18.29:4000/api";
-// const url = "http://172.105.159.234:3000/api";
+// const url = "http://192.168.100.61:4000/api";
+const url = "http://172.105.159.234:3000/api";
 
 const config = {
   headers: {
