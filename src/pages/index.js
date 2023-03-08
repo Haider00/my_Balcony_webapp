@@ -60,6 +60,7 @@ export default function SignUp() {
           <CustomHeader />
         </Grid>
         <LeftWallpaperWb />
+
         <FormWb />
 
         <Grid item xs={12}>
@@ -200,18 +201,7 @@ export default function SignUp() {
         </Grid>
         <Grid item md={9} sx={{ display: { xs: "none", md: "flex" } }}>
           <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <TableBottom/>
-            {/* <img
-              src={`${"https://wallpaperaccess.com/full/3678503.png"}`}
-              srcSet={require("../assets/Wallpaper.png")}
-              alt={"Title"}
-              style={{
-                display: "block",
-                height: 600,
-                borderRadius: 5,
-                // resize: "both",
-              }}
-            /> */}
+            <TableBottom />
           </Box>
         </Grid>
       </Grid>
