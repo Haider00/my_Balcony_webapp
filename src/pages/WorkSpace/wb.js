@@ -325,9 +325,7 @@ export const WorksapceImages = () => {
             alignItems: "center",
           }}
         >
-          {secondImage && (
-            <Img src={secondImage} alt="image" />
-          )}
+          {secondImage && <Img src={secondImage} alt="image" />}
         </div>
 
         <div
@@ -346,9 +344,7 @@ export const WorksapceImages = () => {
             alignItems: "center",
           }}
         >
-          {thirdImage && (
-            <Img src={thirdImage} alt="image" />
-          )}
+          {thirdImage && <Img src={thirdImage} alt="image" />}
         </div>
       </div>
     </Grid>
