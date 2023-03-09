@@ -53,15 +53,23 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import CheckBox from "@mui/icons-material/CheckBox";
 import CropSquare from "@mui/icons-material/CropSquare";
+import { useState } from "react";
+import { useWorkspaceDispatch } from "src/context/workspace.context";
 
-const CheckBoxInput = ({ title = "", onChange = () => {} }) => {
+const CheckBoxInput = ({ title = "", onChangeInput = () => {} }) => {
+  // const workspaceDispatch = useWorkspaceDispatch();
   const [checked, setChecked] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
+  const [value, setValue] = useState("");
 
-  const handleCheckboxChange = () => {
+  const handleCheckboxChange = (event) => {
     setIsChecked(!isChecked);
     setChecked(!checked);
   };
+
+  // React.useEffect(() => {
+  //   workspaceDispatch({ type: "", payload: value });
+  // }, [value]);
 
   return (
     <div
@@ -84,9 +92,13 @@ const CheckBoxInput = ({ title = "", onChange = () => {} }) => {
       </div>
 
       <TextField
+        onChange={(e) => {
+          setValue(e.target.value);
+          onChangeInput(e);
+        }}
         disabled={!isChecked}
         type="number"
-        onChange={onChange}
+        value={value}
         sx={{ marginY: 1.5, width: "100%" }}
         id={title}
         label={title}

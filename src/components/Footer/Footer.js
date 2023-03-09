@@ -1,6 +1,6 @@
-import Container from '@components/Container';
+import Container from "@components/Container";
 
-import styles from './Footer.module.scss';
+import styles from "./Footer.module.scss";
 
 const Footer = ({ ...rest }) => {
   return (

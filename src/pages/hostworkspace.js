@@ -12,7 +12,7 @@ import {
 } from "../component";
 import { LeftWallpaperWb, FormWb, WorksapceImages } from "./WorkSpace/wb";
 import { Amenities } from "./WorkSpace/Amenities";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { api } from "../utils/api";
 import { Snackbar } from "@mui/material";
 import dynamic from "next/dynamic";
@@ -24,14 +24,17 @@ import CropSquare from "@mui/icons-material/CropSquare";
 import Checkbox from "@mui/material/Checkbox";
 import CheckBox from "@mui/icons-material/CheckBox";
 import CloudDoneIcon from "@mui/icons-material/CloudDone";
+import { useWorkspaceState } from "src/context/workspace.context";
 
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
 
 export default function HostWorkSpace({}) {
+  const workspaceState = useWorkspaceState();
   const [PhotoId, setPhotoId] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [photoName, setphotoName] = useState("+Add photo ID");
-
+  const [errorvalid, seterror] = useState([]);
+  console.log("workspaceState>>>>", workspaceState);
   const handlePhotoSelect = (event) => {
     setPhotoId(event.target.files[0]);
     const selectedphoto = event.target.files[0];
@@ -59,11 +62,18 @@ export default function HostWorkSpace({}) {
     setfileName(fileName);
   };
 
-  const [isChecked, setIsChecked] = useState(false);
+  const [isCheckedfeename, setIsCheckedfeename] = useState(false);
 
   const handleCheckboxChange = (e) => {
-    setIsChecked(!isChecked);
+    setIsCheckedfeename(!isCheckedfeename);
     setWorkSpace({ ...workSpace, otherFeeName: e.target.value });
+  };
+
+  const [feeNametext, setFeeName] = useState("");
+
+  const handleFeeNameChangetext = (event) => {
+    setFeeName(event.target.value);
+    console.log("feename", feeNametext);
   };
   const [info, setInfo] = useState({});
 
@@ -72,7 +82,7 @@ export default function HostWorkSpace({}) {
   const handleChange = (event) => {
     setcurrency(event.target.value);
   };
-  const [workSpace, setWorkSpace] = useState();
+  const [workSpace, setWorkSpace] = useState({});
   const [workSpaceAvailability, setWorkSpaceAvailability] = useState();
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
@@ -88,7 +98,18 @@ export default function HostWorkSpace({}) {
         createWorkSpaceTimeAndDay(res);
       })
       .catch((err) => {
-        setMessage("something went wrong while create workspace");
+        if (!PhotoId) {
+          setMessage("Please select a photo");
+        } else if (!FileId) {
+          setMessage("Please select a file");
+        } else if (!isCheckedfeename) {
+          setMessage("Check fee name");
+        } else if (!feeNametext) {
+          setMessage("Enter fee name");
+        } else {
+          setMessage("something went wrong while creating workspace");
+        }
+
         setDisplay(true);
       });
   };
@@ -324,7 +345,7 @@ export default function HostWorkSpace({}) {
             title="Cleaning Fee Amount"
           />
           <CheckBoxInput
-            onChange={(e) => {
+            onChangeInput={(e) => {
               setWorkSpace({ ...workSpace, maintenancesFee: e.target.value });
             }}
             title="Maintenance Fee Amount"
@@ -344,7 +365,7 @@ export default function HostWorkSpace({}) {
           >
             <Checkbox
               sx={{ height: "12px", width: "12px" }}
-              checked={isChecked}
+              checked={isCheckedfeename}
               onChange={handleCheckboxChange}
               style={{
                 color: "#000",
@@ -366,10 +387,12 @@ export default function HostWorkSpace({}) {
                 },
               }}
               label="Enter The Fee Name"
-              disabled={!isChecked}
+              disabled={!isCheckedfeename}
+              value={feeNametext}
+              onChange={handleFeeNameChangetext}
             />
           </div>
-          {isChecked && (
+          {isCheckedfeename && (
             <CheckBoxInput
               onChange={(e) => {
                 setWorkSpace({
