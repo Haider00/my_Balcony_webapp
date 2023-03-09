@@ -125,13 +125,11 @@
 //           )}
 //         />
 
-
 //       </div>
 //     </LocalizationProvider>
 //   );
 // };
 // export default TimeRange;
-
 
 import * as React from "react";
 import TextField from "@mui/material/TextField";
@@ -142,7 +140,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Snackbar } from "@mui/material";
 
-const TimeRange = ({ title = "", handleTimeRange = ({ }) => { } }) => {
+const TimeRange = ({ title = "", handleTimeRange = ({}) => {} }) => {
   const [checked, setChecked] = React.useState(false);
   const [amValue, setAmValue] = React.useState(null);
   const [pmValue, setPmValue] = React.useState(null);
@@ -156,6 +154,7 @@ const TimeRange = ({ title = "", handleTimeRange = ({ }) => { } }) => {
   };
 
   const handlePmChange = (newValue) => {
+    handleCheckboxChange();
     if (!checked) {
       setMessage("please checked day first");
       setDisplay(true);
@@ -207,7 +206,10 @@ const TimeRange = ({ title = "", handleTimeRange = ({ }) => { } }) => {
           style={{}}
         >
           {checked ? (
-            <CheckBox style={{ color: "#000", fontSize: 15, margin: 10 }} />
+            <CheckBox
+              onChange={handlePmChange}
+              style={{ color: "#000", fontSize: 15, margin: 10 }}
+            />
           ) : (
             <CropSquare style={{ color: "#000", fontSize: 15, margin: 10 }} />
           )}
@@ -261,12 +263,8 @@ const TimeRange = ({ title = "", handleTimeRange = ({ }) => { } }) => {
             />
           )}
         />
-
-
       </div>
     </LocalizationProvider>
   );
 };
 export default TimeRange;
-
-

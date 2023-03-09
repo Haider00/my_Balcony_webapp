@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import Resizer from "react-image-file-resizer";
 import { api } from "../../utils/api";
 import styledcomp from "styled-components";
+import { useWorkspaceDispatch } from "src/context/workspace.context";
 const Img = styledcomp.img`
 height:inherit;
 width:auto;
@@ -24,15 +25,12 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export const FormWb = ({ handleInfo = ({}) => {} }) => {
-
-  
   const [info, setInfo] = useState({});
-  
+
   useEffect(() => {
     handleInfo(info);
-    console.log(info);
   }, [info]);
-  
+
   return (
     <Grid item xs={12} md={4}>
       <Box
@@ -214,11 +212,11 @@ export const LeftWallpaperWb = () => {
 };
 
 export const WorksapceImages = () => {
+  const workSpaceDispatch = useWorkspaceDispatch();
   const [mainImage, setMainImage] = useState("");
   const [secondImage, setSecondImage] = useState("");
   const [thirdImage, setThirdImage] = useState("");
   const [imageType, SetImageType] = useState("");
-
 
   const uploadFileRef = useRef(null);
 
@@ -230,7 +228,6 @@ export const WorksapceImages = () => {
   };
 
   const uploadImages = (element) => {
-    console.log("ImageRESPONSE....", element);
     Resizer.imageFileResizer(
       element,
       720,
@@ -243,6 +240,10 @@ export const WorksapceImages = () => {
           .uploadImage({ image: uri })
           .then((res) => {
             if (imageType === "main") {
+              workSpaceDispatch({
+                type: "SET_WORKSPACE_FIRST_IMAGE",
+                payload: res,
+              });
               setMainImage(res.Location);
             } else if (imageType === "second") {
               setSecondImage(res.Location);
@@ -260,7 +261,7 @@ export const WorksapceImages = () => {
       "base64"
     );
   };
-  console.log("images", mainImage,secondImage,thirdImage);
+  console.log("images", mainImage, secondImage, thirdImage);
   return (
     <Grid
       item
@@ -299,13 +300,7 @@ export const WorksapceImages = () => {
           alignItems: "center",
         }}
       >
-        {mainImage && (
-          <Img
-            resizeMode="contain"
-            src={mainImage}
-            alt="image"
-          />
-        )}
+        {mainImage && <Img resizeMode="contain" src={mainImage} alt="image" />}
       </div>
 
       <div style={{ display: "flex", width: "100%" }}>
