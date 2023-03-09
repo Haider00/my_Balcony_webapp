@@ -92,7 +92,6 @@ export default function HostWorkSpace({}) {
         setDisplay(true);
       });
   };
-  console.log(workSpace);
   const createWorkSpaceTimeAndDay = (res) => {
     for (let i = 0; i < workPlaceDayAndTime.length; i++) {
       const element = workPlaceDayAndTime[i];
@@ -127,7 +126,9 @@ export default function HostWorkSpace({}) {
     setWorkPlaceDay([...arrDay]);
     setWorkPlaceDayAndTime([...arr]);
   };
+  console.log(workPlaceDayAndTime, workPlaceDay)
   console.log("workSpace>>>>>>", workSpace);
+  console.log("currency", currency);
 
   return (
     <Box sx={{ flexGrow: 1, paddingX: 1 }}>
@@ -142,7 +143,7 @@ export default function HostWorkSpace({}) {
         }}
         message={<span id="message-id">{message}</span>}
       />
-      <Grid sx={{justifyContent: 'center'}}container spacing={2}>
+      <Grid sx={{ justifyContent: "center" }} container spacing={2}>
         <Grid item xs={12}>
           <CustomHeader />
         </Grid>
@@ -166,7 +167,7 @@ export default function HostWorkSpace({}) {
         }}
       >
         {/* {typeof window !== "undefined" && <Map />} */}
-        <Map/>
+        <Map />
       </Grid>
       <Grid sx={{ marginY: 2 }} container>
         <Typography sx={{ marginY: 1, fontSize: 20, fontWeight: "600" }}>
@@ -212,9 +213,9 @@ export default function HostWorkSpace({}) {
               label="Currency"
               onChange={handleChange}
             >
-              <MenuItem value={10}>POUND</MenuItem>
-              <MenuItem value={20}>DOLLAR</MenuItem>
-              <MenuItem value={30}>PKR</MenuItem>
+              <MenuItem value={"pound"}>POUND</MenuItem>
+              <MenuItem value={"dollar"}>DOLLAR</MenuItem>
+              <MenuItem value={"pkr"}>PKR</MenuItem>
             </Select>
           </FormControl>
 
@@ -453,6 +454,12 @@ export default function HostWorkSpace({}) {
             }}
           >
             <CheckBoxLabel
+              onChange={(e) => {
+                setWorkSpace({
+                  ...workSpace,
+                  coWorkingWorkspace: e.target.value,
+                });
+              }}
               justifyContent="center"
               title="Coworking WorkSpace"
               fontSize={16}

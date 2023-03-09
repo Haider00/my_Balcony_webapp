@@ -24,11 +24,15 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export const FormWb = ({ handleInfo = ({}) => {} }) => {
+
+  
   const [info, setInfo] = useState({});
+  
   useEffect(() => {
     handleInfo(info);
     console.log(info);
   }, [info]);
+  
   return (
     <Grid item xs={12} md={4}>
       <Box
@@ -210,16 +214,14 @@ export const LeftWallpaperWb = () => {
 };
 
 export const WorksapceImages = () => {
-  const [mainImage, setMainImage] = useState(
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-  );
+  const [mainImage, setMainImage] = useState("");
   const [secondImage, setSecondImage] = useState("");
   const [thirdImage, setThirdImage] = useState("");
   const [imageType, SetImageType] = useState("");
 
+
   const uploadFileRef = useRef(null);
 
-  console.log(mainImage);
   const handleUploadImage = (e) => {
     uploadImages(e.target.files[0]);
   };
@@ -258,7 +260,7 @@ export const WorksapceImages = () => {
       "base64"
     );
   };
-  console.log("mainImage>>>>", mainImage);
+  console.log("images", mainImage,secondImage,thirdImage);
   return (
     <Grid
       item
@@ -300,9 +302,7 @@ export const WorksapceImages = () => {
         {mainImage && (
           <Img
             resizeMode="contain"
-            src={
-              "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-            }
+            src={mainImage}
             alt="image"
           />
         )}

@@ -116,12 +116,16 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
       >
         <Residential fill="#000" fillBox={handleAmenitesColor("residential")} />
       </div>
-      <div style={{ padding: 5, cursor: "pointer" }}>
+      
+      <div onClick={() => {
+          handleAmenities("residential");
+        }} style={{ padding: 5, cursor: "pointer" }}>
         <LargeTable
           fill="#000"
           fillBox={handleLargeTabelColor("color")}
           onIncrement={() => {
             setTotalLargeTable(totalLargeTable + 1);
+            handleAmenities("largeTable",totalLargeTable + 1);
           }}
           onDecrement={() => {
             if (totalLargeTable > 0) {

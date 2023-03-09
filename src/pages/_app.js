@@ -5,9 +5,9 @@ import { AuthProvider } from "src/context/auth.context";
 function MyApp({ Component, pageProps, session }) {
   return (
     <AuthProvider >
-      <SessionProvider session={session}>
-      <Component {...pageProps} />
-      </SessionProvider>
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
     </AuthProvider>
   );
 }
