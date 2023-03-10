@@ -13,7 +13,7 @@ const DEFAULT_HEIGHT = 600;
 const Map = (props) => {
   const { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT } = props;
   return (
-    <div style={{ height:300,width:'80%' }}>
+    <div style={{ height:300,width:'100%' }}>
       <DynamicMap {...props} />
     </div>
   )

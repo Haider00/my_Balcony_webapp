@@ -52,7 +52,7 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
       arr.push({ title: item, available: true, total: 1 });
       setAmenitiesArr([...arr]);
     }
-
+console.log(amenitiesArr);
     handleSelectedAmenities(arr);
   };
   const handleAmenitesColor = (item) => {
@@ -118,7 +118,7 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
       </div>
       
       <div onClick={() => {
-          handleAmenities("residential");
+          handleAmenities("largeTable");
         }} style={{ padding: 5, cursor: "pointer" }}>
         <LargeTable
           fill="#000"

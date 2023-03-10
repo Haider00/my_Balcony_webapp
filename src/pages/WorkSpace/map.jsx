@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Map from "@components/Map";
+import { useWorkspaceDispatch } from "src/context/workspace.context";
+
 
 export default function Home() {
-  const [center, setCenter] = useState([31.4187, -73.0791]);
+  const [center, setCenter] = useState([]);
+  const workSpaceDispatch = useWorkspaceDispatch();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       setCenter([position.coords.latitude, position.coords.longitude]);
+      workSpaceDispatch({
+        type: "WORKSPACE_MAP_COARDINATES",
+        payload: [position.coords.latitude, position.coords.longitude],
+      });
     console.log(center);
     });
   }, []);
@@ -16,7 +23,7 @@ export default function Home() {
     // console.log('marker dragged', event);
   };
 
-  return (
+  return ( 
     <Map center={center} zoom={16}>
       {({ TileLayer, Marker }) => (
         <>

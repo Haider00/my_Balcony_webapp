@@ -25,6 +25,8 @@ import Checkbox from "@mui/material/Checkbox";
 import CheckBox from "@mui/icons-material/CheckBox";
 import CloudDoneIcon from "@mui/icons-material/CloudDone";
 import { useWorkspaceState } from "src/context/workspace.context";
+import MenuSection from "./MenuSection/menuSection";
+import TableBottom from "src/assets/svg/TableBottom";
 
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
 
@@ -33,8 +35,9 @@ export default function HostWorkSpace({}) {
   const [PhotoId, setPhotoId] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [photoName, setphotoName] = useState("+Add photo ID");
-  const [errorvalid, seterror] = useState([]);
+  
   console.log("workspaceState>>>>", workspaceState);
+  
   const handlePhotoSelect = (event) => {
     setPhotoId(event.target.files[0]);
     const selectedphoto = event.target.files[0];
@@ -74,13 +77,6 @@ export default function HostWorkSpace({}) {
   const handleFeeNameChangetext = (event) => {
     setFeeName(event.target.value);
     console.log("feename", feeNametext);
-  };
-  const [info, setInfo] = useState({});
-
-  const [currency, setcurrency] = React.useState("");
-
-  const handleChange = (event) => {
-    setcurrency(event.target.value);
   };
   const [workSpace, setWorkSpace] = useState({});
   const [workSpaceAvailability, setWorkSpaceAvailability] = useState();
@@ -149,7 +145,7 @@ export default function HostWorkSpace({}) {
   };
   console.log(workPlaceDayAndTime, workPlaceDay)
   console.log("workSpace>>>>>>", workSpace);
-  console.log("currency", currency);
+  // console.log("currency", currency);
 
   return (
     <Box sx={{ flexGrow: 1, paddingX: 1 }}>
@@ -219,7 +215,6 @@ export default function HostWorkSpace({}) {
           </Typography>
           <FormControl
             onChange={(e) => {
-              setWorkSpace({ ...workSpace, currency: e.target.value });
               const inputValue = e.target.value;
               setValue(inputValue);
             }}
@@ -230,9 +225,11 @@ export default function HostWorkSpace({}) {
             <Select
               labelId="demo-simple-select-label"
               id="curreny"
-              value={currency}
+              value={workSpace.currency}
               label="Currency"
-              onChange={handleChange}
+              onChange={(e) => {
+                setWorkSpace({ ...workSpace, currency: e.target.value });
+              }}
             >
               <MenuItem value={"pound"}>POUND</MenuItem>
               <MenuItem value={"dollar"}>DOLLAR</MenuItem>
@@ -281,10 +278,11 @@ export default function HostWorkSpace({}) {
             >
               <div
                 onClick={() => {
-                  setInfo({ ...info, workspaceType: "FlatFee" });
+                  // setInfo({ ...info, workspaceType: "FlatFee" });
+                  setWorkSpace({ ...workSpace, workspaceType: "FlatFee" })
                 }}
               >
-                {info?.workspaceType === "FlatFee" ? (
+                {workSpace?.workspaceType === "FlatFee" ? (
                   <CheckBox
                     style={{ color: "#000", fontSize: 15, margin: 10 }}
                   />
@@ -313,10 +311,12 @@ export default function HostWorkSpace({}) {
             >
               <div
                 onClick={() => {
-                  setInfo({ ...info, workspaceType: "Percentage" });
+                  // setInfo({ ...info, workspaceType: "Percentage" });
+                  setWorkSpace({ ...workSpace, workspaceType: "Percentage" })
+
                 }}
               >
-                {info?.workspaceType === "Percentage" ? (
+                {workSpace?.workspaceType === "Percentage" ? (
                   <CheckBox
                     style={{ color: "#000", fontSize: 15, margin: 10 }}
                   />
@@ -623,9 +623,10 @@ export default function HostWorkSpace({}) {
           }}
         />
       </div>
-      <Grid sx={{ marginY: 4 }} container spacing={2}>
+      <Grid sx={{ marginY: 6 }} container spacing={2}>
         <Grid item md={3} sm={5} xs={12}>
-          <Card
+          <MenuSection/>
+          {/* <Card
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -691,11 +692,12 @@ export default function HostWorkSpace({}) {
               {"become a workhost"}
             </Typography>
             <div style={{ height: 100 }} />
-          </Card>
+          </Card> */}
         </Grid>
         <Grid item md={9} sx={{ display: { xs: "none", md: "flex" } }}>
           <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <img
+            <TableBottom/>
+            {/* <img
               src={`${"https://wallpaperaccess.com/full/3678503.png"}`}
               srcSet={require("../assets/Wallpaper.png")}
               alt={"Title"}
@@ -705,7 +707,7 @@ export default function HostWorkSpace({}) {
                 borderRadius: 5,
                 // resize: "both",
               }}
-            />
+            /> */}
           </Box>
         </Grid>
       </Grid>

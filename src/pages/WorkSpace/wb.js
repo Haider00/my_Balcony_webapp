@@ -126,10 +126,10 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
           >
             <div
               onClick={() => {
-                setInfo({ ...info, workspaceType: "indoor" });
+                setInfo({ ...info, HostType: "indoor" });
               }}
             >
-              {info?.workspaceType === "indoor" ? (
+              {info?.HostType === "indoor" ? (
                 <CheckBox style={{ color: "#000", fontSize: 15, margin: 10 }} />
               ) : (
                 <CropSquare
@@ -156,10 +156,10 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
           >
             <div
               onClick={() => {
-                setInfo({ ...info, workspaceType: "outdoor" });
+                setInfo({ ...info, HostType: "outdoor" });
               }}
             >
-              {info?.workspaceType === "outdoor" ? (
+              {info?.HostType === "outdoor" ? (
                 <CheckBox style={{ color: "#000", fontSize: 15, margin: 10 }} />
               ) : (
                 <CropSquare
@@ -246,8 +246,16 @@ export const WorksapceImages = () => {
               });
               setMainImage(res.Location);
             } else if (imageType === "second") {
+              workSpaceDispatch({
+                type: "SET_WORKSPACE_SECOND_IMAGE",
+                payload: res,
+              });
               setSecondImage(res.Location);
             } else if (imageType === "third") {
+              workSpaceDispatch({
+                type: "SET_WORKSPACE_THIRD_IMAGE",
+                payload: res,
+              });
               setThirdImage(res.Location);
             }
             // handleUploadProductImage(res.data, product, element.cover);

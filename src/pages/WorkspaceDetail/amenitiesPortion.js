@@ -34,7 +34,7 @@ import React from 'react'
 import { Box, Typography, Rating } from '@mui/material'
 import { Divider } from '@mui/material';
 import GroupIcon from '@mui/icons-material/Group';
-import Amenities from '../WorkSpace/Amenities';
+import Amenities from '../WorkSpace/AmenitiesForOutput';
 
 
 export default function AmenitiesPortion() {
@@ -42,7 +42,9 @@ export default function AmenitiesPortion() {
         <div>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant="h5" sx={{ mb: 2 }}>Amenities</Typography>
-                <Amenities />
+                <div style={{ minHeight:'395px'}}>
+                <Amenities/>
+                </div>
                 <Divider sx={{ width: '95%', my: 3 }} variant="middle" />
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Typography variant="h6" sx={{ mb: 1 }}>$56.50 per person</Typography>

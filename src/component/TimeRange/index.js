@@ -154,7 +154,7 @@ const TimeRange = ({ title = "", handleTimeRange = ({}) => {} }) => {
   };
 
   const handlePmChange = (newValue) => {
-    handleCheckboxChange();
+    // handleCheckboxChange();
     if (!checked) {
       setMessage("please checked day first");
       setDisplay(true);
