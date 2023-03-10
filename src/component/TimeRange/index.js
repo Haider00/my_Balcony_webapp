@@ -154,10 +154,6 @@ const TimeRange = ({ title = "", handleTimeRange = ({}) => {} }) => {
   };
 
   const handlePmChange = (newValue) => {
-<<<<<<< HEAD
-    // handleCheckboxChange();
-=======
->>>>>>> newbackup
     if (!checked) {
       setMessage("please checked day first");
       setDisplay(true);
