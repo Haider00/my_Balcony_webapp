@@ -30,6 +30,15 @@ function workspaceReducer(state, action) {
     case "SET_WORKSPACE_FIRST_IMAGE": {
       return { ...state, firstImage: action.payload };
     }
+    case "SET_WORKSPACE_SECOND_IMAGE": {
+      return { ...state, secondImage: action.payload };
+    }
+    case "SET_WORKSPACE_THIRD_IMAGE": {
+      return { ...state, thirdImage: action.payload };
+    }
+    case "WORKSPACE_MAP_COARDINATES": {
+      return { ...state, workSpaceMapCoardinates: action.payload };
+    }
 
     default:
       throw new Error(`Invalid action ${action.type}`);
@@ -41,6 +50,7 @@ function WorkspaceProvider({ children }) {
     firstImage: {},
     secondImage: {},
     thirdImage: {},
+    workSpaceMapCoardinates: [],
   });
   const memoedWorkspace = useMemo(() => workspace, [workspace]);
   const memoedDispatch = useMemo(() => dispatch, [dispatch]);

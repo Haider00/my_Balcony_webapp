@@ -60,6 +60,7 @@ const CheckBoxInput = ({ title = "", onChangeInput = () => {} }) => {
   // const workspaceDispatch = useWorkspaceDispatch();
   const [checked, setChecked] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
+
   const [value, setValue] = useState("");
 
   const handleCheckboxChange = (event) => {
