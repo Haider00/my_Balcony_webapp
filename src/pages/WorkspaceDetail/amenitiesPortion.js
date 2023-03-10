@@ -33,7 +33,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography, Rating } from "@mui/material";
 import { Divider } from "@mui/material";
 import GroupIcon from "@mui/icons-material/Group";
-import Amenities from "../WorkSpace/Amenities";
+import Amenities from "../WorkSpace/AmenitiesForOutput";
 import styledcomp from "styled-components";
 const Listcontainer = styledcomp.ul`
 padding:0;

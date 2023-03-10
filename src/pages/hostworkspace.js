@@ -26,6 +26,8 @@ import CheckBox from "@mui/icons-material/CheckBox";
 import CloudDoneIcon from "@mui/icons-material/CloudDone";
 import { useWorkspaceState } from "src/context/workspace.context";
 import Resizer from "react-image-file-resizer";
+import MenuSection from "./MenuSection/menuSection";
+import TableBottom from "src/assets/svg/TableBottom";
 
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
 
@@ -231,7 +233,7 @@ export default function HostWorkSpace({}) {
           .uploadImage({ image: uri })
           .then((res) => {
             console.log("RESPONSE....", res.Location);
-            // setWorkSpace({ ...workSpace, photoId: res.Location });
+            setWorkSpace({ ...workSpace, photoId: res.Location });
             // handleUploadProductImage(res.data, product, element.cover);
           })
           .catch((err) => {
