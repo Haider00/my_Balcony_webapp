@@ -52,7 +52,7 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
       arr.push({ title: item, available: true, total: 1 });
       setAmenitiesArr([...arr]);
     }
-console.log(amenitiesArr);
+    console.log(amenitiesArr);
     handleSelectedAmenities(arr);
   };
   const handleAmenitesColor = (item) => {
@@ -116,16 +116,19 @@ console.log(amenitiesArr);
       >
         <Residential fill="#000" fillBox={handleAmenitesColor("residential")} />
       </div>
-      
-      <div onClick={() => {
+
+      <div
+        onClick={() => {
           handleAmenities("largeTable");
-        }} style={{ padding: 5, cursor: "pointer" }}>
+        }}
+        style={{ padding: 5, cursor: "pointer" }}
+      >
         <LargeTable
           fill="#000"
           fillBox={handleLargeTabelColor("color")}
           onIncrement={() => {
             setTotalLargeTable(totalLargeTable + 1);
-            handleAmenities("largeTable",totalLargeTable + 1);
+            handleAmenities("largeTable", totalLargeTable + 1);
           }}
           onDecrement={() => {
             if (totalLargeTable > 0) {

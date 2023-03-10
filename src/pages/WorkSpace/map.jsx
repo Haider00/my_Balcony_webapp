@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Map from "@components/Map";
 import { useWorkspaceDispatch } from "src/context/workspace.context";
-
-
 export default function Home() {
-  const [center, setCenter] = useState([]);
-  const workSpaceDispatch = useWorkspaceDispatch();
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      setCenter([position.coords.latitude, position.coords.longitude]);
-      workSpaceDispatch({
-        type: "WORKSPACE_MAP_COARDINATES",
-        payload: [position.coords.latitude, position.coords.longitude],
-      });
-    console.log(center);
+  const [center, setCenter] = useState([0,0]);
+const workSpaceDispatch = useWorkspaceDispatch();
+useEffect(() => {
+  navigator.geolocation.getCurrentPosition(function (position) {
+    setCenter([position.coords.latitude, position.coords.longitude]);
+    workSpaceDispatch({
+      type: "WORKSPACE_MAP_COARDINATES",
+      payload: [position.coords.latitude, position.coords.longitude],
     });
-  }, []);
+
+  });
+}, []);
+
+
+  console.log('ALERT>>>>>',center)
 
   const handleMarkerDrag = (event) => {
     // setCenter([event.target.getLatLng().lat, event.target.getLatLng().lng]);

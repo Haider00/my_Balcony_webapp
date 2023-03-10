@@ -12,7 +12,7 @@ import {
 } from "../component";
 import { LeftWallpaperWb, FormWb, WorksapceImages } from "./WorkSpace/wb";
 import { Amenities } from "./WorkSpace/Amenities";
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { api } from "../utils/api";
 import { Snackbar } from "@mui/material";
 import dynamic from "next/dynamic";
@@ -25,8 +25,7 @@ import Checkbox from "@mui/material/Checkbox";
 import CheckBox from "@mui/icons-material/CheckBox";
 import CloudDoneIcon from "@mui/icons-material/CloudDone";
 import { useWorkspaceState } from "src/context/workspace.context";
-import MenuSection from "./MenuSection/menuSection";
-import TableBottom from "src/assets/svg/TableBottom";
+import Resizer from "react-image-file-resizer";
 
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
 
@@ -35,17 +34,20 @@ export default function HostWorkSpace({}) {
   const [PhotoId, setPhotoId] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [photoName, setphotoName] = useState("+Add photo ID");
-  
+
   console.log("workspaceState>>>>", workspaceState);
-  
+
   const handlePhotoSelect = (event) => {
+    uploadPhotoID(event.target.files[0]);
     setPhotoId(event.target.files[0]);
     const selectedphoto = event.target.files[0];
     setPhotoUrl(selectedphoto ? URL.createObjectURL(selectedphoto) : null);
     const photoName = selectedphoto ? "" : "";
     setphotoName(photoName);
   };
-
+  const handleUploadImageClick = () => {
+    uploadFileRef.current.click();
+  };
   const [fileName, setfileName] = useState(
     "+Add property lease or ownership documents for this properties ***optional"
   );
@@ -69,15 +71,16 @@ export default function HostWorkSpace({}) {
 
   const handleCheckboxChange = (e) => {
     setIsCheckedfeename(!isCheckedfeename);
-    setWorkSpace({ ...workSpace, otherFeeName: e.target.value });
   };
 
   const [feeNametext, setFeeName] = useState("");
 
-  const handleFeeNameChangetext = (event) => {
-    setFeeName(event.target.value);
-    console.log("feename", feeNametext);
+  const handleFeeNameChangetext = (e) => {
+    setFeeName(e.target.value);
+
+    setWorkSpace({ ...workSpace, otherFeeName: e.target.value });
   };
+
   const [workSpace, setWorkSpace] = useState({});
   const [workSpaceAvailability, setWorkSpaceAvailability] = useState();
   const [display, setDisplay] = useState(false);
@@ -93,22 +96,89 @@ export default function HostWorkSpace({}) {
         setDisplay(true);
         createWorkSpaceTimeAndDay(res);
       })
-      .catch((err) => {
-        if (!PhotoId) {
-          setMessage("Please select a photo");
-        } else if (!FileId) {
-          setMessage("Please select a file");
-        } else if (!isCheckedfeename) {
-          setMessage("Check fee name");
-        } else if (!feeNametext) {
-          setMessage("Enter fee name");
-        } else {
-          setMessage("something went wrong while creating workspace");
-        }
-
-        setDisplay(true);
-      });
+      .catch((err) => {});
   };
+
+  const handleValidations = () => {
+    if (!workSpace.address) {
+      setMessage("Please type address");
+      setDisplay(true);
+    } else if (!workSpace.address2) {
+      setMessage("Please type address2");
+      setDisplay(true);
+    } else if (!workSpace.city) {
+      setMessage("Please type city");
+      setDisplay(true);
+    } else if (!workSpace.state) {
+      setMessage("Please type state");
+      setDisplay(true);
+    } else if (!workSpace.country) {
+      setMessage("Please type country");
+      setDisplay(true);
+    } else if (!workSpace.HostType) {
+      setMessage("Please select host type");
+      setDisplay(true);
+    } else if (!workspaceState.firstImage.Location) {
+      setMessage("Please select first image");
+      setDisplay(true);
+    } else if (!workspaceState.secondImage.Location) {
+      setMessage("Please select second image");
+      setDisplay(true);
+    } else if (!workspaceState.thirdImage.Location) {
+      setMessage("Please select third image");
+      setDisplay(true);
+    } else if (workspaceState.workSpaceMapCoardinates.length === 0) {
+      setMessage("Please enable your location");
+      setDisplay(true);
+    } else if (!workSpace.amenities || workSpace.amenities.length === 0) {
+      setMessage("Please select amenities");
+      setDisplay(true);
+    } else if (!workSpace.currency) {
+      setMessage("Please select currency");
+      setDisplay(true);
+    } else if (!workSpace.perPerson) {
+      setMessage("Please enter persons");
+      setDisplay(true);
+    } else if (!workSpace.workspaceType) {
+      setMessage("Please select workspace type");
+      setDisplay(true);
+    } else if (!workSpace.cleaningFee) {
+      setMessage("Please enter cleaning fee");
+      setDisplay(true);
+    } else if (!workSpace.maintenancesFee) {
+      setMessage("Please enter maintenance fee");
+      setDisplay(true);
+    } else if (!workSpace.otherFeeName) {
+      setMessage("Please enter fee name");
+      setDisplay(true);
+    } else if (!workSpace.otherFeeAmount) {
+      setMessage("Please enter amount ");
+      setDisplay(true);
+    } else if (
+      workPlaceDayAndTime.every((obj) => Object.keys(obj).length === 0)
+    ) {
+      setMessage("Please select time");
+      setDisplay(true);
+    } else if (!workSpace.coWorkingWorkspace) {
+      setMessage("Please check co working space");
+      setDisplay(true);
+    } else if (!workSpace.photoId) {
+      setMessage("Please select a photo");
+      setDisplay(true);
+    } else if (!FileId) {
+      setMessage("Please select a file");
+      setDisplay(true);
+    } else if (!workSpace.agreeToPolicy) {
+      setMessage("Please check agreement to policy");
+      setDisplay(true);
+    } else if (!workSpace.acknowledgement) {
+      setMessage("Please check acknowledgement");
+      setDisplay(true);
+    } else {
+      setDisplay(false);
+    }
+  };
+
   const createWorkSpaceTimeAndDay = (res) => {
     for (let i = 0; i < workPlaceDayAndTime.length; i++) {
       const element = workPlaceDayAndTime[i];
@@ -128,6 +198,7 @@ export default function HostWorkSpace({}) {
     if (workPlaceDay.includes(info.day)) {
       arr = [];
       console.log(arr);
+
       for (let i = 0; i < workPlaceDayAndTime.length; i++) {
         const element = workPlaceDayAndTime[i];
         if (element.day === info.day) {
@@ -142,10 +213,39 @@ export default function HostWorkSpace({}) {
     }
     setWorkPlaceDay([...arrDay]);
     setWorkPlaceDayAndTime([...arr]);
+    console.log("chlo>>>>>>", info.day);
   };
-  console.log(workPlaceDayAndTime, workPlaceDay)
+
+  const uploadFileRef = useRef(null);
+  const uploadPhotoID = (element) => {
+    Resizer.imageFileResizer(
+      element,
+      720,
+      720,
+      "JPEG",
+      100,
+      0,
+      (uri) => {
+        console.log("FUNTION>>>>>", uri);
+        api
+          .uploadImage({ image: uri })
+          .then((res) => {
+            console.log("RESPONSE....", res.Location);
+            // setWorkSpace({ ...workSpace, photoId: res.Location });
+            // handleUploadProductImage(res.data, product, element.cover);
+          })
+          .catch((err) => {
+            console.log("RESPONSE....E", err);
+            // setDisplay(true);
+            // setMessage("Something Went Wrong While Adding Your Post");
+          });
+      },
+      "base64"
+    );
+  };
+  console.log("finder", workPlaceDayAndTime);
   console.log("workSpace>>>>>>", workSpace);
-  // console.log("currency", currency);
+  console.log("workSpacestate>>>>>>", workspaceState);
 
   return (
     <Box sx={{ flexGrow: 1, paddingX: 1 }}>
@@ -278,8 +378,7 @@ export default function HostWorkSpace({}) {
             >
               <div
                 onClick={() => {
-                  // setInfo({ ...info, workspaceType: "FlatFee" });
-                  setWorkSpace({ ...workSpace, workspaceType: "FlatFee" })
+                  setWorkSpace({ ...workSpace, workspaceType: "FlatFee" });
                 }}
               >
                 {workSpace?.workspaceType === "FlatFee" ? (
@@ -311,9 +410,7 @@ export default function HostWorkSpace({}) {
             >
               <div
                 onClick={() => {
-                  // setInfo({ ...info, workspaceType: "Percentage" });
-                  setWorkSpace({ ...workSpace, workspaceType: "Percentage" })
-
+                  setWorkSpace({ ...workSpace, workspaceType: "Percentage" });
                 }}
               >
                 {workSpace?.workspaceType === "Percentage" ? (
@@ -340,11 +437,12 @@ export default function HostWorkSpace({}) {
           </Box>
 
           <CheckBoxInput
-            onChange={(e) => {
+            onChangeInput={(e) => {
               setWorkSpace({ ...workSpace, cleaningFee: e.target.value });
             }}
             title="Cleaning Fee Amount"
           />
+
           <CheckBoxInput
             onChangeInput={(e) => {
               setWorkSpace({ ...workSpace, maintenancesFee: e.target.value });
@@ -395,11 +493,8 @@ export default function HostWorkSpace({}) {
           </div>
           {isCheckedfeename && (
             <CheckBoxInput
-              onChange={(e) => {
-                setWorkSpace({
-                  ...workSpace,
-                  otherFeeAmount: e.target.value,
-                });
+              onChangeInput={(e) => {
+                setWorkSpace({ ...workSpace, otherFeeAmount: e.target.value });
               }}
               title="Amount"
             />
@@ -477,16 +572,13 @@ export default function HostWorkSpace({}) {
             }}
           >
             <CheckBoxLabel
-              onChange={(e) => {
-                setWorkSpace({
-                  ...workSpace,
-                  coWorkingWorkspace: e.target.value,
-                });
-              }}
               justifyContent="center"
               title="Coworking WorkSpace"
               fontSize={16}
               fontWeight="bold"
+              handleCheckbox={(e) => {
+                setWorkSpace({ ...workSpace, coWorkingWorkspace: e });
+              }}
             />
             <div
               style={{
@@ -543,6 +635,10 @@ export default function HostWorkSpace({}) {
                       type="file"
                       onChange={handlePhotoSelect}
                       accept=".jpg, .jpeg, .png"
+                      ref={uploadFileRef}
+                      onClick={() => {
+                        handleUploadImageClick();
+                      }}
                     />
 
                     <label
@@ -602,11 +698,17 @@ export default function HostWorkSpace({}) {
               <CheckBoxLabel
                 fontSize={11}
                 justifyContent="center"
+                handleCheckbox={(e) => {
+                  setWorkSpace({ ...workSpace, agreeToPolicy: e });
+                }}
                 title="I agree to homework term and services policy and privacy policy"
               />
               <CheckBoxLabel
                 fontSize={11}
                 justifyContent="center"
+                handleCheckbox={(e) => {
+                  setWorkSpace({ ...workSpace, acknowledgement: e });
+                }}
                 title="I acknowledge that I am going to receive a 1099 form if make
                 $600 or more during the entire year. Please Read about tax FAQs."
               />
@@ -620,12 +722,13 @@ export default function HostWorkSpace({}) {
           width="50%"
           onClick={() => {
             handleHostWorkSpace();
+            handleValidations();
           }}
         />
       </div>
       <Grid sx={{ marginY: 6 }} container spacing={2}>
         <Grid item md={3} sm={5} xs={12}>
-          <MenuSection/>
+          <MenuSection />
           {/* <Card
             sx={{
               display: "flex",
@@ -696,7 +799,7 @@ export default function HostWorkSpace({}) {
         </Grid>
         <Grid item md={9} sx={{ display: { xs: "none", md: "flex" } }}>
           <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <TableBottom/>
+            <TableBottom />
             {/* <img
               src={`${"https://wallpaperaccess.com/full/3678503.png"}`}
               srcSet={require("../assets/Wallpaper.png")}
