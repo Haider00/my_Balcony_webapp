@@ -11,8 +11,9 @@ import { api } from "../utils/api";
 import { useAuthState } from "../context/auth.context";
 import { useRouter } from "next/router";
 import TableBottom from "src/assets/svg/TableBottom";
-
+import { useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
 export default function SignUp() {
+  const WorkspaceDetailDispatch = useWorkspaceDetailDispatch();
   const router = useRouter();
   const [indoorWorkSpace, setIndoorWorkSpace] = useState([]);
   const [outdoorWorkSpace, setOutdoorWorkSpace] = useState([]);
@@ -34,7 +35,8 @@ export default function SignUp() {
       .getWorkSpace({ query: "?workspaceType=indoor" })
       .then((res) => {
         console.warn("auth.accessToken...");
-        console.log(res.data);
+        console.log("jjj", res.data);
+
         setIndoorWorkSpace(res.data);
       })
       .catch((err) => {
@@ -46,12 +48,15 @@ export default function SignUp() {
     api
       .getWorkSpace({ query: "?workspaceType=outdoor" })
       .then((res) => {
+        console.log("fff", res.data);
         setOutdoorWorkSpace(res.data);
       })
       .catch((err) => {
         console.log("Error WorkSpaceList:", err);
       });
   }, [auth.accessToken]);
+  console.log("indoorWorkSpace", indoorWorkSpace);
+
   return (
     <Box sx={{ flexGrow: 1, paddingX: 1 }}>
       <WebTabs selectedTab={1} />
@@ -82,20 +87,21 @@ export default function SignUp() {
                 work from outside
               </Typography>
             </div>
-
-            <ScrollMenu apiRef={menu}>
-              {indoorWorkSpace.reverse().map((item, index) => (
-                <ScrollCard
-                  onClick={() => {
-                    router.push("./details");
-                  }}
-                  title={item.name}
-                  itemId={item._id} // NOTE: itemId is required for track items
-                  key={item._id}
-                  image={item.image}
-                />
-              ))}
-            </ScrollMenu>
+            <div className="scrollmenu-allign">
+              <ScrollMenu>
+                {outdoorWorkSpace.map((item, index) => (
+                  <ScrollCard
+                    onClick={() => {
+                      router.push("./workspaceDetail");
+                    }}
+                    title={item.name}
+                    itemId={item._id}
+                    key={item._id}
+                    image={item.image}
+                  />
+                ))}
+              </ScrollMenu>
+            </div>
           </Box>
         </Grid>
 
@@ -112,14 +118,17 @@ export default function SignUp() {
             <Typography sx={{ marginX: 1 }} component="h1" variant="h5">
               work indoor
             </Typography>
-            <ScrollMenu>
-              {outdoorWorkSpace.map((item, index) => (
+            <ScrollMenu apiRef={menu}>
+              {indoorWorkSpace.reverse().map((item, index) => (
                 <ScrollCard
                   onClick={() => {
-                    router.push("./details");
+                    // router.push("./workspaceDetail");
+                    router.push(
+                      `./workspaceDetail?info=${JSON.stringify(item)}`
+                    );
                   }}
                   title={item.name}
-                  itemId={item._id}
+                  itemId={item._id} // NOTE: itemId is required for track items
                   key={item._id}
                   image={item.image}
                 />

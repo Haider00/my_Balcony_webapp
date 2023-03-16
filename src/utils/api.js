@@ -1,6 +1,6 @@
 import axios from "axios";
-// const url = "http://192.168.100.61:4000/api";
-const url = "http://172.105.159.234:3000/api";
+const url = "http://192.168.100.61:3000/api";
+// const url = "http://172.105.159.234:3000/api";
 
 const config = {
   headers: {
@@ -81,6 +81,10 @@ class Api {
     const { data } = await axios.post("/workingTimes", payload, config);
     return data;
   }
+  async createBooking(payload) {
+    const { data } = await axios.post("/booking", payload, config);
+    return data;
+  }
 
   async getWorkSpace(payload) {
     const { query = "" } = payload;
@@ -90,6 +94,16 @@ class Api {
 
   async uploadImage(payload) {
     const { data } = await axios.post("/file", payload, config);
+    return data;
+  }
+  async getBooking(payload) {
+    const { query = "" } = payload;
+    const { data } = await axios.get(`/booking${query}`, config);
+    return data;
+  }
+
+  async patchFile(payload) {
+    const { data } = await axios.patch("/file", payload, config);
     return data;
   }
 }

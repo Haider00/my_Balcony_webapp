@@ -2,13 +2,12 @@ import React from "react";
 import { Box, Typography, Rating, Button } from "@mui/material";
 import Calendar from "../../components/calendar/calendar";
 import styledcomp from "styled-components";
-
+import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
 const Listcontainer = styledcomp.ul`
-padding:0;
-margin: 0;
+
 `;
 const ListItem = styledcomp.li`
-list-style: none;
+
 `;
 
 const workspaceTime = [
@@ -57,6 +56,8 @@ const workspaceTime = [
 ];
 
 export default function HoursOfServices() {
+  const workspaceDetailState = useWorkspaceDetailState();
+  console.log("hhhhh", workspaceDetailState);
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -66,13 +67,13 @@ export default function HoursOfServices() {
       </Box>
       <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
         <Typography variant="subtitle1">
-          <Listcontainer>
+          <Listcontainer style={{ padding: 0, margin: 0 }}>
             {workspaceTime.map((item, index) => {
               if (item.day.trim() === "") {
                 return null;
               }
               return (
-                <ListItem key={index}>
+                <ListItem key={index} style={{ listStyle: "none" }}>
                   <span>Time Frame of Services&nbsp;{item.day}</span>
                   <span>&nbsp;From&nbsp;{item.from}</span>
                   <span>&nbsp;To&nbsp;{item.to}</span>
@@ -93,22 +94,7 @@ export default function HoursOfServices() {
       >
         <Calendar />
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          mb: 2,
-          width: "100%",
-          maxWidth: 500,
-        }}
-      >
-        <Button
-          sx={{ width: "50%", backgroundColor: "#005451" }}
-          variant="contained"
-        >
-          Book Workspace
-        </Button>
-      </Box>
+
       <Box
         sx={{
           display: "flex",

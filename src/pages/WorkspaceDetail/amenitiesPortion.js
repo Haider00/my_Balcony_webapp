@@ -35,6 +35,7 @@ import { Divider } from "@mui/material";
 import GroupIcon from "@mui/icons-material/Group";
 import Amenities from "../WorkSpace/AmenitiesForOutput";
 import styledcomp from "styled-components";
+import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
 const Listcontainer = styledcomp.ul`
 padding:0;
 margin: 0;
@@ -64,6 +65,10 @@ const workspaceDetails = {
 };
 
 export default function AmenitiesPortion() {
+  const workspaceDetailState = useWorkspaceDetailState();
+  console.log("ame", workspaceDetailState);
+  const perPersons = workspaceDetailState.workspaceDetail.perPerson;
+
   const [coworkspace, setCoworkspace] = useState(false);
 
   useEffect(() => {
@@ -80,50 +85,61 @@ export default function AmenitiesPortion() {
           Amenities
         </Typography>
         <Amenities />
+
         <Divider sx={{ width: "95%", my: 3 }} variant="middle" />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="h6" sx={{ mb: 1 }}>
-            <Listcontainer>
-              {[workspaceDetails].map((item, index) => (
-                <ListItem key={index}>
-                  <p>{item.name}</p>
-                  <p>${item.perPerson}&nbsp;per person</p>
-                  <p>{item.address}</p>
-                  <p>{item.address2}</p>
-                  <p>{item.city}</p>
-                  <p>{item.state}</p>
-                  <p>{item.country}</p>
-                  <p>{item.currency}</p>
-                  <p>{item.flatFee.toString()}</p>
-                  <p>{item.maintenancesFee}</p>
-                  <p>{item.percentage.toString()}</p>
-                </ListItem>
-              ))}
-            </Listcontainer>
-          </Typography>
-          {coworkspace && (
-            <>
-              <Typography variant="button" sx={{ mb: 1 }}>
-                Shared Workspace
-              </Typography>
-              <GroupIcon sx={{ mb: 1 }} fontSize="large" />
-              <Typography
-                sx={{ width: "95%", textAlign: "center" }}
-                variant="caption"
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h6" sx={{ mb: 1 }}>
+          <Listcontainer
+            style={{
+              padding: 0,
+            }}
+          >
+            {[workspaceDetailState].map((item, index) => (
+              <ListItem
+                style={{
+                  fontSize: "24px",
+                  fontWeight: "400",
+                  listStyle: "none",
+                }}
+                key={index}
               >
-                This space is shared with other people such as freelancers,
-                starters, students, etc
-              </Typography>
-            </>
-          )}
-          <Divider sx={{ width: "95%", my: 3 }} variant="middle" />
-        </Box>
+                <p
+                  style={{
+                    margin: 0,
+                  }}
+                >
+                  ${perPersons}&nbsp;per person
+                </p>
+              </ListItem>
+            ))}
+          </Listcontainer>
+        </Typography>
+        {coworkspace && (
+          <>
+            <Typography
+              variant="button"
+              sx={{ mb: 1, fontSize: "24px", fontWeight: "400" }}
+            >
+              Shared Workspace
+            </Typography>
+            <GroupIcon sx={{ mb: 1 }} fontSize="large" />
+            <Typography
+              sx={{ width: "95%", textAlign: "center" }}
+              variant="caption"
+            >
+              This space is shared with other people such as freelancers,
+              starters, students, etc
+            </Typography>
+          </>
+        )}
+        <Divider sx={{ width: "100%", my: 3, mb: 0 }} variant="middle" />
       </Box>
     </div>
   );

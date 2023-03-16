@@ -31,286 +31,221 @@ import Water from "../../assets/svg/Water";
 import SwimmingPool from "../../assets/svg/SwimmingPool";
 import Billiard from "../../assets/svg/Billiyard";
 import PingPong from "../../assets/svg/PingPong";
-
+import { Box, Typography, Rating } from "@mui/material";
+import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
 export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
+  const workspaceDetailState = useWorkspaceDetailState();
+  console.log("cme", workspaceDetailState);
+
+  // useEffect(() => {
+  //   // const amenities = workspaceDetailState.perPerson; // make sure amenities is an array
+  //   // console.log("amenities:", amenities);
+  //   // // const amenityTitles = amenities.map((amenity) => amenity.title);
+
+  //   // // console.log("btao", amenityTitles);
+
+  //   const titles = workspaceDetailState.workspaceDetail.amenities || [];
+  //   const amenitiesTitle = titles.map((amenity) => amenity.title || "");
+  //   console.log("faran", amenitiesTitle);
+  // }, []);
   const [amenitiesTitle, setAmenitiesTitle] = useState([]);
-  const amenities = [
-    {
-      title: "commercial",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "resedential",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "largeTable",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "mediumTable",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "smallTable",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "chairs",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "wifi",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "nowifi",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "ethernet",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "computer",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "mouse",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "keyboard",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "printer",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "tv",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "pen",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "paper",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "meetingRoom",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "headPhonewMic",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "headphone",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "coffee",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "couch",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "outdoordeck",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "pentHouse",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "outlet",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "wheelChair",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "noWheelChair",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "gym",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "frontyard",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "water",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "swimmingPool",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "billiard",
-      available: "true",
-      total: "1",
-    },
-    {
-      title: "pingPong",
-      available: "true",
-      total: "1",
-    },
-  ];
-
   useEffect(() => {
-    const titles = amenities.map((item) => item.title);
-    setAmenitiesTitle(titles);
-    console.log("titles>>>", titles);
-  }, []);
+    const titles = workspaceDetailState.workspaceDetail.amenities || [];
+    const amenitiesTitle = titles.map(
+      (amenity) => amenity.title.toLowerCase() || ""
+    );
+    setAmenitiesTitle(amenitiesTitle);
+    console.log("faran", amenitiesTitle);
 
+    // setAmenitiesTitle(amenitiesTitle + "".toLowerCase());
+  }, [workspaceDetailState]);
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         display: "flex",
         flexDirection: "row",
         flexWrap: "wrap",
-        justifyContent:'center'
+        justifyContent: "center",
+        height: "80vh",
+        overflowY: "scroll",
+        scrollbarWidth: "thin",
+        "&::-webkit-scrollbar": {
+          width: "0.6em",
+        },
+        "&::-webkit-scrollbar-track": {
+          borderRadius: "8px",
+          backgroundColor: "#e7e7e7",
+          border: "1px solid #cacaca",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "#363636",
+          borderRadius: "8px",
+        },
       }}
     >
-      {amenitiesTitle.includes('commercial') && <div style={{ padding: 5 }}>
-        <Commercial fill="#000" />
-      </div>}
+      {amenitiesTitle.includes("commercial".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Commercial fill="#000" />
+        </div>
+      )}
 
-      {amenitiesTitle.includes('resedential') && <div style={{ padding: 5 }}>
-        <Residential fill="#000" />
-      </div>}
+      {amenitiesTitle.includes("residential".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Residential fill="#000" />
+        </div>
+      )}
 
-      {amenitiesTitle.includes('largeTable') && <div style={{ padding: 5 }}>
-        <LargeTable fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('mediumTable') && <div style={{ padding: 5 }}>
-        <MediumTable fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('smallTable') && <div style={{ padding: 5 }}>
-        <SmallTable fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('chairs') && <div style={{ padding: 5 }}>
-        <Chairs fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('wifi') && <div style={{ padding: 5 }}>
-        <Wifi fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('nowifi') && <div style={{ padding: 5 }}>
-        <NoWifi fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('ethernet') && <div style={{ padding: 5 }}>
-        <Ethernet fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('computer') && <div style={{ padding: 5 }}>
-        <Computer fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('mouse') && <div style={{ padding: 5 }}>
-        <Mouse fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('keyboard') && <div style={{ padding: 5 }}>
-        <Keyboard fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('printer') && <div style={{ padding: 5 }}>
-        <Printer fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('tv') && <div style={{ padding: 5 }}>
-        <TV fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('pen') && <div style={{ padding: 5 }}>
-        <Pen fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('paper') && <div style={{ padding: 5 }}>
-        <Paper fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('meetingRoom') && <div style={{ padding: 5 }}>
-        <MeetingRoom fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('headphonewMic') && <div style={{ padding: 5 }}>
-        <HeadphonewMic fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('headphone') && <div style={{ padding: 5 }}>
-        <Headphone fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('coffee') && <div style={{ padding: 5 }}>
-        <Coffee fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('couch') && <div style={{ padding: 5 }}>
-        <Couch fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('outdoorDeck') && <div style={{ padding: 5 }}>
-        <OutDoorDeck fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('pentHouse') && <div style={{ padding: 5 }}>
-        <Penthouse fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('outlet') && <div style={{ padding: 5 }}>
-        <Outlet fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('wheelChair') && <div style={{ padding: 5 }}>
-        <WheelChair fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('noWheelChair') && <div style={{ padding: 5 }}>
-        <NoWheelChair fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('gym') && <div style={{ padding: 5 }}>
-        <Gym fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('frontYard') && <div style={{ padding: 5 }}>
-        <FrontYard fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('water') && <div style={{ padding: 5 }}>
-        <Water fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('swimmingPool') && <div style={{ padding: 5 }}>
-        <SwimmingPool fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('billiard') && <div style={{ padding: 5 }}>
-        <Billiard fill="#000" />
-      </div>}
-      {amenitiesTitle.includes('pingPong') && <div style={{ padding: 5 }}>
-        <PingPong fill="#000" />
-      </div>}
-    </div>
+      {amenitiesTitle.includes("largeTable".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <LargeTable fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("mediumTable".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <MediumTable fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("smallTable".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <SmallTable fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("chairs".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Chairs fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Wifi".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Wifi fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("NoWifi".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <NoWifi fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Ethernet".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Ethernet fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Computer".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Computer fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Mouse".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Mouse fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Keyboard".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Keyboard fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Printer".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Printer fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Tv".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <TV fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Pen".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Pen fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Paper".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Paper fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("MeetingRoom".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <MeetingRoom fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("HeadphonewMic".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <HeadphonewMic fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Headphone".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Headphone fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Coffee".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Coffee fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("Couch".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Couch fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("OutdoorDeck".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <OutDoorDeck fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("PentHouse".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Penthouse fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("outlet".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Outlet fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("WheelChair".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <WheelChair fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("NoWheelChair".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <NoWheelChair fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("gym".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Gym fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("frontYard".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <FrontYard fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("water".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Water fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("swimmingPool".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <SwimmingPool fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("billiard".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <Billiard fill="#000" />
+        </div>
+      )}
+      {amenitiesTitle.includes("pingPong".toLowerCase()) && (
+        <div style={{ padding: 5 }}>
+          <PingPong fill="#000" />
+        </div>
+      )}
+    </Box>
   );
 };
 export default Amenities;

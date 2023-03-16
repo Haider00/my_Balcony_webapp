@@ -2,12 +2,9 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import styledcomp from "styled-components";
-
 const Img = styledcomp.img`
-height:inherit;
-width:auto;
-`;
 
+`;
 const imagesarray = {
   workspaceImage: [
     {
@@ -40,6 +37,7 @@ const imagesarray = {
 const firstimage = imagesarray.workspaceImage[0].Location;
 const secondimage = imagesarray.workspaceImage[1].Location;
 const thirdimage = imagesarray.workspaceImage[2].Location;
+
 export const WorksapceImages = () => {
   return (
     <Grid
@@ -73,7 +71,12 @@ export const WorksapceImages = () => {
           alignItems: "center",
         }}
       >
-        <Img resizeMode="contain" src={firstimage} alt="image" />
+        <Img
+          style={{ height: "inherit", width: "auto" }}
+          resizeMode="contain"
+          src={firstimage}
+          alt="image"
+        />
       </div>
 
       <div style={{ display: "flex", width: "100%" }}>
@@ -89,7 +92,11 @@ export const WorksapceImages = () => {
             alignItems: "center",
           }}
         >
-          <Img src={secondimage} alt="image" />
+          <Img
+            style={{ height: "inherit", width: "auto" }}
+            src={secondimage}
+            alt="image"
+          />
         </div>
 
         <div
@@ -104,7 +111,11 @@ export const WorksapceImages = () => {
             alignItems: "center",
           }}
         >
-          <Img src={thirdimage} alt="image" />
+          <Img
+            style={{ height: "inherit", width: "auto" }}
+            src={thirdimage}
+            alt="image"
+          />
         </div>
       </div>
     </Grid>

@@ -74,13 +74,32 @@ export default function HostWorkSpace({}) {
   const handleCheckboxChange = (e) => {
     setIsCheckedfeename(!isCheckedfeename);
   };
+  const [isChecked, setIsChecked] = React.useState(false);
 
+  const handlebox = (isChecked) => {
+    setIsChecked(!isChecked);
+  };
+  console.log("lll", isChecked);
   const [feeNametext, setFeeName] = useState("");
 
   const handleFeeNameChangetext = (e) => {
     setFeeName(e.target.value);
 
     setWorkSpace({ ...workSpace, otherFeeName: e.target.value });
+  };
+
+  const [maintenancefeeNametext, setmaintenanceFeeName] = useState("");
+
+  const handlemaintenanceFeeNameChangetext = (e) => {
+    setmaintenanceFeeName(e.target.value);
+
+    setWorkSpace({ ...workSpace, maintenancesFee: e.target.value });
+  };
+  const [isCheckedmaintenancefeename, setIsCheckedmaintenancefeename] =
+    useState(false);
+
+  const handlemaintenanceCheckboxChange = (e) => {
+    setIsCheckedmaintenancefeename(!isCheckedmaintenancefeename);
   };
 
   const [workSpace, setWorkSpace] = useState({});
@@ -97,12 +116,31 @@ export default function HostWorkSpace({}) {
         setMessage("workspace hosted successfully");
         setDisplay(true);
         createWorkSpaceTimeAndDay(res);
+        handlePatchImage(res);
       })
       .catch((err) => {});
   };
 
+  const handlePatchImage = () => {
+    if (workspaceState.firstImage) {
+      api
+        .patchFile({ ...workspaceState.firstImage, workSpace: res._id })
+        .then(() => {})
+        .catch(() => {});
+    }
+  };
+
   const handleValidations = () => {
-    if (!workSpace.address) {
+    if (isChecked && !workSpace.cleaningFee) {
+      setMessage("Please enter cleaning fee");
+      setDisplay(true);
+    } else if (isCheckedmaintenancefeename && !workSpace.maintenancesFee) {
+      setMessage("Please enter maintenance fee");
+      setDisplay(true);
+    } else if (isCheckedfeename && !workSpace.otherFeeName) {
+      setMessage("Please enter fee name");
+      setDisplay(true);
+    } else if (!workSpace.address) {
       setMessage("Please type address");
       setDisplay(true);
     } else if (!workSpace.address2) {
@@ -141,8 +179,8 @@ export default function HostWorkSpace({}) {
     } else if (!workSpace.perPerson) {
       setMessage("Please enter persons");
       setDisplay(true);
-    } else if (!workSpace.workspaceType) {
-      setMessage("Please select workspace type");
+    } else if (!workSpace.feeType) {
+      setMessage("Please select fees type");
       setDisplay(true);
     } else if (!workSpace.cleaningFee) {
       setMessage("Please enter cleaning fee");
@@ -150,7 +188,7 @@ export default function HostWorkSpace({}) {
     } else if (!workSpace.maintenancesFee) {
       setMessage("Please enter maintenance fee");
       setDisplay(true);
-    } else if (!workSpace.otherFeeName) {
+    } else if (isCheckedfeename || !workSpace.otherFeeName) {
       setMessage("Please enter fee name");
       setDisplay(true);
     } else if (!workSpace.otherFeeAmount) {
@@ -160,9 +198,6 @@ export default function HostWorkSpace({}) {
       workPlaceDayAndTime.every((obj) => Object.keys(obj).length === 0)
     ) {
       setMessage("Please select time");
-      setDisplay(true);
-    } else if (!workSpace.coWorkingWorkspace) {
-      setMessage("Please check co working space");
       setDisplay(true);
     } else if (!workSpace.photoId) {
       setMessage("Please select a photo");
@@ -248,7 +283,7 @@ export default function HostWorkSpace({}) {
   console.log("finder", workPlaceDayAndTime);
   console.log("workSpace>>>>>>", workSpace);
   console.log("workSpacestate>>>>>>", workspaceState);
-
+  console.log("ddd", isCheckedfeename);
   return (
     <Box sx={{ flexGrow: 1, paddingX: 1 }}>
       <Snackbar
@@ -316,6 +351,12 @@ export default function HostWorkSpace({}) {
             Pricing
           </Typography>
           <FormControl
+            inputProps={{
+              style: {
+                paddingTop: "8.5px",
+                paddingBottom: "8.5px",
+              },
+            }}
             onChange={(e) => {
               const inputValue = e.target.value;
               setValue(inputValue);
@@ -380,10 +421,10 @@ export default function HostWorkSpace({}) {
             >
               <div
                 onClick={() => {
-                  setWorkSpace({ ...workSpace, workspaceType: "FlatFee" });
+                  setWorkSpace({ ...workSpace, feeType: "FlatFee" });
                 }}
               >
-                {workSpace?.workspaceType === "FlatFee" ? (
+                {workSpace?.feeType === "FlatFee" ? (
                   <CheckBox
                     style={{ color: "#000", fontSize: 15, margin: 10 }}
                   />
@@ -412,10 +453,10 @@ export default function HostWorkSpace({}) {
             >
               <div
                 onClick={() => {
-                  setWorkSpace({ ...workSpace, workspaceType: "Percentage" });
+                  setWorkSpace({ ...workSpace, feeType: "Percentage" });
                 }}
               >
-                {workSpace?.workspaceType === "Percentage" ? (
+                {workSpace?.feeType === "Percentage" ? (
                   <CheckBox
                     style={{ color: "#000", fontSize: 15, margin: 10 }}
                   />
@@ -439,18 +480,49 @@ export default function HostWorkSpace({}) {
           </Box>
 
           <CheckBoxInput
+            onbox={handlebox}
             onChangeInput={(e) => {
               setWorkSpace({ ...workSpace, cleaningFee: e.target.value });
             }}
             title="Cleaning Fee Amount"
           />
 
-          <CheckBoxInput
-            onChangeInput={(e) => {
-              setWorkSpace({ ...workSpace, maintenancesFee: e.target.value });
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
             }}
-            title="Maintenance Fee Amount"
-          />
+          >
+            <Checkbox
+              sx={{ height: "12px", width: "12px" }}
+              checked={isCheckedmaintenancefeename}
+              onChange={handlemaintenanceCheckboxChange}
+              style={{
+                color: "#000",
+                fontSize: 15,
+                margin: 8,
+                transform: "scale(0.56)",
+              }}
+            />
+            <TextField
+              sx={{
+                marginY: 1.5,
+                width: "100%",
+                "& label": { top: -6 },
+              }}
+              inputProps={{
+                style: {
+                  paddingTop: "8.5px",
+                  paddingBottom: "8.5px",
+                },
+              }}
+              label="Maintenance Fee Amount"
+              disabled={!isCheckedmaintenancefeename}
+              value={maintenancefeeNametext}
+              onChange={handlemaintenanceFeeNameChangetext}
+            />
+          </div>
           <Typography
             sx={{ marginY: 1, marginX: 1.5, fontSize: 14, fontWeight: "500" }}
           >
