@@ -21,6 +21,7 @@ img {
 }
 .scrollmenu-allign .react-horizontal-scrolling-menu--scroll-container {
   justify-content: flex-end;
- 
- 
  }
+ .rdrDateRangePickerWrapper .rdrDefinedRangesWrapper {
+  display: none !important;
+}
