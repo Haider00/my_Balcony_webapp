@@ -127,10 +127,10 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
           >
             <div
               onClick={() => {
-                setInfo({ ...info, HostType: "indoor" });
+                setInfo({ ...info, workspaceType: "indoor" });
               }}
             >
-              {info?.HostType === "indoor" ? (
+              {info?.workspaceType === "indoor" ? (
                 <CheckBox style={{ color: "#000", fontSize: 15, margin: 10 }} />
               ) : (
                 <CropSquare
@@ -157,10 +157,10 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
           >
             <div
               onClick={() => {
-                setInfo({ ...info, HostType: "outdoor" });
+                setInfo({ ...info, workspaceType: "outdoor" });
               }}
             >
-              {info?.HostType === "outdoor" ? (
+              {info?.workspaceType === "outdoor" ? (
                 <CheckBox style={{ color: "#000", fontSize: 15, margin: 10 }} />
               ) : (
                 <CropSquare
@@ -270,7 +270,7 @@ export const WorksapceImages = () => {
       "base64"
     );
   };
-  console.log("images", mainImage, secondImage, thirdImage);
+
   return (
     <Grid
       item

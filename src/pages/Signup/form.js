@@ -28,10 +28,11 @@ export const Form = () => {
       api
         .userRegistration(info)
         .then((res) => {
+          console.log(res);
           setMessage("You have registered successfully");
           setDisplay(true);
           authDispatch({ type: "LOGIN", payload: res });
-          router.push("./");
+          router.push("./signin");
         })
         .catch((err) => {
           setMessage("something went wrong while registration");

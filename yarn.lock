@@ -4088,6 +4088,11 @@
     "path-type" "^4.0.0"
     "yaml" "^1.10.0"
 
+"credit-card-type@6.3.0":
+  "integrity" "sha512-YGFDqy9GQcJqozJGPXdTgb11s/WavF7NCC/i2ZjmsvzliMPjNhoKxB6oF/gXXZoug5xZ+qoeqlCoOEmA+WrlaQ=="
+  "resolved" "https://registry.npmjs.org/credit-card-type/-/credit-card-type-6.3.0.tgz"
+  "version" "6.3.0"
+
 "cross-spawn@^7.0.2", "cross-spawn@^7.0.3":
   "integrity" "sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w=="
   "resolved" "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz"
@@ -8583,6 +8588,13 @@
   "resolved" "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
   "version" "4.0.0"
 
+"payment@2.3.0":
+  "integrity" "sha512-ByK3JultQp1h40+FNHXUiAJ2nvvqtbZdtGKNDncTIQqXL6mWP0ZXQCYqRdRTwK6mnIIBT+BxBlzgq8DjC7nmCg=="
+  "resolved" "https://registry.npmjs.org/payment/-/payment-2.3.0.tgz"
+  "version" "2.3.0"
+  dependencies:
+    "qj" "~2.0.0"
+
 "performance-now@^0.2.0":
   "integrity" "sha512-YHk5ez1hmMR5LOkb9iJkLKqoBlL7WD5M8ljC75ZfzXriuBIVNuecaXuU7e+hOwyqf24Wxhh7Vxgt7Hnw9288Tg=="
   "resolved" "https://registry.npmjs.org/performance-now/-/performance-now-0.2.0.tgz"
@@ -9350,6 +9362,11 @@
   "resolved" "https://registry.npmjs.org/q/-/q-1.5.1.tgz"
   "version" "1.5.1"
 
+"qj@~2.0.0":
+  "integrity" "sha512-8466vlnAF/piI42tzMBUfhaAWn2yBNPOLSSbA2YBlEh+S8CxBXbAO1AwuDReGKYX6LlsK19wBL9cpXZGlgsXxA=="
+  "resolved" "https://registry.npmjs.org/qj/-/qj-2.0.0.tgz"
+  "version" "2.0.0"
+
 "qs@~6.5.2":
   "integrity" "sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA=="
   "resolved" "https://registry.npmjs.org/qs/-/qs-6.5.3.tgz"
@@ -9454,6 +9471,14 @@
     "clsx" "^1.2.1"
     "get-user-locale" "^1.2.0"
     "prop-types" "^15.6.0"
+
+"react-credit-card-input@^1.1.5":
+  "integrity" "sha512-G157pMMrh8CZ4Xi2ICoXrOuI9Xpl3i8AwVTZNgRWehQ8VfTwu5/TxaqlFQTbZQv3XI+g6AMCiIlgITQNDP8Jig=="
+  "resolved" "https://registry.npmjs.org/react-credit-card-input/-/react-credit-card-input-1.1.5.tgz"
+  "version" "1.1.5"
+  dependencies:
+    "credit-card-type" "6.3.0"
+    "payment" "2.3.0"
 
 "react-date-range@^1.4.0":
   "integrity" "sha512-+9t0HyClbCqw1IhYbpWecjsiaftCeRN5cdhsi9v06YdimwyMR2yYHWcgVn3URwtN/txhqKpEZB6UX1fHpvK76w=="

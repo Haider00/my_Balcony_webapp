@@ -33,8 +33,8 @@ export default function SignUp() {
     api
       .getWorkSpace({ query: "?workspaceType=indoor" })
       .then((res) => {
+        console.log("indoor>>>", res.data);
         console.warn("auth.accessToken...");
-        console.log(res.data);
         setIndoorWorkSpace(res.data);
       })
       .catch((err) => {
@@ -46,6 +46,7 @@ export default function SignUp() {
     api
       .getWorkSpace({ query: "?workspaceType=outdoor" })
       .then((res) => {
+        console.log("outdoor>>>", res.data);
         setOutdoorWorkSpace(res.data);
       })
       .catch((err) => {
@@ -69,6 +70,7 @@ export default function SignUp() {
               width: "100%",
               display: "flex",
               flexDirection: "column",
+              justifyContent: "flex-end",
             }}
           >
             <div
@@ -83,19 +85,21 @@ export default function SignUp() {
               </Typography>
             </div>
 
-            <ScrollMenu apiRef={menu}>
-              {indoorWorkSpace.reverse().map((item, index) => (
-                <ScrollCard
-                  onClick={() => {
-                    router.push("./details");
-                  }}
-                  title={item.name}
-                  itemId={item._id} // NOTE: itemId is required for track items
-                  key={item._id}
-                  image={item.image}
-                />
-              ))}
-            </ScrollMenu>
+            <div className="scrollmenu-allign">
+              <ScrollMenu>
+                {outdoorWorkSpace.reverse().map((item, index) => (
+                  <ScrollCard
+                    onClick={() => {
+                      router.push("./workspaceDetail");
+                    }}
+                    title={item.name}
+                    itemId={item._id}
+                    key={item._id}
+                    image={item.image}
+                  />
+                ))}
+              </ScrollMenu>
+            </div>
           </Box>
         </Grid>
 
@@ -112,14 +116,15 @@ export default function SignUp() {
             <Typography sx={{ marginX: 1 }} component="h1" variant="h5">
               work indoor
             </Typography>
-            <ScrollMenu>
-              {outdoorWorkSpace.map((item, index) => (
+
+            <ScrollMenu apiRef={menu}>
+              {indoorWorkSpace.map((item, index) => (
                 <ScrollCard
                   onClick={() => {
-                    router.push("./details");
+                    router.push("./workspaceDetail");
                   }}
                   title={item.name}
-                  itemId={item._id}
+                  itemId={item._id} // NOTE: itemId is required for track items
                   key={item._id}
                   image={item.image}
                 />

@@ -4,6 +4,7 @@ import { useWorkspaceDispatch } from "src/context/workspace.context";
 export default function Home() {
   const [center, setCenter] = useState([0,0]);
 const workSpaceDispatch = useWorkspaceDispatch();
+
 useEffect(() => {
   navigator.geolocation.getCurrentPosition(function (position) {
     setCenter([position.coords.latitude, position.coords.longitude]);
@@ -11,12 +12,11 @@ useEffect(() => {
       type: "WORKSPACE_MAP_COARDINATES",
       payload: [position.coords.latitude, position.coords.longitude],
     });
-
   });
 }, []);
 
 
-  console.log('ALERT>>>>>',center)
+  // console.log('ALERT>>>>>',center)
 
   const handleMarkerDrag = (event) => {
     // setCenter([event.target.getLatLng().lat, event.target.getLatLng().lng]);

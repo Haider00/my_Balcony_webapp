@@ -215,11 +215,9 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
       {amenitiesTitle.includes('commercial') && <div style={{ padding: 5 }}>
         <Commercial fill="#000" />
       </div>}
-
       {amenitiesTitle.includes('resedential') && <div style={{ padding: 5 }}>
         <Residential fill="#000" />
       </div>}
-
       {amenitiesTitle.includes('largeTable') && <div style={{ padding: 5 }}>
         <LargeTable fill="#000" />
       </div>}
