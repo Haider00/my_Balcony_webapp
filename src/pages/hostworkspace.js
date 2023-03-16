@@ -272,10 +272,9 @@ export default function HostWorkSpace({}) {
         api
           .uploadImage({ image: uri })
           .then((res) => {
-            
-            console.log("RESPONSE....", res);
-
-            setPhotoId(res.data.Location)
+            console.log("RESPONSE....", res.Location);
+            setWorkSpace({ ...workSpace, photoId: res.Location });
+            // handleUploadProductImage(res.data, product, element.cover);
           })
           .catch((err) => {
             console.log("RESPONSE....E", err);
