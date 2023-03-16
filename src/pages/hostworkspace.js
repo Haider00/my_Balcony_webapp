@@ -75,7 +75,12 @@ export default function HostWorkSpace({}) {
   const handleCheckboxChange = (e) => {
     setIsCheckedfeename(!isCheckedfeename);
   };
+  const [isChecked, setIsChecked] = React.useState(false);
 
+  const handlebox = (isChecked) => {
+    setIsChecked(!isChecked);
+  };
+  console.log("lll", isChecked);
   const [feeNametext, setFeeName] = useState("");
   
   const handleFeeNameChangetext = (e) => {
@@ -83,7 +88,21 @@ export default function HostWorkSpace({}) {
 
     setWorkSpace({ ...workSpace, otherFeeName: e.target.value });
   };
-  
+
+  const [maintenancefeeNametext, setmaintenanceFeeName] = useState("");
+
+  const handlemaintenanceFeeNameChangetext = (e) => {
+    setmaintenanceFeeName(e.target.value);
+
+    setWorkSpace({ ...workSpace, maintenancesFee: e.target.value });
+  };
+  const [isCheckedmaintenancefeename, setIsCheckedmaintenancefeename] =
+    useState(false);
+
+  const handlemaintenanceCheckboxChange = (e) => {
+    setIsCheckedmaintenancefeename(!isCheckedmaintenancefeename);
+  };
+
   const [workSpace, setWorkSpace] = useState({});
   const [workSpaceAvailability, setWorkSpaceAvailability] = useState();
   const [display, setDisplay] = useState(false);
@@ -110,32 +129,94 @@ export default function HostWorkSpace({}) {
     if (workspaceState.firstImage) {
       api
         .patchFile({ ...workspaceState.firstImage, workSpace: res._id })
-        .then((fResponse) => {
-          console.log('firstImageRes>>',fResponse);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        .then(() => {})
+        .catch(() => {});
     }
-    else if(workspaceState.secondImage) {
-      api
-        .patchFile({ ...workspaceState.secondImage, workSpace: res._id })
-        .then((sResponse) => {
-          console.log('secondImage>>',sResponse);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    else if(workspaceState.thirdImage) {
-      api
-        .patchFile({ ...workspaceState.thirdImage, workSpace: res._id })
-        .then((tResponse) => {
-          console.log('thirtImage>>',tResponse);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+  };
+
+  const handleValidations = () => {
+    if (isChecked && !workSpace.cleaningFee) {
+      setMessage("Please enter cleaning fee");
+      setDisplay(true);
+    } else if (isCheckedmaintenancefeename && !workSpace.maintenancesFee) {
+      setMessage("Please enter maintenance fee");
+      setDisplay(true);
+    } else if (isCheckedfeename && !workSpace.otherFeeName) {
+      setMessage("Please enter fee name");
+      setDisplay(true);
+    } else if (!workSpace.address) {
+      setMessage("Please type address");
+      setDisplay(true);
+    } else if (!workSpace.address2) {
+      setMessage("Please type address2");
+      setDisplay(true);
+    } else if (!workSpace.city) {
+      setMessage("Please type city");
+      setDisplay(true);
+    } else if (!workSpace.state) {
+      setMessage("Please type state");
+      setDisplay(true);
+    } else if (!workSpace.country) {
+      setMessage("Please type country");
+      setDisplay(true);
+    } else if (!workSpace.HostType) {
+      setMessage("Please select host type");
+      setDisplay(true);
+    } else if (!workspaceState.firstImage.Location) {
+      setMessage("Please select first image");
+      setDisplay(true);
+    } else if (!workspaceState.secondImage.Location) {
+      setMessage("Please select second image");
+      setDisplay(true);
+    } else if (!workspaceState.thirdImage.Location) {
+      setMessage("Please select third image");
+      setDisplay(true);
+    } else if (workspaceState.workSpaceMapCoardinates.length === 0) {
+      setMessage("Please enable your location");
+      setDisplay(true);
+    } else if (!workSpace.amenities || workSpace.amenities.length === 0) {
+      setMessage("Please select amenities");
+      setDisplay(true);
+    } else if (!workSpace.currency) {
+      setMessage("Please select currency");
+      setDisplay(true);
+    } else if (!workSpace.perPerson) {
+      setMessage("Please enter persons");
+      setDisplay(true);
+    } else if (!workSpace.feeType) {
+      setMessage("Please select fees type");
+      setDisplay(true);
+    } else if (!workSpace.cleaningFee) {
+      setMessage("Please enter cleaning fee");
+      setDisplay(true);
+    } else if (!workSpace.maintenancesFee) {
+      setMessage("Please enter maintenance fee");
+      setDisplay(true);
+    } else if (isCheckedfeename || !workSpace.otherFeeName) {
+      setMessage("Please enter fee name");
+      setDisplay(true);
+    } else if (!workSpace.otherFeeAmount) {
+      setMessage("Please enter amount ");
+      setDisplay(true);
+    } else if (
+      workPlaceDayAndTime.every((obj) => Object.keys(obj).length === 0)
+    ) {
+      setMessage("Please select time");
+      setDisplay(true);
+    } else if (!workSpace.photoId) {
+      setMessage("Please select a photo");
+      setDisplay(true);
+    } else if (!FileId) {
+      setMessage("Please select a file");
+      setDisplay(true);
+    } else if (!workSpace.agreeToPolicy) {
+      setMessage("Please check agreement to policy");
+      setDisplay(true);
+    } else if (!workSpace.acknowledgement) {
+      setMessage("Please check acknowledgement");
+      setDisplay(true);
+    } else {
+      setDisplay(false);
     }
   };
 
@@ -283,7 +364,10 @@ export default function HostWorkSpace({}) {
       "base64"
     );
   };
-
+  console.log("finder", workPlaceDayAndTime);
+  console.log("workSpace>>>>>>", workSpace);
+  console.log("workSpacestate>>>>>>", workspaceState);
+  console.log("ddd", isCheckedfeename);
   return (
     <Box sx={{ flexGrow: 1, paddingX: 1 }}>
       <Snackbar
@@ -351,6 +435,12 @@ export default function HostWorkSpace({}) {
             Pricing
           </Typography>
           <FormControl
+            inputProps={{
+              style: {
+                paddingTop: "8.5px",
+                paddingBottom: "8.5px",
+              },
+            }}
             onChange={(e) => {
               const inputValue = e.target.value;
               setValue(inputValue);
@@ -474,18 +564,49 @@ export default function HostWorkSpace({}) {
           </Box>
 
           <CheckBoxInput
+            onbox={handlebox}
             onChangeInput={(e) => {
               setWorkSpace({ ...workSpace, cleaningFee: e.target.value });
             }}
             title="Cleaning Fee Amount"
           />
 
-          <CheckBoxInput
-            onChangeInput={(e) => {
-              setWorkSpace({ ...workSpace, maintenancesFee: e.target.value });
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
             }}
-            title="Maintenance Fee Amount"
-          />
+          >
+            <Checkbox
+              sx={{ height: "12px", width: "12px" }}
+              checked={isCheckedmaintenancefeename}
+              onChange={handlemaintenanceCheckboxChange}
+              style={{
+                color: "#000",
+                fontSize: 15,
+                margin: 8,
+                transform: "scale(0.56)",
+              }}
+            />
+            <TextField
+              sx={{
+                marginY: 1.5,
+                width: "100%",
+                "& label": { top: -6 },
+              }}
+              inputProps={{
+                style: {
+                  paddingTop: "8.5px",
+                  paddingBottom: "8.5px",
+                },
+              }}
+              label="Maintenance Fee Amount"
+              disabled={!isCheckedmaintenancefeename}
+              value={maintenancefeeNametext}
+              onChange={handlemaintenanceFeeNameChangetext}
+            />
+          </div>
           <Typography
             sx={{ marginY: 1, marginX: 1.5, fontSize: 14, fontWeight: "500" }}
           >

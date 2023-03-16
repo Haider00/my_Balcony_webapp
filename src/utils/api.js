@@ -117,6 +117,10 @@ class Api {
     const { data } = await axios.post("/workingTimes", payload, config);
     return data;
   }
+  async createBooking(payload) {
+    const { data } = await axios.post("/booking", payload, config);
+    return data;
+  }
 
   async getWorkSpace(payload) {
     const { query = "" } = payload;
@@ -128,7 +132,12 @@ class Api {
     const { data } = await axios.post("/file", payload, config);
     return data;
   }
-  
+  async getBooking(payload) {
+    const { query = "" } = payload;
+    const { data } = await axios.get(`/booking${query}`, config);
+    return data;
+  }
+
   async patchFile(payload) {
     const { data } = await axios.patch("/file", payload, config);
     return data;

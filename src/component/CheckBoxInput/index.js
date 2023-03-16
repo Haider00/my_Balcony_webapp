@@ -56,7 +56,11 @@ import CropSquare from "@mui/icons-material/CropSquare";
 import { useState } from "react";
 import { useWorkspaceDispatch } from "src/context/workspace.context";
 
-const CheckBoxInput = ({ title = "", onChangeInput = () => {} }) => {
+const CheckBoxInput = ({
+  title = "",
+  onChangeInput = () => {},
+  onbox = () => {},
+}) => {
   // const workspaceDispatch = useWorkspaceDispatch();
   const [checked, setChecked] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
@@ -66,8 +70,9 @@ const CheckBoxInput = ({ title = "", onChangeInput = () => {} }) => {
   const handleCheckboxChange = (event) => {
     setIsChecked(!isChecked);
     setChecked(!checked);
+    onbox(isChecked);
   };
-
+  console.log("ccv", isChecked);
   // React.useEffect(() => {
   //   workspaceDispatch({ type: "", payload: value });
   // }, [value]);

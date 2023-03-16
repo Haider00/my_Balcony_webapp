@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CustomHeader } from "../component";
 import Grid from "@mui/material/Grid";
 import { Divider } from "@mui/material";
@@ -10,11 +10,25 @@ import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import TableBottom from "src/assets/svg/TableBottom";
 import Mapsection from "./WorkspaceDetail/map";
-
+import { useRouter } from "next/router";
+import { useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
 export default function WorkspaceDetail() {
+  const WorkspaceDetailDispatch = useWorkspaceDetailDispatch();
+  const router = useRouter();
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [state, setState] = useState({});
 
+  useEffect(() => {
+    if (router.query.info) {
+      setState(JSON.parse(router.query.info));
+      WorkspaceDetailDispatch({
+        type: "WORKSPACE_DETAIL",
+        payload: JSON.parse(router.query.info),
+      });
+    }
+  }, [router.query.info]);
+  console.log("STATE>>>>>", state);
   return (
     <>
       <CustomHeader />
