@@ -73,11 +73,47 @@ class Api {
     return data;
   }
   async createWorkSpace(payload) {
-    const { data } = await axios.post("/workSapce", payload, config);
+
+// const info={
+//   "address": "address1",
+//   "address2": "address2",
+//   "city": "Faisalabad",
+//   "state": "Punjab",
+//   "country": "Pakistan",
+//   "workspaceType": "outdoor",
+//   "amenities": [
+//       {
+//           "title": "residential",
+//           "available": true,
+//           "total": 1
+//       },
+//       {
+//           "title": "commercial",
+//           "available": true,
+//           "total": 1
+//       }
+//   ],
+//   "coWorkingWorkspace": true,
+//   "currency": "dollar",
+//   "perPerson": "10000",
+//   "feeType": "FlatFee",
+//   "cleaningFee": "100",
+//   "maintenancesFee": "100",
+//   "otherFeeName": "chacha",
+//   "otherFeeAmount": "100",
+//   "agreeToPolicy": true,
+//   "acknowledgement": true,
+//   "coordinates": [
+//       31.4691966,
+//       73.0902212
+//   ]
+// }
+    const { data } = await axios.post("/workSpace", payload, config);
     return data;
   }
 
   async createWorkingTimes(payload) {
+    console.log('createWorkingTime>>>',payload)
     const { data } = await axios.post("/workingTimes", payload, config);
     return data;
   }

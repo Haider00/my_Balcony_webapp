@@ -39,6 +39,7 @@ function workspaceReducer(state, action) {
     case "WORKSPACE_MAP_COARDINATES": {
       return { ...state, workSpaceMapCoardinates: action.payload };
     }
+    
 
     default:
       throw new Error(`Invalid action ${action.type}`);

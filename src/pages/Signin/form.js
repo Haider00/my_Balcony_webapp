@@ -18,6 +18,7 @@ const Form = () => {
   const [info, setInfo] = useState({});
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
+  
   const handleSubmitSigInForm = () => {
     if (info && info.email && info.password) {
       api

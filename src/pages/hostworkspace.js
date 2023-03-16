@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -26,7 +27,7 @@ import CheckBox from "@mui/icons-material/CheckBox";
 import CloudDoneIcon from "@mui/icons-material/CloudDone";
 import { useWorkspaceState } from "src/context/workspace.context";
 import Resizer from "react-image-file-resizer";
-import MenuSection from "./MenuSection/menuSection";
+import MenuSection from './MenuSection/menuSection';
 import TableBottom from "src/assets/svg/TableBottom";
 
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
@@ -37,8 +38,8 @@ export default function HostWorkSpace({}) {
   const [photoUrl, setPhotoUrl] = useState(null);
   const [photoName, setphotoName] = useState("+Add photo ID");
 
-  console.log("workspaceState>>>>", workspaceState);
-
+  // console.log("workspaceState>>>>", workspaceState.workSpaceMapCoardinates);
+  
   const handlePhotoSelect = (event) => {
     uploadPhotoID(event.target.files[0]);
     setPhotoId(event.target.files[0]);
@@ -52,9 +53,9 @@ export default function HostWorkSpace({}) {
   };
   const [fileName, setfileName] = useState(
     "+Add property lease or ownership documents for this properties ***optional"
-  );
+    );
   const [FileId, setFileId] = useState(null);
-
+  
   const handleFileSelect = (event) => {
     setFileId(event.target.files[0]);
     const selectedFile = event.target.files[0];
@@ -81,7 +82,7 @@ export default function HostWorkSpace({}) {
   };
   console.log("lll", isChecked);
   const [feeNametext, setFeeName] = useState("");
-
+  
   const handleFeeNameChangetext = (e) => {
     setFeeName(e.target.value);
 
@@ -111,14 +112,17 @@ export default function HostWorkSpace({}) {
 
   const handleHostWorkSpace = () => {
     api
-      .createWorkSpace(workSpace)
+      .createWorkSpace({...workSpace,coordinates:workspaceState.workSpaceMapCoardinates})
       .then((res) => {
+        console.log('res>>>',res);
         setMessage("workspace hosted successfully");
         setDisplay(true);
         createWorkSpaceTimeAndDay(res);
         handlePatchImage(res);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log('error',err);
+      });
   };
 
   const handlePatchImage = () => {
@@ -216,18 +220,99 @@ export default function HostWorkSpace({}) {
     }
   };
 
+  // const handleValidations = () => {
+  //   if (!workSpace.address) {
+  //     setMessage("Please type address");
+  //     setDisplay(true);
+  //   } else if (!workSpace.address2) {
+  //     setMessage("Please type address2");
+  //     setDisplay(true);
+  //   } else if (!workSpace.city) {
+  //     setMessage("Please type city");
+  //     setDisplay(true);
+  //   } else if (!workSpace.state) {
+  //     setMessage("Please type state");
+  //     setDisplay(true);
+  //   } else if (!workSpace.country) {
+  //     setMessage("Please type country");
+  //     setDisplay(true);
+  //   } else if (!workSpace.HostType) {
+  //     setMessage("Please select host type");
+  //     setDisplay(true);
+  //   } else if (!workspaceState.firstImage.Location) {
+  //     setMessage("Please select first image");
+  //     setDisplay(true);
+  //   } else if (!workspaceState.secondImage.Location) {
+  //     setMessage("Please select second image");
+  //     setDisplay(true);
+  //   } else if (!workspaceState.thirdImage.Location) {
+  //     setMessage("Please select third image");
+  //     setDisplay(true);
+  //   } else if (workspaceState.workSpaceMapCoardinates.length === 0) {
+  //     setMessage("Please enable your location");
+  //     setDisplay(true);
+  //   } else if (!workSpace.amenities || workSpace.amenities.length === 0) {
+  //     setMessage("Please select amenities");
+  //     setDisplay(true);
+  //   } else if (!workSpace.currency) {
+  //     setMessage("Please select currency");
+  //     setDisplay(true);
+  //   } else if (!workSpace.perPerson) {
+  //     setMessage("Please enter persons");
+  //     setDisplay(true);
+  //   } else if (!workSpace.feeType) {
+  //     setMessage("Please select workspace type");
+  //     setDisplay(true);
+  //   } else if (!workSpace.cleaningFee) {
+  //     setMessage("Please enter cleaning fee");
+  //     setDisplay(true);
+  //   } else if (!workSpace.maintenancesFee) {
+  //     setMessage("Please enter maintenance fee");
+  //     setDisplay(true);
+  //   } else if (!workSpace.otherFeeName) {
+  //     setMessage("Please enter fee name");
+  //     setDisplay(true);
+  //   } else if (!workSpace.otherFeeAmount) {
+  //     setMessage("Please enter amount ");
+  //     setDisplay(true);
+  //   } else if (
+  //     workPlaceDayAndTime.every((obj) => Object.keys(obj).length === 0)
+  //   ) {
+  //     setMessage("Please select time");
+  //     setDisplay(true);}
+  //   // } else if (!workSpace.photoId) {
+  //   //   setMessage("Please select a photo");
+  //   //   setDisplay(true);
+  //   // } else if (!FileId) {
+  //   //   setMessage("Please select a file");
+  //   //   setDisplay(true);}
+  //     else if (!workSpace.agreeToPolicy) {
+  //     setMessage("Please check agreement to policy");
+  //     setDisplay(true);
+  //   } else if (!workSpace.acknowledgement) {
+  //     setMessage("Please check acknowledgement");
+  //     setDisplay(true);
+  //   } else {
+  //     setDisplay(false);
+  //   }
+  // };
+
   const createWorkSpaceTimeAndDay = (res) => {
     for (let i = 0; i < workPlaceDayAndTime.length; i++) {
       const element = workPlaceDayAndTime[i];
       api
         .createWorkingTimes({ ...element, workSpace: res._id })
-        .then((response) => {})
-        .catch(() => {
+        .then((response) => {
+          console.log('timeConsole>>>>',response);
+        })
+        .catch((err) => {
+          console.log('timeConsoleError',err);
           setMessage("something went wrong while setting time for worksapce");
           setDisplay(true);
         });
     }
   };
+  // console.log('id>>>>',workSpace);
 
   const handleWorkSpaceDayAndTime = (info) => {
     let arr = workPlaceDayAndTime;
@@ -250,10 +335,11 @@ export default function HostWorkSpace({}) {
     }
     setWorkPlaceDay([...arrDay]);
     setWorkPlaceDayAndTime([...arr]);
-    console.log("chlo>>>>>>", info.day);
+    // console.log("chlo>>>>>>", info.day);
   };
 
   const uploadFileRef = useRef(null);
+
   const uploadPhotoID = (element) => {
     Resizer.imageFileResizer(
       element,
@@ -273,8 +359,6 @@ export default function HostWorkSpace({}) {
           })
           .catch((err) => {
             console.log("RESPONSE....E", err);
-            // setDisplay(true);
-            // setMessage("Something Went Wrong While Adding Your Post");
           });
       },
       "base64"
@@ -612,10 +696,12 @@ export default function HostWorkSpace({}) {
                       handleWorkSpaceDayAndTime({ ...response, day: "sunday" });
                     } else if (item === "mon") {
                       handleWorkSpaceDayAndTime({ ...response, day: "monday" });
-                    } else if (item === "wed") {
-                      handleWorkSpaceDayAndTime({
-                        ...response,
-                        day: "wednesday",
+                    } 
+                    else if (item === "tue") {
+                      handleWorkSpaceDayAndTime({ ...response, day: "tuesday" });
+                    } 
+                    else if (item === "wed") {
+                      handleWorkSpaceDayAndTime({ ...response, day: "wednesday",
                       });
                     } else if (item === "thu") {
                       handleWorkSpaceDayAndTime({
@@ -796,95 +882,17 @@ export default function HostWorkSpace({}) {
           width="50%"
           onClick={() => {
             handleHostWorkSpace();
-            handleValidations();
+            // handleValidations();
           }}
         />
       </div>
       <Grid sx={{ marginY: 6 }} container spacing={2}>
         <Grid item md={3} sm={5} xs={12}>
           <MenuSection />
-          {/* <Card
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
-              // marginX: 1,
-              marginY: 2,
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography
-              sx={{ marginX: 1, marginY: 2, fontSize: 18, fontWeight: "400" }}
-            >
-              {"read, discover, explore..."}
-            </Typography>
-            <Typography
-              sx={{
-                marginX: 1,
-                marginBottom: 1.5,
-                fontSize: 16,
-                fontWeight: "300",
-              }}
-            >
-              {"about us"}
-            </Typography>
-            <Typography
-              sx={{
-                marginX: 1,
-                marginBottom: 1.5,
-                fontSize: 16,
-                fontWeight: "300",
-              }}
-            >
-              {"term & condition"}
-            </Typography>
-            <Typography
-              sx={{
-                marginX: 1,
-                marginBottom: 1.5,
-                fontSize: 16,
-                fontWeight: "300",
-              }}
-            >
-              {"privacy policy"}
-            </Typography>
-            <Typography
-              sx={{
-                marginX: 1,
-                marginBottom: 1.5,
-                fontSize: 16,
-                fontWeight: "300",
-              }}
-            >
-              {"faq"}
-            </Typography>
-            <Typography
-              sx={{
-                marginX: 1,
-                marginBottom: 1.5,
-                fontSize: 16,
-                fontWeight: "300",
-              }}
-            >
-              {"become a workhost"}
-            </Typography>
-            <div style={{ height: 100 }} />
-          </Card> */}
         </Grid>
         <Grid item md={9} sx={{ display: { xs: "none", md: "flex" } }}>
           <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
             <TableBottom />
-            {/* <img
-              src={`${"https://wallpaperaccess.com/full/3678503.png"}`}
-              srcSet={require("../assets/Wallpaper.png")}
-              alt={"Title"}
-              style={{
-                display: "block",
-                height: 600,
-                borderRadius: 5,
-                // resize: "both",
-              }}
-            /> */}
           </Box>
         </Grid>
       </Grid>

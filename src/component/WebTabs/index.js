@@ -130,7 +130,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
       >
         <PersonOutline
           onClick={() => {
-            router.push("./");
+            router.push("./accountDashboard");
           }}
           style={{
             color: selectedTab === 5 ? "#fff" : "#000",

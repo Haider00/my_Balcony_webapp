@@ -34,7 +34,7 @@ const Wrapper = styled.section`
     border-radius: 25px;
     box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%);
     background-color: #fff;
-  }
+  } 
   .dashboard-chat {
     margin-top: 50px;
     flex: 0 0 80%;

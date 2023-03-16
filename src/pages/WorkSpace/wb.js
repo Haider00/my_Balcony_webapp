@@ -270,7 +270,7 @@ export const WorksapceImages = () => {
       "base64"
     );
   };
-  console.log("images", mainImage, secondImage, thirdImage);
+
   return (
     <Grid
       item

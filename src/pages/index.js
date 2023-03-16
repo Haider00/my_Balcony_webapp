@@ -34,6 +34,7 @@ export default function SignUp() {
     api
       .getWorkSpace({ query: "?workspaceType=indoor" })
       .then((res) => {
+        console.log("indoor>>>", res.data);
         console.warn("auth.accessToken...");
         console.log("jjj", res.data);
 
@@ -74,6 +75,7 @@ export default function SignUp() {
               width: "100%",
               display: "flex",
               flexDirection: "column",
+              justifyContent: "flex-end",
             }}
           >
             <div
@@ -87,9 +89,10 @@ export default function SignUp() {
                 work from outside
               </Typography>
             </div>
+
             <div className="scrollmenu-allign">
               <ScrollMenu>
-                {outdoorWorkSpace.map((item, index) => (
+                {outdoorWorkSpace.reverse().map((item, index) => (
                   <ScrollCard
                     onClick={() => {
                       router.push("./workspaceDetail");
