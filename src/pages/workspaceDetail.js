@@ -12,23 +12,37 @@ import TableBottom from "src/assets/svg/TableBottom";
 import Mapsection from "./WorkspaceDetail/map";
 import { useRouter } from "next/router";
 import { useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
+import { api } from "src/utils/api";
+
+
 export default function WorkspaceDetail() {
-  const WorkspaceDetailDispatch = useWorkspaceDetailDispatch();
+  const dispatch = useWorkspaceDetailDispatch();
   const router = useRouter();
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [state, setState] = useState({});
 
+
   useEffect(() => {
-    if (router.query.info) {
-      setState(JSON.parse(router.query.info));
-      WorkspaceDetailDispatch({
-        type: "WORKSPACE_DETAIL",
-        payload: JSON.parse(router.query.info),
-      });
+
+    if (router.query?.wd) {
+      api.getWorkSpace({ query:`?_id=${router.query.wd}`})
+        .then((res) => {
+          console.log('resp>>>',res.data)
+          dispatch({
+            type: "WORKSPACE_DETAIL",
+            payload: res.data[0],
+          });
+        })
+        .catch((err) => {
+          console.log("Error3", err);
+        });
+      // console.log('query>>', router.query?.wd)
     }
-  }, [router.query.info]);
-  console.log("STATE>>>>>", state);
+  }, [router.query]);
+
+  //This is state to be seen tomarrow
+  // console.log("STATE>>>>>", state);
   return (
     <>
       <CustomHeader />

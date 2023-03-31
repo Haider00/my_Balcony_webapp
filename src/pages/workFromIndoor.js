@@ -11,7 +11,7 @@ export default function WorkFromIndoor() {
     return (
         <>
             <CustomHeader />
-            <WebTabs selectedTab={2} />
+            <WebTabs selectedTab={3} />
 
             <Grid style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} sx={{ marginY: 1, }} container >
                 <Grid

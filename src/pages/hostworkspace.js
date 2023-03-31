@@ -29,17 +29,18 @@ import { useWorkspaceState } from "src/context/workspace.context";
 import Resizer from "react-image-file-resizer";
 import MenuSection from './MenuSection/menuSection';
 import TableBottom from "src/assets/svg/TableBottom";
+import { useRouter } from "next/router";
 
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
 
-export default function HostWorkSpace({}) {
+export default function HostWorkSpace({ }) {
   const workspaceState = useWorkspaceState();
   const [PhotoId, setPhotoId] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [photoName, setphotoName] = useState("+Add photo ID");
-
+  const router = useRouter();
   // console.log("workspaceState>>>>", workspaceState.workSpaceMapCoardinates);
-  
+
   const handlePhotoSelect = (event) => {
     uploadPhotoID(event.target.files[0]);
     setPhotoId(event.target.files[0]);
@@ -53,9 +54,9 @@ export default function HostWorkSpace({}) {
   };
   const [fileName, setfileName] = useState(
     "+Add property lease or ownership documents for this properties ***optional"
-    );
+  );
   const [FileId, setFileId] = useState(null);
-  
+
   const handleFileSelect = (event) => {
     setFileId(event.target.files[0]);
     const selectedFile = event.target.files[0];
@@ -82,7 +83,7 @@ export default function HostWorkSpace({}) {
   };
   console.log("lll", isChecked);
   const [feeNametext, setFeeName] = useState("");
-  
+
   const handleFeeNameChangetext = (e) => {
     setFeeName(e.target.value);
 
@@ -112,16 +113,16 @@ export default function HostWorkSpace({}) {
 
   const handleHostWorkSpace = () => {
     api
-      .createWorkSpace({...workSpace,coordinates:workspaceState.workSpaceMapCoardinates})
+      .createWorkSpace({ ...workSpace, coordinates: workspaceState.workSpaceMapCoardinates })
       .then((res) => {
-        console.log('res>>>',res);
+        console.log('res>>>', res);
         setMessage("workspace hosted successfully");
         setDisplay(true);
         createWorkSpaceTimeAndDay(res);
         handlePatchImage(res);
       })
       .catch((err) => {
-        console.log('error',err);
+        console.log('error', err);
       });
   };
 
@@ -129,8 +130,8 @@ export default function HostWorkSpace({}) {
     if (workspaceState.firstImage) {
       api
         .patchFile({ ...workspaceState.firstImage, workSpace: res._id })
-        .then(() => {})
-        .catch(() => {});
+        .then(() => { })
+        .catch(() => { });
     }
   };
 
@@ -159,19 +160,21 @@ export default function HostWorkSpace({}) {
     } else if (!workSpace.country) {
       setMessage("Please type country");
       setDisplay(true);
-    } else if (!workSpace.HostType) {
+    } else if (!workSpace.workspaceType) {
       setMessage("Please select host type");
       setDisplay(true);
-    } else if (!workspaceState.firstImage.Location) {
-      setMessage("Please select first image");
-      setDisplay(true);
-    } else if (!workspaceState.secondImage.Location) {
-      setMessage("Please select second image");
-      setDisplay(true);
-    } else if (!workspaceState.thirdImage.Location) {
-      setMessage("Please select third image");
-      setDisplay(true);
-    } else if (workspaceState.workSpaceMapCoardinates.length === 0) {
+    }
+    // else if (!workspaceState.firstImage.Location) {
+    //   setMessage("Please select first image");
+    //   setDisplay(true);
+    // } else if (!workspaceState.secondImage.Location) {
+    //   setMessage("Please select second image");
+    //   setDisplay(true);
+    // } else if (!workspaceState.thirdImage.Location) {
+    //   setMessage("Please select third image");
+    //   setDisplay(true);
+    // } 
+    else if (workspaceState.workSpaceMapCoardinates.length === 0) {
       setMessage("Please enable your location");
       setDisplay(true);
     } else if (!workSpace.amenities || workSpace.amenities.length === 0) {
@@ -192,10 +195,12 @@ export default function HostWorkSpace({}) {
     } else if (!workSpace.maintenancesFee) {
       setMessage("Please enter maintenance fee");
       setDisplay(true);
-    } else if (isCheckedfeename || !workSpace.otherFeeName) {
-      setMessage("Please enter fee name");
-      setDisplay(true);
-    } else if (!workSpace.otherFeeAmount) {
+    }
+    // else if (isCheckedfeename || !workSpace.otherFeeName) {
+    //   setMessage("Please enter fee name");
+    //   setDisplay(true);
+    // } 
+    else if (!workSpace.otherFeeAmount) {
       setMessage("Please enter amount ");
       setDisplay(true);
     } else if (
@@ -203,13 +208,15 @@ export default function HostWorkSpace({}) {
     ) {
       setMessage("Please select time");
       setDisplay(true);
-    } else if (!workSpace.photoId) {
-      setMessage("Please select a photo");
-      setDisplay(true);
-    } else if (!FileId) {
-      setMessage("Please select a file");
-      setDisplay(true);
-    } else if (!workSpace.agreeToPolicy) {
+    }
+    // else if (!workSpace.photoId) {
+    //   setMessage("Please select a photo");
+    //   setDisplay(true);
+    // } else if (!FileId) {
+    //   setMessage("Please select a file");
+    //   setDisplay(true);
+    // } 
+    else if (!workSpace.agreeToPolicy) {
       setMessage("Please check agreement to policy");
       setDisplay(true);
     } else if (!workSpace.acknowledgement) {
@@ -217,85 +224,10 @@ export default function HostWorkSpace({}) {
       setDisplay(true);
     } else {
       setDisplay(false);
+      handleHostWorkSpace();
+      router.push('./');
     }
   };
-
-  // const handleValidations = () => {
-  //   if (!workSpace.address) {
-  //     setMessage("Please type address");
-  //     setDisplay(true);
-  //   } else if (!workSpace.address2) {
-  //     setMessage("Please type address2");
-  //     setDisplay(true);
-  //   } else if (!workSpace.city) {
-  //     setMessage("Please type city");
-  //     setDisplay(true);
-  //   } else if (!workSpace.state) {
-  //     setMessage("Please type state");
-  //     setDisplay(true);
-  //   } else if (!workSpace.country) {
-  //     setMessage("Please type country");
-  //     setDisplay(true);
-  //   } else if (!workSpace.HostType) {
-  //     setMessage("Please select host type");
-  //     setDisplay(true);
-  //   } else if (!workspaceState.firstImage.Location) {
-  //     setMessage("Please select first image");
-  //     setDisplay(true);
-  //   } else if (!workspaceState.secondImage.Location) {
-  //     setMessage("Please select second image");
-  //     setDisplay(true);
-  //   } else if (!workspaceState.thirdImage.Location) {
-  //     setMessage("Please select third image");
-  //     setDisplay(true);
-  //   } else if (workspaceState.workSpaceMapCoardinates.length === 0) {
-  //     setMessage("Please enable your location");
-  //     setDisplay(true);
-  //   } else if (!workSpace.amenities || workSpace.amenities.length === 0) {
-  //     setMessage("Please select amenities");
-  //     setDisplay(true);
-  //   } else if (!workSpace.currency) {
-  //     setMessage("Please select currency");
-  //     setDisplay(true);
-  //   } else if (!workSpace.perPerson) {
-  //     setMessage("Please enter persons");
-  //     setDisplay(true);
-  //   } else if (!workSpace.feeType) {
-  //     setMessage("Please select workspace type");
-  //     setDisplay(true);
-  //   } else if (!workSpace.cleaningFee) {
-  //     setMessage("Please enter cleaning fee");
-  //     setDisplay(true);
-  //   } else if (!workSpace.maintenancesFee) {
-  //     setMessage("Please enter maintenance fee");
-  //     setDisplay(true);
-  //   } else if (!workSpace.otherFeeName) {
-  //     setMessage("Please enter fee name");
-  //     setDisplay(true);
-  //   } else if (!workSpace.otherFeeAmount) {
-  //     setMessage("Please enter amount ");
-  //     setDisplay(true);
-  //   } else if (
-  //     workPlaceDayAndTime.every((obj) => Object.keys(obj).length === 0)
-  //   ) {
-  //     setMessage("Please select time");
-  //     setDisplay(true);}
-  //   // } else if (!workSpace.photoId) {
-  //   //   setMessage("Please select a photo");
-  //   //   setDisplay(true);
-  //   // } else if (!FileId) {
-  //   //   setMessage("Please select a file");
-  //   //   setDisplay(true);}
-  //     else if (!workSpace.agreeToPolicy) {
-  //     setMessage("Please check agreement to policy");
-  //     setDisplay(true);
-  //   } else if (!workSpace.acknowledgement) {
-  //     setMessage("Please check acknowledgement");
-  //     setDisplay(true);
-  //   } else {
-  //     setDisplay(false);
-  //   }
-  // };
 
   const createWorkSpaceTimeAndDay = (res) => {
     for (let i = 0; i < workPlaceDayAndTime.length; i++) {
@@ -303,10 +235,10 @@ export default function HostWorkSpace({}) {
       api
         .createWorkingTimes({ ...element, workSpace: res._id })
         .then((response) => {
-          console.log('timeConsole>>>>',response);
+          console.log('timeConsole>>>>', response);
         })
         .catch((err) => {
-          console.log('timeConsoleError',err);
+          console.log('timeConsoleError', err);
           setMessage("something went wrong while setting time for worksapce");
           setDisplay(true);
         });
@@ -335,7 +267,7 @@ export default function HostWorkSpace({}) {
     }
     setWorkPlaceDay([...arrDay]);
     setWorkPlaceDayAndTime([...arr]);
-    // console.log("chlo>>>>>>", info.day);
+    console.log("chlo>>>>>>", info);
   };
 
   const uploadFileRef = useRef(null);
@@ -364,10 +296,10 @@ export default function HostWorkSpace({}) {
       "base64"
     );
   };
-  console.log("finder", workPlaceDayAndTime);
-  console.log("workSpace>>>>>>", workSpace);
-  console.log("workSpacestate>>>>>>", workspaceState);
-  console.log("ddd", isCheckedfeename);
+  // console.log("finder", workPlaceDayAndTime);
+  // console.log("workSpace>>>>>>", workSpace);
+  // console.log("workSpacestate>>>>>>", workspaceState);
+  // console.log("ddd", isCheckedfeename);
   return (
     <Box sx={{ flexGrow: 1, paddingX: 1 }}>
       <Snackbar
@@ -483,7 +415,7 @@ export default function HostWorkSpace({}) {
             sx={{ marginY: 1, fontSize: 11, fontWeight: "400", width: "100%" }}
           >
             {
-              "**Note: We suggest you include cleaning, maintenance, or any other fees included on your per person price. A user may want to book your workspace when there are little to no fees, but you can add fees if you like.\n\n\n We do collect a service fee from the user, along with 20% from the sale amount from each booking. You take 80% from the sale amount.**"
+              "*Note: We suggest you include cleaning, maintenance, or any other fees included on your per person price. A user may want to book your workspace when there are little to no fees, but you can add fees if you like.\n\n\n We do collect a service fee from the user, along with 20% from the sale amount from each booking. You take 80% from the sale amount.*"
             }
           </Typography>
 
@@ -696,12 +628,13 @@ export default function HostWorkSpace({}) {
                       handleWorkSpaceDayAndTime({ ...response, day: "sunday" });
                     } else if (item === "mon") {
                       handleWorkSpaceDayAndTime({ ...response, day: "monday" });
-                    } 
+                    }
                     else if (item === "tue") {
                       handleWorkSpaceDayAndTime({ ...response, day: "tuesday" });
-                    } 
+                    }
                     else if (item === "wed") {
-                      handleWorkSpaceDayAndTime({ ...response, day: "wednesday",
+                      handleWorkSpaceDayAndTime({
+                        ...response, day: "wednesday",
                       });
                     } else if (item === "thu") {
                       handleWorkSpaceDayAndTime({
@@ -881,8 +814,7 @@ export default function HostWorkSpace({}) {
           title="List Workspace"
           width="50%"
           onClick={() => {
-            handleHostWorkSpace();
-            // handleValidations();
+            handleValidations();
           }}
         />
       </div>

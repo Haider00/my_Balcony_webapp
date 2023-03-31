@@ -4,19 +4,36 @@ import Grid from "@mui/material/Grid";
 import { Divider, Typography } from '@mui/material';
 import MenuSection from './MenuSection/menuSection';
 import TableBottom from 'src/assets/svg/TableBottom';
+import { useAuthDispatch } from 'src/context/auth.context';
+import { useAuthState } from "src/context/auth.context";
+
 
 export default function BookingOverview() {
+    const authDispatch = useAuthDispatch();
+    const auth = useAuthState();
+
+
+    function userAccessControl() {
+        // const userType = "user"
+        console.log('typeCheck')
+        authDispatch({ type: "SET_USER_TYPE", payload: 'user' });
+    }
+    function sellerAccessControl() {
+        // const userType = "seller"
+        console.log('typeCheck')
+        authDispatch({ type: "SET_USER_TYPE", payload: 'seller' });
+    }
     return (
         <>
             <CustomHeader />
             <WebTabs selectedTab={5} />
             <Grid sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'flex-start',
-                        mt:5
-                    }} container>
-                <Grid
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'flex-start',
+                mt: 5
+            }} container>
+                {auth.userType == 'seller' ?<Grid
                     item
                     xs={12}
                     lg={4}
@@ -28,91 +45,27 @@ export default function BookingOverview() {
                         alignItems: 'center',
                     }}
                 >
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Profile</Typography>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Profile</Typography>
                     </div>
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Payout</Typography>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Payout</Typography>
                     </div>
-                </Grid>
-                
-                <Grid
-                    item
-                    xs={12}
-                    lg={4}
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Profile</Typography>
-                    </div>
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Wallet</Typography>
-                    </div>
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Promotion</Typography>
-                    </div>
-                </Grid>
-                <Grid
-                    item
-                    xs={12}
-                    lg={4}
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6'sx={{cursor:'pointer'}}>Profile</Typography>
-                    </div>
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Wallet</Typography>
-                    </div>
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Promotion</Typography>
-                    </div>
-                    <div style={{width:'40%' ,padding:20, textAlign:'center' }}>
-                    <Typography variant='h6'>Become a workspace host</Typography>
-                    </div>
-                </Grid>
-            </Grid>
 
-            <Grid sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'flex-start',
-                        mt:5
-                    }} container>
-                <Grid
-                    item
-                    xs={12}
-                    lg={4}
-                    md={12}
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Contact<br/> Support</Typography>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Contact<br /> Support</Typography>
                     </div>
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Switch to <br/> user access</Typography>
+                    <div onClick={() => {
+                        userAccessControl();
+                    }} style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Switch to <br /> user access</Typography>
                     </div>
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>logout</Typography>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>logout</Typography>
                     </div>
-                </Grid>
-                
-                <Grid
+                </Grid>:null}
+
+                {auth.userType == 'user' ?<Grid
                     item
                     xs={12}
                     lg={4}
@@ -123,29 +76,55 @@ export default function BookingOverview() {
                         alignItems: 'center',
                     }}
                 >
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Contact<br/> Support</Typography>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Profile</Typography>
                     </div>
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Switch to <br/> host access</Typography>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Wallet</Typography>
                     </div>
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>logout</Typography>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Promotion</Typography>
                     </div>
-                </Grid>
-                <Grid
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Contact<br /> Support</Typography>
+                    </div>
+                    <div onClick={() => {
+                        sellerAccessControl();
+                    }}
+                        style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Switch to <br /> host access</Typography>
+                    </div>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>logout</Typography>
+                    </div>
+                </Grid>:null}
+                {/* <Grid
                     item
                     xs={12}
                     lg={4}
                     sx={{
                         display: 'flex',
+                        flexDirection: 'column',
                         justifyContent: 'center',
+                        alignItems: 'center',
                     }}
                 >
-                    <div style={{width:'40%' ,padding:20, borderBottom: '1px solid black', textAlign:'center' }}>
-                    <Typography variant='h6' sx={{cursor:'pointer'}}>Logout</Typography>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Profile</Typography>
                     </div>
-                </Grid>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Wallet</Typography>
+                    </div>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Promotion</Typography>
+                    </div>
+                    <div style={{ width: '40%', padding: 20, textAlign: 'center' }}>
+                        <Typography variant='h6'>Become a workspace host</Typography>
+                    </div>
+                    <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
+                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>Logout</Typography>
+                    </div>
+                </Grid> */}
             </Grid>
 
             <Grid container spacing={4} sx={{ display: 'flex', marginTop: 10 }}>

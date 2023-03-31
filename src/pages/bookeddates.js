@@ -8,12 +8,18 @@ import { Divider } from "@mui/material";
 import Incomingbooking from "./BookedDates/incomingbooking";
 import Ongoingbooking from "./BookedDates/ongoingbooking";
 import Bookinghistory from "./BookedDates/bookinghistory";
+import { useAuthState } from "src/context/auth.context";
 
 export default function bookeddates() {
+
+  const auth = useAuthState();
+
+  console.log('authState>>>', auth.userType);
+
   return (
     <>
       <CustomHeader />
-      <WebTabs />
+      <WebTabs selectedTab={4}/>
 
       <Grid
         sx={{
@@ -29,13 +35,13 @@ export default function bookeddates() {
           lg={4}
           md={12}
           sx={{
-            display: "flex",
-            flexDirection: "column",
+            // display: "flex",
+            // flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Incomingbooking />
+          {auth.userType == 'seller' ? <Incomingbooking /> : null}
           <Ongoingbooking />
         </Grid>
         <Divider

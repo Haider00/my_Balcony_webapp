@@ -37,7 +37,6 @@ export default function SignUp() {
         console.log("indoor>>>", res.data);
         console.warn("auth.accessToken...");
         console.log("jjj", res.data);
-
         setIndoorWorkSpace(res.data);
       })
       .catch((err) => {
@@ -49,7 +48,7 @@ export default function SignUp() {
     api
       .getWorkSpace({ query: "?workspaceType=outdoor" })
       .then((res) => {
-        console.log("fff", res.data);
+        console.log("outside>>>", res.data);
         setOutdoorWorkSpace(res.data);
       })
       .catch((err) => {
@@ -57,6 +56,7 @@ export default function SignUp() {
       });
   }, [auth.accessToken]);
   console.log("indoorWorkSpace", indoorWorkSpace);
+  console.log("outdoorWorkSpace", outdoorWorkSpace);
 
   return (
     <Box sx={{ flexGrow: 1, paddingX: 1 }}>
@@ -95,7 +95,10 @@ export default function SignUp() {
                 {outdoorWorkSpace.reverse().map((item, index) => (
                   <ScrollCard
                     onClick={() => {
-                      router.push("./workspaceDetail");
+                      // router.push("./workspaceDetail");
+                      router.push(
+                        `./workspaceDetail?wd=${item._id}`
+                      );
                     }}
                     title={item.name}
                     itemId={item._id}
@@ -127,7 +130,7 @@ export default function SignUp() {
                   onClick={() => {
                     // router.push("./workspaceDetail");
                     router.push(
-                      `./workspaceDetail?info=${JSON.stringify(item)}`
+                      `./workspaceDetail?wd=${item._id}`
                     );
                   }}
                   title={item.name}

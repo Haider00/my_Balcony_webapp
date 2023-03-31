@@ -24,6 +24,7 @@ const Form = () => {
       api
         .userLogin(info)
         .then((res) => {
+          console.log('login>>>',res)
           authDispatch({ type: "LOGIN", payload: res });
           router.push("./");
         })

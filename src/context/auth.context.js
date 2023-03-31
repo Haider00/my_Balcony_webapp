@@ -1,4 +1,5 @@
 import React, { useContext, useMemo, useReducer, useEffect } from "react";
+import { socket } from "src/utils/socket";
 import { api } from "../utils/api";
 const AuthStateContext = React.createContext(undefined);
 const AuthDispatchContext = React.createContext(undefined);
@@ -56,7 +57,8 @@ function authReducer(state, action) {
       return { ...state, user: action.payload };
     }
 
-    case "SET_USER_TYPE": {
+    case "SET_USER_TYPE": { 
+      localStorage.setItem("@userType", action.payload);
       return { ...state, userType: action.payload };
     }
 
@@ -80,7 +82,7 @@ function authReducer(state, action) {
 function AuthProvider({ children }) {
   const [auth, dispatch] = useReducer(authReducer, {
     isLoggedIn: false,
-    userType: "",
+    userType: "user",
     mapRegion: {},
   });
 
@@ -90,9 +92,20 @@ function AuthProvider({ children }) {
       if (res !== null) {
         const data = JSON.parse(res);
         dispatch({ type: "LOGIN", payload: data });
+        socket.emit('user_connect',data.user)
       }
     }
-    hanldeLocalAuthentication();
+    hanldeLocalAuthentication(); 
+  }, []);
+
+  useEffect(() => {
+    async function hanldeUserType() {
+      const res = await localStorage.getItem("@userType");
+      if (res !== null) {;
+        dispatch({ type: "SET_USER_TYPE", payload: res });
+      }
+    }
+    hanldeUserType(); 
   }, []);
   useEffect(() => {
     async function handleReautentication() {
@@ -102,6 +115,7 @@ function AuthProvider({ children }) {
           .userReauthentication({ token: auth.accessToken })
           .then((res) => {
             dispatch({ type: "RELOGIN", payload: res.data });
+            socket.emit('user_connect',res.data.user)
           })
           .catch((err) => {
             console.log("err...", err);

@@ -1,6 +1,6 @@
 import axios from "axios";
-const url = "http://192.168.100.61:3000/api";
-// const url = "http://172.105.159.234:3000/api";
+// const url = "http://192.168.100.61:3000/api";
+const url = "http://172.105.159.234:3000/api";
 
 const config = {
   headers: {
@@ -16,9 +16,9 @@ class Api {
     return "token";
   }
   async userLogin(payload) {
-    console.log("DATA.....", payload);
+    // console.log("DATA.....", payload);
     const { data } = await axios.post("/user/login", payload, config);
-    console.log("DATA.....", data);
+    // console.log("DATA.....", data);
     return data;
   }
   async userRegistration(payload) {
@@ -42,12 +42,14 @@ class Api {
   }
 
   async getChats(payload) {
-    const data = await axios.get(`/chat${payload.query}`, config);
+    // console.log('>>>>>>',`/chat${payload}`)
+    const data = await axios.get(`/chat${payload}`, config);
     return data;
   }
 
   async getMessages(payload) {
-    const data = await axios.get(`/message${payload.query}`, config);
+    // console.log('api>>>',payload);
+    const data = await axios.get(`/message${payload}`, config);
     return data;
   }
 
@@ -73,50 +75,22 @@ class Api {
     return data;
   }
   async createWorkSpace(payload) {
-
-// const info={
-//   "address": "address1",
-//   "address2": "address2",
-//   "city": "Faisalabad",
-//   "state": "Punjab",
-//   "country": "Pakistan",
-//   "workspaceType": "outdoor",
-//   "amenities": [
-//       {
-//           "title": "residential",
-//           "available": true,
-//           "total": 1
-//       },
-//       {
-//           "title": "commercial",
-//           "available": true,
-//           "total": 1
-//       }
-//   ],
-//   "coWorkingWorkspace": true,
-//   "currency": "dollar",
-//   "perPerson": "10000",
-//   "feeType": "FlatFee",
-//   "cleaningFee": "100",
-//   "maintenancesFee": "100",
-//   "otherFeeName": "chacha",
-//   "otherFeeAmount": "100",
-//   "agreeToPolicy": true,
-//   "acknowledgement": true,
-//   "coordinates": [
-//       31.4691966,
-//       73.0902212
-//   ]
-// }
     const { data } = await axios.post("/workSpace", payload, config);
     return data;
   }
 
   async createWorkingTimes(payload) {
-    console.log('createWorkingTime>>>',payload)
+    // console.log('createWorkingTime>>>',payload)
     const { data } = await axios.post("/workingTimes", payload, config);
     return data;
   }
+  // api.getWorkingTime({query:'?workspace=z_id'})
+  async getWorkingTime(payload) {
+    const { query = "" } = payload;
+    const { data } = await axios.get(`/workingTimes${query}`, config);
+    return data;
+  }
+
   async createBooking(payload) {
     const { data } = await axios.post("/booking", payload, config);
     return data;
@@ -140,6 +114,18 @@ class Api {
 
   async patchFile(payload) {
     const { data } = await axios.patch("/file", payload, config);
+    return data;
+  }
+
+  async attachCard(payload) {
+    const data = await axios.post("/customer_attach_card", payload, config);
+    return data;
+  }
+  async getCard(payload) {
+    console.log('payload',payload)
+    const { query = "" } = payload;
+    console.log('query', query)
+    const { data } = await axios.get(`/cards${query}`, payload, config);
     return data;
   }
 }

@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent";
 const bookinghistory = () => {
   return (
     <>
-      <Typography sx={{ fontSize: 34 }}>booking history</Typography>
+      <Typography sx={{ fontSize: 34, mt: 3 }}>booking history</Typography>
 
       <Grid
         container

@@ -1,48 +1,3 @@
-// import React, { useState } from "react";
-// import Calendar from "react-calendar";
-// import "react-date-range/dist/styles.css";
-// import "react-date-range/dist/theme/default.css";
-// import { DateRangePicker } from "react-date-range";
-
-// export default function ReactCalendar() {
-//   const defaultStartDate = new Date(2023, 2, 14);
-//   const defaultEndDate = new Date(2023, 2, 17);
-
-//   const [startDate, setStartDate] = useState(defaultStartDate);
-//   const [endDate, setEndDate] = useState(defaultEndDate);
-
-//   const selectionRange = {
-//     startDate: startDate,
-//     endDate: endDate,
-//     key: "selection",
-//   };
-//   const customRangeStyles = {
-//     selection: {
-//       background: "black",
-//       color: "white",
-//     },
-//   };
-
-//   const handleSelect = (date) => {
-//     setStartDate(date.selection.startDate);
-//     setEndDate(date.selection.endDate);
-//     console.log("date....", date);
-//   };
-
-//   return (
-//     <div>
-//       <DateRangePicker
-//         ranges={[selectionRange]}
-//         onChange={handleSelect}
-//         inputRanges={[]}
-//         staticRanges={[]}
-//         rangesStyles={customRangeStyles.selection.background}
-//         rangeColors={[]}
-//       />
-//     </div>
-//   );
-// }
-
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-date-range/dist/styles.css";
@@ -64,9 +19,40 @@ export default function ReactCalendar() {
   const [endDate, setEndDate] = useState(defaultEndDate);
   const [unavailableDates, setUnavailableDates] = useState([]);
   const [disableDates, setdisableDates] = useState([]);
+  const [byDefaultDisable, setByDefaultDisable] = useState([]);
 
-  console.log("jhjh:", disableDates);
+
   const [selectedMonth, setSelectedMonth] = useState(moment().format("M"));
+
+  console.log('ffff',byDefaultDisable);
+
+  useEffect(() => {
+    if (workspaceDetailState && workspaceDetailState.workspaceDayTime) {
+      
+      setByDefaultDisable(workspaceDetailState.workspaceDayTime);
+    }
+
+  }, [workspaceDetailState.workspaceDayTime])
+
+  const currentDate = moment();
+  const monthDays = Array(currentDate.daysInMonth())
+    .fill()
+    .map((_, index) => moment(currentDate).date(index + 1));
+
+  const filteredDays = monthDays.filter(
+    (day) => !byDefaultDisable.find((time) => time.day === day.format("dddd").toLowerCase())
+  );
+  console.log('days>>', filteredDays)
+
+  filteredDays.forEach((day) => {
+    const formattedDay = moment(day._d).format('YYYY-MM-DD');
+    console.log('pppp',formattedDay)
+    const isAlreadyDisabled = disableDates.find(disabledDay => moment(disabledDay).isSame(formattedDay, 'day'));
+    if (!isAlreadyDisabled) {
+      // setdisableDates(prevState => [...prevState, formattedDay]);
+    }
+  });
+
   useEffect(() => {
     function getRange2(startDate, endDate, unit) {
       let dates = [];
@@ -82,9 +68,8 @@ export default function ReactCalendar() {
       .getBooking({
         query: `?date[$gt]=${moment(selectedMonth, "M").startOf(
           "month"
-        )}&date[$lt]=${moment(selectedMonth, "M").endOf("month")}&workSpace=${
-          workspaceDetailState.workspaceDetail._id
-        }`,
+        )}&date[$lt]=${moment(selectedMonth, "M").endOf("month")}&workSpace=${workspaceDetailState.workspaceDetail._id
+          }`,
       })
       .then((response) => {
         let dates = [];
@@ -110,62 +95,6 @@ export default function ReactCalendar() {
         console.log("datak:", response.data);
       });
   }, [selectedMonth, workspaceDetailState.workspaceDetail._id]);
-  // const [selectedMonth, setSelectedMonth] = useState(moment().format("M"));
-
-  // useEffect(() => {
-  //   api
-  //     .getBooking({
-  //       query: `?date[$gt]=${moment(selectedMonth, "M").startOf(
-  //         "month"
-  //       )}&date[$lt]=${moment(selectedMonth, "M").endOf("month")}&workSpace=${
-  //         workspaceDetailState.workspaceDetail._id
-  //       }`,
-  //     })
-  //     .then((response) => {
-  //       console.log("fgfgf", response.data);
-
-  //       setUnavailableDates(response.data);
-  //     });
-  // }, [selectedMonth, workspaceDetailState.workspaceDetail._id]);
-  // const [selectedMonth, setSelectedMonth] = useState(moment().format("M"));
-  // useEffect(() => {
-  //   api.getBooking({
-  //     query: `?date[$gt]=${moment(selectedMonth, "M").startOf(
-  //       "month"
-  //     )}&date[$lt]=${moment(selectedMonth, "M").endOf("month")}&workSpace=${
-  //       workspaceDetailState.workspaceDetail._id
-  //     }`,
-  //   });
-  //   // const res = [
-  //   //   {
-  //   //     date: [
-  //   //       new Date(2023, 2, 11),
-  //   //       new Date(2023, 2, 12),
-  //   //       new Date(2023, 2, 13),
-  //   //     ],
-  //   //   },
-  //   //   {
-  //   //     date: [
-  //   //       new Date(2023, 2, 18),
-  //   //       new Date(2023, 2, 19),
-  //   //       new Date(2023, 2, 20),
-  //   //       new Date(2023, 2, 21),
-  //   //       new Date(2023, 2, 22),
-  //   //     ],
-  //   //   },
-  //   // ];
-  //   // let arr = [];
-
-  //   // for (let i = 0; i < res.length; i++) {
-  //   //   const element = res[i];
-  //   //   for (let a = 0; a < element.date.length; a++) {
-  //   //     const element2 = element.date[a];
-  //   //     arr.push(element2);
-  //   //   }
-  //   // }
-  //   // setUnavailableDates([...arr]);
-  //   setUnavailableDates(selectedMonth);
-  // }, []);
 
   const selectionRange = {
     startDate: startDate,

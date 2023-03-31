@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Map from "@components/Map";
-const workspaceDetails = {
-  name: "Sanan's Workspace",
-  coordinates: [31.4504, 73.135],
-  image: "image Location",
-  address: "Nazar shah street",
-  address2: "Ghona",
-  city: "LHR",
-  cleaningFee: 200,
-  country: "Pakistan",
-  currency: "USD",
-  flatFee: true,
-  workspaceType: "Indoor",
-  maintenancesFee: 400,
-  otherFeeAmount: 100,
-  otherFeeName: "Other Fee",
-  perPerson: 10,
-  percentage: false,
-  state: "Punjab",
-  coworkspace: true,
-};
+import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
+
 export default function Home() {
-  const [center, setCenter] = useState(workspaceDetails.coordinates);
+  const [center, setCenter] = useState([0, 0]);
+  const workspaceDetails = useWorkspaceDetailState();
+
+  useEffect(() => {
+    if (workspaceDetails.workspaceDetail && workspaceDetails.workspaceDetail.coordinates) {
+
+      setCenter(workspaceDetails.workspaceDetail.coordinates);
+
+    }
+  })
+  console.log('workspaceDetails>>>>>>', workspaceDetails.workspaceDetail.coordinates)
+
 
   return (
     <Map center={center} zoom={16}>

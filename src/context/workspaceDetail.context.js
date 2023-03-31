@@ -28,7 +28,12 @@ function useWorkspaceDetailDispatch() {
 function workspaceDetailReducer(state, action) {
   switch (action.type) {
     case "WORKSPACE_DETAIL": {
+      // console.log('haha', action.payload)
       return { ...state, workspaceDetail: action.payload };
+    }
+    case "WORKSPACE_DAY_AND_TIME":{
+      // console.log('haha', action.payload)
+      return { ...state, workspaceDayTime: action.payload };
     }
 
     default:
@@ -39,6 +44,7 @@ function workspaceDetailReducer(state, action) {
 function WorkspaceDetailProvider({ children }) {
   const [workspace, dispatch] = useReducer(workspaceDetailReducer, {
     workspaceDetail: {},
+    workspaceDayTime:[],
   });
   const memoedWorkspace = useMemo(() => workspace, [workspace]);
   const memoedDispatch = useMemo(() => dispatch, [dispatch]);

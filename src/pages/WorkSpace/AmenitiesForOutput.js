@@ -35,7 +35,7 @@ import { Box, Typography, Rating } from "@mui/material";
 import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
 export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
   const workspaceDetailState = useWorkspaceDetailState();
-  console.log("cme", workspaceDetailState);
+  // console.log("cme", workspaceDetailState);
 
   // useEffect(() => {
   //   // const amenities = workspaceDetailState.perPerson; // make sure amenities is an array
@@ -66,7 +66,7 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "center",
-        height: "80vh",
+        height: "65vh",
         overflowY: "scroll",
         scrollbarWidth: "thin",
         "&::-webkit-scrollbar": {

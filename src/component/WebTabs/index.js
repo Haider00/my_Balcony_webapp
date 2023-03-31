@@ -8,6 +8,7 @@ import {
   BookmarksOutlined,
 } from "@mui/icons-material";
 import { useRouter } from "next/router";
+import FormatAlignCenterOutlinedIcon from '@mui/icons-material/FormatAlignCenterOutlined';
 
 const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
   const router = useRouter();
@@ -62,9 +63,9 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           alignItems: "center",
         }}
       >
-        <GifBoxOutlined
+        <ChatOutlined
           onClick={() => {
-            router.push("./workFromIndoor");
+            router.push("./chat2");
           }}
           style={{
             color: selectedTab === 2 ? "#fff" : "#000",
@@ -84,9 +85,9 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           alignItems: "center",
         }}
       >
-        <ChatOutlined
+        <GifBoxOutlined
           onClick={() => {
-            router.push("./chat");
+            router.push("./workFromIndoor");
           }}
           style={{
             color: selectedTab === 3 ? "#fff" : "#000",
@@ -95,6 +96,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           }}
         />
       </div>
+      
       <div
         style={{
           height: 50,
@@ -106,9 +108,9 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           alignItems: "center",
         }}
       >
-        <BookmarksOutlined
+        <FormatAlignCenterOutlinedIcon
           onClick={() => {
-            router.push("./bookingOverview");
+            router.push("./bookeddates");
           }}
           style={{
             color: selectedTab === 4 ? "#fff" : "#000",

@@ -6,14 +6,14 @@ import Button from "@mui/material/Button";
 export default function incomingbooking() {
   return (
     <>
-      <Typography sx={{ fontSize: 34, mt: 3 }}>incoming booking</Typography>
+      <Typography sx={{ fontSize: 34, mt: 3, textAlign:'center' }}>incoming booking</Typography>
       <Grid
         container
         sx={{
           display: "flex",
           flexWrap: "wrap",
           alignItems: "center",
-          justifyContent: "space-around",
+          justifyContent: "center",
           rowGap: 2,
           mt: 2,
         }}

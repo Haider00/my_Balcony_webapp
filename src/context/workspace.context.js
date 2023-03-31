@@ -32,7 +32,7 @@ function workspaceReducer(state, action) {
     }
     case "SET_WORKSPACE_SECOND_IMAGE": {
       return { ...state, secondImage: action.payload };
-    }
+    } 
     case "SET_WORKSPACE_THIRD_IMAGE": {
       return { ...state, thirdImage: action.payload };
     }

@@ -1,19 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import planner from "../assets/svg/Calender";
-import account from "../assets/account";
-import booked from "../assets/booked.svg";
-import chat from "../assets/chat.svg";
-import chaticon from "../assets/oval.png";
-import chaticon2 from "../assets/chat-icon2.png";
-import nexticon from "../assets/next-icon.png";
-import ChatIcon from '@mui/icons-material/Chat';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import TuneIcon from '@mui/icons-material/Tune';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import { Typography } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import SendIcon from '@mui/icons-material/Send';
+import { WebTabs } from "src/component";
+import { api } from "../utils/api";
+import { useAuthState } from "src/context/auth.context";
+import { Box } from "@mui/system";
+import { Divider } from "@mui/material";
+import { CustomHeader } from "src/component";
+
 
 const Wrapper = styled.section`
   .container {
@@ -41,7 +36,20 @@ const Wrapper = styled.section`
   }
   .dashboard-chat-wrapper {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    gap: 25px;
+    width: 100%;
+  }
+
+  .chat-module {
+    display: flex;
+    flex-direction: column;
+    min-height: 75vh;
+    justify-content: space-between;
+    flex-grow: 1;
+    overflow: hidden;
+    padding-left: 25px;
+    padding-right: 25px;
   }
   .sidebar-wrapper {
     display: flex;
@@ -90,16 +98,18 @@ const Wrapper = styled.section`
   }
   .chat-groups {
     padding-right: 150px;
-    border-right: 1px solid;
   }
-  .chat-module {
-    padding-left: 150px;
+
+
+  .chat-box-right {
+    display: flex;
+    justify-content: flex-end;
   }
-  .chat-box-right,
+
   .chat-box-left {
     display: flex;
-    justify-content: center;
-  }
+    justify-content: flex-start;
+  } 
   .chat-box-right .user-icon {
     order: 2;
     width: 20%;
@@ -116,7 +126,6 @@ const Wrapper = styled.section`
   }
   .chat-box-left .user-input {
     color: #000;
-
     font-size: 14px;
     margin: 4px 60px 11px 15px;
     padding: 8px 27px 10px 23px;
@@ -138,7 +147,7 @@ const Wrapper = styled.section`
     font-size: 18px;
     font-weight: 700px;
   }
-  .sidebar-wrapper {
+  .sidebar-wrapper {      
     padding: 0;
     margin: 0;
   }
@@ -166,190 +175,180 @@ const Wrapper = styled.section`
     text-decoration: none;
     color: #000;
   }
-`;
+  .chat-boxes{
+    display: flex;
+    flex-direction: column-reverse;   
+    height:60vh; 
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 0.6em;
+    } 
+    &::-webkit-scrollbar-track {
+      border-radius: 8px;
+      background-color: #e7e7e7;
+      border: 1px solid #cacaca;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      background-color: #363636;
+    }
+    .ChatPersonName{
+      font-size:20px;   
+    }
+  }
+`;  
 export default function Chat() {
+
+  const auth = useAuthState();
+  const [chats, setChats] = useState();
+  const [message, setMessage] = useState();
+  const [chatID, setChatID] = useState();
+  const [messageArr, setMessageArr] = useState([]);
+
+  // console.log('chatTotal>>>', chats);
+  // console.log('message>>>', message);
+  // console.log('ChatID>>>', chatID);
+
+  console.log('messageArr>>>>', messageArr);
+    
+
+
+  useEffect(() => {
+    if (auth.user?._id) {
+      if (auth.userType == 'user') {
+        api
+          .getChats(`?client=${auth.user?._id}`)
+          .then((res) => {
+            setChats(res.data.data);
+            console.log("Chats>>>>>>", res.data.data);
+          })
+          .catch((err) => {
+            console.log("Chats>>>>>E", err);
+          });
+      } else if (auth.userType == 'seller') {
+        api
+        getChats(`?owner=${auth.user?._id}`)
+          .then((res) => {
+            setChats(res.data.data);
+            console.log("Chats>>>>>1", res.data.data);
+          })
+          .catch((err) => {
+            console.log("Chats>>>>>E1", err);
+          });
+      }
+    }
+
+  }, [auth.user]);
+
+  const handleMessageText = (e) => {
+    setMessage(e.target.value);
+  }
+
+
+
+  const sendMessage = () => {
+    api
+      .createMessage({ chat: chatID, from: auth.user?._id, text: message })
+      .then((res) => {
+
+        setMessageArr([res.data, ...messageArr])
+        console.log("message>>>>>>", res.data);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+    document.getElementById("message").value = "";
+  }
+
+
+  const showMessages = (chatId) => {
+    api
+      .getMessages(`?chat=${chatId}`)
+      .then((res) => {
+        setMessageArr(res.data.data);
+        console.log("messageAgay>>>>>>>", res.data.data);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+  }
+
+
   return (
-    <Wrapper>
-      <div class="container">
-        <div class="account-dashboard">
-          <div class="dashboard-sidebar">
-            <ul class="sidebar-wrapper">
-              <li class="sidebar-menu">
-                <div className="menu-icon">
-                  <CalendarMonthIcon style={{ fontSize: 30 }} />
-                  <Typography variant="caption">Planner</Typography>
-                  {/* <img src={planner} alt="" /> */}
-                </div>
-              </li>
-              <li class="sidebar-menu">
-                <div className="menu-icon">
-                  <ChatIcon style={{ fontSize: 30 }} />
-                  <Typography variant="caption">Chat</Typography>
-                  {/* <img src={chat} alt="" /> */}
-                </div>
-              </li>
-              <li class="sidebar-menu">
-                <div className="menu-icon">
-                  <TuneIcon style={{ fontSize: 30 }} />
-                  <Typography variant="caption">Booked</Typography>
-                  {/* <img src={booked} alt="" /> */}
-                </div>
-              </li>
-              <li class="sidebar-menu">
-                <div className="menu-icon">
-                  {/* <img src={account} alt='' /> */}
-                  <ManageAccountsIcon style={{ fontSize: 30 }} />
-                  <Typography variant="caption">Account</Typography>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="dashboard-chat">
-            <div class="dashboard-chat-wrapper">
-              <div class="chat-groups">
-                <span className="chat-heading">chats</span>
-                {/* <Link to="/mobile-module"> */}
-                {[1, 2, 3, 4, 5, 6, 7, 8].map(() => {
-                  return <div class="group">
-                    <div class="group-icon">
-                    <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
-                      {/* <img src={chaticon} alt="" /> */}
+    <>
+    <CustomHeader/>
+      <WebTabs selectedTab={2} />
+      <Wrapper>
+        <div class="container">
+          <div class="account-dashboard">
+            <div class="dashboard-chat">
+              <div class="dashboard-chat-wrapper">
+                <div class="chat-groups">
+                  <span className="chat-heading">chats</span>
+                  {chats?.map((item) => {
+                    return <div onClick={() => {
+                      setChatID(item._id);
+                      showMessages(item._id);
+                    }} class="group">
+                      <div class="group-icon">
+                        <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
+                      </div>
+                      <div class="group-text">
+                        <p className="ChatPersonName">{item.client.firstName}</p>
+                        <p>{chats?.map((item, index) => {
+                          if (index === chats.length - 1) {
+                            const shortenedMsg = item.msg.length > 15 ? item.msg.slice(0, 15) + "..." : item.msg;
+                            return shortenedMsg;
+                          } 
+                        })}</p>
+                      </div>
                     </div>
-                    <div class="group-text">
-                      <p>Charlie Sean / Bushwick Lofts</p>
-                      <p>Parker & Companies, LLC</p>
-                      <p>I am fine. How are you. How's your...</p>
-                    </div>
-                  </div>
-                })}
+                  })}
+                </div>
 
-                {/* </Link> */}
+                <Divider orientation="vertical" flexItem />
 
-              </div>
-              <div class="chat-module">
-                <span className="chat-heading">
-                  Charlie Sean / Jackson Heights Lane
-                </span>
-                <div className="chat-boxes">
-                  <div className="chat-box-right">
-                    <div className="user-icon">
-                    <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
-                      {/* <img src={chaticon} alt="" /> */}
+                <div class="chat-module">
+                  <div>
+                    <span className="chat-heading">
+                      Charlie Sean / Jackson Heights Lane
+                    </span>
+                    <div className="chat-boxes">
+                      {messageArr.map((item) => {
+                        return <div className={auth.user?._id == (item.from?._id || item.from) ? "chat-box-right" : "chat-box-left"}>
+                          <div className="user-icon">
+                            <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
+                          </div>
+                          <div className="user-input">{item.text}</div>
+                        </div>
+                      })
+                      }
                     </div>
-                    <div className="user-input">I am fine. How are you?</div>
-                  </div>
-                  <div className="chat-box-left">
-                    <div className="user-icon">
-                    <Avatar alt="Travis Howard" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZXjoVGeGAl7DuVbMhBEHN0jiXfFUUGekQ7Q&usqp=CAU" />
-                      {/* <img src={chaticon2} alt="" /> */}
-                    </div>
-                    <div className="user-input">My apartment is in Miami.</div>
-                  </div>
-                  <div className="chat-box-right">
-                    <div className="user-icon">
-                    <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
-                      {/* <img src={chaticon} alt="" /> */}
-                    </div>
-                    <div className="user-input">
-                      How are things going at your job?
-                    </div>
-                  </div>
-                  <div className="chat-box-left">
-                    <div className="user-icon">
-                    <Avatar alt="Travis Howard" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZXjoVGeGAl7DuVbMhBEHN0jiXfFUUGekQ7Q&usqp=CAU" />
-                      {/* <img src={chaticon2} alt="" /> */}
-                    </div>
-                    <div className="user-input">
-                      How are things going at your job?
-                    </div>
-                  </div>
-                  <div className="chat-box-right">
-                    <div className="user-icon">
-                    <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
-                      {/* <img src={chaticon} alt="" /> */}
-                    </div>
-                    <div className="user-input">Hi, How are you?</div>
-                  </div>
-                  <div className="chat-box-right">
-                    <div className="user-icon">
-                    <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
-                      {/* <img src={chaticon} alt="" /> */}
-                    </div>
-                    <div className="user-input">Lorem Ipsum…….</div>
-                  </div>
-                  <div className="chat-box-right">
-                    <div className="user-icon">
-                    <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
-                      {/* <img src={chaticon} alt="" /> */}
-                    </div>
-                    <div className="user-input">I am fine. How are you?</div>
                   </div>
 
-                  <div className="chat-box-left">
-                    <div className="user-icon">
-                    <Avatar alt="Travis Howard" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZXjoVGeGAl7DuVbMhBEHN0jiXfFUUGekQ7Q&usqp=CAU" />
-                      {/* <img src={chaticon2} alt="" /> */}
-                    </div>
-                    <div className="user-input">My apartment is in Miami.</div>
-                  </div>
-                  <div className="chat-box-right">
-                    <div className="user-icon">
-                    <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
-                      {/* <img src={chaticon} alt="" /> */}
-                    </div>
-                    <div className="user-input">
-                      How are things going at your job?
-                    </div>
-                  </div>
-                  <div className="chat-box-left">
-                    <div className="user-icon">
-                    <Avatar alt="Travis Howard" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZXjoVGeGAl7DuVbMhBEHN0jiXfFUUGekQ7Q&usqp=CAU" />
-                      {/* <img src={chaticon2} alt="" /> */}
-                    </div>
-                    <div className="user-input">
-                      How are things going at your job?
-                    </div>
-                  </div>
-                  <div className="chat-box-right">
-                    <div className="user-icon">
-                    <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
-                      {/* <img src={chaticon} alt="" /> */}
-                    </div>
-                    <div className="user-input">Hi, How are you?</div>
-                  </div>
-                  <div className="chat-box-right">
-                    <div className="user-icon">
-                    <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
-                      {/* <img src={chaticon} alt="" /> */}
-                    </div>
-                    <div className="user-input">Lorem Ipsum…….</div>
-                  </div>
-                  <div className="chat-box-right">
-                    <div className="user-icon">
-                    <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
-                      {/* <img src={chaticon} alt="" /> */}
-                    </div>
-                    <div className="user-input">I am fine. How are you?</div>
+                  <div className="form">
+                    <form className="inputForm" action="">
+                      <input
+                        className="message"
+                        type="text"
+                        name="message"
+                        id="message"
+                        placeholder="Typing message here..."
+                        onChange={handleMessageText}
+                      />
+                      <div onClick={() => {
+                        sendMessage();
+                      }} className="submit-msg">
+                        <SendIcon sx={{ cursor: 'pointer' }} style={{ fontSize: 30 }} />
+                      </div>
+                    </form>
                   </div>
                 </div>
-                <form action="">
-                  <input
-                    className="message"
-                    type="text"
-                    name="message"
-                    id="message"
-                    placeholder="Typing message here..."
-                  />
-                  <div className="submit-msg">
-                    <SendIcon style={{ fontSize: 30 }}/>
-                    {/* <img src={nexticon} alt="" /> */}
-                  </div>
-                </form>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 }

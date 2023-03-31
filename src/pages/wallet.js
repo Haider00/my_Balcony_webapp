@@ -1,5 +1,5 @@
-import React from "react";
-import { CustomHeader, WebTabs } from "../component";
+import React, { useEffect, useState } from "react";
+import { CustomHeader } from "../component";
 import Grid from "@mui/material/Grid";
 import { Divider } from "@mui/material";
 import MenuSection from "./MenuSection/menuSection";
@@ -10,35 +10,96 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Box } from "@mui/material";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import TextField from '@mui/material/TextField';
 import Typography from "@mui/material/Typography";
 import CreditCardInput from 'react-credit-card-input';
-import {Button} from "@mui/material";
+import { Button } from "@mui/material";
+import { api } from "src/utils/api";
+import { useAuthState } from "../context/auth.context";
+import moment from "moment";
+import { Snackbar } from "@mui/material";
+import { set } from "date-fns";
+
+
 
 
 export default function BookingOverview() {
+
+    const auth = useAuthState();
+
+    console.log('strip', auth.user?.stripeCustomer);
+
     const [age, setAge] = React.useState("");
+    const [cardNumber, setCardNumber] = useState("");
+    const [cardExpiry, setCardExpiry] = useState("");
+    const [cardCVC, setCardCVC] = useState("");
+    const [cardArr, setCardArr] = useState([]);
+    const [message, setMessage] = useState('');
+    const [display, setDisplay] = useState(false);
+
+
+
+    console.log('MESSAGE>>>>>', message)
+
+
+    const cardExpiryMoment = moment(cardExpiry, "MM/YYYY");
+    const month = cardExpiryMoment.format("MM");
+    const year = cardExpiryMoment.format("YY");
+
+    // console.log('cardArr',cardArr);
 
     const handleChange = (event) => {
         setAge(event.target.value);
     };
-    const handleCardNumberChange = (event) => {
-        // console.log(event.target.value);
+
+
+    const postCard = () => {
+        api
+            .attachCard({ number: cardNumber, exp_month: month, exp_year: year, cvc: cardCVC, user: auth.user })
+            .then((res) => {
+                
+                setMessage('Your card has been added successfully');
+                setDisplay(true);
+                getCards();
+            })
+            .catch((err) => {setMessage('Please check your card details and try again');
+            setDisplay(true);
+            });
     }
-    const handleCardExpiryChange = (event) => {
-        // console.log(event.target.value);
+
+
+    const getCards = () => {
+        if (auth.user?.stripeCustomer) {
+            api
+                .getCard({ query: `?stripeCustomer=${auth.user?.stripeCustomer}` })
+                .then((res) => {
+                    setCardArr(res.data);
+                })
+                .catch((err) => {
+                    console.log("Error", err);
+                });
+        }
     }
-    const handleCardCVCChange = (event) => {
-        // console.log(event.target.value);
-    }
+    useEffect(() => {
+        getCards();
+    }, [auth.user]);
 
 
     return (
         <>
             <CustomHeader />
-            <WebTabs selectedTab={5} />
+            <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                open={display}
+                onClose={() => {
+                    setDisplay(false);
+                }}
+                ContentProps={{
+                    "aria-describedby": "message-id",
+                }}
+                message={<span id="message-id">{message}</span>}
+            />
             <Grid
                 sx={{
                     display: "flex",
@@ -70,7 +131,7 @@ export default function BookingOverview() {
                         }}
                     >
                         <FormControl
-                            sx={{ justifyContent: "flex-start", width: "50px" }}
+                            sx={{ justifyContent: "flex-start", width: "90px" }}
                             variant="standard"
                         >
                             <InputLabel id="demo-simple-select-label">Age</InputLabel>
@@ -93,15 +154,42 @@ export default function BookingOverview() {
                             <CardContent sx={{ display: "flex", flexDirection: 'column', justifyContent: "space-between", alignItems: "center" }}>
                                 <Typography variant="subtitle2" sx={{ fontSize: 14, alignSelf: "flex-end", mb: 2 }}>Your Card</Typography>
                                 <CreditCardInput
-                                    cardNumberInputProps={{ onChange: handleCardNumberChange() }}
-                                    cardExpiryInputProps={{ onChange: handleCardExpiryChange() }}
-                                    cardCVCInputProps={{ onChange: handleCardCVCChange() }}
+                                    cardNumberInputProps={{
+                                        onBlur: e => console.log('number blur', e.target.value),
+                                        onChange: e => {
+                                            setCardNumber(e.target.value)
+                                            setMessage('');
+                                        },
+                                        onError: err => { setMessage(err.toString()) }
+                                    }}
+                                    cardExpiryInputProps={{
+                                        onBlur: e => console.log('number blur', e.target.value),
+                                        onChange: e => {
+                                            setCardExpiry(e.target.value)
+                                            setMessage('');
+                                        },
+                                        onError: err => { setMessage(err.toString()) }
+                                    }}
+                                    cardCVCInputProps={{
+                                        onBlur: e => console.log('number blur', e.target.value),
+                                        onChange: e => {
+                                            setCardCVC(e.target.value)
+                                            setMessage('');
+                                        },
+                                        onError: err => { setMessage(err.toString()) }
+                                    }}
                                     fieldClassName="input"
                                 />
                                 <TextField sx={{ alignSelf: 'start', mt: 4, width: '80%' }} id="outlined-basic" label="Full Name on Card" variant="outlined" />
                             </CardContent>
                         </Card>
-                        <Button sx={{width:150, mt:5, borderRadius:20, bgcolor:'#005451'}} variant="contained">+ Add card</Button>
+                        <Button onClick={() => {
+                            if (message == '') {
+                                postCard();
+                            } else {
+                                setDisplay(true);
+                            }
+                        }} sx={{ width: 150, mt: 5, borderRadius: 20, bgcolor: '#005451' }} variant="contained">+ Add card</Button>
                     </Box>
                 </Grid>
 
@@ -116,22 +204,19 @@ export default function BookingOverview() {
                         alignItems: "center",
                     }}
                 >
-                    <Divider sx={{mt:15,alignSelf:'center'}} className="divider" orientation="horizontal" flexItem style={{background:'black', width: '50%' }} />
-                    <Box sx={{width:'50%', display:'flex', justifyContent:'space-between', mt:3}}>
-                        <img width={40} src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png"/>
-                        <Typography>****2344</Typography>
-                        <Typography sx={{opacity:'0.4'}}>(default)</Typography>
-                    </Box>
-                    <Box sx={{width:'50%', display:'flex', justifyContent:'flex-start', mt:5}}>
-                        <img width={50} src="https://1000logos.net/wp-content/uploads/2017/03/MasterCard-Logo-1990.png"/>
-                        <Typography sx={{ml:5}}>****6432</Typography>
-                    </Box>
-                    <Divider sx={{mt:3,alignSelf:'center'}} className="divider" orientation="horizontal" flexItem style={{background:'black', width: '50%' }} />
-                    <Box sx={{width:'50%', display:'flex', justifyContent:'flex-start', mt:5}}>
-                        <img width={70} src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c530.png"/>
+                    <Divider sx={{ mt: 15, alignSelf: 'center' }} className="divider" orientation="horizontal" flexItem style={{ background: 'black', width: '50%' }} />
+                    {cardArr.map((item) => {
+                        return <Box sx={{ width: '50%', display: 'flex', justifyContent: 'space-around', mt: 3 }}>
+                            <Typography variant="h6">{item.brand}</Typography>
+                            <Typography>****{item.last4}</Typography>
+                        </Box>
+                    })}
+                    <Divider sx={{ mt: 3, alignSelf: 'center' }} className="divider" orientation="horizontal" flexItem style={{ background: 'black', width: '50%' }} />
+                    <Box sx={{ width: '50%', display: 'flex', justifyContent: 'flex-start', mt: 5 }}>
+                        <img width={70} alt="Pa" src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c530.png" />
                     </Box>
 
-                    
+
 
 
 

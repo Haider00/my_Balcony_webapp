@@ -1,13 +1,11 @@
 import React from "react";
-import { Divider, Button } from "@mui/material";
-import GroupIcon from "@mui/icons-material/Group";
 import { Grid, Box, Typography, Rating } from "@mui/material";
 import { Card, CardContent } from "@mui/material";
 
 export default function ongoingbooking() {
   return (
     <>
-      <Typography sx={{ fontSize: 34, mt: 3 }}>ongoing booking</Typography>
+      <Typography sx={{ fontSize: 34, mt: 3, textAlign:'center' }}>ongoing booking</Typography>
       <Grid
         container
         sx={{
