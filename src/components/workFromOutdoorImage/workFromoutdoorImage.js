@@ -3,26 +3,31 @@ import Grid from "@mui/material/Grid";
 import { Typography, Rating } from '@mui/material'
 import { useAuthState } from "../../context/auth.context";
 import { api } from 'src/utils/api';
-import Pagination from '@mui/material/Pagination';
-import { useRouter } from 'next/router';
+import { Pagination } from '@mui/material';
+import { useRouter } from "next/router";
 
-export default function WorkFromIndoorImage() {
+
+
+
+export default function WorkFromOutdoorImage() {
 
     const router = useRouter();
-    const [indoorWorkspace, setIndoorWorkSpace] = useState([]);
+    const [outdoorWorkspace, setOutdoorWorkSpace] = useState([]);
     const [inComingPage, setInComingPage] = useState(1);
     const [page, setPage] = useState(1);
+    console.log('aaaaa', outdoorWorkspace)
 
     useEffect(() => {
         api
-            .getWorkSpace({ query: `?workspaceType=indoor&page=${inComingPage}` })
+            .getWorkSpace({ query: `?workspaceType=outdoor&page=${inComingPage}` })
             .then((res) => {
-                console.log("indoor>>>", res);
+                console.log("indoar>>>", res);
+                console.warn("auth.accessToken...");
                 console.log("jjj", res.data);
-                setIndoorWorkSpace(res);
-                setPage(inComingPage);
+                setOutdoorWorkSpace(res);
             })
             .catch((err) => {
+                console.warn("auth.accessToken...");
                 console.log("Error WorkSpaceList:", err);
             });
     }, [inComingPage]);
@@ -46,12 +51,12 @@ export default function WorkFromIndoorImage() {
                     xs={12}
                     sm={12}
                 >
-                    <Typography variant="h5">Work from Indoor</Typography>
+                    <Typography variant="h5">Work from Outdoor</Typography>
                 </Grid>
             </Grid>
 
             <Grid style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'row' }} sx={{ marginY: 2, }} container spacing={4}>
-                {indoorWorkspace.data?.map((item) => (
+                {outdoorWorkspace.data?.map((item) => (
 
                     <div style={{ flexDirection: 'column', margin: 10 }}>
                         <div
@@ -61,7 +66,6 @@ export default function WorkFromIndoorImage() {
                                 );
                             }}
                             style={{
-                                cursor:'pointer',
                                 height: 250,
                                 width: "380px",
                                 borderRadius: 10,
@@ -93,7 +97,7 @@ export default function WorkFromIndoorImage() {
             </Grid>
             <Pagination
                 page={page}
-                count={Math.ceil(indoorWorkspace.total / indoorWorkspace.limit)}
+                count={Math.ceil(outdoorWorkspace.total / outdoorWorkspace.limit)}
                 color="primary"
                 onChange={handleChangePage}
             />

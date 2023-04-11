@@ -9,6 +9,7 @@ import {
 } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import FormatAlignCenterOutlinedIcon from '@mui/icons-material/FormatAlignCenterOutlined';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
   const router = useRouter();
@@ -136,6 +137,28 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           }}
           style={{
             color: selectedTab === 5 ? "#fff" : "#000",
+            fontSize: 35,
+            cursor: "pointer",
+          }}
+        />
+      </div>
+      <div
+        style={{
+          height: 50,
+          width: 50,
+          backgroundColor: selectedTab === 6 ? "#005451" : "#fff",
+          borderRadius: 15,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CalendarMonthIcon
+          onClick={() => {
+            router.push("./planner");
+          }}
+          style={{
+            color: selectedTab === 6 ? "#fff" : "#000",
             fontSize: 35,
             cursor: "pointer",
           }}

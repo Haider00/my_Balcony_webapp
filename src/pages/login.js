@@ -14,7 +14,7 @@ export default function login() {
         return (
             <div>
                 <p>Welcome, {session.user.email}</p>
-                {/* <img width="100px" height="100px" src={session.user.image}/> */}
+                <img width="100px" height="100px" src={session.user.image}/>
                 <button onClick={() => signOut()}>Signout</button>
             </div>
         )

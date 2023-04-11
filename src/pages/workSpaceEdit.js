@@ -1,9 +1,10 @@
 import React from 'react';
 import { CustomHeader, WebTabs } from "../component";
 import Grid from "@mui/material/Grid";
-import { Divider } from '@mui/material';
-import BushwickLoftsBookingOverview from './BookingOverview/bushwickLoftsBookingOverview';
-import BookingOverviewDetail from './BookingOverview/bookingOverviewDetail';
+import { Divider, Typography } from '@mui/material';
+import {WorksapceImagesWorkspaceEdit} from './WorkSpace/wb';
+import WorkspaceDetailBookingOverview from './BookingOverview/workspaceDetailBookingOverview';
+import BookingOverviewEdit from './BookingOverview/bookingOverviewEdit';
 import MenuSection from './MenuSection/menuSection';
 import TableBottom from 'src/assets/svg/TableBottom';
 
@@ -23,8 +24,8 @@ export default function BookingOverview() {
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}
-                >
-                    <BushwickLoftsBookingOverview />
+                    >
+                    <WorkspaceDetailBookingOverview />
                 </Grid>
                 <Divider orientation='vertical' flexItem />
                 <Grid
@@ -38,7 +39,7 @@ export default function BookingOverview() {
                         alignItems: 'center',
                     }}
                 >
-                    <BookingOverviewDetail />
+                    <BookingOverviewEdit />
                 </Grid>
             </Grid>
 

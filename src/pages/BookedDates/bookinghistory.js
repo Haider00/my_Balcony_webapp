@@ -3,7 +3,8 @@ import { Grid, Box, Typography, Rating } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 
-const bookinghistory = () => {
+const bookinghistory = (props) => {
+  console.log('propsss>>>',props);
   return (
     <>
       <Typography sx={{ fontSize: 34, mt: 3 }}>booking history</Typography>
@@ -17,88 +18,94 @@ const bookinghistory = () => {
           mt: 4,
         }}
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => {
-          return (
-            <Card
-              sx={{
-                width: 350,
-                height: 155,
-                backgroundColor: "#faf9f6",
-                borderRadius: 3,
-              }}
-            >
-              <CardContent
+        {props.bookinghistory.data?.length > 0 ? (
+          props.bookinghistory.data.map((item) => {
+            let Workspace = item.workSpace;
+            let cleaningFee = item.workSpace.cleaningFee;
+            let maintenancesFee = item.workSpace.maintenancesFee;
+            let otherFeeAmount = item.workSpace.otherFeeAmount;
+            let perPerson = item.workSpace.perPerson;
+            return (
+              <Card
                 sx={{
-                  display: "flex",
-                  gap: 2,
+                  width: 350,
+                  height: 155,
+                  backgroundColor: "#faf9f6",
+                  borderRadius: 3,
                 }}
               >
-                <Box
+                <CardContent
                   sx={{
-                    width: 141,
-                    height: 120,
-                    backgroundColor: "#000000",
-                    borderRadius: 6,
-                  }}
-                ></Box>
-                <Box
-                  sx={{
-                    flex: 1,
+                    display: "flex",
+                    gap: 2,
                   }}
                 >
-                  <Typography
+                  <Box
                     sx={{
-                      fontSize: 12,
-                      fontWeight: "bold",
-                      marginBottom: 1,
+                      width: 141,
+                      height: 120,
+                      backgroundColor: "#000000",
+                      borderRadius: 6,
                     }}
-                    color="#000"
-                    gutterBottom
-                  >
-                    Bushwick Lofts
-                  </Typography>
-                  <Typography
+                  ></Box>
+                  <Box
                     sx={{
-                      fontSize: 9,
+                      flex: 1,
                     }}
-                    color="#000"
-                    gutterBottom
                   >
-                    Date of Workspace Check-in: 02/15/21, 02/16/21, 02/22/21,
-                    02/25/21...
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: 9,
-                    }}
-                    color="#000"
-                    gutterBottom
-                  >
-                    Time Frame of Service: 8 AM - 5 PM EST
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: 8,
-                    }}
-                    color="#000"
-                    gutterBottom
-                  >
-                    Total Number of People: 5
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: 14,
-                    }}
-                    color="#000"
-                    gutterBottom
-                  >
-                    Total: $179.20
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
-          );
-        })}
+                    <Typography
+                      sx={{
+                        fontSize: 12,
+                        fontWeight: "bold",
+                        marginBottom: 1,
+                      }}
+                      color="#000"
+                      gutterBottom
+                    >
+                      Bushwick Lofts
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: 9,
+                      }}
+                      color="#000"
+                      gutterBottom
+                    >
+                      Date of Workspace Check-in: 02/15/21, 02/16/21, 02/22/21,
+                      02/25/21...
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: 9,
+                      }}
+                      color="#000"
+                      gutterBottom
+                    >
+                      Time Frame of Service: 8 AM - 5 PM EST
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: 8,
+                      }}
+                      color="#000"
+                      gutterBottom
+                    >
+                      Total Number of People: {perPerson}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: 14,
+                      }}
+                      color="#000"
+                      gutterBottom
+                    >
+                      Total: ${parseInt(cleaningFee) + parseInt(maintenancesFee) + (parseInt(otherFeeAmount)) * (parseInt(perPerson))}
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            );
+          })) : (<Typography>No Booking History.</Typography>)}
       </Grid>
     </>
   );

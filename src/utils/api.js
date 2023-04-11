@@ -128,6 +128,10 @@ class Api {
     const { data } = await axios.get(`/cards${query}`, payload, config);
     return data;
   }
+  async editBooking(payload) {
+    const {data} = await axios.patch(`/booking/${payload._id}`, payload, config);
+    return data;
+  }
 }
 
 export const api = new Api();

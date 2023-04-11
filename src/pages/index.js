@@ -19,6 +19,13 @@ export default function SignUp() {
   const [outdoorWorkSpace, setOutdoorWorkSpace] = useState([]);
   const auth = useAuthState();
   const menu = useRef();
+
+  useEffect(() => {
+    window.history.pushState(null, '', window.location.href);
+    window.onpopstate = function () {
+    window.history.pushState(null, '', window.location.href);
+    };
+  },[])
   useEffect(() => {
     setTimeout(() => {
       menu.current.scrollToItem(
