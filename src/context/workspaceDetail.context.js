@@ -30,7 +30,10 @@ function workspaceDetailReducer(state, action) {
     case "WORKSPACE_DETAIL": {
       return { ...state, workspaceDetail: action.payload };
     }
-
+    case "SELECTED_DATES": {
+      return { ...state, selectedDatesarr: action.payload };
+      console.log("xzxz>>", action.payload);
+    }
     default:
       throw new Error(`Invalid action ${action.type}`);
   }
@@ -39,6 +42,7 @@ function workspaceDetailReducer(state, action) {
 function WorkspaceDetailProvider({ children }) {
   const [workspace, dispatch] = useReducer(workspaceDetailReducer, {
     workspaceDetail: {},
+    selectedDatesarr: [],
   });
   const memoedWorkspace = useMemo(() => workspace, [workspace]);
   const memoedDispatch = useMemo(() => dispatch, [dispatch]);

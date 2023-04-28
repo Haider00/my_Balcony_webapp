@@ -5,12 +5,10 @@ import AppleProvider from "next-auth/providers/apple";
 import GoogleProvider from "next-auth/providers/google";
 
 export default NextAuth({
-  // https://next-auth.js.org/configuration/providers
   providers: [
     Auth0Provider({
       clientId: process.env.AUTH0_ID,
       clientSecret: process.env.AUTH0_SECRET,
-      // @ts-ignore
       domain: process.env.AUTH0_DOMAIN,
     }),
     FacebookProvider({
@@ -18,8 +16,8 @@ export default NextAuth({
       clientSecret: process.env.FACEBOOK_SECRET,
     }),
     GoogleProvider({
-      clientId:process.env.GOOGLE_ID,
-      clientSecret:process.env.GOOGLE_SECRET,
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
     }),
     AppleProvider({
       clientId: process.env.APPLE_ID,
@@ -32,13 +30,23 @@ export default NextAuth({
     strategy: "jwt",
   },
 
-  // jwt: {
-  //   secret: process.env.SECRET,
-  // },
+  callbacks: {
+    async jwt(token, user, account, profile, isNewUser) {
+      if (account?.accessToken) {
+        token.accessToken = account.accessToken;
+      }
+      return token;
+    },
+    async session(session, token) {
+      if (token?.accessToken) {
+        session.accessToken = token.accessToken;
+      }
+      return session;
+    },
+  },
 
   pages: {},
 
-  callbacks: {},
   events: {},
   debug: false,
 });

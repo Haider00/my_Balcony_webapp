@@ -52,8 +52,12 @@ import { api } from "src/utils/api";
 import { Box, Button } from "@mui/material";
 import { useWorkspaceState } from "src/context/workspace.context";
 import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
+import { useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
+import { useRouter } from "next/router";
 import moment from "moment";
 export default function ReactCalendar() {
+  const router = useRouter();
+  const WorkspaceDetailDispatch = useWorkspaceDetailDispatch();
   const workspaceState = useWorkspaceState();
   const workspaceDetailState = useWorkspaceDetailState();
   console.log("popo", workspaceDetailState);
@@ -78,6 +82,12 @@ export default function ReactCalendar() {
       }
       return dates;
     }
+    console.log(
+      "TESTING>>>>>",
+      `?date[$gt]=${moment(selectedMonth, "M").startOf(
+        "month"
+      )}&date[$lt]=${moment(selectedMonth, "M").endOf("month")}`
+    );
     api
       .getBooking({
         query: `?date[$gt]=${moment(selectedMonth, "M").startOf(
@@ -87,6 +97,7 @@ export default function ReactCalendar() {
         }`,
       })
       .then((response) => {
+        console.log("datak:", response);
         let dates = [];
         if (
           response &&
@@ -108,6 +119,9 @@ export default function ReactCalendar() {
         setdisableDates(dates.map((dateString) => new Date(dateString)));
         console.log("disableDates:", dates);
         console.log("datak:", response.data);
+      })
+      .catch((err) => {
+        console.log("datak:err", err);
       });
   }, [selectedMonth, workspaceDetailState.workspaceDetail._id]);
   // const [selectedMonth, setSelectedMonth] = useState(moment().format("M"));
@@ -192,19 +206,22 @@ export default function ReactCalendar() {
       selectedDates.push(new Date(currentDate));
       currentDate.setDate(currentDate.getDate() + 1);
     }
-
+    console.log("poli>>", selectedDates);
+    WorkspaceDetailDispatch({
+      type: "SELECTED_DATES",
+      payload: selectedDates,
+    });
     // const updatedDates = [...unavailableDates, ...selectedDates];
     const disDates = [...disableDates, ...selectedDates];
     setdisableDates(disDates);
-    // setUnavailableDates(updatedDates);
-    // console.log("bahibahi", updatedDates);
+
     api
       .createBooking({ date: selectedDates })
       .then((res) => {
-        console.log("response>>", res);
+        console.log("response>>1", res);
       })
       .catch(() => {
-        console.log("error");
+        console.log("error1");
       });
   };
 
@@ -229,7 +246,10 @@ export default function ReactCalendar() {
         }}
       >
         <Button
-          onClick={handleBooking}
+          onClick={() => {
+            router.push("./bookingOverview");
+            handleBooking();
+          }}
           sx={{ backgroundColor: "#005451" }}
           variant="contained"
         >

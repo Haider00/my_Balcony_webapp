@@ -11,14 +11,19 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useAuthDispatch } from "../../context/auth.context";
 import { Snackbar } from "@mui/material";
+import React from "react";
+import { useSession, signOut } from "next-auth/react";
 
 const Form = () => {
+  const { data: session } = useSession();
+  console.log("resp>>", session);
+
   const authDispatch = useAuthDispatch();
   const router = useRouter();
   const [info, setInfo] = useState({});
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
-  
+
   const handleSubmitSigInForm = () => {
     if (info && info.email && info.password) {
       api
@@ -36,6 +41,7 @@ const Form = () => {
       setDisplay(true);
     }
   };
+
   return (
     <div
       style={{
@@ -111,7 +117,7 @@ const Form = () => {
       >
         <FacebookRounded style={{ color: "#1877F2", fontSize: 30 }} />
         <Button
-          onClick={() => {
+          onClick={async () => {
             signIn("facebook");
           }}
           title="Continue with Facebook"
