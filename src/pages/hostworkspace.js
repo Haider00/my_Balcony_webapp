@@ -130,7 +130,7 @@ export default function HostWorkSpace({ }) {
     if (workspaceState.firstImage) {
       api
         .patchFile({ ...workspaceState.firstImage, workSpace: res._id })
-        .then(() => { })
+        .then((res) => { console.log('res....<<<<',res)})
         .catch(() => { });
     }
   };
@@ -670,6 +670,7 @@ export default function HostWorkSpace({ }) {
               fontSize={16}
               fontWeight="bold"
               handleCheckbox={(e) => {
+                console.log('e',e)
                 setWorkSpace({ ...workSpace, coWorkingWorkspace: e });
               }}
             />

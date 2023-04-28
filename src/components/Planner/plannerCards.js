@@ -16,7 +16,7 @@ export default function PlannerCards() {
         setValues(newValues);
     }
     return (
-        <Grid container sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Grid container sx={{ display: "flex", flexDirection:'column' ,justifyContent: "center", alignItems: "center" }}>
             <Typography variant='h5'>Scheduled Booking</Typography>
             {[1, 2].map(() => {
                 return <Card sx={{ minWidth: 375, minHeight: 100, borderRadius: 5, mt: 3 }}>

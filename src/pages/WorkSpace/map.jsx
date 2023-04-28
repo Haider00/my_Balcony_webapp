@@ -15,8 +15,12 @@ useEffect(() => {
   });
 }, []);
 
+function handleMarkerDragEnd(event) {
+  setCenter(event.target.getLatLng());
+}
 
-  // console.log('ALERT>>>>>',center)
+
+  console.log('ALERT>>>>>',center)
 
   const handleMarkerDrag = (event) => {
     // setCenter([event.target.getLatLng().lat, event.target.getLatLng().lng]);
@@ -31,7 +35,11 @@ useEffect(() => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
-          <Marker position={center} draggable={true} dragging={handleMarkerDrag} />
+          <Marker
+                position={center}
+                draggable={true}
+                eventHandlers={{ dragend: handleMarkerDragEnd }}
+              />
         </>
       )}
     </Map>

@@ -39,6 +39,7 @@ export default function AmenitiesPortion() {
   const perPersons = workspaceDetailState.workspaceDetail.perPerson;
 
   const [coworkspace, setCoworkspace] = useState(false);
+  console.log('coworkspace',coworkspace);
 
   useEffect(() => {
     const coworkspaceValue = workspaceDetails.coworkspace;

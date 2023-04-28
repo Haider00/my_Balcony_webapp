@@ -75,6 +75,7 @@ class Api {
     return data;
   }
   async createWorkSpace(payload) {
+    console.log('pppppppp>>>',payload)
     const { data } = await axios.post("/workSpace", payload, config);
     return data;
   }
@@ -84,7 +85,6 @@ class Api {
     const { data } = await axios.post("/workingTimes", payload, config);
     return data;
   }
-  // api.getWorkingTime({query:'?workspace=z_id'})
   async getWorkingTime(payload) {
     const { query = "" } = payload;
     const { data } = await axios.get(`/workingTimes${query}`, config);
@@ -113,7 +113,7 @@ class Api {
   }
 
   async patchFile(payload) {
-    const { data } = await axios.patch("/file", payload, config);
+    const { data } = await axios.patch(`/file/${payload._id}`, payload, config);
     return data;
   }
 
@@ -130,6 +130,16 @@ class Api {
   }
   async editBooking(payload) {
     const {data} = await axios.patch(`/booking/${payload._id}`, payload, config);
+    return data;
+  }
+  async createPlanner(payload) {
+    console.log('papapapa>>>>',payload)
+    const { data } = await axios.post("/planner", payload, config);
+    return data;
+  }
+  async getPlanner(payload) {
+    console.log('api>>>',payload);
+    const {data} = await axios.get(`/planner${payload}`, config);
     return data;
   }
 }
