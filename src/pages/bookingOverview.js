@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import { CustomHeader, WebTabs } from "../component";
 import Grid from "@mui/material/Grid";
 import { Divider } from '@mui/material';
@@ -42,14 +42,28 @@ export default function BookingOverview() {
                 </Grid>
             </Grid>
 
-            <Grid container spacing={4} sx={{ display: 'flex', marginTop: 10 }}>
-                <Grid sx={{ display: 'flex', marginTop: 8, justifyContent: 'center' }} item xs={12} sm={12} md={3} lg={3}>
-                    <MenuSection />
-                </Grid>
-                <Grid sx={{ display: 'flex', justifyContent: 'center' }} item xs={12} sm={12} md={7} lg={8}>
-                    <TableBottom />
-                </Grid>
-            </Grid>
-        </>
-    )
+      <Grid container spacing={4} sx={{ display: "flex", marginTop: 10 }}>
+        <Grid
+          sx={{ display: "flex", marginTop: 8, justifyContent: "center" }}
+          item
+          xs={12}
+          sm={12}
+          md={3}
+          lg={3}
+        >
+          <MenuSection />
+        </Grid>
+        <Grid
+          sx={{ display: "flex", justifyContent: "center" }}
+          item
+          xs={12}
+          sm={12}
+          md={7}
+          lg={8}
+        >
+          <TableBottom />
+        </Grid>
+      </Grid>
+    </>
+  );
 }

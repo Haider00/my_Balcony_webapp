@@ -169,7 +169,10 @@ export default function ReactCalendar() {
         }}
       >
         <Button
-          onClick={handleBooking}
+          onClick={() => {
+            router.push("./bookingOverview");
+            handleBooking();
+          }}
           sx={{ backgroundColor: "#005451" }}
           variant="contained"
         >
