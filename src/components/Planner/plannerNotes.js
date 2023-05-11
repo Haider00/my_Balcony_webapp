@@ -6,17 +6,22 @@ import DatePicker from 'react-datepicker';
 import TextField from '@mui/material/TextField';
 import { api } from 'src/utils/api';
 import { useAuthState } from 'src/context/auth.context';
+import { Snackbar } from "@mui/material";
+
 
 
 export default function PlannerNotes() {
     // const [value, setValue] = useState(2);
     let [message, setMessage] = useState('');
+    let [message1, setMessage1] = useState('');
+    const [display, setDisplay] = useState(false);
     console.log('message>>>', message);
+
     const authState = useAuthState();
 
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    console.log('selectedDate', selectedDate)
+    // console.log('selectedDate', selectedDate)
 
     function handleDateChange(date) {
         setSelectedDate(date);
@@ -26,7 +31,9 @@ export default function PlannerNotes() {
             user: authState.user?._id, title: message, date: selectedDate
         })
             .then((res) => {
-                console.log('resp>>>', res)
+                setMessage('')
+                setMessage1("Planner Saved");
+                setDisplay(true);
             })
             .catch((err) => {
                 console.log("resp>>>1", err);
@@ -44,6 +51,17 @@ export default function PlannerNotes() {
     };
     return (
         <Grid container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+            <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                open={display}
+                onClose={() => {
+                    setDisplay(false);
+                }}
+                ContentProps={{
+                    "aria-describedby": "message-id",
+                }}
+                message={<span id="message-id">{message1}</span>}
+            />
             <Typography variant='h5'>Date Notes</Typography>
             <DatePicker
                 selected={selectedDate}
@@ -62,13 +80,13 @@ export default function PlannerNotes() {
                         fullWidth
                         multiline
                         rowsMax={2}
+                        value={message}
                         onChange={(e) => {
                             {
                                 if (e.target.value.length >= 100) {
                                     alert('100 characters allowed')
                                     message = '';
                                 } else {
-
                                     setMessage(e.target.value);
                                 }
                             }
@@ -79,6 +97,7 @@ export default function PlannerNotes() {
                 variant="contained"
                 onClick={() => {
                     saveData();
+
                 }}>
                 SAVE
             </Button>

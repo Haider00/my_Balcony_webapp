@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Map from "@components/Map";
 import { useWorkspaceDispatch } from "src/context/workspace.context";
 export default function Home() {
-  const [center, setCenter] = useState([0,0]);
+  const [center, setCenter] = useState(null);
 const workSpaceDispatch = useWorkspaceDispatch();
 
 useEffect(() => {
@@ -20,12 +20,7 @@ function handleMarkerDragEnd(event) {
 }
 
 
-  console.log('ALERT>>>>>',center)
-
-  const handleMarkerDrag = (event) => {
-    // setCenter([event.target.getLatLng().lat, event.target.getLatLng().lng]);
-    // console.log('marker dragged', event);
-  };
+  // console.log('ALERT>>>>>',center)
 
   return ( 
     <Map center={center} zoom={16}>

@@ -12,37 +12,39 @@ margin: 0;
 const ListItem = styledcomp.li`
 list-style: none;
 `;
-const workspaceDetails = {
-  name: "Sanan's Workspace",
-  coordinates: [23.7, -72.88],
-  image: "image Location",
-  address: "Nazar shah street",
-  address2: "Ghona",
-  city: "LHR",
-  cleaningFee: 200,
-  country: "Pakistan",
-  currency: "USD",
-  flatFee: true,
-  workspaceType: "Indoor",
-  maintenancesFee: 400,
-  otherFeeAmount: 100,
-  otherFeeName: "Other Fee",
-  perPerson: 10,
-  percentage: false,
-  state: "Punjab",
-  coworkspace: true,
-};
+// const workspaceDetails = {
+//   name: "Sanan's Workspace",
+//   coordinates: [23.7, -72.88],
+//   image: "image Location",
+//   address: "Nazar shah street",
+//   address2: "Ghona",
+//   city: "LHR",
+//   cleaningFee: 200,
+//   country: "Pakistan",
+//   currency: "USD",
+//   flatFee: true,
+//   workspaceType: "Indoor",
+//   maintenancesFee: 400,
+//   otherFeeAmount: 100,
+//   otherFeeName: "Other Fee",
+//   perPerson: 10,
+//   percentage: false,
+//   state: "Punjab",
+//   coworkspace: true,
+// };
 
 export default function AmenitiesPortion() {
   const workspaceDetailState = useWorkspaceDetailState();
   console.log("ame", workspaceDetailState);
   const perPersons = workspaceDetailState.workspaceDetail.perPerson;
+  const sharedWorkSpace = workspaceDetailState.workspaceDetail.sharedWorkSpace;
+
 
   const [coworkspace, setCoworkspace] = useState(false);
   console.log('coworkspace',coworkspace);
 
   useEffect(() => {
-    const coworkspaceValue = workspaceDetails.coworkspace;
+    const coworkspaceValue = workspaceDetailState.workspaceDetail.coworkspace;
     setCoworkspace(coworkspaceValue);
   }, []);
 
@@ -91,7 +93,7 @@ export default function AmenitiesPortion() {
             ))}
           </Listcontainer>
         </Typography>
-        {coworkspace && (
+        {sharedWorkSpace && (
           <>
             <Typography
               variant="button"

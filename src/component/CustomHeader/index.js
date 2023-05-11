@@ -44,6 +44,9 @@ const Header = () => {
           }}
         >
           <Button
+          onClick={() => {
+            router.push("./accountDashboard");
+          }}
             sx={{
               height: 30,
               backgroundColor: "#005451",

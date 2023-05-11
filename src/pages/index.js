@@ -12,6 +12,7 @@ import { useAuthState } from "../context/auth.context";
 import { useRouter } from "next/router";
 import TableBottom from "src/assets/svg/TableBottom";
 import { useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
+import MenuSection from './MenuSection/menuSection'
 export default function SignUp() {
   const WorkspaceDetailDispatch = useWorkspaceDetailDispatch();
   const router = useRouter();
@@ -153,73 +154,7 @@ export default function SignUp() {
       <HostWorkSpaceWb />
       <Grid sx={{ marginY: 4 }} container spacing={2}>
         <Grid item md={3} sm={5} xs={12}>
-          <Card
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
-              // marginX: 1,
-              marginY: 2,
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography
-              sx={{ marginX: 1, marginY: 2, fontSize: 18, fontWeight: "400" }}
-            >
-              {"read, discover, explore..."}
-            </Typography>
-            <Typography
-              sx={{
-                marginX: 1,
-                marginBottom: 1.5,
-                fontSize: 16,
-                fontWeight: "300",
-              }}
-            >
-              {"about us"}
-            </Typography>
-            <Typography
-              sx={{
-                marginX: 1,
-                marginBottom: 1.5,
-                fontSize: 16,
-                fontWeight: "300",
-              }}
-            >
-              {"term & condition"}
-            </Typography>
-            <Typography
-              sx={{
-                marginX: 1,
-                marginBottom: 1.5,
-                fontSize: 16,
-                fontWeight: "300",
-              }}
-            >
-              {"privacy policy"}
-            </Typography>
-            <Typography
-              sx={{
-                marginX: 1,
-                marginBottom: 1.5,
-                fontSize: 16,
-                fontWeight: "300",
-              }}
-            >
-              {"faq"}
-            </Typography>
-            <Typography
-              sx={{
-                marginX: 1,
-                marginBottom: 1.5,
-                fontSize: 16,
-                fontWeight: "300",
-              }}
-            >
-              {"become a workhost"}
-            </Typography>
-            <div style={{ height: 100 }} />
-          </Card>
+          <MenuSection/>
         </Grid>
         <Grid item md={9} sx={{ display: { xs: "none", md: "flex" } }}>
           <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>

@@ -12,6 +12,12 @@ export default function MenuSection() {
     const theme = useTheme();
     const isAndroidView = theme.breakpoints.down('sm');
 
+    const handleGetOnGooglePlayClick =  () => {
+        window.location.href = 'https://play.google.com/store/apps/details?id=com.instagram.lite&pli=1';
+    }
+    const handleGetOnAppStoreClick = () => {
+        window.location.href = 'https://apps.apple.com/app/id389801252';
+      };
     return (
         <Box sx={{ marginBottom: 2, display: 'flex', flexDirection: isAndroidView ? 'column' : 'row' }}>
             <Box sx={{ width: isAndroidView ? '100%' : '250px' }}>
@@ -48,15 +54,15 @@ export default function MenuSection() {
                     </CardContent>
                     <Box sx={{ display: 'flex', flexDirection: isAndroidView ? 'column' : 'row', justifyContent: 'space-between', alignItems: 'flex-start', p: 1 }}>
                         <MobileStoreButton
+                            onClick={handleGetOnGooglePlayClick}
                             width='150px'
                             store="android"
-                            
                             linkProps={{ title: 'Android Store Button' }}
                         />
                         <MobileStoreButton
+                            onClick={handleGetOnAppStoreClick}
                             width='150px'
                             store="ios"
-                            
                             linkProps={{ title: 'iOS Store Button' }}
                         />
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>

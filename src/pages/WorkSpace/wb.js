@@ -52,6 +52,18 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
         <TextInput
           width="80%"
           // sx={{ marginY: 1.5, width: "80%" }}
+          id="name"
+          label="name"
+          // variant="outlined"
+          size="small"
+          onChange={(e) => {
+            setInfo({ ...info, name: e.target.value });
+          }}
+          value={info?.name}
+        />
+        <TextInput
+          width="80%"
+          // sx={{ marginY: 1.5, width: "80%" }}
           id="address"
           label="address"
           // variant="outlined"

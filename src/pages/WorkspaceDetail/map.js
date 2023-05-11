@@ -3,6 +3,7 @@ import Map from "@components/Map";
 import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
 
 export default function Home() {
+
   const [center, setCenter] = useState([0, 0]);
   const workspaceDetails = useWorkspaceDetailState();
 

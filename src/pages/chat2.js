@@ -204,7 +204,7 @@ export default function chat2() {
                             </div>
                         })}
                     </Grid>
-                    {showForm && (<form>
+                    {(<form>
                         <Grid sx={{ display: 'flex', justifyContent: 'center' }}  >
                             <Grid>
                                 <input

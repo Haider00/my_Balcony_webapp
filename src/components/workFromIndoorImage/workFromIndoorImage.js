@@ -52,6 +52,7 @@ export default function WorkFromIndoorImage() {
 
             <Grid style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'row' }} sx={{ marginY: 2, }} container spacing={4}>
                 {indoorWorkspace.data?.map((item) => (
+                    console.log('item',item),
 
                     <div style={{ flexDirection: 'column', margin: 10 }}>
                         <div
@@ -84,7 +85,7 @@ export default function WorkFromIndoorImage() {
                             }}>{parseInt(item.cleaningFee) + parseInt(item.maintenancesFee) + parseInt(item.maintenancesFee) + parseInt(item.otherFeeAmount) * parseInt(item.perPerson)}</div>
                         </div>
 
-                        <Typography sx={{ marginTop: 1 }}>Name of workspace</Typography>
+                        <Typography sx={{ marginTop: 1 }}>{item.name}</Typography>
                         <Rating
                             defaultValue={2.5}
                             name="simple-controlled" />

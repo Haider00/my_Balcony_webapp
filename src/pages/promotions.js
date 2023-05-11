@@ -108,7 +108,7 @@ export default function Promotions() {
                 container
                 spacing={4}
               >
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(() => (
+                {[1, 2, 3, 4, 5].map(() => (
                   <div style={{ display: "flex", margin: 2 }}>
                     <div
                       style={{

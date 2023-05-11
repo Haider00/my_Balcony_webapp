@@ -53,7 +53,7 @@ export default function HoursOfServices() {
     api
       .getWorkingTime({ query: `?workSpace=${workspaceDetailState.workspaceDetail._id}` })
       .then((res) => {
-        console.log('res>>>', res.data);
+        // console.log('res>>>', res.data);
         if (res.data) {
           
           dispatch({

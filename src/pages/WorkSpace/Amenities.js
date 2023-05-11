@@ -40,6 +40,7 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
   const [totalChair, setTotalChair] = useState(0);
 
   const handleAmenities = (item) => {
+    console.log('handleAmenities', item)
     let arr = amenitiesArr;
     const titleArr = handleAmenitiesTitleArr();
     if (titleArr.includes(item)) {

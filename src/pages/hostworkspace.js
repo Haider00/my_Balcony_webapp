@@ -296,10 +296,6 @@ export default function HostWorkSpace({ }) {
       "base64"
     );
   };
-  // console.log("finder", workPlaceDayAndTime);
-  // console.log("workSpace>>>>>>", workSpace);
-  // console.log("workSpacestate>>>>>>", workspaceState);
-  // console.log("ddd", isCheckedfeename);
   return (
     <Box sx={{ flexGrow: 1, paddingX: 1 }}>
       <Snackbar
@@ -671,7 +667,7 @@ export default function HostWorkSpace({ }) {
               fontWeight="bold"
               handleCheckbox={(e) => {
                 console.log('e',e)
-                setWorkSpace({ ...workSpace, coWorkingWorkspace: e });
+                setWorkSpace({ ...workSpace, sharedWorkSpace: e });
               }}
             />
             <div

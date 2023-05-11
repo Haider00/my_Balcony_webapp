@@ -28,7 +28,7 @@ function useWorkspaceDetailDispatch() {
 function workspaceDetailReducer(state, action) {
   switch (action.type) {
     case "WORKSPACE_DETAIL": {
-      console.log('haha', action.payload)
+      console.log('workspaceDETAIL', action.payload)
       return { ...state, workspaceDetail: action.payload };
     }
     case "WORKSPACE_DAY_AND_TIME":{
