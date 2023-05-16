@@ -40,7 +40,7 @@ export default function BookingOverview() {
 
 
 
-    console.log('MESSAGE>>>>>', message)
+    console.log('cardArr>>>>>', cardArr)
 
 
     const cardExpiryMoment = moment(cardExpiry, "MM/YYYY");
@@ -58,13 +58,15 @@ export default function BookingOverview() {
         api
             .attachCard({ number: cardNumber, exp_month: month, exp_year: year, cvc: cardCVC, user: auth.user })
             .then((res) => {
-                
+                console.log('res',res)
                 setMessage('Your card has been added successfully');
                 setDisplay(true);
                 getCards();
             })
-            .catch((err) => {setMessage('Please check your card details and try again');
-            setDisplay(true);
+            .catch((err) => {
+                console.log('err',err)
+                setMessage('Please check your card details and try again');
+                // setDisplay(true);
             });
     }
 
@@ -74,6 +76,7 @@ export default function BookingOverview() {
             api
                 .getCard({ query: `?stripeCustomer=${auth.user?.stripeCustomer}` })
                 .then((res) => {
+                    console.log('res',res)
                     setCardArr(res.data);
                 })
                 .catch((err) => {

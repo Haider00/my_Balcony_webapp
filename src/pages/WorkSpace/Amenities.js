@@ -53,7 +53,7 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
       arr.push({ title: item, available: true, total: 1 });
       setAmenitiesArr([...arr]);
     }
-    console.log(amenitiesArr);
+    console.log('amenitiesArr',amenitiesArr );
     handleSelectedAmenities(arr);
   };
   const handleAmenitesColor = (item) => {

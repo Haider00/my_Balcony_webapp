@@ -43,9 +43,7 @@ export default function DropDown() {
             inputProps={{ "aria-label": "Without label" }}
           >
             <MenuItem value={"Dashboard"}>Dashboard</MenuItem>
-            <MenuItem value={"WorkSpace Amenities"}>
-              WorkSpace Amenities
-            </MenuItem>
+            <MenuItem value={"WorkSpace Amenities"}>WorkSpace Amenities</MenuItem>
             <MenuItem value={"File Manager"}>File Manager</MenuItem>
             <MenuItem value={"Trafic Analyzer"}>Trafic Analyzer</MenuItem>
             <MenuItem value={"User Manager"}>User Manager</MenuItem>

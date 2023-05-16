@@ -5,7 +5,7 @@ import CustomHeader from "../component/CustomHeader/index";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Divider } from "@mui/material/";
 import SearchRounded from "@mui/icons-material/Search";
-import TableRow from '@components/UsersManagerTable';
+import FileManagerTable from '@components/FileManagerTable/index';
 import { styled } from "@mui/system";
 import AdminMobileDropDown from '../component/AdminMobileDropDown/index';
 
@@ -23,13 +23,13 @@ export default function UsersManager() {
             <AdminMobileDropDown/>
             <Grid container sx={{ display: "flex", justifyContent: "center" }}>
                 <StyledGrid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={3}>
-                    <Admin selectedTab={5}/>
+                    <Admin selectedTab={3}/>
                 </StyledGrid>
                 <Grid sx={{ mt: 6 }} item xs={12} sm={12} md={6} lg={9}>
                     <Grid sx={{ mr: 6, display: 'flex', justifyContent: 'space-between' }}>
 
                         <div>
-                            <Typography variant="h6">Users Managers</Typography>
+                            <Typography variant="h6">Workspace Host File Manager</Typography>
                         </div>
 
                         <div style={{ display: 'flex', marginBottom: '5px' }}>
@@ -59,18 +59,19 @@ export default function UsersManager() {
                     <Grid sx={{ mr: 6, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <table cellSpacing={0} style={{ textAlign: 'left' }}>
                             <thead style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>
-                                <tr style={{ backgroundColor: '#f7e860' }}>
-                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>User ID</th>
-                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>Country</th>
-                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>Host Percentage</th>
-                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>Devices</th>
-                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>User</th>
-                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>Status</th>
+                                <tr style={{ backgroundColor: '#e3e9ef'}}>
+                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>User/Host eMail</th>
+                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>Percentage</th>
+                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>Workspace ID</th>
+                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>Host Status</th>
+                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>User/Host Name</th>
+                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>Type</th>
+                                    <th style={{ paddingLeft: '10px', paddingTop: '10px', paddingBottom: '10px' }}>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {[1, 2, 3, 4, 5, 6].map(() => (
-                                    <TableRow />
+                                {[1, 2].map(() => (
+                                    <FileManagerTable />
                                 ))}
                             </tbody>
                         </table>

@@ -15,7 +15,7 @@ export default function Promotions() {
       <CustomHeader />
       <Grid container sx={{ display: "flex", justifyContent: "center" }}>
         <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={3}>
-          <Admin />
+          <Admin selectedTab={9}/>
         </Grid>
         <Grid sx={{ mt: 6 }} item xs={12} sm={12} md={6} lg={9}>
           <Grid

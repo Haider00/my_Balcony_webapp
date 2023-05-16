@@ -16,39 +16,44 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-export default function Admin() {
+export default function Admin({ selectedTab = 1 }) {
   const [clickedIndex, setClickedIndex] = useState(-1);
+  const router = useRouter();
 
-  const handleClick = (index) => {
-    setClickedIndex(index === clickedIndex ? -1 : index);
-    switch (index) {
-      case 0:
+  const handleClick = (page) => {
+    // setClickedIndex(index === clickedIndex ? -1 : index);
+    switch (page) {
+      case 'Dashboard':
         router.push("./dashboard");
         break;
-      case 1:
+      case 'Workspace Amenities':
+        router.push("./workspaceAmenities")
         break;
-      case 2:
+      case 'File Manager':
+        router.push("./fileManager")
         break;
-      case 3:
+      case 'Traffic Analyzer':
+        router.push("./trafficAnalyzer")
         break;
-      case 4:
+      case 'Users Manager':
         router.push("./usersManager");
         break;
-      case 5:
+      case 'Calender':
         router.push("./calendar");
         break;
-      case 6:
+      case 'Messages':
         break;
-      case 7:
+      case 'Payments':
+        router.push("./payments");
         break;
-      case 8:
+      case 'Promotions':
         router.push("./promotions");
         break;
       default:
+        router.push("./dashboard");
         break;
     }
   };
-  const router = useRouter();
   return (
     <>
       <Grid sx={{ marginTop: 4 }} display="flex" justifyContent="center">
@@ -59,24 +64,167 @@ export default function Admin() {
             </Typography>
             <Divider sx={{ width: "100%", mb: 2 }} />
 
-            {menuItems.map((item, index) => (
-              <Grid
-                key={index}
-                onClick={() => handleClick(index)}
-                className={`${styles.grid}`}
-                sx={{
-                  backgroundColor: clickedIndex === index ? "yellow" : "#FFF",
-                  padding: 1,
-                  display: "flex",
-                  justifyContent: "flex-start",
-                }}
-              >
-                {item.icon}
-                <Typography sx={{ marginLeft: 1 }} variant="subtitle1">
-                  {item.label}
-                </Typography>
-              </Grid>
-            ))}
+            {/* ----- */}
+            <Grid
+              onClick={() => handleClick('Dashboard')}
+              className={`${styles.grid}`}
+              sx={{
+                backgroundColor: selectedTab === 1 ? "yellow" : "#fff",
+                padding: 1,
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <AcUnitIcon />
+              <Typography sx={{ marginLeft: 1 }} variant="subtitle1">
+                Dashboard
+              </Typography>
+            </Grid>
+            {/* ----- */}
+
+            {/* ----- */}
+            <Grid
+              onClick={() => handleClick('Workspace Amenities')}
+              className={`${styles.grid}`}
+              sx={{
+                backgroundColor: selectedTab === 2 ? "yellow" : "#fff",
+                padding: 1,
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <EqualizerIcon />
+              <Typography sx={{ marginLeft: 1 }} variant="subtitle1">
+                Workspace Amenities
+              </Typography>
+            </Grid>
+            {/* ----- */}
+
+            {/* ----- */}
+            <Grid
+              onClick={() => handleClick('File Manager')}
+              className={`${styles.grid}`}
+              sx={{
+                backgroundColor: selectedTab === 3 ? "yellow" : "#fff",
+                padding: 1,
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <SwitchAccountIcon />
+              <Typography sx={{ marginLeft: 1 }} variant="subtitle1">
+                File Manager
+              </Typography>
+            </Grid>
+            {/* ----- */}
+
+            {/* ----- */}
+            <Grid
+              onClick={() => handleClick('Traffic Analyzer')}
+              className={`${styles.grid}`}
+              sx={{
+                backgroundColor: selectedTab === 4 ? "yellow" : "#fff",
+                padding: 1,
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <PieChartIcon />
+              <Typography sx={{ marginLeft: 1 }} variant="subtitle1">
+                Traffic Analyzer
+              </Typography>
+            </Grid>
+            {/* ----- */}
+
+            {/* ----- */}
+            <Grid
+              onClick={() => handleClick('Users Manager')}
+              className={`${styles.grid}`}
+              sx={{
+                backgroundColor: selectedTab === 5 ? "yellow" : "#fff",
+                padding: 1,
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <GroupIcon />
+              <Typography sx={{ marginLeft: 1 }} variant="subtitle1">
+                Users Manager
+              </Typography>
+            </Grid>
+            {/* ----- */}
+
+            {/* ----- */}
+            <Grid
+              onClick={() => handleClick('Calender')}
+              className={`${styles.grid}`}
+              sx={{
+                backgroundColor: selectedTab === 6 ? "yellow" : "#fff",
+                padding: 1,
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <CalendarMonthIcon />
+              <Typography sx={{ marginLeft: 1 }} variant="subtitle1">
+                Calender
+              </Typography>
+            </Grid>
+            {/* ----- */}
+
+            {/* ----- */}
+            <Grid
+              onClick={() => handleClick('Messages')}
+              className={`${styles.grid}`}
+              sx={{
+                backgroundColor: selectedTab === 7 ? "yellow" : "#fff",
+                padding: 1,
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <MessageRoundedIcon />
+              <Typography sx={{ marginLeft: 1 }} variant="subtitle1">
+              Messages
+              </Typography>
+            </Grid>
+            {/* ----- */}
+
+            {/* ----- */}
+            <Grid
+              onClick={() => handleClick('Payments')}
+              className={`${styles.grid}`}
+              sx={{
+                backgroundColor: selectedTab === 8 ? "yellow" : "#fff",
+                padding: 1,
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <AddCardRoundedIcon />
+              <Typography sx={{ marginLeft: 1 }} variant="subtitle1">
+              Payments
+              </Typography>
+            </Grid>
+            {/* ----- */}
+
+            {/* ----- */}
+            <Grid
+              onClick={() => handleClick('Promotions')}
+              className={`${styles.grid}`}
+              sx={{
+                backgroundColor: selectedTab === 9 ? "yellow" : "#fff",
+                padding: 1,
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <AirplaneTicketIcon />
+              <Typography sx={{ marginLeft: 1 }} variant="subtitle1">
+              Promotions
+              </Typography>
+            </Grid>
+            {/* ----- */}
 
             <Divider sx={{ width: "100%", mb: 2, mt: 8 }} />
 
@@ -96,14 +244,3 @@ export default function Admin() {
   );
 }
 
-const menuItems = [
-  { label: "Dashboard", icon: <AcUnitIcon /> },
-  { label: "Workspace Amenities", icon: <EqualizerIcon /> },
-  { label: "File Manager", icon: <SwitchAccountIcon /> },
-  { label: "Traffic Analyzer", icon: <PieChartIcon /> },
-  { label: "Users Manager", icon: <GroupIcon /> },
-  { label: "Calender", icon: <CalendarMonthIcon /> },
-  { label: "Messages", icon: <MessageRoundedIcon /> },
-  { label: "Payments", icon: <AddCardRoundedIcon /> },
-  { label: "Promotions", icon: <AirplaneTicketIcon /> },
-];

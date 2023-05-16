@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { CustomHeader } from "../component";
 import UserPic from "../assets/svg/Calender";
 import SalesandOrder from "./Dashboard/transaction";
-import Rightsiderbar from "../components/Admin/admin";
+import Admin from "../components/Admin/admin";
 import LinearProgress from "@mui/material/LinearProgress";
 import MobileDropdown from "../component/AdminMobileDropDown/index";
-import PropTypes from "prop-types";
 import { RadialChart } from "react-vis";
+import PropTypes from 'prop-types';
 import {
   LineChart,
   Line,
@@ -296,7 +296,7 @@ const SalesStatistic = (props) => {
 
         <StatisticContainer>
           <Sidebar>
-            <Rightsiderbar />
+            <Admin selectedTab={1}/>
           </Sidebar>
           <Mainarea>
             <BoxContainer>
@@ -450,7 +450,7 @@ const SalesStatistic = (props) => {
                   <InfoOutlinedIcon style={{ fill: "#b3b8bd" }} />
                 </Headingcontainer>
                 <SourceContainer>
-                  <RadialChart
+                  {/* <RadialChart
                     data={datas}
                     width={250}
                     height={230}
@@ -464,7 +464,7 @@ const SalesStatistic = (props) => {
                       background: "#fff",
                       fontSize: "12px",
                     }}
-                  />
+                  /> */}
                   <SourcePercentage>
                     <span>38%</span>
                   </SourcePercentage>

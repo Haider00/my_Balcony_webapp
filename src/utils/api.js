@@ -1,7 +1,7 @@
 import axios from "axios";
 // const url = "http://192.168.100.61:3000/api";
 // const url = "http://172.105.159.234:3000/api";
-const url = "http://192.168.1.12:3000/api";
+const url = "http://192.168.1.3:3000/api";
 
 const config = {
   headers: {
@@ -119,6 +119,7 @@ class Api {
   }
 
   async attachCard(payload) {
+    console.log('payload',payload);
     const data = await axios.post("/customer_attach_card", payload, config);
     return data;
   }
