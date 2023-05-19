@@ -37,12 +37,9 @@ export default function WorkspaceDetail() {
         .catch((err) => {
           console.log("Error3", err);
         });
-      // console.log('query>>', router.query?.wd)
     }
   }, [router.query]);
 
-  //This is state to be seen tomarrow
-  // console.log("STATE>>>>>", state);
   return (
     <>
       <CustomHeader />
@@ -61,7 +58,7 @@ export default function WorkspaceDetail() {
           <Divider className="divider" orientation="vertical" flexItem />
         )}
         <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={12} lg={4}>
-          <HoursOfServices />
+          <HoursOfServices/>
         </Grid>
       </Grid>
 

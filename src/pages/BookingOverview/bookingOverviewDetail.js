@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Divider, Button } from "@mui/material";
 import { Box, Typography, Rating } from "@mui/material";
-import { useWorkspaceDetailState,useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
+import { useWorkspaceDetailState, useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
+import { useAuthState } from "src/context/auth.context";
 import { useRouter } from "next/router";
 import moment from "moment";
 import { api } from "src/utils/api";
-import { Snackbar } from "@mui/material";
+import { Snackbar, Grid } from "@mui/material";
 
 export default function BookingOverviewDetail() {
 
   const router = useRouter();
   const workspaceDetailState = useWorkspaceDetailState();
+  const auth = useAuthState();
+  console.log('auth', auth.user)
   const dispatch = useWorkspaceDetailDispatch();
-  console.log("WorkspaceID", workspaceDetailState.workspaceDetail._id);
-  console.log("SelectedDates", workspaceDetailState.selectedDatesarr);
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
+  const [cards, setCards] = useState();
   const totalPeople = workspaceDetailState.workspaceDetail.perPerson;
   const maintenancesFee = workspaceDetailState.workspaceDetail.maintenancesFee;
 
@@ -32,11 +34,25 @@ export default function BookingOverviewDetail() {
   const currentDate = () => {
     const currentDate = moment();
     const formattedDate = currentDate.format('DD-MM-YYYY');
-    console.log('formattedDate',formattedDate);
+    console.log('formattedDate', formattedDate);
     return formattedDate;
   }
 
-  const handleCheckout=()=>{
+  useEffect(() => {
+    if (auth.user && auth.user.stripeCustomer) {
+      api
+        .getStripeCustomer({ query: auth.user.stripeCustomer })
+        .then(res => {
+          console.log('<<<res>>>',res);
+          setCards(res.data);
+        })
+        .catch(err => {
+          console.log('<<<res>>>',err);
+        });
+    }
+  }, [auth.user]);
+
+  const handleCheckout = () => {
     api
       .createBooking({ date: workspaceDetailState.selectedDatesarr, workSpace: workspaceDetailState.workspaceDetail._id })
       .then((res) => {
@@ -60,7 +76,7 @@ export default function BookingOverviewDetail() {
 
   return (
     <>
-    <Snackbar
+      <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={display}
         onClose={() => {
@@ -80,7 +96,7 @@ export default function BookingOverviewDetail() {
           marginTop: 5,
         }}
       >
-        <Typography variant="h6">BushwickLofts</Typography>
+        <Typography variant="h6">{workspaceDetailState?.workspaceDetail?.name}</Typography>
         <Rating
           defaultValue={2.5}
           name="simple-controlled" />
@@ -139,7 +155,7 @@ export default function BookingOverviewDetail() {
 
       <Box sx={{ display: "flex", justifyContent: "space-between", mt: 5 }}>
         <Button
-        onClick={handleCheckout}
+          onClick={handleCheckout}
           sx={{
             height: 30,
             backgroundColor: "#005451",
@@ -149,7 +165,7 @@ export default function BookingOverviewDetail() {
             textTransform: "capitalize",
             paddingX: 5,
             paddingY: 3,
-            marginX:1
+            marginX: 1
           }}
           variant="contained"
         >
@@ -165,99 +181,36 @@ export default function BookingOverviewDetail() {
             textTransform: "capitalize",
             paddingX: 2,
             paddingY: 3,
-            marginX:1
+            marginX: 1
           }}
           variant="contained"
         >
           Cancle Booking
         </Button>
       </Box>
+      <Grid
+        item
+        xs={12}
+        lg={12}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Divider sx={{ mt: 15, alignSelf: 'center' }} className="divider" orientation="horizontal" flexItem style={{ background: 'black', width: '50%' }} />
+        
+        <Divider sx={{ mt: 3, alignSelf: 'center' }} className="divider" orientation="horizontal" flexItem style={{ background: 'black', width: '50%' }} />
+        <Box sx={{ width: '50%', display: 'flex', justifyContent: 'flex-start', mt: 5 }}>
+          <img width={70} alt="Pa" src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c530.png" />
+        </Box>
+
+
+
+
+
+      </Grid>
     </>
   );
 }
-// import React from 'react'
-// import { Divider, Button } from '@mui/material';
-// import GroupIcon from '@mui/icons-material/Group';
-// import { Box, Typography, Rating } from '@mui/material'
-// import { Card, CardContent } from '@mui/material'
-// import { FormControlLabel } from '@mui/material';
-// import { Checkbox } from '@mui/material';
-
-// export default function EditPortion() {
-//     return (
-//         <>
-//             <Box sx={{mt:4, display: 'flex', justifyContent: 'flex-start'}}>
-//                 <Typography variant="h5">Edit</Typography>
-//             </Box>
-
-//             <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center', marginTop: 2 }}>
-//                 <Card sx={{ bgcolor: '#f2f7f6', width: '100%' }}>
-//                     <CardContent>
-
-//                         <Typography variant='h6'>
-//                             BushwickLofts
-//                         </Typography>
-
-//                         <Typography sx={{ marginTop: 1 }} variant='body2'>
-//                             Time Frame of services 8AM - 5PM EST
-//                         </Typography>
-
-
-//                         <Typography sx={{ marginTop: 1 }} variant='body2'>
-//                             Total Number of People 5
-//                         </Typography>
-
-//                         <Typography sx={{ marginTop: 1 }} variant='h5'>
-//                             Total $179.20
-//                         </Typography>
-
-//                     </CardContent>
-//                 </Card>
-//             </Box>
-//             <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center', marginTop: 3 }}>
-//                 <FormControlLabel control={<Checkbox />} fontSize='25px' label={<Typography sx={{fontWeight:'bold', color:'black    '}} variant="h5" color="textSecondary">CoWorking Workspace</Typography>} />
-//             </Box>
-//             <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center', }}>
-//                 <Typography variant="caption">Workspace would be shared by multiple </Typography>
-//             </Box>
-//             <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center', }}>
-//                 <Typography variant="caption">People from different companies </Typography>
-//             </Box>
-//             <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-//                 <Typography variant="caption">Within the same date & time frame </Typography>
-//             </Box>
-//             <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-//                 <Typography variant="caption">-If not checked, than only one company &/or</Typography>
-//             </Box>
-//             <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-//                 <Typography variant="caption">individual can book the booked date/time</Typography>
-//             </Box>
-
-//             <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center', marginTop:4 }}>
-//                 <Typography variant="h5">Chat &/or Text us for</Typography>
-//             </Box>
-//             <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center', }}>
-//                 <Typography variant="h5">Assistant!</Typography>
-//             </Box>
-//             <Box sx={{ display: 'flex', justifyContent: 'space-evenly', mt: 5 }}>
-//                 <Button style={{
-//                     color: 'black',
-//                     borderRadius: 20,
-//                     borderColor:'black',
-//                     backgroundcolor: "#dehfuu",
-//                     padding: "5px 40px",
-//                     fontSize: "18px"
-//                 }} variant="outlined">CHAT</Button>
-//                 <Button
-//                     style={{
-//                         color: 'black',
-//                         borderRadius: 20,
-//                         borderColor:'black',
-//                         backgroundcolor: "#dehfuu",
-//                         padding: "5px 40px",
-//                         fontSize: "18px"
-//                     }} variant="outlined">CALL</Button>
-//             </Box>
-//         </>
-//     )
-// }

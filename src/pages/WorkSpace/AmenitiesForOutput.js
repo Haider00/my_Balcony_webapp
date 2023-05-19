@@ -66,8 +66,9 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "center",
+        alignItems:'flex-start',
         height: "65vh",
-        overflowY: "scroll",
+        overflowY: "auto",
         scrollbarWidth: "thin",
         "&::-webkit-scrollbar": {
           width: "0.6em",

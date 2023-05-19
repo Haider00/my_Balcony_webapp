@@ -16,7 +16,6 @@ export default function ReactCalendar() {
   const workspaceDetailState = useWorkspaceDetailState();
   const defaultStartDate = new Date();
   const defaultEndDate = new Date();
-  console.log('workspaceDetailState',workspaceDetailState)
 
   const [startDate, setStartDate] = useState(defaultStartDate);
   const [endDate, setEndDate] = useState(defaultEndDate);
@@ -142,8 +141,7 @@ export default function ReactCalendar() {
     console.log('selectedDates',selectedDates)
     const disDates = [...disableDates, ...selectedDates];
     setdisableDates(disDates);
-
-    router.push('./bookingOverview');
+    router.push(`./bookingOverview`);
   };
 
   return (
@@ -170,7 +168,6 @@ export default function ReactCalendar() {
       >
         <Button
           onClick={() => {
-            router.push("./bookingOverview");
             handleBooking();
           }}
           sx={{ backgroundColor: "#005451" }}

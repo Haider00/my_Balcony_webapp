@@ -61,34 +61,63 @@ export default function WorkFromOutdoorImage() {
                     <div style={{ flexDirection: 'column', margin: 10 }}>
                         <div
                             onClick={() => {
-                                router.push(
-                                    `./workspaceDetail?wd=${item._id}`
-                                );
+                                router.push(`./workspaceDetail?wd=${item._id}`);
                             }}
                             style={{
+                                cursor: 'pointer',
                                 height: 250,
                                 width: "380px",
                                 borderRadius: 10,
                                 backgroundColor: "#000",
-                                display: "flex",
-                                justifyContent: "flex-start",
-                                alignItems: "flex-end",
-                            }}>
-                            <div style={{
-                                height: 20,
-                                width: "15%",
-                                borderRadius: 10,
-                                marginBottom: 7,
-                                marginLeft: 7,
-                                backgroundColor: "#fff",
-                                fontSize: 10,
-                                fontWeight: 'bold',
-                                textAlign: "center",
-                                lineHeight: 2
-                            }}>{parseInt(item.cleaningFee) + parseInt(item.maintenancesFee) + parseInt(item.maintenancesFee) + parseInt(item.otherFeeAmount) * parseInt(item.perPerson)}</div>
+                                position: "relative", // Add this line to make the parent container a positioning context
+                            }}
+                        >
+                            <img
+                                src={item.image ? item.image : "https://wallpaperaccess.com/full/38119.jpg"}
+                                alt="Workspace Image"
+                                style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "cover",
+                                    borderRadius: 10,
+                                }}
+                            />
+                            <div
+                                style={{
+                                    position: "relative",
+                                    zIndex: 1,
+                                    height: "100%",
+                                    width: "100%",
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                    alignItems: "flex-end",
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        height: 20,
+                                        width: "15%",
+                                        borderRadius: 10,
+                                        marginBottom: 7,
+                                        marginLeft: 7,
+                                        backgroundColor: "#fff",
+                                        fontSize: 10,
+                                        fontWeight: 'bold',
+                                        textAlign: "center",
+                                        lineHeight: 2
+                                    }}
+                                >
+                                    {parseInt(item.cleaningFee) + parseInt(item.maintenancesFee) + parseInt(item.otherFeeAmount) * parseInt(item.perPerson)}
+                                </div>
+                            </div>
                         </div>
 
-                        <Typography sx={{ marginTop: 1 }}>Name of workspace</Typography>
+
+
+                        <Typography sx={{ marginTop: 1 }}>{item.name}</Typography>
                         <Rating
                             defaultValue={2.5}
                             name="simple-controlled" />

@@ -45,7 +45,18 @@ export default function ongoingbooking(props) {
                       backgroundColor: "#000000",
                       borderRadius: 6,
                     }}
-                  ></Box>
+                  >
+                    <img
+                      src={item.image ? item.image : "https://wallpaperaccess.com/full/38119.jpg"}
+                      alt="Workspace Image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: 10,
+                      }}
+                    />
+                  </Box>
                   <Box
                     sx={{
                       flex: 1,

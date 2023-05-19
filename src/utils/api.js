@@ -1,7 +1,7 @@
 import axios from "axios";
 // const url = "http://192.168.100.61:3000/api";
 // const url = "http://172.105.159.234:3000/api";
-const url = "http://192.168.1.3:3000/api";
+const url = "http://192.168.1.8:3000/api";
 
 const config = {
   headers: {
@@ -107,16 +107,29 @@ class Api {
     const { data } = await axios.post("/file", payload, config);
     return data;
   }
+
+  async getImages(payload) {
+    const { query = "" } = payload;
+    const { data } = await axios.get(`/file${query}`, config);
+    return data;
+  }
+  
+
   async getBooking(payload) {
     const { query = "" } = payload;
     const { data } = await axios.get(`/booking${query}`, config);
     return data;
   }
 
-  async patchFile(payload) {
-    const { data } = await axios.patch(`/file/${payload._id}`, payload, config);
+  async uploadFilesToWorkspace(payload) {
+    const { data } = await axios.post("/workspaceFile", payload, config);
     return data;
   }
+
+  // async getFilesToWorkspace(payload) {
+  //   const { data } = await axios.post("/workspaceFile", payload, config);
+  //   return data;
+  // }
 
   async attachCard(payload) {
     console.log('payload',payload);
@@ -128,6 +141,11 @@ class Api {
     const { query = "" } = payload;
     console.log('query', query)
     const { data } = await axios.get(`/cards${query}`, payload, config);
+    return data;
+  }
+  async getStripeCustomer(payload) {
+    const {query = ''} = payload;
+    const {data} = await axios.get(`/stripe/customer${query}`, config);
     return data;
   }
   async editBooking(payload) {

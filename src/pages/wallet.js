@@ -28,7 +28,7 @@ export default function BookingOverview() {
 
     const auth = useAuthState();
 
-    console.log('strip', auth.user?.stripeCustomer);
+    console.log('strip', auth.user);
 
     const [age, setAge] = React.useState("");
     const [cardNumber, setCardNumber] = useState("");
@@ -55,10 +55,11 @@ export default function BookingOverview() {
 
 
     const postCard = () => {
+        console.log('auth.user>>>>',auth.user)
         api
             .attachCard({ number: cardNumber, exp_month: month, exp_year: year, cvc: cardCVC, user: auth.user })
             .then((res) => {
-                console.log('res',res)
+                console.log('resssss',res)
                 setMessage('Your card has been added successfully');
                 setDisplay(true);
                 getCards();
@@ -74,7 +75,7 @@ export default function BookingOverview() {
     const getCards = () => {
         if (auth.user?.stripeCustomer) {
             api
-                .getCard({ query: `?stripeCustomer=${auth.user?.stripeCustomer}` })
+                .getCard({ query:`?stripeCustomer=${auth.user?.stripeCustomer}` })
                 .then((res) => {
                     console.log('res',res)
                     setCardArr(res.data);

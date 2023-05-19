@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 
 const bookinghistory = (props) => {
-  console.log('propsss>>>',props);
+  console.log('propsss>>>', props);
   return (
     <>
       <Typography sx={{ fontSize: 34, mt: 3 }}>booking history</Typography>
@@ -19,6 +19,7 @@ const bookinghistory = (props) => {
         }}
       >
         {props.bookinghistory.data?.length > 0 ? (
+
           props.bookinghistory.data.map((item) => {
             let Workspace = item.workSpace;
             let cleaningFee = item.workSpace.cleaningFee;
@@ -47,7 +48,18 @@ const bookinghistory = (props) => {
                       backgroundColor: "#000000",
                       borderRadius: 6,
                     }}
-                  ></Box>
+                  >
+                    <img
+                      src={item.image ? item.image : "https://wallpaperaccess.com/full/38119.jpg"}
+                      alt="Workspace Image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: 10,
+                      }}
+                    />
+                  </Box>
                   <Box
                     sx={{
                       flex: 1,

@@ -11,8 +11,11 @@ import { useEffect, useRef, useState } from "react";
 import Resizer from "react-image-file-resizer";
 import { api } from "../../utils/api";
 import styledcomp from "styled-components";
+import Router from "next/router";
 
 import { useWorkspaceDispatch } from "src/context/workspace.context";
+import WorkspaceDetail from "../workspaceDetail";
+import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
 const Img = styledcomp.img`
 height:inherit;
 width:auto;
@@ -25,7 +28,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export const FormWb = ({ handleInfo = ({}) => {} }) => {
+export const FormWb = ({ handleInfo = ({ }) => { } }) => {
   const [info, setInfo] = useState({});
 
   useEffect(() => {
@@ -249,11 +252,11 @@ export const WorksapceImages = () => {
       100,
       0,
       (uri) => {
-        console.log('FILES>>>>1',uri)
+        console.log('FILES>>>>1', uri)
         api
           .uploadImage({ image: uri })
           .then((res) => {
-            console.log('FILES>>>>',res)
+            console.log('FILES>>>>', res)
             if (imageType === "main") {
               workSpaceDispatch({
                 type: "SET_WORKSPACE_FIRST_IMAGE",
@@ -276,7 +279,7 @@ export const WorksapceImages = () => {
             // handleUploadProductImage(res.data, product, element.cover);
           })
           .catch((err) => {
-            console.log('FILES>>>>E',err)
+            console.log('FILES>>>>E', err)
             // setDisplay(true);
             // setMessage("Something Went Wrong While Adding Your Post");
           });
@@ -369,50 +372,25 @@ export const WorksapceImages = () => {
   );
 };
 export const WorksapceImagesBookingOverview = () => {
+  const workspaceDetail = useWorkspaceDetailState()
+  console.log('detail', workspaceDetail?.workspaceDetail?._id)
   const [mainImage, setMainImage] = useState("");
   const [secondImage, setSecondImage] = useState("");
   const [thirdImage, setThirdImage] = useState("");
   const [imageType, SetImageType] = useState("");
   const uploadFileRef = useRef(null);
 
-  const handleUploadImage = (e) => {
-    uploadImages(e.target.files[0]);
-  };
-  const handleUploadImageClick = () => {
-    uploadFileRef.current.click();
-  };
-
-  const uploadImages = (element) => {
-    Resizer.imageFileResizer(
-      element,
-      720,
-      720,
-      "JPEG",
-      100,
-      0,
-      (uri) => {
-        api
-          .uploadImage({ image: uri })
-          .then((res) => {
-            console.log("RESPONSE....", res);
-            if (imageType === "main") {
-              setMainImage(res.Location);
-            } else if (imageType === "second") {
-              setSecondImage(res.Location);
-            } else if (imageType === "third") {
-              setThirdImage(res.Location);
-            }
-            // handleUploadProductImage(res.data, product, element.cover);
-          })
-          .catch((err) => {
-            console.log("RESPONSE....E", err);
-            // setDisplay(true);
-            // setMessage("Something Went Wrong While Adding Your Post");
-          });
-      },
-      "base64"
-    );
-  };
+  useEffect(() => {
+    api.getImages({ query: `?workSpace=${workspaceDetail?.workspaceDetail?._id}` })
+      .then((res) => {
+        setMainImage(res.data[0].Location)
+        setSecondImage(res.data[1].Location)
+        setThirdImage(res.data[2].Location)
+      })
+      .catch((err) => {
+        console.log("Error3", err);
+      });
+  }, [workspaceDetail?.workspaceDetail?._id]);
 
   return (
     <Grid
@@ -427,19 +405,7 @@ export const WorksapceImagesBookingOverview = () => {
         flexDirection: "column",
       }}
     >
-      <input
-        ref={uploadFileRef}
-        onChange={handleUploadImage}
-        type="file"
-        style={{ display: "none" }}
-        id="group_image"
-        accept="image/*"
-      />
       <div
-        // onClick={() => {
-        //   handleUploadImageClick();
-        //   SetImageType("main");
-        // }}
         style={{
           height: 250,
           width: "100%",
@@ -453,40 +419,15 @@ export const WorksapceImagesBookingOverview = () => {
       >
         {mainImage && (
           <img
-            height={200}
-            width="100%"
-            resizeMode="contain"
+            style={{ height:'100%', width: '100%', objectFit: 'contain' }}
             src={mainImage}
             alt="image"
           />
         )}
-        {/* <div
-          style={{
-            height: 80,
-            width: "25%",
-            borderTopLeftRadius: 10,
-            backgroundColor: "#fff",
-            // margin: 1,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "flex-start",
-          }}
-        >
-          <Typography sx={{ marginLeft: 2 }} varient="h6">
-            +
-          </Typography>
-          <Typography sx={{ marginLeft: 2 }} varient="h6">
-            Add image (Main)
-          </Typography>
-        </div> */}
       </div>
+
       <div style={{ display: "flex", width: "100%" }}>
         <div
-          // onClick={() => {
-          //   handleUploadImageClick();
-          //   SetImageType("second");
-          // }}
           style={{
             height: 250,
             width: "100%",
@@ -499,34 +440,14 @@ export const WorksapceImagesBookingOverview = () => {
           }}
         >
           {secondImage && (
-            <img height={200} width="50%" src={secondImage} alt="image" />
+            <img
+            style={{ height:'100%', width: '100%' }}
+            src={secondImage}
+            alt="image"
+          />
           )}
-          {/* <div
-            style={{
-              height: 70,
-              width: "55%",
-              borderTopLeftRadius: 10,
-              backgroundColor: "#fff",
-              // margin: 1,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "flex-start",
-            }}
-          >
-            <Typography sx={{ marginLeft: 2 }} varient="h6">
-              +
-            </Typography>
-            <Typography sx={{ marginLeft: 2 }} varient="h6">
-              Add image (Main)
-            </Typography>
-          </div> */}
         </div>
         <div
-          // onClick={() => {
-          //   handleUploadImageClick();
-          //   SetImageType("third");
-          // }}
           style={{
             height: 250,
             width: "100%",
@@ -539,28 +460,12 @@ export const WorksapceImagesBookingOverview = () => {
           }}
         >
           {thirdImage && (
-            <img height={200} width="50%" src={thirdImage} alt="image" />
+            <img
+              style={{ height: '100%', width: '100%' }}
+              src={thirdImage}
+              alt="image"
+            />
           )}
-          {/* <div
-            style={{
-              height: 70,
-              width: "55%",
-              borderTopLeftRadius: 10,
-              backgroundColor: "#fff",
-              // margin: 1,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "flex-start",
-            }}
-          >
-            <Typography sx={{ marginLeft: 2 }} varient="h6">
-              +
-            </Typography>
-            <Typography sx={{ marginLeft: 2 }} varient="h6">
-              Add image (Main)
-            </Typography>
-          </div> */}
         </div>
       </div>
     </Grid>

@@ -39,7 +39,7 @@ export default function HostWorkSpace({ }) {
   const [photoUrl, setPhotoUrl] = useState(null);
   const [photoName, setphotoName] = useState("+Add photo ID");
   const router = useRouter();
-  // console.log("workspaceState>>>>", workspaceState.workSpaceMapCoardinates);
+  console.log("workspaceState>>>>", workspaceState.firstImage);
 
   const handlePhotoSelect = (event) => {
     uploadPhotoID(event.target.files[0]);
@@ -104,18 +104,19 @@ export default function HostWorkSpace({ }) {
     setIsCheckedmaintenancefeename(!isCheckedmaintenancefeename);
   };
 
+  const [res1, setres1] = useState();
   const [workSpace, setWorkSpace] = useState({});
   const [workSpaceAvailability, setWorkSpaceAvailability] = useState();
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
   const [workPlaceDayAndTime, setWorkPlaceDayAndTime] = useState([]);
   const [workPlaceDay, setWorkPlaceDay] = useState([]);
+  console.log('workPlaceDay', workPlaceDay);
 
   const handleHostWorkSpace = () => {
     api
-      .createWorkSpace({ ...workSpace, coordinates: workspaceState.workSpaceMapCoardinates })
+      .createWorkSpace({ ...workSpace, coordinates: workspaceState.workSpaceMapCoardinates, image: workspaceState?.firstImage?.Location || '' })
       .then((res) => {
-        console.log('res>>>', res);
         setMessage("workspace hosted successfully");
         setDisplay(true);
         createWorkSpaceTimeAndDay(res);
@@ -126,14 +127,25 @@ export default function HostWorkSpace({ }) {
       });
   };
 
-  const handlePatchImage = () => {
-    if (workspaceState.firstImage) {
-      api
-        .patchFile({ ...workspaceState.firstImage, workSpace: res._id })
-        .then((res) => { console.log('res....<<<<',res)})
-        .catch(() => { });
-    }
+  const handlePatchImage = (res) => {
+    alert('upload image called')
+    patchWorkspaceImage(workspaceState.firstImage, res)
+    patchWorkspaceImage(workspaceState.secondImage, res)
+    patchWorkspaceImage(workspaceState.thirdImage, res)
   };
+
+  const patchWorkspaceImage = (item, res) => {
+    if (item) {
+      api
+        .uploadFilesToWorkspace({ ...item, workSpace: res?._id })
+        .then((res) => {
+          console.log('res....<<<<', res)
+        })
+        .catch((err) => {
+          console.log('res....', err)
+        });
+    }
+  }
 
   const handleValidations = () => {
     if (isChecked && !workSpace.cleaningFee) {
@@ -144,6 +156,9 @@ export default function HostWorkSpace({ }) {
       setDisplay(true);
     } else if (isCheckedfeename && !workSpace.otherFeeName) {
       setMessage("Please enter fee name");
+      setDisplay(true);
+    } else if (!workSpace.name) {
+      setMessage("Please type Name");
       setDisplay(true);
     } else if (!workSpace.address) {
       setMessage("Please type address");
@@ -196,17 +211,17 @@ export default function HostWorkSpace({ }) {
       setMessage("Please enter maintenance fee");
       setDisplay(true);
     }
-    // else if (isCheckedfeename || !workSpace.otherFeeName) {
-    //   setMessage("Please enter fee name");
-    //   setDisplay(true);
-    // } 
+    else if (isCheckedfeename && !workSpace.otherFeeName) {
+      setMessage("Please enter fee name");
+      setDisplay(true);
+    }
     else if (!workSpace.otherFeeAmount) {
       setMessage("Please enter amount ");
       setDisplay(true);
     } else if (
       workPlaceDayAndTime.every((obj) => Object.keys(obj).length === 0)
     ) {
-      setMessage("Please select time");
+      setMessage("Please select Time Frame");
       setDisplay(true);
     }
     // else if (!workSpace.photoId) {
@@ -624,26 +639,16 @@ export default function HostWorkSpace({ }) {
                       handleWorkSpaceDayAndTime({ ...response, day: "sunday" });
                     } else if (item === "mon") {
                       handleWorkSpaceDayAndTime({ ...response, day: "monday" });
-                    }
-                    else if (item === "tue") {
+                    } else if (item === "tue") {
                       handleWorkSpaceDayAndTime({ ...response, day: "tuesday" });
-                    }
-                    else if (item === "wed") {
-                      handleWorkSpaceDayAndTime({
-                        ...response, day: "wednesday",
-                      });
+                    } else if (item === "wed") {
+                      handleWorkSpaceDayAndTime({ ...response, day: "wednesday" });
                     } else if (item === "thu") {
-                      handleWorkSpaceDayAndTime({
-                        ...response,
-                        day: "thursday",
-                      });
+                      handleWorkSpaceDayAndTime({ ...response, day: "thursday" });
                     } else if (item === "fri") {
                       handleWorkSpaceDayAndTime({ ...response, day: "friday" });
                     } else if (item === "sat") {
-                      handleWorkSpaceDayAndTime({
-                        ...response,
-                        day: "saturday",
-                      });
+                      handleWorkSpaceDayAndTime({ ...response, day: "saturday" });
                     }
                   }}
                 />
@@ -666,7 +671,7 @@ export default function HostWorkSpace({ }) {
               fontSize={16}
               fontWeight="bold"
               handleCheckbox={(e) => {
-                console.log('e',e)
+                console.log('e', e)
                 setWorkSpace({ ...workSpace, sharedWorkSpace: e });
               }}
             />

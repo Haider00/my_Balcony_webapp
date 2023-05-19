@@ -20,7 +20,7 @@ function handleMarkerDragEnd(event) {
 }
 
 
-  // console.log('ALERT>>>>>',center)
+  console.log('ALERT>>>>>',center)
 
   return ( 
     <Map center={center} zoom={16}>

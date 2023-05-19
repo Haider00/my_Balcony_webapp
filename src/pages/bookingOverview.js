@@ -8,6 +8,7 @@ import MenuSection from './MenuSection/menuSection';
 import TableBottom from 'src/assets/svg/TableBottom';
 
 export default function BookingOverview() {
+
     return (
         <>
             <CustomHeader />

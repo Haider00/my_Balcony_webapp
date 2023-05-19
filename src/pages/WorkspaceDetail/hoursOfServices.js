@@ -7,28 +7,57 @@ import { useRouter } from 'next/router'
 import { api } from "../../utils/api";
 import { useAuthState } from '../../context/auth.context';
 import moment from "moment";
-
+import styled from 'styled-components';
 
 
 const Listcontainer = styledcomp.ul``;
 const ListItem = styledcomp.li``;
 
+const PopupContainer = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const PopupMenu = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const CloseButton = styled(Button)`
+  background-color: #f0f0f0 !important;
+  border: none !important;
+  padding: 5px 10px !important;
+  border-radius: 4px !important;
+  cursor: pointer;
+  top:20px;
+  display: block;
+  color:#000;
+`;
+
 
 export default function HoursOfServices() {
+  const number = 9223232323;
   const router = useRouter();
   const [dayTime, setDayTime] = useState([]);
-  console.log('nana', dayTime);
 
-  // const currentDate = moment();
-  // const monthDays = Array(currentDate.daysInMonth())
-  //   .fill()
-  //   .map((_, index) => moment(currentDate).date(index + 1));
-
-  // const filteredDays = monthDays.filter(
-  //   (day) => !dayTime.find((time) => time.day === day.format("dddd").toLowerCase())
-  // );
-
-  // console.log('days>>', filteredDays)
+  const [isOpen, setIsOpen] = useState(false);
+  const togglePopup = () => {
+    console.log('Button clicked')
+    setIsOpen(!isOpen);
+  };
 
   //Use This
   const authState = useAuthState();
@@ -104,9 +133,19 @@ export default function HoursOfServices() {
           maxWidth: 500,
         }}
       >
-        <Calendar />
+        <Calendar/>
       </Box>
-
+      <PopupContainer>
+      {isOpen && (
+        <PopupMenu>
+            
+          Host No is: {number}
+          <CloseButton variant="contained" onClick={togglePopup}>
+          Close
+          </CloseButton>
+        </PopupMenu>
+      )}
+    </PopupContainer>
       <Box
         sx={{
           display: "flex",
@@ -146,6 +185,7 @@ export default function HoursOfServices() {
             CHAT
           </Button>
           <Button
+            onClick={togglePopup}
             sx={{
               color: "#000",
               ml: 1,

@@ -97,13 +97,10 @@ export default function SignUp() {
                 work from outside
               </Typography>
             </div>
-
-            <div className="scrollmenu-allign">
-              <ScrollMenu>
+              <ScrollMenu apiRef={menu}>
                 {outdoorWorkSpace.reverse().map((item, index) => (
                   <ScrollCard
                     onClick={() => {
-                      // router.push("./workspaceDetail");
                       router.push(
                         `./workspaceDetail?wd=${item._id}`
                       );
@@ -115,7 +112,6 @@ export default function SignUp() {
                   />
                 ))}
               </ScrollMenu>
-            </div>
           </Box>
         </Grid>
 
@@ -136,7 +132,6 @@ export default function SignUp() {
               {indoorWorkSpace.reverse().map((item, index) => (
                 <ScrollCard
                   onClick={() => {
-                    // router.push("./workspaceDetail");
                     router.push(
                       `./workspaceDetail?wd=${item._id}`
                     );

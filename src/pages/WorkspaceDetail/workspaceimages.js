@@ -2,43 +2,31 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import styledcomp from "styled-components";
-const Img = styledcomp.img`
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { api } from "src/utils/api";
 
-`;
-const imagesarray = {
-  workspaceImage: [
-    {
-      Bucket: "string",
-      ETag: "string",
-      Key: "string",
-      Location:
-        "https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg",
-      type: "string",
-    },
-    {
-      Bucket: "string",
-      ETag: "string",
-      Key: "string",
-      Location:
-        "https://images.unsplash.com/photo-1495344517868-8ebaf0a2044a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80",
-      type: "string",
-    },
-    {
-      Bucket: "string",
-      ETag: "string",
-      Key: "string",
-      Location:
-        "https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=",
-      type: "string",
-    },
-  ],
-};
 
-const firstimage = imagesarray.workspaceImage[0].Location;
-const secondimage = imagesarray.workspaceImage[1].Location;
-const thirdimage = imagesarray.workspaceImage[2].Location;
+const Img = styledcomp.img``;
 
 export const WorksapceImages = () => {
+  const [firstImage, setFirstimage] = useState('');
+  const [secondImage, setSecondImage] = useState('');
+  const [thirdImage, setThirdimage] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    api.getImages({ query:`?workSpace=${router.query.wd}`})
+      .then((res) => {
+        setFirstimage(res.data[0].Location)
+        setSecondImage(res.data[1].Location)
+        setThirdimage(res.data[2].Location)
+      })
+      .catch((err) => {
+        console.log("Error3", err);
+      });
+  }, [router.query.wd]);
+
   return (
     <Grid
       item
@@ -74,7 +62,7 @@ export const WorksapceImages = () => {
         <Img
           style={{ height: "inherit", width: "auto" }}
           resizeMode="contain"
-          src={firstimage}
+          src={firstImage}
           alt="image"
         />
       </div>
@@ -94,7 +82,7 @@ export const WorksapceImages = () => {
         >
           <Img
             style={{ height: "inherit", width: "auto" }}
-            src={secondimage}
+            src={secondImage}
             alt="image"
           />
         </div>
@@ -113,7 +101,7 @@ export const WorksapceImages = () => {
         >
           <Img
             style={{ height: "inherit", width: "auto" }}
-            src={thirdimage}
+            src={thirdImage}
             alt="image"
           />
         </div>
