@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import MenuSection from './MenuSection/menuSection'
 import RightIcons from '@components/rightIcons/rightIcons';
 import WorkFromIndoorImage from '@components/workFromIndoorImage/workFromIndoorImage';
+import WorkFromOutdoorImage from '@components/workFromOutdoorImage/workFromoutdoorImage';
 import Pagination from '@mui/material/Pagination';
 import TableBottom from 'src/assets/svg/TableBottom';
 
@@ -29,24 +30,43 @@ export default function WorkFromIndoor() {
                 >
                     <RightIcons />
                 </Grid>
-
-                <Grid
-                    marginX={6}
-                    marginY={2}
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItem: "center",
-                        flexWrap: "wrap",
-                        flex: 1,
-                    }}
-                    item
-                    md={12}
-                    lg={12}  
-                    xs={12}
-                    sm={12}
-                >
-                    <WorkFromIndoorImage />
+                <Grid sx={{ display: 'flex' }}>
+                    <Grid
+                        marginX={6}
+                        marginY={2}
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItem: "center",
+                            flexWrap: "wrap",
+                            flex: 1,
+                        }}
+                        item
+                        md={12}
+                        lg={6}
+                        xs={12}
+                        sm={12}
+                    >
+                        <WorkFromIndoorImage />
+                    </Grid>
+                    <Grid
+                        marginX={6}
+                        marginY={2}
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItem: "center",
+                            flexWrap: "wrap",
+                            flex: 1,
+                        }}
+                        item
+                        md={12}
+                        lg={6}
+                        xs={12}
+                        sm={12}
+                    >
+                        <WorkFromOutdoorImage />
+                    </Grid>
                 </Grid>
             </Grid>
 

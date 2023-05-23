@@ -8,10 +8,12 @@ import { useWorkspaceState } from "src/context/workspace.context";
 import { useWorkspaceDetailState, useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
 import moment from "moment";
 import { useRouter } from "next/router";
-
+import { useAuthState } from "src/context/auth.context";
+import {Snackbar} from "@mui/material";
 
 export default function ReactCalendar() {
   const router = useRouter();
+  const auth = useAuthState();
   const dispatch = useWorkspaceDetailDispatch();
   const workspaceDetailState = useWorkspaceDetailState();
   const defaultStartDate = new Date();
@@ -22,6 +24,8 @@ export default function ReactCalendar() {
   const [unavailableDates, setUnavailableDates] = useState([]);
   const [disableDates, setdisableDates] = useState([]);
   const [availableDays, setAvailableDays] = useState([]);
+  let [message, setMessage] = useState('');
+  const [display, setDisplay] = useState(false);
 
   const [selectedMonth, setSelectedMonth] = useState(moment().format("M"));
   const currentDate = moment();
@@ -30,7 +34,7 @@ export default function ReactCalendar() {
   console.log('endDate', endDate);
 
   useEffect(() => {
-    
+
     let days = [];
     let datesInMonth = [];
 
@@ -55,10 +59,10 @@ export default function ReactCalendar() {
         }
       }
       setUnavailableDates(datesInMonth.map((dateString) => new Date(dateString)));
-      console.log('datesInMonth',datesInMonth);
-      
+      console.log('datesInMonth', datesInMonth);
+
       setAvailableDays(workspaceDetailState.workspaceDayTime);
-      
+
     }
   }, [workspaceDetailState])
 
@@ -81,7 +85,7 @@ export default function ReactCalendar() {
           )}&date[$lt]=${moment(selectedMonth, "M").endOf("month")}&workSpace=${workspaceDetailState.workspaceDetail._id}`,
         })
         .then((response) => {
-          console.log('response',response.data)
+          console.log('response', response.data)
           let dates = [];
           if (
             response &&
@@ -98,7 +102,7 @@ export default function ReactCalendar() {
                 let key = moment(date).format("YYYY-MM-DD");
                 dates.push(key);
               }
-            } 
+            }
           }
           setdisableDates(dates.map((dateString) => new Date(dateString)));
           console.log("disableDates:", dates);
@@ -113,7 +117,7 @@ export default function ReactCalendar() {
     key: "selection",
   };
 
-  console.log('selectionRange',selectionRange)
+  console.log('selectionRange', selectionRange)
   const customRangeStyles = {
     selection: {
       background: "black",
@@ -128,24 +132,44 @@ export default function ReactCalendar() {
   };
 
   const handleBooking = () => {
-    const selectedDates = [];
-    const currentDate = new Date(startDate);
-    while (currentDate <= endDate) {
-      selectedDates.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
+    if (!auth?.user?._id) {
+      setMessage('You must be logged in first.');
+      setDisplay(true);
+      router.push('./signin')
+    } else {
+      const selectedDates = [];
+      const currentDate = new Date(startDate);
+      while (currentDate <= endDate) {
+        selectedDates.push(new Date(currentDate));
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      dispatch({
+        type: "SELECTED_DATES",
+        payload: selectedDates,
+      });
+      console.log('selectedDates', selectedDates)
+      const disDates = [...disableDates, ...selectedDates];
+      setdisableDates(disDates);
+      router.push(`./bookingOverview`);
     }
-    dispatch({
-      type: "SELECTED_DATES",
-      payload: selectedDates,
-    });
-    console.log('selectedDates',selectedDates)
-    const disDates = [...disableDates, ...selectedDates];
-    setdisableDates(disDates);
-    router.push(`./bookingOverview`);
+
   };
+
+  console.log('workspaceDetailState', workspaceDetailState.workspaceDetail.owner)
 
   return (
     <div>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={display}
+        onClose={() => {
+          setDisplay(false);
+        }}
+        ContentProps={{
+          "aria-describedby": "message-id",
+        }}
+        message={<span id="message-id">{message}</span>}
+      />
       <DateRangePicker
         ranges={[selectionRange]}
         onChange={handleSelect}
@@ -166,15 +190,16 @@ export default function ReactCalendar() {
           maxWidth: 500,
         }}
       >
-        <Button
-          onClick={() => {
-            handleBooking();
-          }}
-          sx={{ backgroundColor: "#005451" }}
-          variant="contained"
-        >
-          Book Workspace
-        </Button>
+        {workspaceDetailState?.workspaceDetail?.owner !== auth?.user?._id && (
+          <Button
+            onClick={() => {
+              handleBooking();
+            }}
+            sx={{ backgroundColor: "#005451" }}
+            variant="contained"
+          >
+            Book Workspace
+          </Button>)}
       </Box>
     </div>
   );

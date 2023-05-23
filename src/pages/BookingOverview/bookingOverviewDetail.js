@@ -17,7 +17,6 @@ export default function BookingOverviewDetail() {
   const dispatch = useWorkspaceDetailDispatch();
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
-  const [cards, setCards] = useState();
   const totalPeople = workspaceDetailState.workspaceDetail.perPerson;
   const maintenancesFee = workspaceDetailState.workspaceDetail.maintenancesFee;
 
@@ -38,19 +37,52 @@ export default function BookingOverviewDetail() {
     return formattedDate;
   }
 
+  const [stripeDetails, setStripeDetails] = useState({});
+  const [cards, setCards] = useState({});
+
   useEffect(() => {
     if (auth.user && auth.user.stripeCustomer) {
       api
-        .getStripeCustomer({ query: auth.user.stripeCustomer })
+        .getStripeCustomer({
+          query: `?stripeCustomer=${auth.user.stripeCustomer}`,
+        })
         .then(res => {
-          console.log('<<<res>>>',res);
-          setCards(res.data);
+          setStripeDetails(res);
         })
         .catch(err => {
-          console.log('<<<res>>>',err);
+          toastEvent('something went wrong while getting stripe details');
         });
     }
   }, [auth.user]);
+
+  const handleCardNumber = () => {
+    return (
+      cards &&
+      cards.length &&
+      cards.length > 0 &&
+      cards.map(item => {
+        if (item.id === stripeDetails.default_source) {
+          return '** ** ** ' + item.last4;
+        }
+        return '';
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (auth.user && auth.user.stripeCustomer) {
+      api
+        .getCard({ query: `?stripeCustomer=${auth.user.stripeCustomer}` })
+        .then(res => {
+          setCards(res.data);
+        })
+        .catch(err => {
+          toastEvent('something went wrong while getting cards');
+        });
+    }
+  }, [auth.user]);
+
+
 
   const handleCheckout = () => {
     api
@@ -153,9 +185,23 @@ export default function BookingOverviewDetail() {
         <Typography variant="subtitle1">25% late cancelation charge</Typography>
       </Box>
 
+      <Divider sx={{ mt: 2, mb: 2, alignSelf: 'center' }} className="divider" orientation="horizontal" flexItem style={{ background: 'black', width: '50%' }} />
+      {handleCardNumber() && (
+        <Typography variant="h6">Pay with Card No. Ending in </Typography>
+      )}
+      <Typography variant="h6">{handleCardNumber()}</Typography>
+      <Divider sx={{ mt: 3, alignSelf: 'center' }} className="divider" orientation="horizontal" flexItem style={{ background: 'black', width: '50%' }} />
+
       <Box sx={{ display: "flex", justifyContent: "space-between", mt: 5 }}>
         <Button
-          onClick={handleCheckout}
+          onClick={() => {
+            if (handleCardNumber()) {
+              handleCheckout();
+            } else {
+              setMessage('Card Not Found. Please Attach Your Card For Payment')
+              setDisplay(true);
+            }
+          }}
           sx={{
             height: 30,
             backgroundColor: "#005451",
@@ -199,17 +245,6 @@ export default function BookingOverviewDetail() {
           alignItems: "center",
         }}
       >
-        <Divider sx={{ mt: 15, alignSelf: 'center' }} className="divider" orientation="horizontal" flexItem style={{ background: 'black', width: '50%' }} />
-        
-        <Divider sx={{ mt: 3, alignSelf: 'center' }} className="divider" orientation="horizontal" flexItem style={{ background: 'black', width: '50%' }} />
-        <Box sx={{ width: '50%', display: 'flex', justifyContent: 'flex-start', mt: 5 }}>
-          <img width={70} alt="Pa" src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c530.png" />
-        </Box>
-
-
-
-
-
       </Grid>
     </>
   );

@@ -4,6 +4,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import { Form } from "./form";
+import TableTop from "src/assets/svg/TableTop";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -45,7 +46,7 @@ export const FormWb = () => {
 export const LeftWallpaperWb = () => {
   return (
     <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={12} md={7}>
-      <Item>xs=12 md=4</Item>
+      <TableTop/>
     </Grid>
   );
 };

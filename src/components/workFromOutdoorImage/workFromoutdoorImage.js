@@ -55,7 +55,7 @@ export default function WorkFromOutdoorImage() {
                 </Grid>
             </Grid>
 
-            <Grid style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'row' }} sx={{ marginY: 2, }} container spacing={4}>
+            <Grid style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }} sx={{ marginY: 2, }} container spacing={4}>
                 {outdoorWorkspace.data?.map((item) => (
 
                     <div style={{ flexDirection: 'column', margin: 10 }}>
@@ -65,8 +65,8 @@ export default function WorkFromOutdoorImage() {
                             }}
                             style={{
                                 cursor: 'pointer',
-                                height: 250,
-                                width: "380px",
+                                height: 180,
+                                width: "310px",
                                 borderRadius: 10,
                                 backgroundColor: "#000",
                                 position: "relative", // Add this line to make the parent container a positioning context

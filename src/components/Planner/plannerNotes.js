@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import { api } from 'src/utils/api';
 import { useAuthState } from 'src/context/auth.context';
 import { Snackbar } from "@mui/material";
-
+import { useRouter } from 'next/router';
 
 
 export default function PlannerNotes() {
@@ -15,6 +15,7 @@ export default function PlannerNotes() {
     let [message, setMessage] = useState('');
     let [message1, setMessage1] = useState('');
     const [display, setDisplay] = useState(false);
+    const router = useRouter();
     console.log('message>>>', message);
 
     const authState = useAuthState();
@@ -27,17 +28,23 @@ export default function PlannerNotes() {
         setSelectedDate(date);
     }
     function saveData() {
-        api.createPlanner({
-            user: authState.user?._id, title: message, date: selectedDate
-        })
-            .then((res) => {
-                setMessage('')
-                setMessage1("Planner Saved");
-                setDisplay(true);
+        if (!authState?.user?._id) {
+            setMessage1('You must be logged in');
+            setDisplay(true);
+            router.push('./signin')
+        } else {
+            api.createPlanner({
+                user: authState.user?._id, title: message, date: selectedDate
             })
-            .catch((err) => {
-                console.log("resp>>>1", err);
-            });
+                .then((res) => {
+                    setMessage('')
+                    setMessage1("Planner Saved");
+                    setDisplay(true);
+                })
+                .catch((err) => {
+                    console.log("resp>>>1", err);
+                });
+        }
     }
 
     const customStyles = {

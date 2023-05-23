@@ -50,8 +50,7 @@ export default function WorkFromIndoorImage() {
                 </Grid>
             </Grid>
 
-            <Grid style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'row' }} sx={{ marginY: 2, }} container spacing={4}>
-
+            <Grid style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start'}} sx={{ marginY: 2, }} container spacing={4}>
                 {indoorWorkspace.data?.map((item) => (
                     <div style={{ flexDirection: 'column', margin: 10 }}>
                         <div
@@ -60,8 +59,8 @@ export default function WorkFromIndoorImage() {
                             }}
                             style={{
                                 cursor: 'pointer',
-                                height: 250,
-                                width: "380px",
+                                height: 180,
+                                width: "310px",
                                 borderRadius: 10,
                                 backgroundColor: "#000",
                                 position: "relative", // Add this line to make the parent container a positioning context

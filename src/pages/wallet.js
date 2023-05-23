@@ -52,8 +52,7 @@ export default function BookingOverview() {
     const handleChange = (event) => {
         setAge(event.target.value);
     };
-
-
+    console.log('auth>>>',auth.user)
     const postCard = () => {
         console.log('auth.user>>>>',auth.user)
         api
@@ -70,7 +69,6 @@ export default function BookingOverview() {
                 // setDisplay(true);
             });
     }
-
 
     const getCards = () => {
         if (auth.user?.stripeCustomer) {

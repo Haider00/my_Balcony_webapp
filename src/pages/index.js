@@ -14,7 +14,6 @@ import TableBottom from "src/assets/svg/TableBottom";
 import { useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
 import MenuSection from './MenuSection/menuSection'
 export default function SignUp() {
-  const WorkspaceDetailDispatch = useWorkspaceDetailDispatch();
   const router = useRouter();
   const [indoorWorkSpace, setIndoorWorkSpace] = useState([]);
   const [outdoorWorkSpace, setOutdoorWorkSpace] = useState([]);
@@ -137,7 +136,7 @@ export default function SignUp() {
                     );
                   }}
                   title={item.name}
-                  itemId={item._id} // NOTE: itemId is required for track items
+                  itemId={item._id}
                   key={item._id}
                   image={item.image}
                 />

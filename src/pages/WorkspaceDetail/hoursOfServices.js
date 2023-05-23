@@ -54,20 +54,20 @@ export default function HoursOfServices() {
   const [dayTime, setDayTime] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
+
   const togglePopup = () => {
-    console.log('Button clicked')
     setIsOpen(!isOpen);
   };
 
   //Use This
-  const authState = useAuthState();
+  const auth = useAuthState();
   const workspaceDetailState = useWorkspaceDetailState();
   const dispatch = useWorkspaceDetailDispatch();
 
   const handleChat = () => {
     api
       .createChat({
-        client: authState.user?._id, owner: workspaceDetailState.workspaceDetail.owner,
+        client: auth.user?._id, owner: workspaceDetailState.workspaceDetail.owner,
         workspace: workspaceDetailState.workspaceDetail._id
       })
       .then((res) => {
@@ -84,7 +84,7 @@ export default function HoursOfServices() {
       .then((res) => {
         // console.log('res>>>', res.data);
         if (res.data) {
-          
+
           dispatch({
             type: "WORKSPACE_DAY_AND_TIME",
             payload: res.data,
@@ -133,74 +133,75 @@ export default function HoursOfServices() {
           maxWidth: 500,
         }}
       >
-        <Calendar/>
+        <Calendar />
       </Box>
       <PopupContainer>
-      {isOpen && (
-        <PopupMenu>
-            
-          Host No is: {number}
-          <CloseButton variant="contained" onClick={togglePopup}>
-          Close
-          </CloseButton>
-        </PopupMenu>
-      )}
-    </PopupContainer>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          mb: 2,
-        }}
-      >
-        <Typography sx={{ textAlign: "center" }} variant="h5">
-          Chat &/or Call with Workspace Host Before Booking!
-        </Typography>
+        {isOpen && (
+          <PopupMenu>
+
+            Host No is: {number}
+            <CloseButton variant="contained" onClick={togglePopup}>
+              Close
+            </CloseButton>
+          </PopupMenu>
+        )}
+      </PopupContainer>
+      {workspaceDetailState?.workspaceDetail?.owner !== auth?.user?._id && (
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-around",
-            flexDirection: "row",
-            width: "100%",
-            maxWidth: 500,
+            flexDirection: "column",
+            alignItems: "center",
+            mb: 2,
           }}
         >
-          <Button
-            onClick={() => {
-              handleChat();
-              router.push('/chat2');
-            }}
+          <Typography sx={{ textAlign: "center" }} variant="h5">
+            Chat &/or Call with Workspace Host Before Booking!
+          </Typography>
+          <Box
             sx={{
-              color: "#000",
-              mr: 1,
-              mt: 2,
-              width: "30%",
-              borderRadius: 3,
-              borderColor: "#000",
-              borderWidth: "2px",
+              display: "flex",
+              justifyContent: "space-around",
+              flexDirection: "row",
+              width: "100%",
+              maxWidth: 500,
             }}
-            variant="outlined"
           >
-            CHAT
-          </Button>
-          <Button
-            onClick={togglePopup}
-            sx={{
-              color: "#000",
-              ml: 1,
-              mt: 2,
-              width: "30%",
-              borderRadius: 3,
-              borderColor: "#000",
-              borderWidth: "2px",
-            }}
-            variant="outlined"
-          >
-            CALL
-          </Button>
-        </Box>
-      </Box>
+            <Button
+              onClick={() => {
+                handleChat();
+                router.push('/chat2');
+              }}
+              sx={{
+                color: "#000",
+                mr: 1,
+                mt: 2,
+                width: "30%",
+                borderRadius: 3,
+                borderColor: "#000",
+                borderWidth: "2px",
+              }}
+              variant="outlined"
+            >
+              CHAT
+            </Button>
+            <Button
+              onClick={togglePopup}
+              sx={{
+                color: "#000",
+                ml: 1,
+                mt: 2,
+                width: "30%",
+                borderRadius: 3,
+                borderColor: "#000",
+                borderWidth: "2px",
+              }}
+              variant="outlined"
+            >
+              CALL
+            </Button>
+          </Box>
+        </Box>)}
     </Box>
   );
 }

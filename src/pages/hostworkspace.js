@@ -30,6 +30,7 @@ import Resizer from "react-image-file-resizer";
 import MenuSection from './MenuSection/menuSection';
 import TableBottom from "src/assets/svg/TableBottom";
 import { useRouter } from "next/router";
+import { useAuthState } from "src/context/auth.context";
 
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
 
@@ -39,6 +40,7 @@ export default function HostWorkSpace({ }) {
   const [photoUrl, setPhotoUrl] = useState(null);
   const [photoName, setphotoName] = useState("+Add photo ID");
   const router = useRouter();
+  const auth = useAuthState();
   console.log("workspaceState>>>>", workspaceState.firstImage);
 
   const handlePhotoSelect = (event) => {
@@ -112,12 +114,14 @@ export default function HostWorkSpace({ }) {
   const [workPlaceDayAndTime, setWorkPlaceDayAndTime] = useState([]);
   const [workPlaceDay, setWorkPlaceDay] = useState([]);
   console.log('workPlaceDay', workPlaceDay);
+  console.log('workSpace><><><><><><>', workSpace)
 
   const handleHostWorkSpace = () => {
     api
-      .createWorkSpace({ ...workSpace, coordinates: workspaceState.workSpaceMapCoardinates, image: workspaceState?.firstImage?.Location || '' })
+      .createWorkSpace({ ...workSpace, owner:auth?.user?._id ,coordinates: workspaceState.workSpaceMapCoardinates, image: workspaceState?.firstImage?.Location || '' })
       .then((res) => {
         setMessage("workspace hosted successfully");
+        console.log('response',res);
         setDisplay(true);
         createWorkSpaceTimeAndDay(res);
         handlePatchImage(res);

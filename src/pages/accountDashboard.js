@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { CustomHeader, WebTabs } from "../component";
 import Grid from "@mui/material/Grid";
 import { Divider, Typography } from '@mui/material';
@@ -6,10 +6,16 @@ import MenuSection from './MenuSection/menuSection';
 import TableBottom from 'src/assets/svg/TableBottom';
 import { useAuthDispatch } from 'src/context/auth.context';
 import { useAuthState } from "src/context/auth.context";
+import { Snackbar } from "@mui/material";
+import { useRouter } from 'next/router';
+
 
 
 export default function BookingOverview() {
     const authDispatch = useAuthDispatch();
+    const [display, setDisplay] = useState(false);
+    const [message, setMessage] = useState('');
+    const router = useRouter();
     const auth = useAuthState();
 
 
@@ -23,9 +29,27 @@ export default function BookingOverview() {
         console.log('typeCheck')
         authDispatch({ type: "SET_USER_TYPE", payload: 'seller' });
     }
+    function handleLogout(){
+        authDispatch({type:"LOGOUT", payload:""})
+        setMessage('You have been logged out');
+        setDisplay(true);
+        router.push('./signin');
+
+    }
     return (
         <>
             <CustomHeader />
+            <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                open={display}
+                onClose={() => {
+                    setDisplay(false);
+                }}
+                ContentProps={{
+                    "aria-describedby": "message-id",
+                }}
+                message={<span id="message-id">{message}</span>}
+            />
             <WebTabs selectedTab={5} />
             <Grid sx={{
                 display: 'flex',
@@ -61,7 +85,7 @@ export default function BookingOverview() {
                         <Typography variant='h6' sx={{ cursor: 'pointer' }}>Switch to <br /> user access</Typography>
                     </div>
                     <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
-                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>logout</Typography>
+                        <Typography onClick={handleLogout} variant='h6' sx={{ cursor: 'pointer' }}>logout</Typography>
                     </div>
                 </Grid>:null}
 
@@ -95,7 +119,7 @@ export default function BookingOverview() {
                         <Typography variant='h6' sx={{ cursor: 'pointer' }}>Switch to <br /> host access</Typography>
                     </div>
                     <div style={{ width: '40%', padding: 20, borderBottom: '1px solid black', textAlign: 'center' }}>
-                        <Typography variant='h6' sx={{ cursor: 'pointer' }}>logout</Typography>
+                        <Typography onClick={handleLogout} variant='h6' sx={{ cursor: 'pointer' }}>logout</Typography>
                     </div>
                 </Grid>:null}
                 {/* <Grid
