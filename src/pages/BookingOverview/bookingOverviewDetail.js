@@ -12,23 +12,29 @@ export default function BookingOverviewDetail() {
 
   const router = useRouter();
   const workspaceDetailState = useWorkspaceDetailState();
+  console.log('WSD',workspaceDetailState)
   const auth = useAuthState();
-  console.log('auth', auth.user)
+  // console.log('auth', auth.user._id)
   const dispatch = useWorkspaceDetailDispatch();
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
+  const [ratingStar , setRatingStar]=useState(2);
   const totalPeople = workspaceDetailState.workspaceDetail.perPerson;
   const maintenancesFee = workspaceDetailState.workspaceDetail.maintenancesFee;
 
   const otherFeeAmount = workspaceDetailState.workspaceDetail.otherFeeAmount;
 
+  console.log('WWW',workspaceDetailState.workspaceDetail.owner)
+
   const otherFeeName = workspaceDetailState.workspaceDetail.otherFeeName;
   const totalAmount =
     (parseInt(maintenancesFee) + parseInt(otherFeeAmount)) *
     parseInt(totalPeople);
+  
   const selDates = workspaceDetailState.selectedDatesarr;
+  console.log("selDates", selDates);
+
   const selDatesLength = selDates?.length;
-  console.log("jago", selDatesLength);
 
   const currentDate = () => {
     const currentDate = moment();
@@ -54,6 +60,13 @@ export default function BookingOverviewDetail() {
         });
     }
   }, [auth.user]);
+
+  useEffect(()=>{
+    const rating = workspaceDetailState.workspaceDetail.rating;
+    const sum = rating.map((rating) => rating.rating.$numberDecimal).reduce((a, b) => a + b, 0);
+    const average = sum / rating.length;
+    setRatingStar(average);
+  },[])
 
   const handleCardNumber = () => {
     return (
@@ -86,7 +99,8 @@ export default function BookingOverviewDetail() {
 
   const handleCheckout = () => {
     api
-      .createBooking({ date: workspaceDetailState.selectedDatesarr, workSpace: workspaceDetailState.workspaceDetail._id })
+      .createBooking({ date: selDates, workSpace: workspaceDetailState?.workspaceDetail?._id,
+                        buyer:auth?.user?._id, seller:workspaceDetailState?.workspaceDetail?.owner })
       .then((res) => {
         console.log("response>>", res);
         setMessage("Booking Completed Successfully");
@@ -130,8 +144,9 @@ export default function BookingOverviewDetail() {
       >
         <Typography variant="h6">{workspaceDetailState?.workspaceDetail?.name}</Typography>
         <Rating
-          defaultValue={2.5}
-          name="simple-controlled" />
+          value={ratingStar}
+          name="simple-controlled" 
+          readOnly/>
 
         <Typography sx={{ marginTop: 1 }} variant="body2">
           Date of Workspace Checkin: {currentDate()}

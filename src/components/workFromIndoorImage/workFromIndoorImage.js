@@ -17,7 +17,7 @@ export default function WorkFromIndoorImage() {
         api
             .getWorkSpace({ query: `?workspaceType=indoor&page=${inComingPage}` })
             .then((res) => {
-                console.log("indoor>>>", res);
+                console.log("indoor>>>", res.data);
                 console.log("jjj", res.data);
                 setIndoorWorkSpace(res);
                 setPage(inComingPage);
@@ -30,6 +30,20 @@ export default function WorkFromIndoorImage() {
     const handleChangePage = (event, value) => {
         setInComingPage(value);
     };
+
+    useEffect(()=>{
+
+    },[])
+
+const hanldeRating=(item)=>{
+    console.log('item',item.rating)
+    const sum = item.rating.map((rating) => rating.rating.$numberDecimal).reduce((a, b) => a + b, 0);
+    const average = sum / item.rating.length;
+    return(<Rating
+        value={average}
+        name="simple-controlled"
+        readOnly />)
+}
 
     return (
         <>
@@ -108,13 +122,8 @@ export default function WorkFromIndoorImage() {
                                 </div>
                             </div>
                         </div>
-
-
-
                         <Typography sx={{ marginTop: 1 }}>{item.name}</Typography>
-                        <Rating
-                            defaultValue={2.5}
-                            name="simple-controlled" />
+                        {hanldeRating(item)}
                     </div>
                 ))}
             </Grid>

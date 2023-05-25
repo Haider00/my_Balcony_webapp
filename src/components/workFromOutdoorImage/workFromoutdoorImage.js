@@ -21,7 +21,7 @@ export default function WorkFromOutdoorImage() {
         api
             .getWorkSpace({ query: `?workspaceType=outdoor&page=${inComingPage}` })
             .then((res) => {
-                console.log("indoar>>>", res);
+                console.log("indoar>>>", res.data);
                 console.warn("auth.accessToken...");
                 console.log("jjj", res.data);
                 setOutdoorWorkSpace(res);
@@ -35,6 +35,15 @@ export default function WorkFromOutdoorImage() {
     const handleChangePage = (event, value) => {
         setInComingPage(value);
     };
+
+    const hanldeRating=(item)=>{
+        const sum = item.rating.map((rating) => rating.rating.$numberDecimal).reduce((a, b) => a + b, 0);
+        const average = sum / item.rating.length;
+        return(<Rating
+            value={average}
+            name="simple-controlled"
+            readOnly />)
+    }
 
     return (
         <>
@@ -57,7 +66,6 @@ export default function WorkFromOutdoorImage() {
 
             <Grid style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }} sx={{ marginY: 2, }} container spacing={4}>
                 {outdoorWorkspace.data?.map((item) => (
-
                     <div style={{ flexDirection: 'column', margin: 10 }}>
                         <div
                             onClick={() => {
@@ -118,9 +126,7 @@ export default function WorkFromOutdoorImage() {
 
 
                         <Typography sx={{ marginTop: 1 }}>{item.name}</Typography>
-                        <Rating
-                            defaultValue={2.5}
-                            name="simple-controlled" />
+                        {hanldeRating(item)}
                     </div>
                 ))}
             </Grid>

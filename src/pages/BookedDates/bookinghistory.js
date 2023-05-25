@@ -2,6 +2,8 @@ import React from "react";
 import { Grid, Box, Typography, Rating } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import moment from "moment/moment";
+
 
 const bookinghistory = (props) => {
   console.log('propsss>>>', props);
@@ -22,6 +24,9 @@ const bookinghistory = (props) => {
 
           props.bookinghistory.data.map((item) => {
             let Workspace = item.workSpace;
+            const formattedDates = item.date.map((date) =>
+              moment(date).format('DD/MM/YY')
+            );
             let cleaningFee = item.workSpace.cleaningFee;
             let maintenancesFee = item.workSpace.maintenancesFee;
             let otherFeeAmount = item.workSpace.otherFeeAmount;
@@ -74,7 +79,7 @@ const bookinghistory = (props) => {
                       color="#000"
                       gutterBottom
                     >
-                      Bushwick Lofts
+                      {item.workSpace.name}
                     </Typography>
                     <Typography
                       sx={{
@@ -83,8 +88,7 @@ const bookinghistory = (props) => {
                       color="#000"
                       gutterBottom
                     >
-                      Date of Workspace Check-in: 02/15/21, 02/16/21, 02/22/21,
-                      02/25/21...
+                      Date of Workspace Check-in: {formattedDates.join(', ')}
                     </Typography>
                     <Typography
                       sx={{

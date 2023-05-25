@@ -51,8 +51,7 @@ export default function bookeddates() {
   }, [bookingHistoryPage, auth.user]);
 
   useEffect(() => {
-    let query = `?page=${page}&limit=10&status=approve&date[$gte]=${moment().startOf(
-      'D',
+    let query = `?page=${page}&limit=10&status=pending&date[$gte]=${moment().startOf('D'
     )}&date[$lte]=${moment().endOf('D')}`;
     if (auth.user && auth.user.userType && auth.user.userType === 'seller') {
       query += `&seller=${auth.user?._id}`;

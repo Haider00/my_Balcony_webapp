@@ -682,6 +682,7 @@ export default function MapView() {
               itemId={item._id}
               key={item._id}
               image={item.image}
+              rating={item.rating}
             />
           ))}
         </ScrollMenu>

@@ -9,7 +9,7 @@ import { useWorkspaceDetailState, useWorkspaceDetailDispatch } from "src/context
 import moment from "moment";
 import { useRouter } from "next/router";
 import { useAuthState } from "src/context/auth.context";
-import {Snackbar} from "@mui/material";
+import { Snackbar } from "@mui/material";
 
 export default function ReactCalendar() {
   const router = useRouter();
@@ -45,9 +45,9 @@ export default function ReactCalendar() {
       }
       console.log('days', days)
 
-      const currentMonth = moment().month(); // Get the current month (0-11)
-      const currentYear = moment().year(); // Get the current year
-      const numDaysInMonth = moment().daysInMonth(); // Get the number of days in the current month
+      const currentMonth = moment().month();
+      const currentYear = moment().year();
+      const numDaysInMonth = moment().daysInMonth();
 
       for (let i = 1; i <= numDaysInMonth; i++) {
         const date = moment(`${currentYear}-${currentMonth + 1}-${i}`);
@@ -85,7 +85,7 @@ export default function ReactCalendar() {
           )}&date[$lt]=${moment(selectedMonth, "M").endOf("month")}&workSpace=${workspaceDetailState.workspaceDetail._id}`,
         })
         .then((response) => {
-          console.log('response', response.data)
+          console.log('response<<<<', response.data)
           let dates = [];
           if (
             response &&
@@ -96,20 +96,31 @@ export default function ReactCalendar() {
             let objs = {};
             for (let i = 0; i < response.data.length; i++) {
               const element = response.data[i];
-              const range = getRange2(element.date[0], element.date[1], "days");
+              let range=[]
+              if(element.date.length>1){
+                range = getRange2(element.date[0], element.date[1], "days");
+              }else if(element.date.length>0){
+                const dateinfo=element.date[0]
+                range.push(dateinfo)
+              }
+              if(range.length>1){
               for (let a = 0; a < range.length; a++) {
                 const date = range[a];
                 let key = moment(date).format("YYYY-MM-DD");
                 dates.push(key);
               }
+            }else if(range.length>0){
+              dates.push(moment(range[0]).format("YYYY-MM-DD"))
+            }
             }
           }
           setdisableDates(dates.map((dateString) => new Date(dateString)));
-          console.log("disableDates:", dates);
-          // console.log("datak:", response.data);
         });
     }
   }, [selectedMonth, workspaceDetailState.workspaceDetail._id]);
+
+  
+  console.log("disableDates:", disableDates);
 
   const selectionRange = {
     startDate: startDate,
@@ -177,7 +188,7 @@ export default function ReactCalendar() {
         inputRanges={[]}
         staticRanges={[]}
         minDate={new Date()}
-        disabledDates={unavailableDates}
+        disabledDates={[...unavailableDates,...disableDates]}
         rangesStyles={customRangeStyles.selection.background}
         rangeColors={["#005451"]}
       />
@@ -190,7 +201,7 @@ export default function ReactCalendar() {
           maxWidth: 500,
         }}
       >
-        {workspaceDetailState?.workspaceDetail?.owner !== auth?.user?._id && (
+        {/* {workspaceDetailState?.workspaceDetail?.owner !== auth?.user?._id && ( */}
           <Button
             onClick={() => {
               handleBooking();
@@ -199,7 +210,8 @@ export default function ReactCalendar() {
             variant="contained"
           >
             Book Workspace
-          </Button>)}
+          </Button>)
+          {/* } */}
       </Box>
     </div>
   );

@@ -108,6 +108,7 @@ export default function SignUp() {
                     itemId={item._id}
                     key={item._id}
                     image={item.image}
+                    rating={item.rating}
                   />
                 ))}
               </ScrollMenu>
@@ -139,6 +140,7 @@ export default function SignUp() {
                   itemId={item._id}
                   key={item._id}
                   image={item.image}
+                  rating={item.rating}
                 />
               ))}
             </ScrollMenu>

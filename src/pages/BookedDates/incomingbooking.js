@@ -4,12 +4,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { api } from "src/utils/api";
+import moment from "moment/moment";
 export default function incomingbooking(props) {
   if (props && props.inComingBooking) {
     console.log('propsssss>>>', props.inComingBooking)
   }
 
-  const acceptOrder = (id) => {
+  const acceptOrder = (id) => { 
     api
       .editBooking({ _id: id, status: 'approve' })
       .then(res => {
@@ -45,12 +46,16 @@ export default function incomingbooking(props) {
       >
         {props.inComingBooking?.length > 0 ? (
           props.inComingBooking.map((item) => {
+            console.log('item...',item.workSpace.name)
+            const formattedDates = item.date.map((date) =>
+              moment(date).format('DD/MM/YY')
+            );
             let Workspace = item.workSpace;
             let cleaningFee = item.workSpace.cleaningFee;
             let maintenancesFee = item.workSpace.maintenancesFee;
             let otherFeeAmount = item.workSpace.otherFeeAmount;
             let perPerson = item.workSpace.perPerson;
-            console.log('item>>>', Workspace)
+            // console.log('item>>>', Workspace)
             return (
               <>
                 <Box
@@ -107,7 +112,7 @@ export default function incomingbooking(props) {
                           color="#000"
                           gutterBottom
                         >
-                          Name of Workspace
+                          {item.workSpace.name}
                         </Typography>
                         <Typography
                           sx={{
@@ -116,8 +121,7 @@ export default function incomingbooking(props) {
                           color="#000"
                           gutterBottom
                         >
-                          Date of Workspace Check-in: 02/15/21, 02/16/21,
-                          02/22/21, 02/25/21...
+                          Date of Workspace Check-in: {formattedDates.join(', ')}
                         </Typography>
                         <Typography
                           sx={{

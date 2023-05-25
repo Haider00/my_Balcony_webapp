@@ -20,15 +20,27 @@ export default function WorkspaceDetail() {
   const router = useRouter();
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const [state, setState] = useState({});
-
+  const [name, setName] = useState('');
+  const [rating, setRating]= useState();
+  const [noOfRating, setNoOfRating]= useState(0);
 
   useEffect(() => {
 
     if (router.query?.wd) {
-      api.getWorkSpace({ query:`?_id=${router.query.wd}`})
+      api.getWorkSpace({ query: `?_id=${router.query.wd}` })
         .then((res) => {
-          console.log('resp>>>',res.data)
+          console.log('resp>>>', res.data[0])
+          setName(res.data[0].name)
+
+          const ratings = res.data[0].rating;
+          console.log('ratings',ratings)
+          const sum = ratings.map((rating) => rating.rating.$numberDecimal).reduce((a, b) => a + b, 0);
+          const average = sum / ratings.length;
+          setNoOfRating(ratings.length);
+          setRating(average);
+          
+          console.log('Average rating:', average);
+
           dispatch({
             type: "WORKSPACE_DETAIL",
             payload: res.data[0],
@@ -46,7 +58,7 @@ export default function WorkspaceDetail() {
 
       <Grid container sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
         <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={4}>
-          <BushwickLofts />
+          <BushwickLofts name={name} rating={rating} noOfRating={noOfRating} />
         </Grid>
         {!isMediumScreen && (
           <Divider className="divider" orientation="vertical" flexItem />
@@ -58,7 +70,7 @@ export default function WorkspaceDetail() {
           <Divider className="divider" orientation="vertical" flexItem />
         )}
         <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={12} lg={4}>
-          <HoursOfServices/>
+          <HoursOfServices />
         </Grid>
       </Grid>
 

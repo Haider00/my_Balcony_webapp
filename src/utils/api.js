@@ -1,7 +1,7 @@
 import axios from "axios";
 // const url = "http://192.168.100.61:3000/api";
 // const url = "http://172.105.159.234:3000/api";
-const url = "http://192.168.1.4:3000/api";
+const url = "http://192.168.1.15:3000/api";
 
 const config = {
   headers: {
@@ -39,6 +39,16 @@ class Api {
 
   async createChat(payload) {
     const data = await axios.post("/chat", payload, config);
+    return data;
+  }
+
+  async createRating(payload) {
+    const data = await axios.post("/rating", payload, config);
+    return data;
+  }
+
+  async getRating(payload) {
+    const data = await axios.get(`/rating${payload}`, config);
     return data;
   }
 

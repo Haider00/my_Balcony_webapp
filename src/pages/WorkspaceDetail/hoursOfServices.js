@@ -89,7 +89,6 @@ export default function HoursOfServices() {
             type: "WORKSPACE_DAY_AND_TIME",
             payload: res.data,
           });
-
           setDayTime(res.data);
         }
       })
