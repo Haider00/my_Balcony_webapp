@@ -4,10 +4,10 @@ import Box from "@mui/material/Box";
 import StarOutline from "@mui/icons-material/StarOutline";
 import Rating from '@mui/material/Rating';
 
-export default function Card({ title, itemId, image, onClick, rating = 1 }) {
+export default function Card({ title, itemId, image, onClick, rating = [] }) {
   const [ratingStar, setRatingStar] = useState(2);
   const [noOfRating, setNoOfRating] = useState(2);
-  console.log('ratingStar', ratingStar);
+  console.log('rating', rating);
   
   useEffect(() => {
     const sum = rating.map((rating) => rating.rating.$numberDecimal).reduce((a, b) => a + b, 0);

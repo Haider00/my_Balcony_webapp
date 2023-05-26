@@ -137,7 +137,6 @@ export default function ReactCalendar() {
   };
 
   const handleSelect = (date) => {
-    // console.log("date....", calendar);
     setStartDate(date.selection.startDate);
     setEndDate(date.selection.endDate);
   };
@@ -158,15 +157,12 @@ export default function ReactCalendar() {
         type: "SELECTED_DATES",
         payload: selectedDates,
       });
-      console.log('selectedDates', selectedDates)
       const disDates = [...disableDates, ...selectedDates];
       setdisableDates(disDates);
       router.push(`./bookingOverview`);
     }
 
   };
-
-  console.log('workspaceDetailState', workspaceDetailState.workspaceDetail.owner)
 
   return (
     <div>
@@ -201,7 +197,7 @@ export default function ReactCalendar() {
           maxWidth: 500,
         }}
       >
-        {/* {workspaceDetailState?.workspaceDetail?.owner !== auth?.user?._id && ( */}
+        {workspaceDetailState?.workspaceDetail?.owner !== auth?.user?._id && (
           <Button
             onClick={() => {
               handleBooking();
@@ -211,7 +207,7 @@ export default function ReactCalendar() {
           >
             Book Workspace
           </Button>)
-          {/* } */}
+          }
       </Box>
     </div>
   );

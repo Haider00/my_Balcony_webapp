@@ -97,7 +97,7 @@ export default function SignUp() {
               </Typography>
             </div>
               <ScrollMenu apiRef={menu}>
-                {outdoorWorkSpace.reverse().map((item, index) => (
+                {outdoorWorkSpace?.reverse().map((item, index) => (
                   <ScrollCard
                     onClick={() => {
                       router.push(
@@ -129,7 +129,7 @@ export default function SignUp() {
               work indoor
             </Typography>
             <ScrollMenu apiRef={menu}>
-              {indoorWorkSpace.reverse().map((item, index) => (
+              {indoorWorkSpace?.reverse().map((item, index) => (
                 <ScrollCard
                   onClick={() => {
                     router.push(
