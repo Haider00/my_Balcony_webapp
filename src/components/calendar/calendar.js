@@ -5,7 +5,10 @@ import { DateRangePicker } from "react-date-range";
 import { api } from "src/utils/api";
 import { Box, Button } from "@mui/material";
 import { useWorkspaceState } from "src/context/workspace.context";
-import { useWorkspaceDetailState, useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
+import {
+  useWorkspaceDetailState,
+  useWorkspaceDetailDispatch,
+} from "src/context/workspaceDetail.context";
 import moment from "moment";
 import { useRouter } from "next/router";
 import { useAuthState } from "src/context/auth.context";
@@ -24,26 +27,25 @@ export default function ReactCalendar() {
   const [unavailableDates, setUnavailableDates] = useState([]);
   const [disableDates, setdisableDates] = useState([]);
   const [availableDays, setAvailableDays] = useState([]);
-  let [message, setMessage] = useState('');
+  let [message, setMessage] = useState("");
   const [display, setDisplay] = useState(false);
 
   const [selectedMonth, setSelectedMonth] = useState(moment().format("M"));
   const currentDate = moment();
 
   // console.log('selectedDates', workspaceDetailState?.workspaceDayTime);
-  console.log('endDate', endDate);
+  console.log("endDate", endDate);
 
   useEffect(() => {
-
     let days = [];
     let datesInMonth = [];
 
     if (workspaceDetailState && workspaceDetailState.workspaceDayTime) {
       for (let i = 0; i < workspaceDetailState.workspaceDayTime.length; i++) {
         const element = workspaceDetailState.workspaceDayTime[i];
-        days.push(element.day)
+        days.push(element.day);
       }
-      console.log('days', days)
+      console.log("days", days);
 
       const currentMonth = moment().month();
       const currentYear = moment().year();
@@ -51,20 +53,21 @@ export default function ReactCalendar() {
 
       for (let i = 1; i <= numDaysInMonth; i++) {
         const date = moment(`${currentYear}-${currentMonth + 1}-${i}`);
-        const dayOfWeek = date.format('dddd').toLowerCase();
+        const dayOfWeek = date.format("dddd").toLowerCase();
         // console.log('dayOfWeek',dayOfWeek)
 
         if (!days.includes(dayOfWeek)) {
-          datesInMonth.push(date.format('YYYY-MM-DD'));
+          datesInMonth.push(date.format("YYYY-MM-DD"));
         }
       }
-      setUnavailableDates(datesInMonth.map((dateString) => new Date(dateString)));
-      console.log('datesInMonth', datesInMonth);
+      setUnavailableDates(
+        datesInMonth.map((dateString) => new Date(dateString))
+      );
+      console.log("datesInMonth", datesInMonth);
 
       setAvailableDays(workspaceDetailState.workspaceDayTime);
-
     }
-  }, [workspaceDetailState])
+  }, [workspaceDetailState]);
 
   useEffect(() => {
     function getRange2(startDate, endDate, unit) {
@@ -82,10 +85,12 @@ export default function ReactCalendar() {
         .getBooking({
           query: `?date[$gt]=${moment(selectedMonth, "M").startOf(
             "month"
-          )}&date[$lt]=${moment(selectedMonth, "M").endOf("month")}&workSpace=${workspaceDetailState.workspaceDetail._id}`,
+          )}&date[$lt]=${moment(selectedMonth, "M").endOf("month")}&workSpace=${
+            workspaceDetailState.workspaceDetail._id
+          }`,
         })
         .then((response) => {
-          console.log('response<<<<', response.data)
+          console.log("response<<<<", response.data);
           let dates = [];
           if (
             response &&
@@ -96,22 +101,22 @@ export default function ReactCalendar() {
             let objs = {};
             for (let i = 0; i < response.data.length; i++) {
               const element = response.data[i];
-              let range=[]
-              if(element.date.length>1){
+              let range = [];
+              if (element.date.length > 1) {
                 range = getRange2(element.date[0], element.date[1], "days");
-              }else if(element.date.length>0){
-                const dateinfo=element.date[0]
-                range.push(dateinfo)
+              } else if (element.date.length > 0) {
+                const dateinfo = element.date[0];
+                range.push(dateinfo);
               }
-              if(range.length>1){
-              for (let a = 0; a < range.length; a++) {
-                const date = range[a];
-                let key = moment(date).format("YYYY-MM-DD");
-                dates.push(key);
+              if (range.length > 1) {
+                for (let a = 0; a < range.length; a++) {
+                  const date = range[a];
+                  let key = moment(date).format("YYYY-MM-DD");
+                  dates.push(key);
+                }
+              } else if (range.length > 0) {
+                dates.push(moment(range[0]).format("YYYY-MM-DD"));
               }
-            }else if(range.length>0){
-              dates.push(moment(range[0]).format("YYYY-MM-DD"))
-            }
             }
           }
           setdisableDates(dates.map((dateString) => new Date(dateString)));
@@ -119,7 +124,6 @@ export default function ReactCalendar() {
     }
   }, [selectedMonth, workspaceDetailState.workspaceDetail._id]);
 
-  
   console.log("disableDates:", disableDates);
 
   const selectionRange = {
@@ -128,7 +132,7 @@ export default function ReactCalendar() {
     key: "selection",
   };
 
-  console.log('selectionRange', selectionRange)
+  console.log("selectionRange", selectionRange);
   const customRangeStyles = {
     selection: {
       background: "black",
@@ -143,9 +147,9 @@ export default function ReactCalendar() {
 
   const handleBooking = () => {
     if (!auth?.user?._id) {
-      setMessage('You must be logged in first.');
+      setMessage("You must be logged in first.");
       setDisplay(true);
-      router.push('./signin')
+      router.push("./signin");
     } else {
       const selectedDates = [];
       const currentDate = new Date(startDate);
@@ -161,7 +165,6 @@ export default function ReactCalendar() {
       setdisableDates(disDates);
       router.push(`./bookingOverview`);
     }
-
   };
 
   return (
@@ -180,11 +183,13 @@ export default function ReactCalendar() {
       <DateRangePicker
         ranges={[selectionRange]}
         onChange={handleSelect}
-        onShownDateChange={(res) => { moment(res).format("M") }}
+        onShownDateChange={(res) => {
+          moment(res).format("M");
+        }}
         inputRanges={[]}
         staticRanges={[]}
         minDate={new Date()}
-        disabledDates={[...unavailableDates,...disableDates]}
+        disabledDates={[...unavailableDates, ...disableDates]}
         rangesStyles={customRangeStyles.selection.background}
         rangeColors={["#005451"]}
       />
@@ -205,9 +210,9 @@ export default function ReactCalendar() {
             sx={{ backgroundColor: "#005451" }}
             variant="contained"
           >
-            Book Workspace
-          </Button>)
-          }
+            book workspace
+          </Button>
+        )}
       </Box>
     </div>
   );

@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, Rating, Button } from "@mui/material";
 import Calendar from "../../components/calendar/calendar";
 import styledcomp from "styled-components";
-import { useWorkspaceDetailState, useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
-import { useRouter } from 'next/router'
+import {
+  useWorkspaceDetailState,
+  useWorkspaceDetailDispatch,
+} from "src/context/workspaceDetail.context";
+import { useRouter } from "next/router";
 import { api } from "../../utils/api";
-import { useAuthState } from '../../context/auth.context';
+import { useAuthState } from "../../context/auth.context";
 import moment from "moment";
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 const Listcontainer = styledcomp.ul``;
 const ListItem = styledcomp.li``;
@@ -42,11 +44,10 @@ const CloseButton = styled(Button)`
   padding: 5px 10px !important;
   border-radius: 4px !important;
   cursor: pointer;
-  top:20px;
+  top: 20px;
   display: block;
-  color:#000;
+  color: #000;
 `;
-
 
 export default function HoursOfServices() {
   const number = 9223232323;
@@ -67,24 +68,26 @@ export default function HoursOfServices() {
   const handleChat = () => {
     api
       .createChat({
-        client: auth.user?._id, owner: workspaceDetailState.workspaceDetail.owner,
-        workspace: workspaceDetailState.workspaceDetail._id
+        client: auth.user?._id,
+        owner: workspaceDetailState.workspaceDetail.owner,
+        workspace: workspaceDetailState.workspaceDetail._id,
       })
       .then((res) => {
         // console.log('res>>>', res.data);
       })
       .catch((err) => {
-        console.log('error1', err);
+        console.log("error1", err);
       });
   };
 
   useEffect(() => {
     api
-      .getWorkingTime({ query: `?workSpace=${workspaceDetailState.workspaceDetail._id}` })
+      .getWorkingTime({
+        query: `?workSpace=${workspaceDetailState.workspaceDetail._id}`,
+      })
       .then((res) => {
         // console.log('res>>>', res.data);
         if (res.data) {
-
           dispatch({
             type: "WORKSPACE_DAY_AND_TIME",
             payload: res.data,
@@ -93,17 +96,16 @@ export default function HoursOfServices() {
         }
       })
       .catch((err) => {
-        console.log('error2', err);
+        console.log("error2", err);
       });
-  }, [workspaceDetailState.workspaceDetail])
-
+  }, [workspaceDetailState.workspaceDetail]);
 
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-        <Typography variant="h5">Hours of Services</Typography>
+        <Typography variant="h5">hours of service</Typography>
       </Box>
       <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
         <Typography variant="subtitle1">
@@ -115,8 +117,10 @@ export default function HoursOfServices() {
               return (
                 <ListItem key={index} style={{ listStyle: "none" }}>
                   <span>Time Frame of Services&nbsp;{item.day}</span>
-                  <span>&nbsp;From&nbsp;{moment(item.from).format('hh:mm')}</span>
-                  <span>&nbsp;To&nbsp;{moment(item.to).format('hh:mm')}</span>
+                  <span>
+                    &nbsp;From&nbsp;{moment(item.from).format("hh:mm")}
+                  </span>
+                  <span>&nbsp;To&nbsp;{moment(item.to).format("hh:mm")}</span>
                 </ListItem>
               );
             })}
@@ -137,7 +141,6 @@ export default function HoursOfServices() {
       <PopupContainer>
         {isOpen && (
           <PopupMenu>
-
             Host No is: {number}
             <CloseButton variant="contained" onClick={togglePopup}>
               Close
@@ -154,13 +157,15 @@ export default function HoursOfServices() {
             mb: 2,
           }}
         >
-          <Typography sx={{ textAlign: "center" }} variant="h5">
-            Chat &/or Call with Workspace Host Before Booking!
+          <Typography sx={{ textAlign: "left" }} variant="h5">
+            Chat &/or Call with
+            <br /> Workspace Host Before
+            <br /> Booking!
           </Typography>
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-around",
+              justifyContent: "space-between",
               flexDirection: "row",
               width: "100%",
               maxWidth: 500,
@@ -169,13 +174,13 @@ export default function HoursOfServices() {
             <Button
               onClick={() => {
                 handleChat();
-                router.push('/chat2');
+                router.push("/chat2");
               }}
               sx={{
                 color: "#000",
                 mr: 1,
                 mt: 2,
-                width: "30%",
+                width: "40%",
                 borderRadius: 3,
                 borderColor: "#000",
                 borderWidth: "2px",
@@ -190,7 +195,7 @@ export default function HoursOfServices() {
                 color: "#000",
                 ml: 1,
                 mt: 2,
-                width: "30%",
+                width: "40%",
                 borderRadius: 3,
                 borderColor: "#000",
                 borderWidth: "2px",
@@ -200,7 +205,8 @@ export default function HoursOfServices() {
               CALL
             </Button>
           </Box>
-        </Box>)}
+        </Box>
+      )}
     </Box>
   );
 }

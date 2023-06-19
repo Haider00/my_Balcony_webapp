@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -22,13 +22,14 @@ const Item = styled(Paper)(({ theme }) => ({
 export const FormWb = () => {
   const router = useRouter();
   return (
-    <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={12} md={4}>
+    <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={12} md={12}>
       <Box
         sx={{
           display: "flex",
           bgcolor: "background.paper",
           justifyContent: "center",
           alignItems: "center",
+          marginTop: 7,
         }}
       >
         <Card
@@ -67,6 +68,7 @@ export const FormWb = () => {
 
           <IncrementalInput />
           <Button
+            width="90%"
             onClick={() => {
               router.push("./workspaceDetail");
             }}
@@ -79,7 +81,7 @@ export const FormWb = () => {
 };
 export const LeftWallpaperWb = () => {
   return (
-    <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={12} md={7}>
+    <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={12} md={12}>
       <TableTop sx={{ width: "20%", height: "50%" }} />
     </Grid>
   );
@@ -88,24 +90,23 @@ export const HostWorkSpaceWb = () => {
   const auth = useAuthState();
   const router = useRouter();
   const authDispatch = useAuthDispatch();
-    const [display, setDisplay] = useState(false);
+  const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
 
   function sellerAccessControl() {
     // const userType = "seller"
     // console.log('typeCheck')
-    authDispatch({ type: "SET_USER_TYPE", payload: 'seller' });
+    authDispatch({ type: "SET_USER_TYPE", payload: "seller" });
   }
-
 
   function handleHostWorkspace() {
     if (!auth.user) {
-      setMessage('You must be login first');
+      setMessage("You must be login first");
       setDisplay(true);
-      router.push('./signin');
+      router.push("./signin");
     } else {
       sellerAccessControl();
-      router.push('./hostworkspace')
+      router.push("./hostworkspace");
     }
   }
 
@@ -140,7 +141,7 @@ export const HostWorkSpaceWb = () => {
             }}
           />
         </Grid>
-        <Grid item md={4} lg={3.5}>
+        <Grid item md={4} lg={5}>
           <Box
             sx={{
               width: "100%",
@@ -149,7 +150,7 @@ export const HostWorkSpaceWb = () => {
             }}
           >
             <Typography sx={{ marginX: 1 }} variant="h4">
-              {"Host"}
+              {"host"}
             </Typography>
             <Typography sx={{ marginX: 1 }} variant="h4">
               {"Your"}

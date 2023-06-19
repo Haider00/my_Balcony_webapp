@@ -1,7 +1,7 @@
 import axios from "axios";
 // const url = "http://192.168.100.61:3000/api";
 // const url = "http://172.105.159.234:3000/api";
-const url = "http://192.168.1.4:3000/api";
+const url = "http://192.168.1.5:4000/api";
 
 const config = {
   headers: {
@@ -86,7 +86,7 @@ class Api {
     return data;
   }
   async createWorkSpace(payload) {
-    console.log('pppppppp>>>',payload)
+    console.log("pppppppp>>>", payload);
     const { data } = await axios.post("/workSpace", payload, config);
     return data;
   }
@@ -123,7 +123,6 @@ class Api {
     const { data } = await axios.get(`/file${query}`, config);
     return data;
   }
-  
 
   async getBooking(payload) {
     const { query = "" } = payload;
@@ -142,34 +141,38 @@ class Api {
   // }
 
   async attachCard(payload) {
-    console.log('payload',payload);
+    console.log("payload", payload);
     const data = await axios.post("/customer_attach_card", payload, config);
     return data;
   }
   async getCard(payload) {
-    console.log('payload',payload)
+    console.log("payload", payload);
     const { query = "" } = payload;
-    console.log('query', query)
+    console.log("query", query);
     const { data } = await axios.get(`/cards${query}`, payload, config);
     return data;
   }
   async getStripeCustomer(payload) {
-    const {query = ''} = payload;
-    const {data} = await axios.get(`/stripe/customer${query}`, config);
+    const { query = "" } = payload;
+    const { data } = await axios.get(`/stripe/customer${query}`, config);
     return data;
   }
   async editBooking(payload) {
-    const {data} = await axios.patch(`/booking/${payload._id}`, payload, config);
+    const { data } = await axios.patch(
+      `/booking/${payload._id}`,
+      payload,
+      config
+    );
     return data;
   }
   async createPlanner(payload) {
-    console.log('papapapa>>>>',payload)
+    console.log("papapapa>>>>", payload);
     const { data } = await axios.post("/planner", payload, config);
     return data;
   }
   async getPlanner(payload) {
-    console.log('api>>>',payload);
-    const {data} = await axios.get(`/planner${payload}`, config);
+    console.log("api>>>", payload);
+    const { data } = await axios.get(`/planner${payload}`, config);
     return data;
   }
 }

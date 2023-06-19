@@ -8,38 +8,40 @@ import AmenitiesPortion from "./WorkspaceDetail/amenitiesPortion";
 import MenuSection from "./MenuSection/menuSection";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
-import TableBottom from "src/assets/svg/TableBottom";
+import TableBottom from "src/assets/images/tablebottom2.png";
 import Mapsection from "./WorkspaceDetail/map";
 import { useRouter } from "next/router";
 import { useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
 import { api } from "src/utils/api";
-
-
+import Image from "next/image";
+import Box from "@mui/material/Box";
 export default function WorkspaceDetail() {
   const dispatch = useWorkspaceDetailDispatch();
   const router = useRouter();
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const [name, setName] = useState('');
-  const [rating, setRating]= useState();
-  const [noOfRating, setNoOfRating]= useState(0);
+  const [name, setName] = useState("");
+  const [rating, setRating] = useState();
+  const [noOfRating, setNoOfRating] = useState(0);
 
   useEffect(() => {
-
     if (router.query?.wd) {
-      api.getWorkSpace({ query: `?_id=${router.query.wd}` })
+      api
+        .getWorkSpace({ query: `?_id=${router.query.wd}` })
         .then((res) => {
-          console.log('resp>>>', res.data[0])
-          setName(res.data[0].name)
+          console.log("resp>>>", res.data[0]);
+          setName(res.data[0].name);
 
           const ratings = res.data[0].rating;
-          console.log('ratings',ratings)
-          const sum = ratings.map((rating) => rating.rating.$numberDecimal).reduce((a, b) => a + b, 0);
+          console.log("ratings", ratings);
+          const sum = ratings
+            .map((rating) => rating.rating.$numberDecimal)
+            .reduce((a, b) => a + b, 0);
           const average = sum / ratings.length;
           setNoOfRating(ratings.length);
           setRating(average);
-          
-          console.log('Average rating:', average);
+
+          console.log("Average rating:", average);
 
           dispatch({
             type: "WORKSPACE_DETAIL",
@@ -54,65 +56,77 @@ export default function WorkspaceDetail() {
 
   return (
     <>
-      <CustomHeader />
+      <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
+        <CustomHeader />
 
-      <Grid container sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
-        <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={4}>
-          <BushwickLofts name={name} rating={rating} noOfRating={noOfRating} />
-        </Grid>
-        {!isMediumScreen && (
-          <Divider className="divider" orientation="vertical" flexItem />
-        )}
-        <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={3}>
-          <AmenitiesPortion />
-        </Grid>
-        {!isMediumScreen && (
-          <Divider className="divider" orientation="vertical" flexItem />
-        )}
-        <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={12} lg={4}>
-          <HoursOfServices />
-        </Grid>
-      </Grid>
-
-      <Grid container sx={{ marginTop: 10 }}>
         <Grid
-          item
-          xs={12}
-          sm={12}
-          md={12}
-          lg={12}
+          container
+          sx={{ display: "flex", justifyContent: "center", mt: 5 }}
+        >
+          <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={4}>
+            <BushwickLofts
+              name={name}
+              rating={rating}
+              noOfRating={noOfRating}
+            />
+          </Grid>
+          {!isMediumScreen && (
+            <Divider className="divider" orientation="vertical" flexItem />
+          )}
+          <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={3}>
+            <AmenitiesPortion />
+          </Grid>
+          {!isMediumScreen && (
+            <Divider className="divider" orientation="vertical" flexItem />
+          )}
+          <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={12} lg={4}>
+            <HoursOfServices />
+          </Grid>
+        </Grid>
+
+        <Grid container sx={{ marginTop: 10 }}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Mapsection />
+          </Grid>
+        </Grid>
+        <Grid
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            marginTop: 4,
+            justifyContent: "space-between",
+            alignItems: "flex-end",
           }}
+          container
+          spacing={2}
         >
-          <Mapsection />
+          <Grid
+            item
+            md={3}
+            sm={5}
+            xs={12}
+            sx={{
+              marginBottom: 4,
+            }}
+          >
+            <MenuSection />
+          </Grid>
+          <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
+              <Image src={TableBottom} alt="" />
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-
-      <Grid container spacing={4} sx={{ display: "flex", marginTop: 10 }}>
-        <Grid
-          sx={{ display: "flex", marginTop: 8, justifyContent: "center" }}
-          item
-          xs={12}
-          sm={12}
-          md={3}
-          lg={3}
-        >
-          <MenuSection />
-        </Grid>
-        <Grid
-          sx={{ display: "flex", justifyContent: "flex-end" }}
-          item
-          xs={12}
-          sm={12}
-          md={7}
-          lg={9}
-        >
-          <TableBottom />
-        </Grid>
-      </Grid>
+      </Box>
     </>
   );
 }

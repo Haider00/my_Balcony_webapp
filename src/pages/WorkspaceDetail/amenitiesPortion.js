@@ -39,9 +39,8 @@ export default function AmenitiesPortion() {
   const perPersons = workspaceDetailState.workspaceDetail.perPerson;
   const sharedWorkSpace = workspaceDetailState.workspaceDetail.sharedWorkSpace;
 
-
   const [coworkspace, setCoworkspace] = useState(false);
-  console.log('coworkspace',coworkspace);
+  console.log("coworkspace", coworkspace);
 
   useEffect(() => {
     const coworkspaceValue = workspaceDetailState.workspaceDetail.coworkspace;
@@ -54,7 +53,7 @@ export default function AmenitiesPortion() {
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
         <Typography variant="h5" sx={{ mb: 2 }}>
-          Amenities
+          amenities
         </Typography>
         <Amenities />
 

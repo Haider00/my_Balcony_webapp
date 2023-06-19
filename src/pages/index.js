@@ -10,9 +10,11 @@ import { useEffect, useRef, useState } from "react";
 import { api } from "../utils/api";
 import { useAuthState } from "../context/auth.context";
 import { useRouter } from "next/router";
-import TableBottom from "src/assets/svg/TableBottom";
+import TableBottom from "src/assets/images/tablebottom.png";
+import Leftewallpaper from "src/assets/images/tabletop.png";
 import { useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
-import MenuSection from './MenuSection/menuSection'
+import MenuSection from "./MenuSection/menuSection";
+import Image from "next/image";
 export default function SignUp() {
   const router = useRouter();
   const [indoorWorkSpace, setIndoorWorkSpace] = useState([]);
@@ -21,15 +23,15 @@ export default function SignUp() {
   const menu = useRef();
 
   useEffect(() => {
-    window.history.pushState(null, '', window.location.href);
+    window.history.pushState(null, "", window.location.href);
     window.onpopstate = function () {
-    window.history.pushState(null, '', window.location.href);
+      window.history.pushState(null, "", window.location.href);
     };
-  },[])
+  }, []);
   useEffect(() => {
     setTimeout(() => {
-      menu.current.scrollToItem(
-        menu.current.getItemById("1"),
+      menu.current?.scrollToItem(
+        menu.current?.getItemById("1"),
         // OR if you not sure about id for first item
         // apiRef.current.getItemById(apiRef.current.items.toItems()[0]),
         "auto",
@@ -66,23 +68,33 @@ export default function SignUp() {
   console.log("outdoorWorkSpace", outdoorWorkSpace);
 
   return (
-    <Box sx={{ flexGrow: 1, paddingX: 1 }}>
-      <WebTabs selectedTab={1} />
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
+    <>
+      <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
+        <Box>
           <CustomHeader />
+        </Box>
+        <Grid container>
+          <Grid item xs={1} md={1}>
+            <WebTabs />
+          </Grid>
+          <Grid item xs={6} md={7}>
+            <Box style={{ position: "relative", top: -120, zIndex: -1 }}>
+              <Image src={Leftewallpaper} alt="" />
+            </Box>
+          </Grid>
+          <Grid item xs={4} md={4}>
+            <FormWb />
+          </Grid>
         </Grid>
-        <LeftWallpaperWb />
 
-        <FormWb />
-
-        <Grid item xs={12}>
+        <Grid className="scrollbar" container xs={12}>
           <Box
             sx={{
               width: "100%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-end",
+              marginBottom: 10,
             }}
           >
             <div
@@ -96,28 +108,24 @@ export default function SignUp() {
                 work from outside
               </Typography>
             </div>
-              <ScrollMenu apiRef={menu}>
-                {outdoorWorkSpace?.reverse().map((item, index) => (
-                  <ScrollCard
-                    onClick={() => {
-                      router.push(
-                        `./workspaceDetail?wd=${item._id}`
-                      );
-                    }}
-                    title={item.name}
-                    itemId={item._id}
-                    key={item._id}
-                    image={item.image}
-                    rating={item.rating}
-                  />
-                ))}
-              </ScrollMenu>
+            <ScrollMenu apiRef={menu}>
+              {outdoorWorkSpace?.reverse().map((item, index) => (
+                <ScrollCard
+                  onClick={() => {
+                    router.push(`./workspaceDetail?wd=${item._id}`);
+                  }}
+                  title={item.name}
+                  itemId={item._id}
+                  key={item._id}
+                  image={item.image}
+                  rating={item.rating}
+                />
+              ))}
+            </ScrollMenu>
           </Box>
         </Grid>
-
         <HostWorkSpaceMb />
-
-        <Grid item xs={12}>
+        <Grid className="scrollbar" item xs={12}>
           <Box
             sx={{
               width: "100%",
@@ -132,9 +140,7 @@ export default function SignUp() {
               {indoorWorkSpace?.reverse().map((item, index) => (
                 <ScrollCard
                   onClick={() => {
-                    router.push(
-                      `./workspaceDetail?wd=${item._id}`
-                    );
+                    router.push(`./workspaceDetail?wd=${item._id}`);
                   }}
                   title={item.name}
                   itemId={item._id}
@@ -146,18 +152,34 @@ export default function SignUp() {
             </ScrollMenu>
           </Box>
         </Grid>
-      </Grid>
-      <HostWorkSpaceWb />
-      <Grid sx={{ marginY: 4 }} container spacing={2}>
-        <Grid item md={3} sm={5} xs={12}>
-          <MenuSection/>
+        <HostWorkSpaceWb />
+        <Grid
+          sx={{
+            marginTop: 4,
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+          }}
+          container
+          spacing={2}
+        >
+          <Grid
+            item
+            md={3}
+            sm={5}
+            xs={12}
+            sx={{
+              marginBottom: 4,
+            }}
+          >
+            <MenuSection />
+          </Grid>
+          <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
+              <Image src={TableBottom} alt="" />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item md={9} sx={{ display: { xs: "none", md: "flex" } }}>
-          <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <TableBottom />
-          </Box>
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </>
   );
 }

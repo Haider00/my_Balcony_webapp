@@ -8,39 +8,39 @@ import {
   BookmarksOutlined,
 } from "@mui/icons-material";
 import { useRouter } from "next/router";
-import FormatAlignCenterOutlinedIcon from '@mui/icons-material/FormatAlignCenterOutlined';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import FormatAlignCenterOutlinedIcon from "@mui/icons-material/FormatAlignCenterOutlined";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useAuthState } from "src/context/auth.context";
 import { useState } from "react";
 import { Snackbar } from "@mui/material";
 const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
   const router = useRouter();
   const auth = useAuthState();
-  let [message, setMessage] = useState('');
+  let [message, setMessage] = useState("");
   const [display, setDisplay] = useState(false);
 
   function handleAccountDashboardClick() {
     if (!auth?.user?._id) {
-      setMessage('You must be logged in first');
+      setMessage("You must be logged in first");
       setDisplay(true);
     } else {
-      router.push('./accountDashboard')
+      router.push("./accountDashboard");
     }
   }
-  function handleBookedDatesClick(){
+  function handleBookedDatesClick() {
     if (!auth?.user?._id) {
-      setMessage('You must be logged in first');
+      setMessage("You must be logged in first");
       setDisplay(true);
     } else {
-      router.push('./bookeddates')
+      router.push("./bookeddates");
     }
   }
   function handleChatClick() {
     if (!auth?.user?._id) {
-      setMessage('You must be logged in first');
+      setMessage("You must be logged in first");
       setDisplay(true);
     } else {
-      router.push('./chat2')
+      router.push("./chat2");
     }
   }
   return (
@@ -50,7 +50,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
         open={display}
         onClose={() => {
           setDisplay(false);
-          router.push('./signin')
+          router.push("./signin");
         }}
         ContentProps={{
           "aria-describedby": "message-id",
@@ -62,9 +62,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           height: 300,
           width: 60,
           backgroundColor: "#fff",
-          position: "absolute",
-          marginTop: 125,
-          marginLeft: marginLeft,
+          marginTop: 56,
           borderRadius: 10,
           display: "flex",
           flexDirection: "column",
@@ -73,6 +71,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           paddingTop: 5,
           paddingBottom: 5,
         }}
+        sx={{ mx: "auto" }}
       >
         <div
           style={{
