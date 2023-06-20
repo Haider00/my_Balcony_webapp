@@ -27,14 +27,15 @@ import CheckBox from "@mui/icons-material/CheckBox";
 import CloudDoneIcon from "@mui/icons-material/CloudDone";
 import { useWorkspaceState } from "src/context/workspace.context";
 import Resizer from "react-image-file-resizer";
-import MenuSection from './MenuSection/menuSection';
-import TableBottom from "src/assets/svg/TableBottom";
+import MenuSection from "./MenuSection/menuSection";
+import TableBottom from "src/assets/images/tablebottom.png";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "src/context/auth.context";
 
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
 
-export default function HostWorkSpace({ }) {
+export default function HostWorkSpace({}) {
   const workspaceState = useWorkspaceState();
   const [PhotoId, setPhotoId] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
@@ -113,29 +114,34 @@ export default function HostWorkSpace({ }) {
   const [message, setMessage] = useState("");
   const [workPlaceDayAndTime, setWorkPlaceDayAndTime] = useState([]);
   const [workPlaceDay, setWorkPlaceDay] = useState([]);
-  console.log('workPlaceDay', workPlaceDay);
-  console.log('workSpace><><><><><><>', workSpace)
+  console.log("workPlaceDay", workPlaceDay);
+  console.log("workSpace><><><><><><>", workSpace);
 
   const handleHostWorkSpace = () => {
     api
-      .createWorkSpace({ ...workSpace, owner:auth?.user?._id ,coordinates: workspaceState.workSpaceMapCoardinates, image: workspaceState?.firstImage?.Location || '' })
+      .createWorkSpace({
+        ...workSpace,
+        owner: auth?.user?._id,
+        coordinates: workspaceState.workSpaceMapCoardinates,
+        image: workspaceState?.firstImage?.Location || "",
+      })
       .then((res) => {
         setMessage("workspace hosted successfully");
-        console.log('response',res);
+        console.log("response", res);
         setDisplay(true);
         createWorkSpaceTimeAndDay(res);
         handlePatchImage(res);
       })
       .catch((err) => {
-        console.log('error', err);
+        console.log("error", err);
       });
   };
 
   const handlePatchImage = (res) => {
-    alert('upload image called')
-    patchWorkspaceImage(workspaceState.firstImage, res)
-    patchWorkspaceImage(workspaceState.secondImage, res)
-    patchWorkspaceImage(workspaceState.thirdImage, res)
+    alert("upload image called");
+    patchWorkspaceImage(workspaceState.firstImage, res);
+    patchWorkspaceImage(workspaceState.secondImage, res);
+    patchWorkspaceImage(workspaceState.thirdImage, res);
   };
 
   const patchWorkspaceImage = (item, res) => {
@@ -143,13 +149,13 @@ export default function HostWorkSpace({ }) {
       api
         .uploadFilesToWorkspace({ ...item, workSpace: res?._id })
         .then((res) => {
-          console.log('res....<<<<', res)
+          console.log("res....<<<<", res);
         })
         .catch((err) => {
-          console.log('res....', err)
+          console.log("res....", err);
         });
     }
-  }
+  };
 
   const handleValidations = () => {
     if (isChecked && !workSpace.cleaningFee) {
@@ -192,7 +198,7 @@ export default function HostWorkSpace({ }) {
     // } else if (!workspaceState.thirdImage.Location) {
     //   setMessage("Please select third image");
     //   setDisplay(true);
-    // } 
+    // }
     else if (workspaceState.workSpaceMapCoardinates.length === 0) {
       setMessage("Please enable your location");
       setDisplay(true);
@@ -214,12 +220,10 @@ export default function HostWorkSpace({ }) {
     } else if (!workSpace.maintenancesFee) {
       setMessage("Please enter maintenance fee");
       setDisplay(true);
-    }
-    else if (isCheckedfeename && !workSpace.otherFeeName) {
+    } else if (isCheckedfeename && !workSpace.otherFeeName) {
       setMessage("Please enter fee name");
       setDisplay(true);
-    }
-    else if (!workSpace.otherFeeAmount) {
+    } else if (!workSpace.otherFeeAmount) {
       setMessage("Please enter amount ");
       setDisplay(true);
     } else if (
@@ -234,7 +238,7 @@ export default function HostWorkSpace({ }) {
     // } else if (!FileId) {
     //   setMessage("Please select a file");
     //   setDisplay(true);
-    // } 
+    // }
     else if (!workSpace.agreeToPolicy) {
       setMessage("Please check agreement to policy");
       setDisplay(true);
@@ -244,7 +248,7 @@ export default function HostWorkSpace({ }) {
     } else {
       setDisplay(false);
       handleHostWorkSpace();
-      router.push('./');
+      router.push("./");
     }
   };
 
@@ -254,10 +258,10 @@ export default function HostWorkSpace({ }) {
       api
         .createWorkingTimes({ ...element, workSpace: res._id })
         .then((response) => {
-          console.log('timeConsole>>>>', response);
+          console.log("timeConsole>>>>", response);
         })
         .catch((err) => {
-          console.log('timeConsoleError', err);
+          console.log("timeConsoleError", err);
           setMessage("something went wrong while setting time for worksapce");
           setDisplay(true);
         });
@@ -317,520 +321,570 @@ export default function HostWorkSpace({ }) {
   };
   return (
     <Box sx={{ flexGrow: 1, paddingX: 1 }}>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={display}
-        onClose={() => {
-          setDisplay(false);
-        }}
-        ContentProps={{
-          "aria-describedby": "message-id",
-        }}
-        message={<span id="message-id">{message}</span>}
-      />
-      <Grid sx={{ justifyContent: "center" }} container spacing={2}>
-        <Grid item xs={12}>
-          <CustomHeader />
-        </Grid>
-        <LeftWallpaperWb />
-        <FormWb
-          handleInfo={(e) => {
-            setWorkSpace({ ...workSpace, ...e });
+      <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={display}
+          onClose={() => {
+            setDisplay(false);
           }}
+          ContentProps={{
+            "aria-describedby": "message-id",
+          }}
+          message={<span id="message-id">{message}</span>}
         />
-        <WorksapceImages />
-      </Grid>
-      <Grid
-        sx={{
-          margin: 10,
-          height: 275,
-          display: "flex",
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        {/* {typeof window !== "undefined" && <Map />} */}
-        <Map />
-      </Grid>
-      <Grid sx={{ marginY: 2 }} container>
-        <Typography sx={{ marginY: 1, fontSize: 20, fontWeight: "600" }}>
-          Workspace Amenities
-        </Typography>
-        <Amenities
-          handleSelectedAmenities={(e) => {
-            setWorkSpace({ ...workSpace, amenities: e });
-          }}
-        />
-      </Grid>
-      <Grid sx={{ marginY: 2 }} container>
-        <Grid
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItem: "center",
-            flex: 1,
-          }}
-          item
-          md={12}
-          lg={4}
-          xs={12}
-          sm={12}
-        >
-          <Typography sx={{ marginY: 1, fontSize: 18, fontWeight: "500" }}>
-            Pricing
-          </Typography>
-          <FormControl
-            inputProps={{
-              style: {
-                paddingTop: "8.5px",
-                paddingBottom: "8.5px",
-              },
+        <Grid sx={{ justifyContent: "center" }} container spacing={2}>
+          <Grid item xs={12}>
+            <CustomHeader />
+          </Grid>
+          <LeftWallpaperWb />
+          <FormWb
+            handleInfo={(e) => {
+              setWorkSpace({ ...workSpace, ...e });
             }}
-            onChange={(e) => {
-              const inputValue = e.target.value;
-              setValue(inputValue);
-            }}
-            value={workSpace?.currency}
-            fullWidth
-          >
-            <InputLabel id="demo-simple-select-label">Currency</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="curreny"
-              value={workSpace.currency}
-              label="Currency"
-              onChange={(e) => {
-                setWorkSpace({ ...workSpace, currency: e.target.value });
-              }}
-            >
-              <MenuItem value={"pound"}>POUND</MenuItem>
-              <MenuItem value={"dollar"}>DOLLAR</MenuItem>
-              <MenuItem value={"pkr"}>PKR</MenuItem>
-            </Select>
-          </FormControl>
-
-          <TextField
-            sx={{ marginY: 1, width: "100%" }}
-            id="per-person"
-            label="per person"
-            variant="outlined"
-            size="small"
-            onChange={(e) => {
-              setWorkSpace({ ...workSpace, perPerson: e.target.value });
-            }}
-            value={workSpace?.perPerson}
-            type="number"
           />
-          <Typography sx={{ marginY: 1, fontSize: 14, fontWeight: "400" }}>
-            Do you charge fees?
-          </Typography>
-          <Typography
-            sx={{ marginY: 1, fontSize: 11, fontWeight: "400", width: "100%" }}
-          >
-            {
-              "*Note: We suggest you include cleaning, maintenance, or any other fees included on your per person price. A user may want to book your workspace when there are little to no fees, but you can add fees if you like.\n\n\n We do collect a service fee from the user, along with 20% from the sale amount from each booking. You take 80% from the sale amount.*"
-            }
-          </Typography>
-
-          <Box
-            sx={{
-              marginY: 1.5,
-              width: "80%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-around",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <div
-                onClick={() => {
-                  setWorkSpace({ ...workSpace, feeType: "FlatFee" });
-                }}
-              >
-                {workSpace?.feeType === "FlatFee" ? (
-                  <CheckBox
-                    style={{ color: "#000", fontSize: 15, margin: 10 }}
-                  />
-                ) : (
-                  <CropSquare
-                    style={{ color: "#000", fontSize: 15, margin: 10 }}
-                  />
-                )}
-              </div>
-              <Typography
-                style={{
-                  width: "100%",
-                  fontSize: 14,
-                  color: "#000",
-                }}
-              >
-                Flat Fee
-              </Typography>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <div
-                onClick={() => {
-                  setWorkSpace({ ...workSpace, feeType: "Percentage" });
-                }}
-              >
-                {workSpace?.feeType === "Percentage" ? (
-                  <CheckBox
-                    style={{ color: "#000", fontSize: 15, margin: 10 }}
-                  />
-                ) : (
-                  <CropSquare
-                    style={{ color: "#000", fontSize: 15, margin: 10 }}
-                  />
-                )}
-              </div>
-
-              <Typography
-                style={{
-                  width: "100%",
-                  fontSize: 14,
-                  color: "#000",
-                }}
-              >
-                Percentage
-              </Typography>
-            </div>
-          </Box>
-
-          <CheckBoxInput
-            onbox={handlebox}
-            onChangeInput={(e) => {
-              setWorkSpace({ ...workSpace, cleaningFee: e.target.value });
-            }}
-            title="Cleaning Fee Amount"
-          />
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Checkbox
-              sx={{ height: "12px", width: "12px" }}
-              checked={isCheckedmaintenancefeename}
-              onChange={handlemaintenanceCheckboxChange}
-              style={{
-                color: "#000",
-                fontSize: 15,
-                margin: 8,
-                transform: "scale(0.56)",
-              }}
-            />
-            <TextField
-              sx={{
-                marginY: 1.5,
-                width: "100%",
-                "& label": { top: -6 },
-              }}
-              inputProps={{
-                style: {
-                  paddingTop: "8.5px",
-                  paddingBottom: "8.5px",
-                },
-              }}
-              label="Maintenance Fee Amount"
-              disabled={!isCheckedmaintenancefeename}
-              value={maintenancefeeNametext}
-              onChange={handlemaintenanceFeeNameChangetext}
-            />
-          </div>
-          <Typography
-            sx={{ marginY: 1, marginX: 1.5, fontSize: 14, fontWeight: "500" }}
-          >
-            Not Listed?
-          </Typography>
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Checkbox
-              sx={{ height: "12px", width: "12px" }}
-              checked={isCheckedfeename}
-              onChange={handleCheckboxChange}
-              style={{
-                color: "#000",
-                fontSize: 15,
-                margin: 8,
-                transform: "scale(0.56)",
-              }}
-            />
-            <TextField
-              sx={{
-                marginY: 1.5,
-                width: "100%",
-                "& label": { top: -6 },
-              }}
-              inputProps={{
-                style: {
-                  paddingTop: "8.5px",
-                  paddingBottom: "8.5px",
-                },
-              }}
-              label="Enter The Fee Name"
-              disabled={!isCheckedfeename}
-              value={feeNametext}
-              onChange={handleFeeNameChangetext}
-            />
-          </div>
-          {isCheckedfeename && (
-            <CheckBoxInput
-              onChangeInput={(e) => {
-                setWorkSpace({ ...workSpace, otherFeeAmount: e.target.value });
-              }}
-              title="Amount"
-            />
-          )}
+          <WorksapceImages />
         </Grid>
         <Grid
           sx={{
+            margin: 10,
+            height: 275,
             display: "flex",
             flex: 1,
-            flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
-            justifyContent: "space-between",
+            flexDirection: "column",
           }}
-          item
-          md={12}
-          lg={4}
-          xs={12}
-          sm={12}
         >
-          <Typography
-            sx={{ marginY: 1, marginX: 1.5, fontSize: 16, fontWeight: "600" }}
-          >
-            Add Workspace Hours
-          </Typography>
-          <div
-            style={{
-              display: "flex",
-              height: "80%",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "space-evenly",
-            }}
-          >
-            {["sun", "mon", "tue", "wed", "thu", "fri", "sat"].map(
-              (item, index) => (
-                <TimeRange
-                  key={index}
-                  title={item}
-                  handleTimeRange={(response) => {
-                    if (item === "sun") {
-                      handleWorkSpaceDayAndTime({ ...response, day: "sunday" });
-                    } else if (item === "mon") {
-                      handleWorkSpaceDayAndTime({ ...response, day: "monday" });
-                    } else if (item === "tue") {
-                      handleWorkSpaceDayAndTime({ ...response, day: "tuesday" });
-                    } else if (item === "wed") {
-                      handleWorkSpaceDayAndTime({ ...response, day: "wednesday" });
-                    } else if (item === "thu") {
-                      handleWorkSpaceDayAndTime({ ...response, day: "thursday" });
-                    } else if (item === "fri") {
-                      handleWorkSpaceDayAndTime({ ...response, day: "friday" });
-                    } else if (item === "sat") {
-                      handleWorkSpaceDayAndTime({ ...response, day: "saturday" });
-                    }
-                  }}
-                />
-              )
-            )}
-          </div>
+          {/* {typeof window !== "undefined" && <Map />} */}
+          <Map />
         </Grid>
-        <Grid item md={12} lg={4} xs={12} sm={12}>
-          <div
-            style={{
-              display: "flex",
-              flex: 1,
-              alignItems: "center",
-              flexDirection: "column",
+        <Grid sx={{ marginY: 2 }} container>
+          <Typography sx={{ marginY: 1, fontSize: 20, fontWeight: "600" }}>
+            Workspace Amenities
+          </Typography>
+          <Amenities
+            handleSelectedAmenities={(e) => {
+              setWorkSpace({ ...workSpace, amenities: e });
             }}
+          />
+        </Grid>
+        <Grid sx={{ marginY: 2 }} container>
+          <Grid
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItem: "center",
+              flex: 1,
+            }}
+            item
+            md={12}
+            lg={4}
+            xs={12}
+            sm={12}
           >
-            <CheckBoxLabel
-              justifyContent="center"
-              title="Coworking WorkSpace"
-              fontSize={16}
-              fontWeight="bold"
-              handleCheckbox={(e) => {
-                console.log('e', e)
-                setWorkSpace({ ...workSpace, sharedWorkSpace: e });
+            <Typography sx={{ marginY: 1, fontSize: 18, fontWeight: "500" }}>
+              Pricing
+            </Typography>
+            <FormControl
+              inputProps={{
+                style: {
+                  paddingTop: "8.5px",
+                  paddingBottom: "8.5px",
+                },
               }}
-            />
-            <div
-              style={{
-                display: "flex",
-                flex: 1,
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                minHeight: 500,
+              onChange={(e) => {
+                const inputValue = e.target.value;
+                setValue(inputValue);
               }}
+              value={workSpace?.currency}
+              fullWidth
             >
-              <Typography
-                sx={{
-                  marginY: 1,
-                  fontSize: 11,
-                  fontWeight: "400",
-                  width: "100%",
+              <InputLabel id="demo-simple-select-label">Currency</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="curreny"
+                value={workSpace.currency}
+                label="Currency"
+                onChange={(e) => {
+                  setWorkSpace({ ...workSpace, currency: e.target.value });
                 }}
               >
-                {
-                  "WorkSpaces would be shared by multiple people from different companies within the same dates & time frame. - If not checked, then only one company &/or individual can book the booked date/time."
-                }
-              </Typography>
+                <MenuItem value={"pound"}>POUND</MenuItem>
+                <MenuItem value={"dollar"}>DOLLAR</MenuItem>
+                <MenuItem value={"pkr"}>PKR</MenuItem>
+              </Select>
+            </FormControl>
+
+            <TextField
+              sx={{ marginY: 1, width: "100%" }}
+              id="per-person"
+              label="per person"
+              variant="outlined"
+              size="small"
+              onChange={(e) => {
+                setWorkSpace({ ...workSpace, perPerson: e.target.value });
+              }}
+              value={workSpace?.perPerson}
+              type="number"
+            />
+            <Typography sx={{ marginY: 1, fontSize: 14, fontWeight: "400" }}>
+              Do you charge fees?
+            </Typography>
+            <Typography
+              sx={{
+                marginY: 1,
+                fontSize: 11,
+                fontWeight: "400",
+                width: "100%",
+              }}
+            >
+              {
+                "*Note: We suggest you include cleaning, maintenance, or any other fees included on your per person price. A user may want to book your workspace when there are little to no fees, but you can add fees if you like.\n\n\n We do collect a service fee from the user, along with 20% from the sale amount from each booking. You take 80% from the sale amount.*"
+              }
+            </Typography>
+
+            <Box
+              sx={{
+                marginY: 1.5,
+                width: "80%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
               <div
                 style={{
-                  height: 200,
-                  width: "100%",
                   display: "flex",
-                  justifyContent: "space-around",
+                  flexDirection: "row",
                   alignItems: "center",
                 }}
               >
                 <div
-                  style={{
-                    display: "flex",
-                    height: 100,
-                    width: 100,
-                    border: "2px black",
-                    borderRadius: 10,
-                    justifyContent: "center",
-                    alignItems: "center",
+                  onClick={() => {
+                    setWorkSpace({ ...workSpace, feeType: "FlatFee" });
                   }}
                 >
-                  <Typography
-                    sx={{
-                      marginY: 1,
-                      fontSize: 11,
-                      fontWeight: "400",
-                    }}
-                  >
-                    <input
-                      style={{ display: "none" }}
-                      id="photo-upload"
-                      type="file"
-                      onChange={handlePhotoSelect}
-                      accept=".jpg, .jpeg, .png"
-                      ref={uploadFileRef}
-                      onClick={() => {
-                        handleUploadImageClick();
-                      }}
+                  {workSpace?.feeType === "FlatFee" ? (
+                    <CheckBox
+                      style={{ color: "#000", fontSize: 15, margin: 10 }}
                     />
-
-                    <label
-                      style={{
-                        cursor: "pointer",
-                      }}
-                      for="photo-upload"
-                    >
-                      {photoName}
-                      {photoUrl && (
-                        <img
-                          src={photoUrl}
-                          alt="Selected photo"
-                          style={{ maxWidth: "100%" }}
-                        />
-                      )}
-                    </label>
-                  </Typography>
+                  ) : (
+                    <CropSquare
+                      style={{ color: "#000", fontSize: 15, margin: 10 }}
+                    />
+                  )}
                 </div>
-                <div
+                <Typography
                   style={{
-                    display: "flex",
-                    height: 100,
-                    width: 100,
-                    border: "1px black",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    width: "100%",
+                    fontSize: 14,
+                    color: "#000",
                   }}
                 >
-                  <Typography
-                    sx={{
-                      marginY: 1,
-                      fontSize: 11,
-                      fontWeight: "400",
-                    }}
-                  >
-                    <input
-                      style={{ display: "none" }}
-                      id="file-upload"
-                      type="file"
-                      onChange={handleFileSelect}
-                      accept=".pdf"
-                    />
-
-                    <label
-                      style={{
-                        cursor: "pointer",
-                      }}
-                      for="file-upload"
-                    >
-                      {fileName}
-                    </label>
-                  </Typography>
-                </div>
+                  Flat Fee
+                </Typography>
               </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  onClick={() => {
+                    setWorkSpace({ ...workSpace, feeType: "Percentage" });
+                  }}
+                >
+                  {workSpace?.feeType === "Percentage" ? (
+                    <CheckBox
+                      style={{ color: "#000", fontSize: 15, margin: 10 }}
+                    />
+                  ) : (
+                    <CropSquare
+                      style={{ color: "#000", fontSize: 15, margin: 10 }}
+                    />
+                  )}
+                </div>
 
-              <CheckBoxLabel
-                fontSize={11}
-                justifyContent="center"
-                handleCheckbox={(e) => {
-                  setWorkSpace({ ...workSpace, agreeToPolicy: e });
+                <Typography
+                  style={{
+                    width: "100%",
+                    fontSize: 14,
+                    color: "#000",
+                  }}
+                >
+                  Percentage
+                </Typography>
+              </div>
+            </Box>
+
+            <CheckBoxInput
+              onbox={handlebox}
+              onChangeInput={(e) => {
+                setWorkSpace({ ...workSpace, cleaningFee: e.target.value });
+              }}
+              title="Cleaning Fee Amount"
+            />
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Checkbox
+                sx={{ height: "12px", width: "12px" }}
+                checked={isCheckedmaintenancefeename}
+                onChange={handlemaintenanceCheckboxChange}
+                style={{
+                  color: "#000",
+                  fontSize: 15,
+                  margin: 8,
+                  transform: "scale(0.56)",
                 }}
-                title="I agree to homework term and services policy and privacy policy"
               />
-              <CheckBoxLabel
-                fontSize={11}
-                justifyContent="center"
-                handleCheckbox={(e) => {
-                  setWorkSpace({ ...workSpace, acknowledgement: e });
+              <TextField
+                sx={{
+                  marginY: 1.5,
+                  width: "100%",
+                  "& label": { top: -6 },
                 }}
-                title="I acknowledge that I am going to receive a 1099 form if make
-                $600 or more during the entire year. Please Read about tax FAQs."
+                inputProps={{
+                  style: {
+                    paddingTop: "8.5px",
+                    paddingBottom: "8.5px",
+                  },
+                }}
+                label="Maintenance Fee Amount"
+                disabled={!isCheckedmaintenancefeename}
+                value={maintenancefeeNametext}
+                onChange={handlemaintenanceFeeNameChangetext}
               />
             </div>
-          </div>
+            <Typography
+              sx={{ marginY: 1, marginX: 1.5, fontSize: 14, fontWeight: "500" }}
+            >
+              Not Listed?
+            </Typography>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Checkbox
+                sx={{ height: "12px", width: "12px" }}
+                checked={isCheckedfeename}
+                onChange={handleCheckboxChange}
+                style={{
+                  color: "#000",
+                  fontSize: 15,
+                  margin: 8,
+                  transform: "scale(0.56)",
+                }}
+              />
+              <TextField
+                sx={{
+                  marginY: 1.5,
+                  width: "100%",
+                  "& label": { top: -6 },
+                }}
+                inputProps={{
+                  style: {
+                    paddingTop: "8.5px",
+                    paddingBottom: "8.5px",
+                  },
+                }}
+                label="Enter The Fee Name"
+                disabled={!isCheckedfeename}
+                value={feeNametext}
+                onChange={handleFeeNameChangetext}
+              />
+            </div>
+            {isCheckedfeename && (
+              <CheckBoxInput
+                onChangeInput={(e) => {
+                  setWorkSpace({
+                    ...workSpace,
+                    otherFeeAmount: e.target.value,
+                  });
+                }}
+                title="Amount"
+              />
+            )}
+          </Grid>
+          <Grid
+            sx={{
+              display: "flex",
+              flex: 1,
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+            item
+            md={12}
+            lg={4}
+            xs={12}
+            sm={12}
+          >
+            <Typography
+              sx={{ marginY: 1, marginX: 1.5, fontSize: 16, fontWeight: "600" }}
+            >
+              Add Workspace Hours
+            </Typography>
+            <div
+              style={{
+                display: "flex",
+                height: "80%",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+              {["sun", "mon", "tue", "wed", "thu", "fri", "sat"].map(
+                (item, index) => (
+                  <TimeRange
+                    key={index}
+                    title={item}
+                    handleTimeRange={(response) => {
+                      if (item === "sun") {
+                        handleWorkSpaceDayAndTime({
+                          ...response,
+                          day: "sunday",
+                        });
+                      } else if (item === "mon") {
+                        handleWorkSpaceDayAndTime({
+                          ...response,
+                          day: "monday",
+                        });
+                      } else if (item === "tue") {
+                        handleWorkSpaceDayAndTime({
+                          ...response,
+                          day: "tuesday",
+                        });
+                      } else if (item === "wed") {
+                        handleWorkSpaceDayAndTime({
+                          ...response,
+                          day: "wednesday",
+                        });
+                      } else if (item === "thu") {
+                        handleWorkSpaceDayAndTime({
+                          ...response,
+                          day: "thursday",
+                        });
+                      } else if (item === "fri") {
+                        handleWorkSpaceDayAndTime({
+                          ...response,
+                          day: "friday",
+                        });
+                      } else if (item === "sat") {
+                        handleWorkSpaceDayAndTime({
+                          ...response,
+                          day: "saturday",
+                        });
+                      }
+                    }}
+                  />
+                )
+              )}
+            </div>
+          </Grid>
+          <Grid item md={12} lg={4} xs={12} sm={12}>
+            <div
+              style={{
+                display: "flex",
+                flex: 1,
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <CheckBoxLabel
+                justifyContent="center"
+                title="Coworking WorkSpace"
+                fontSize={16}
+                fontWeight="bold"
+                handleCheckbox={(e) => {
+                  console.log("e", e);
+                  setWorkSpace({ ...workSpace, sharedWorkSpace: e });
+                }}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  flex: 1,
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minHeight: 500,
+                }}
+              >
+                <Typography
+                  sx={{
+                    marginY: 1,
+                    fontSize: 11,
+                    fontWeight: "400",
+                    width: "100%",
+                  }}
+                >
+                  {
+                    "WorkSpaces would be shared by multiple people from different companies within the same dates & time frame. - If not checked, then only one company &/or individual can book the booked date/time."
+                  }
+                </Typography>
+                <div
+                  style={{
+                    height: 200,
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      height: 100,
+                      width: 100,
+                      border: "2px black",
+                      borderRadius: 10,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        marginY: 1,
+                        fontSize: 11,
+                        fontWeight: "400",
+                      }}
+                    >
+                      <input
+                        style={{ display: "none" }}
+                        id="photo-upload"
+                        type="file"
+                        onChange={handlePhotoSelect}
+                        accept=".jpg, .jpeg, .png"
+                        ref={uploadFileRef}
+                        onClick={() => {
+                          handleUploadImageClick();
+                        }}
+                      />
+
+                      <label
+                        style={{
+                          cursor: "pointer",
+                        }}
+                        for="photo-upload"
+                      >
+                        {photoName}
+                        {photoUrl && (
+                          <img
+                            src={photoUrl}
+                            alt="Selected photo"
+                            style={{ maxWidth: "100%" }}
+                          />
+                        )}
+                      </label>
+                    </Typography>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      height: 100,
+                      width: 100,
+                      border: "1px black",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        marginY: 1,
+                        fontSize: 11,
+                        fontWeight: "400",
+                      }}
+                    >
+                      <input
+                        style={{ display: "none" }}
+                        id="file-upload"
+                        type="file"
+                        onChange={handleFileSelect}
+                        accept=".pdf"
+                      />
+
+                      <label
+                        style={{
+                          cursor: "pointer",
+                        }}
+                        for="file-upload"
+                      >
+                        {fileName}
+                      </label>
+                    </Typography>
+                  </div>
+                </div>
+
+                <CheckBoxLabel
+                  fontSize={11}
+                  justifyContent="center"
+                  handleCheckbox={(e) => {
+                    setWorkSpace({ ...workSpace, agreeToPolicy: e });
+                  }}
+                  title="I agree to homework term and services policy and privacy policy"
+                />
+                <CheckBoxLabel
+                  fontSize={11}
+                  justifyContent="center"
+                  handleCheckbox={(e) => {
+                    setWorkSpace({ ...workSpace, acknowledgement: e });
+                  }}
+                  title="I acknowledge that I am going to receive a 1099 form if make
+                $600 or more during the entire year. Please Read about tax FAQs."
+                />
+              </div>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
-      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-        <Button
-          title="List Workspace"
-          width="50%"
-          onClick={() => {
-            handleValidations();
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <Button
+            title="List Workspace"
+            width="50%"
+            onClick={() => {
+              handleValidations();
+            }}
+          />
+        </div>
+      </Box>
+      <Grid
+        sx={{
+          marginTop: 4,
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+        container
+        spacing={2}
+      >
+        <Grid
+          item
+          md={3}
+          sm={5}
+          xs={12}
+          sx={{
+            marginBottom: 4,
+            marginLeft: 7,
           }}
-        />
-      </div>
-      <Grid sx={{ marginY: 6 }} container spacing={2}>
-        <Grid item md={3} sm={5} xs={12}>
+        >
           <MenuSection />
         </Grid>
-        <Grid item md={9} sx={{ display: { xs: "none", md: "flex" } }}>
+        <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
           <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <TableBottom />
+            <Image src={TableBottom} alt="" />
           </Box>
         </Grid>
       </Grid>

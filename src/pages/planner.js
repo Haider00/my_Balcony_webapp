@@ -23,28 +23,13 @@ export default function Planner() {
 
   return (
     <>
-      <CustomHeader />
-
-      <Grid
-        container
-        sx={{ display: "flex", justifyContent: "space-evenly", mt: 5 }}
-      >
+      <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
+        <CustomHeader />
         <Grid
-          sx={{ mt: 2, textAlign: "center" }}
-          item
-          xs={12}
-          sm={12}
-          md={6}
-          lg={3}
+          container
+          sx={{ display: "flex", justifyContent: "space-evenly", mt: 5 }}
         >
-          <Grid
-            sx={{ mt: 2, textAlign: "center" }}
-            item
-            xs={12}
-            sm={12}
-            md={6}
-            lg={3}
-          >
+          <Grid sx={{ textAlign: "center" }} item xs={12} sm={12} md={1} lg={1}>
             <WebTabs />
           </Grid>
           <Grid
@@ -52,39 +37,40 @@ export default function Planner() {
             item
             xs={12}
             sm={12}
-            md={6}
+            md={3}
             lg={3}
           >
             <PlannerCalendar />
           </Grid>
+
+          {!isMediumScreen && (
+            <Divider className="divider" orientation="vertical" flexItem />
+          )}
+          <Grid
+            sx={{ mt: 2, textAlign: "center" }}
+            item
+            xs={12}
+            sm={12}
+            md={3}
+            lg={3}
+          >
+            <PlannerCards />
+          </Grid>
+          {!isMediumScreen && (
+            <Divider className="divider" orientation="vertical" flexItem />
+          )}
+          <Grid
+            sx={{ mt: 2, textAlign: "center" }}
+            item
+            xs={12}
+            sm={12}
+            md={3}
+            lg={3}
+          >
+            <PlannerNotes />
+          </Grid>
         </Grid>
-        {!isMediumScreen && (
-          <Divider className="divider" orientation="vertical" flexItem />
-        )}
-        <Grid
-          sx={{ mt: 2, textAlign: "center" }}
-          item
-          xs={12}
-          sm={12}
-          md={6}
-          lg={3}
-        >
-          <PlannerCards />
-        </Grid>
-        {!isMediumScreen && (
-          <Divider className="divider" orientation="vertical" flexItem />
-        )}
-        <Grid
-          sx={{ mt: 2, textAlign: "center" }}
-          item
-          xs={12}
-          sm={12}
-          md={12}
-          lg={3}
-        >
-          <PlannerNotes />
-        </Grid>
-      </Grid>
+      </Box>
       <Grid
         sx={{
           marginTop: 4,
@@ -101,6 +87,7 @@ export default function Planner() {
           xs={12}
           sx={{
             marginBottom: 4,
+            marginLeft: 7,
           }}
         >
           <MenuSection />

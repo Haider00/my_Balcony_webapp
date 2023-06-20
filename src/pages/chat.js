@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Avatar from '@mui/material/Avatar';
-import SendIcon from '@mui/icons-material/Send';
+import Avatar from "@mui/material/Avatar";
+import SendIcon from "@mui/icons-material/Send";
 import { WebTabs } from "src/component";
 import { api } from "../utils/api";
 import { useAuthState } from "src/context/auth.context";
 import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
 import { CustomHeader } from "src/component";
-
 
 const Wrapper = styled.section`
   .container {
@@ -29,7 +28,7 @@ const Wrapper = styled.section`
     border-radius: 25px;
     box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%);
     background-color: #fff;
-  } 
+  }
   .dashboard-chat {
     margin-top: 50px;
     flex: 0 0 80%;
@@ -100,7 +99,6 @@ const Wrapper = styled.section`
     padding-right: 150px;
   }
 
-
   .chat-box-right {
     display: flex;
     justify-content: flex-end;
@@ -109,7 +107,7 @@ const Wrapper = styled.section`
   .chat-box-left {
     display: flex;
     justify-content: flex-start;
-  } 
+  }
   .chat-box-right .user-icon {
     order: 2;
     width: 20%;
@@ -147,7 +145,7 @@ const Wrapper = styled.section`
     font-size: 18px;
     font-weight: 700px;
   }
-  .sidebar-wrapper {      
+  .sidebar-wrapper {
     padding: 0;
     margin: 0;
   }
@@ -175,14 +173,14 @@ const Wrapper = styled.section`
     text-decoration: none;
     color: #000;
   }
-  .chat-boxes{
+  .chat-boxes {
     display: flex;
-    flex-direction: column-reverse;   
-    height:60vh; 
+    flex-direction: column-reverse;
+    height: 60vh;
     overflow-y: auto;
     &::-webkit-scrollbar {
       width: 0.6em;
-    } 
+    }
     &::-webkit-scrollbar-track {
       border-radius: 8px;
       background-color: #e7e7e7;
@@ -192,13 +190,12 @@ const Wrapper = styled.section`
       border-radius: 8px;
       background-color: #363636;
     }
-    .ChatPersonName{
-      font-size:20px;   
+    .ChatPersonName {
+      font-size: 20px;
     }
   }
-`;  
+`;
 export default function Chat() {
-
   const auth = useAuthState();
   const [chats, setChats] = useState();
   const [message, setMessage] = useState();
@@ -209,13 +206,11 @@ export default function Chat() {
   // console.log('message>>>', message);
   // console.log('ChatID>>>', chatID);
 
-  console.log('messageArr>>>>', messageArr);
-    
-
+  console.log("messageArr>>>>", messageArr);
 
   useEffect(() => {
     if (auth.user?._id) {
-      if (auth.userType == 'user') {
+      if (auth.userType == "user") {
         api
           .getChats(`?client=${auth.user?._id}`)
           .then((res) => {
@@ -225,9 +220,9 @@ export default function Chat() {
           .catch((err) => {
             console.log("Chats>>>>>E", err);
           });
-      } else if (auth.userType == 'seller') {
+      } else if (auth.userType == "seller") {
         api
-        getChats(`?owner=${auth.user?._id}`)
+          .getChats(`?owner=${auth.user?._id}`)
           .then((res) => {
             setChats(res.data.data);
             console.log("Chats>>>>>1", res.data.data);
@@ -237,29 +232,24 @@ export default function Chat() {
           });
       }
     }
-
   }, [auth.user]);
 
   const handleMessageText = (e) => {
     setMessage(e.target.value);
-  }
-
-
+  };
 
   const sendMessage = () => {
     api
       .createMessage({ chat: chatID, from: auth.user?._id, text: message })
       .then((res) => {
-
-        setMessageArr([res.data, ...messageArr])
+        setMessageArr([res.data, ...messageArr]);
         console.log("message>>>>>>", res.data);
       })
       .catch((err) => {
         console.log("Error", err);
       });
     document.getElementById("message").value = "";
-  }
-
+  };
 
   const showMessages = (chatId) => {
     api
@@ -271,12 +261,11 @@ export default function Chat() {
       .catch((err) => {
         console.log("Error", err);
       });
-  }
-
+  };
 
   return (
     <>
-    <CustomHeader/>
+      <CustomHeader />
       <WebTabs selectedTab={2} />
       <Wrapper>
         <div class="container">
@@ -286,23 +275,38 @@ export default function Chat() {
                 <div class="chat-groups">
                   <span className="chat-heading">chats</span>
                   {chats?.map((item) => {
-                    return <div onClick={() => {
-                      setChatID(item._id);
-                      showMessages(item._id);
-                    }} class="group">
-                      <div class="group-icon">
-                        <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
+                    return (
+                      <div
+                        onClick={() => {
+                          setChatID(item._id);
+                          showMessages(item._id);
+                        }}
+                        class="group"
+                      >
+                        <div class="group-icon">
+                          <Avatar
+                            alt="Remy Sharp"
+                            src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg"
+                          />
+                        </div>
+                        <div class="group-text">
+                          <p className="ChatPersonName">
+                            {item.client.firstName}
+                          </p>
+                          <p>
+                            {chats?.map((item, index) => {
+                              if (index === chats.length - 1) {
+                                const shortenedMsg =
+                                  item.msg.length > 15
+                                    ? item.msg.slice(0, 15) + "..."
+                                    : item.msg;
+                                return shortenedMsg;
+                              }
+                            })}
+                          </p>
+                        </div>
                       </div>
-                      <div class="group-text">
-                        <p className="ChatPersonName">{item.client.firstName}</p>
-                        <p>{chats?.map((item, index) => {
-                          if (index === chats.length - 1) {
-                            const shortenedMsg = item.msg.length > 15 ? item.msg.slice(0, 15) + "..." : item.msg;
-                            return shortenedMsg;
-                          } 
-                        })}</p>
-                      </div>
-                    </div>
+                    );
                   })}
                 </div>
 
@@ -315,14 +319,24 @@ export default function Chat() {
                     </span>
                     <div className="chat-boxes">
                       {messageArr.map((item) => {
-                        return <div className={auth.user?._id == (item.from?._id || item.from) ? "chat-box-right" : "chat-box-left"}>
-                          <div className="user-icon">
-                            <Avatar alt="Remy Sharp" src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg" />
+                        return (
+                          <div
+                            className={
+                              auth.user?._id == (item.from?._id || item.from)
+                                ? "chat-box-right"
+                                : "chat-box-left"
+                            }
+                          >
+                            <div className="user-icon">
+                              <Avatar
+                                alt="Remy Sharp"
+                                src="https://t4.ftcdn.net/jpg/02/79/66/93/360_F_279669366_Lk12QalYQKMczLEa4ySjhaLtx1M2u7e6.jpg"
+                              />
+                            </div>
+                            <div className="user-input">{item.text}</div>
                           </div>
-                          <div className="user-input">{item.text}</div>
-                        </div>
-                      })
-                      }
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -336,10 +350,16 @@ export default function Chat() {
                         placeholder="Typing message here..."
                         onChange={handleMessageText}
                       />
-                      <div onClick={() => {
-                        sendMessage();
-                      }} className="submit-msg">
-                        <SendIcon sx={{ cursor: 'pointer' }} style={{ fontSize: 30 }} />
+                      <div
+                        onClick={() => {
+                          sendMessage();
+                        }}
+                        className="submit-msg"
+                      >
+                        <SendIcon
+                          sx={{ cursor: "pointer" }}
+                          style={{ fontSize: 30 }}
+                        />
                       </div>
                     </form>
                   </div>

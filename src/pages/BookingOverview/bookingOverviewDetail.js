@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Divider, Button } from "@mui/material";
 import { Box, Typography, Rating } from "@mui/material";
-import { useWorkspaceDetailState, useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
+import {
+  useWorkspaceDetailState,
+  useWorkspaceDetailDispatch,
+} from "src/context/workspaceDetail.context";
 import { useAuthState } from "src/context/auth.context";
 import { useRouter } from "next/router";
 import moment from "moment";
@@ -9,28 +12,27 @@ import { api } from "src/utils/api";
 import { Snackbar, Grid } from "@mui/material";
 
 export default function BookingOverviewDetail() {
-
   const router = useRouter();
   const workspaceDetailState = useWorkspaceDetailState();
-  console.log('WSD',workspaceDetailState)
+  console.log("WSD", workspaceDetailState);
   const auth = useAuthState();
   // console.log('auth', auth.user._id)
   const dispatch = useWorkspaceDetailDispatch();
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
-  const [ratingStar , setRatingStar]=useState(2);
+  const [ratingStar, setRatingStar] = useState(2);
   const totalPeople = workspaceDetailState.workspaceDetail.perPerson;
   const maintenancesFee = workspaceDetailState.workspaceDetail.maintenancesFee;
 
   const otherFeeAmount = workspaceDetailState.workspaceDetail.otherFeeAmount;
 
-  console.log('WWW',workspaceDetailState.workspaceDetail.owner)
+  console.log("WWW", workspaceDetailState.workspaceDetail.owner);
 
   const otherFeeName = workspaceDetailState.workspaceDetail.otherFeeName;
   const totalAmount =
     (parseInt(maintenancesFee) + parseInt(otherFeeAmount)) *
     parseInt(totalPeople);
-  
+
   const selDates = workspaceDetailState.selectedDatesarr;
   console.log("selDates", selDates);
 
@@ -38,10 +40,10 @@ export default function BookingOverviewDetail() {
 
   const currentDate = () => {
     const currentDate = moment();
-    const formattedDate = currentDate.format('DD-MM-YYYY');
-    console.log('formattedDate', formattedDate);
+    const formattedDate = currentDate.format("DD-MM-YYYY");
+    console.log("formattedDate", formattedDate);
     return formattedDate;
-  }
+  };
 
   const [stripeDetails, setStripeDetails] = useState({});
   const [cards, setCards] = useState({});
@@ -52,32 +54,34 @@ export default function BookingOverviewDetail() {
         .getStripeCustomer({
           query: `?stripeCustomer=${auth.user.stripeCustomer}`,
         })
-        .then(res => {
+        .then((res) => {
           setStripeDetails(res);
         })
-        .catch(err => {
-          toastEvent('something went wrong while getting stripe details');
+        .catch((err) => {
+          toastEvent("something went wrong while getting stripe details");
         });
     }
   }, [auth.user]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const rating = workspaceDetailState.workspaceDetail.rating;
-    const sum = rating.map((rating) => rating.rating.$numberDecimal).reduce((a, b) => a + b, 0);
+    const sum = rating
+      ?.map((rating) => rating.rating.$numberDecimal)
+      .reduce((a, b) => a + b, 0);
     const average = sum / rating.length;
     setRatingStar(average);
-  },[])
+  }, []);
 
   const handleCardNumber = () => {
     return (
       cards &&
       cards.length &&
       cards.length > 0 &&
-      cards.map(item => {
+      cards.map((item) => {
         if (item.id === stripeDetails.default_source) {
-          return '** ** ** ' + item.last4;
+          return "** ** ** " + item.last4;
         }
-        return '';
+        return "";
       })
     );
   };
@@ -86,26 +90,28 @@ export default function BookingOverviewDetail() {
     if (auth.user && auth.user.stripeCustomer) {
       api
         .getCard({ query: `?stripeCustomer=${auth.user.stripeCustomer}` })
-        .then(res => {
+        .then((res) => {
           setCards(res.data);
         })
-        .catch(err => {
-          toastEvent('something went wrong while getting cards');
+        .catch((err) => {
+          toastEvent("something went wrong while getting cards");
         });
     }
   }, [auth.user]);
 
-
-
   const handleCheckout = () => {
     api
-      .createBooking({ date: selDates, workSpace: workspaceDetailState?.workspaceDetail?._id,
-                        buyer:auth?.user?._id, seller:workspaceDetailState?.workspaceDetail?.owner })
+      .createBooking({
+        date: selDates,
+        workSpace: workspaceDetailState?.workspaceDetail?._id,
+        buyer: auth?.user?._id,
+        seller: workspaceDetailState?.workspaceDetail?.owner,
+      })
       .then((res) => {
         console.log("response>>", res);
         setMessage("Booking Completed Successfully");
         setDisplay(true);
-        router.push('./');
+        router.push("./");
         dispatch({
           type: "WORKSPACE_DETAIL",
           payload: {},
@@ -118,7 +124,7 @@ export default function BookingOverviewDetail() {
       .catch(() => {
         // console.log("error");
       });
-  }
+  };
 
   return (
     <>
@@ -142,11 +148,10 @@ export default function BookingOverviewDetail() {
           marginTop: 5,
         }}
       >
-        <Typography variant="h6">{workspaceDetailState?.workspaceDetail?.name}</Typography>
-        <Rating
-          value={ratingStar}
-          name="simple-controlled" 
-          readOnly/>
+        <Typography variant="h6">
+          {workspaceDetailState?.workspaceDetail?.name}
+        </Typography>
+        <Rating value={ratingStar} name="simple-controlled" readOnly />
 
         <Typography sx={{ marginTop: 1 }} variant="body2">
           Date of Workspace Checkin: {currentDate()}
@@ -184,7 +189,9 @@ export default function BookingOverviewDetail() {
           marginTop: 4,
         }}
       >
-        <Typography variant="h5">Would you like to cancle your order</Typography>
+        <Typography variant="h5">
+          Would you like to cancle your order
+        </Typography>
       </Box>
       <Box
         sx={{
@@ -194,18 +201,36 @@ export default function BookingOverviewDetail() {
           alignContent: "flex-start",
         }}
       >
-        <Typography sx={{ mt: 1 }} variant="subtitle1">You can cancle before 24 Hours of</Typography>
-        <Typography sx={{ mb: 2 }} variant="subtitle1">The book start Date/Time for a full refund</Typography>
-        <Typography variant="subtitle1">Failure to cancel before 24 results in a</Typography>
+        <Typography sx={{ mt: 1 }} variant="subtitle1">
+          You can cancle before 24 Hours of
+        </Typography>
+        <Typography sx={{ mb: 2 }} variant="subtitle1">
+          The book start Date/Time for a full refund
+        </Typography>
+        <Typography variant="subtitle1">
+          Failure to cancel before 24 results in a
+        </Typography>
         <Typography variant="subtitle1">25% late cancelation charge</Typography>
       </Box>
 
-      <Divider sx={{ mt: 2, mb: 2, alignSelf: 'center' }} className="divider" orientation="horizontal" flexItem style={{ background: 'black', width: '50%' }} />
+      <Divider
+        sx={{ mt: 2, mb: 2, alignSelf: "center" }}
+        className="divider"
+        orientation="horizontal"
+        flexItem
+        style={{ background: "black", width: "50%" }}
+      />
       {handleCardNumber() && (
         <Typography variant="h6">Pay with Card No. Ending in </Typography>
       )}
       <Typography variant="h6">{handleCardNumber()}</Typography>
-      <Divider sx={{ mt: 3, alignSelf: 'center' }} className="divider" orientation="horizontal" flexItem style={{ background: 'black', width: '50%' }} />
+      <Divider
+        sx={{ mt: 3, alignSelf: "center" }}
+        className="divider"
+        orientation="horizontal"
+        flexItem
+        style={{ background: "black", width: "50%" }}
+      />
 
       <Box sx={{ display: "flex", justifyContent: "space-between", mt: 5 }}>
         <Button
@@ -213,7 +238,7 @@ export default function BookingOverviewDetail() {
             if (handleCardNumber()) {
               handleCheckout();
             } else {
-              setMessage('Card Not Found. Please Attach Your Card For Payment')
+              setMessage("Card Not Found. Please Attach Your Card For Payment");
               setDisplay(true);
             }
           }}
@@ -226,7 +251,7 @@ export default function BookingOverviewDetail() {
             textTransform: "capitalize",
             paddingX: 5,
             paddingY: 3,
-            marginX: 1
+            marginX: 1,
           }}
           variant="contained"
         >
@@ -242,7 +267,7 @@ export default function BookingOverviewDetail() {
             textTransform: "capitalize",
             paddingX: 2,
             paddingY: 3,
-            marginX: 1
+            marginX: 1,
           }}
           variant="contained"
         >
@@ -259,8 +284,7 @@ export default function BookingOverviewDetail() {
           justifyContent: "center",
           alignItems: "center",
         }}
-      >
-      </Grid>
+      ></Grid>
     </>
   );
 }

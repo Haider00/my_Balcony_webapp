@@ -100,33 +100,34 @@ export default function WorkspaceDetail() {
             <Mapsection />
           </Grid>
         </Grid>
-        <Grid
-          sx={{
-            marginTop: 4,
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-          }}
-          container
-          spacing={2}
-        >
-          <Grid
-            item
-            md={3}
-            sm={5}
-            xs={12}
-            sx={{
-              marginBottom: 4,
-            }}
-          >
-            <MenuSection />
-          </Grid>
-          <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-            <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-              <Image src={TableBottom} alt="" />
-            </Box>
-          </Grid>
-        </Grid>
       </Box>
+      <Grid
+        sx={{
+          marginTop: 4,
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+        container
+        spacing={2}
+      >
+        <Grid
+          item
+          md={3}
+          sm={5}
+          xs={12}
+          sx={{
+            marginBottom: 4,
+            marginLeft: 7,
+          }}
+        >
+          <MenuSection />
+        </Grid>
+        <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
+            <Image src={TableBottom} alt="" />
+          </Box>
+        </Grid>
+      </Grid>
     </>
   );
 }

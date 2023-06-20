@@ -28,31 +28,55 @@ export default function MenuSection() {
       }}
     >
       <Box sx={{ width: isAndroidView ? "100%" : "250px" }}>
-        <Card style={{ padding: 30 }}>
+        <Card
+          style={{
+            paddingTop: 30,
+            paddingBottom: 30,
+            paddingLeft: 10,
+            paddingRight: 10,
+          }}
+        >
           <CardContent>
-            <Typography variant="h6">read, discover, explore</Typography>
+            <Typography variant="h6" sx={{ fontSize: 28, mb: 4 }}>
+              read, discover, explore..
+            </Typography>
             <Link href="http://">
-              <Typography sx={{ marginTop: 1 }} variant="subtitle1">
+              <Typography
+                sx={{ marginTop: 1, fontSize: 22 }}
+                variant="subtitle1"
+              >
                 about Us
               </Typography>
             </Link>
             <Link href="http://">
-              <Typography sx={{ marginTop: 1 }} variant="subtitle1">
+              <Typography
+                sx={{ marginTop: 1, fontSize: 22 }}
+                variant="subtitle1"
+              >
                 terms & conditions
               </Typography>
             </Link>
             <Link href="http://">
-              <Typography sx={{ marginTop: 1 }} variant="subtitle1">
+              <Typography
+                sx={{ marginTop: 1, fontSize: 22 }}
+                variant="subtitle1"
+              >
                 privacy policy
               </Typography>
             </Link>
             <Link href="http://">
-              <Typography sx={{ marginTop: 1 }} variant="subtitle1">
+              <Typography
+                sx={{ marginTop: 1, fontSize: 22 }}
+                variant="subtitle1"
+              >
                 faq
               </Typography>
             </Link>
             <Link href="http://">
-              <Typography sx={{ marginTop: 1 }} variant="subtitle1">
+              <Typography
+                sx={{ marginTop: 1, fontSize: 22 }}
+                variant="subtitle1"
+              >
                 become a workspace Host
               </Typography>
             </Link>
@@ -86,7 +110,7 @@ export default function MenuSection() {
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", p: 1 }}>
             <Typography sx={{ fontSize: 12 }}>
-              homework workspaces LLC © {new Date().getFullYear()}
+              © homework workspaces LLC {new Date().getFullYear()}
             </Typography>
           </Box>
         </Card>

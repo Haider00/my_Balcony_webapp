@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -9,6 +8,7 @@ import { useAuthState } from "src/context/auth.context";
 import { useRouter } from "next/router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Grid, Typography, Box } from "@mui/material";
 
 export default function PlannerCalendar() {
   const defaultStartDate = new Date();
@@ -28,9 +28,7 @@ export default function PlannerCalendar() {
         const messagesForDates = {};
         res.data.forEach((item) => {
           console.log(">>>>>", item.title);
-          messagesForDates[
-            moment(item.date).format("YYYY-MM-DD")
-          ] = item.title;
+          messagesForDates[moment(item.date).format("YYYY-MM-DD")] = item.title;
         });
         setMessages(messagesForDates);
       })
@@ -40,7 +38,12 @@ export default function PlannerCalendar() {
   }, [auth.user?._id]);
 
   return (
-    <div>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}
+    >
+      <Typography variant="h5" sx={{ mb: 2 }}>
+        planner
+      </Typography>
       <DatePicker
         selected={selectedDate}
         onChange={(date) => {
@@ -56,6 +59,6 @@ export default function PlannerCalendar() {
           moment(date, "YYYY-MM-DD").toDate()
         )}
       />
-    </div>
+    </Box>
   );
 }

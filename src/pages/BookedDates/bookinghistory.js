@@ -4,9 +4,8 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import moment from "moment/moment";
 
-
 const bookinghistory = (props) => {
-  console.log('propsss>>>', props);
+  console.log("propsss>>>", props);
   return (
     <>
       <Typography sx={{ fontSize: 34, mt: 3 }}>booking history</Typography>
@@ -15,17 +14,16 @@ const bookinghistory = (props) => {
         container
         sx={{
           display: "flex",
-          justifyContent: "space-around",
+          justifyContent: "space-evenly",
           rowGap: 2,
           mt: 4,
         }}
       >
         {props.bookinghistory.data?.length > 0 ? (
-
           props.bookinghistory.data.map((item) => {
             let Workspace = item.workSpace;
             const formattedDates = item.date.map((date) =>
-              moment(date).format('DD/MM/YY')
+              moment(date).format("DD/MM/YY")
             );
             let cleaningFee = item.workSpace.cleaningFee;
             let maintenancesFee = item.workSpace.maintenancesFee;
@@ -34,7 +32,7 @@ const bookinghistory = (props) => {
             return (
               <Card
                 sx={{
-                  width: 350,
+                  width: 300,
                   height: 155,
                   backgroundColor: "#faf9f6",
                   borderRadius: 3,
@@ -55,7 +53,11 @@ const bookinghistory = (props) => {
                     }}
                   >
                     <img
-                      src={item.image ? item.image : "https://wallpaperaccess.com/full/38119.jpg"}
+                      src={
+                        item.image
+                          ? item.image
+                          : "https://wallpaperaccess.com/full/38119.jpg"
+                      }
                       alt="Workspace Image"
                       style={{
                         width: "100%",
@@ -88,7 +90,7 @@ const bookinghistory = (props) => {
                       color="#000"
                       gutterBottom
                     >
-                      Date of Workspace Check-in: {formattedDates.join(', ')}
+                      Date of Workspace Check-in: {formattedDates.join(", ")}
                     </Typography>
                     <Typography
                       sx={{
@@ -115,13 +117,19 @@ const bookinghistory = (props) => {
                       color="#000"
                       gutterBottom
                     >
-                      Total: ${parseInt(cleaningFee) + parseInt(maintenancesFee) + (parseInt(otherFeeAmount)) * (parseInt(perPerson))}
+                      Total: $
+                      {parseInt(cleaningFee) +
+                        parseInt(maintenancesFee) +
+                        parseInt(otherFeeAmount) * parseInt(perPerson)}
                     </Typography>
                   </Box>
                 </CardContent>
               </Card>
             );
-          })) : (<Typography>No Booking History.</Typography>)}
+          })
+        ) : (
+          <Typography>No Booking History.</Typography>
+        )}
       </Grid>
     </>
   );

@@ -62,7 +62,6 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           height: 300,
           width: 60,
           backgroundColor: "#fff",
-          marginTop: 56,
           borderRadius: 10,
           display: "flex",
           flexDirection: "column",
@@ -138,7 +137,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           />
         </div>
 
-        <div
+        {/* <div
           style={{
             height: 50,
             width: 50,
@@ -157,27 +156,8 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
               cursor: "pointer",
             }}
           />
-        </div>
-        <div
-          style={{
-            height: 50,
-            width: 50,
-            backgroundColor: selectedTab === 5 ? "#005451" : "#fff",
-            borderRadius: 15,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <PersonOutline
-            onClick={handleAccountDashboardClick}
-            style={{
-              color: selectedTab === 5 ? "#fff" : "#000",
-              fontSize: 35,
-              cursor: "pointer",
-            }}
-          />
-        </div>
+        </div> */}
+
         <div
           style={{
             height: 50,
@@ -195,6 +175,27 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             }}
             style={{
               color: selectedTab === 6 ? "#fff" : "#000",
+              fontSize: 35,
+              cursor: "pointer",
+            }}
+          />
+        </div>
+
+        <div
+          style={{
+            height: 50,
+            width: 50,
+            backgroundColor: selectedTab === 5 ? "#005451" : "#fff",
+            borderRadius: 15,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <PersonOutline
+            onClick={handleAccountDashboardClick}
+            style={{
+              color: selectedTab === 5 ? "#fff" : "#000",
               fontSize: 35,
               cursor: "pointer",
             }}

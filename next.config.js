@@ -1,5 +1,5 @@
-const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
+const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 
 /** @type {import('next').NextConfig} */
 
@@ -10,14 +10,17 @@ const nextConfig = {
       new CopyPlugin({
         patterns: [
           {
-            from: 'node_modules/leaflet/dist/images',
-            to: path.resolve(__dirname, 'public', 'leaflet', 'images')
+            from: "node_modules/leaflet/dist/images",
+            to: path.resolve(__dirname, "public", "leaflet", "images"),
           },
         ],
-      }),
-    )
-    return config
-  }
-}
+      })
+    );
+    return config;
+  },
+  compiler: {
+    styledComponents: true,
+  },
+};
 
 module.exports = nextConfig;

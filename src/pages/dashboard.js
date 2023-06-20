@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { CustomHeader } from "../component";
 import UserPic from "../assets/svg/Calender";
@@ -6,8 +6,7 @@ import SalesandOrder from "./Dashboard/transaction";
 import Admin from "../components/Admin/admin";
 import LinearProgress from "@mui/material/LinearProgress";
 import MobileDropdown from "../component/AdminMobileDropDown/index";
-import { RadialChart } from "react-vis";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import {
   LineChart,
   Line,
@@ -256,15 +255,15 @@ const SalesStatistic = (props) => {
     };
   }, []);
 
-  const [SalesStatistics, setSalesStatistics] = useState("all");
+  const [SalesStatistics, setSalesStatistics] = React.useState("all");
 
   const handleClick = (selected) => {
     setSalesStatistics(selected);
   };
 
-  const [chartWidth, setChartWidth] = useState(800); // initial width value
+  const [chartWidth, setChartWidth] = React.useState(800); // initial width value
 
-  useEffect(() => {
+  React.useEffect(() => {
     function handleResize() {
       if (window.innerWidth >= 992) {
         setChartWidth(800);
@@ -296,7 +295,7 @@ const SalesStatistic = (props) => {
 
         <StatisticContainer>
           <Sidebar>
-            <Admin selectedTab={1}/>
+            <Admin selectedTab={1} />
           </Sidebar>
           <Mainarea>
             <BoxContainer>

@@ -52,9 +52,11 @@ export default function AmenitiesPortion() {
       <Box
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
-        <Typography variant="h5" sx={{ mb: 2 }}>
-          amenities
-        </Typography>
+        <Box style={{ width: "100%", paddingLeft: 25 }}>
+          <Typography variant="h5" sx={{ mb: 2, textAlign: "left" }}>
+            amenities
+          </Typography>
+        </Box>
         <Amenities />
 
         <Divider sx={{ width: "95%", my: 3 }} variant="middle" />
@@ -63,7 +65,7 @@ export default function AmenitiesPortion() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          alignItems: "end",
         }}
       >
         <Typography variant="h6" sx={{ mb: 1 }}>
@@ -78,6 +80,8 @@ export default function AmenitiesPortion() {
                   fontSize: "24px",
                   fontWeight: "400",
                   listStyle: "none",
+                  paddingLeft: 20,
+                  paddingRight: 20,
                 }}
                 key={index}
               >

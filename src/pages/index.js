@@ -74,7 +74,7 @@ export default function SignUp() {
           <CustomHeader />
         </Box>
         <Grid container>
-          <Grid item xs={1} md={1}>
+          <Grid style={{ marginTop: 56 }} item xs={1} md={1}>
             <WebTabs />
           </Grid>
           <Grid item xs={6} md={7}>
@@ -153,33 +153,34 @@ export default function SignUp() {
           </Box>
         </Grid>
         <HostWorkSpaceWb />
-        <Grid
-          sx={{
-            marginTop: 4,
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-          }}
-          container
-          spacing={2}
-        >
-          <Grid
-            item
-            md={3}
-            sm={5}
-            xs={12}
-            sx={{
-              marginBottom: 4,
-            }}
-          >
-            <MenuSection />
-          </Grid>
-          <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-            <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-              <Image src={TableBottom} alt="" />
-            </Box>
-          </Grid>
-        </Grid>
       </Box>
+      <Grid
+        sx={{
+          marginTop: 4,
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+        container
+        spacing={2}
+      >
+        <Grid
+          item
+          md={3}
+          sm={5}
+          xs={12}
+          sx={{
+            marginBottom: 4,
+            marginLeft: 7,
+          }}
+        >
+          <MenuSection />
+        </Grid>
+        <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
+            <Image src={TableBottom} alt="" />
+          </Box>
+        </Grid>
+      </Grid>
     </>
   );
 }
