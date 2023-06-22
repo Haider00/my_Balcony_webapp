@@ -23,7 +23,7 @@ export default function bookeddates() {
 
   const auth = useAuthState();
 
-  console.log("authState>>>", auth.userType);
+  // console.log("authState>>>", auth.userType);
 
   useEffect(() => {
     let query = `?page=${bookingHistoryPage}&limit=20&status=approve&date[$lt]=${moment().startOf(
@@ -39,11 +39,11 @@ export default function bookeddates() {
         query: query,
       })
       .then((res) => {
-        console.log("res<<<<", res.data);
+        // console.log("res<<<<", res.data);
         setBookingHistory(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [bookingHistoryPage, auth.user]);
 
@@ -61,11 +61,11 @@ export default function bookeddates() {
         query,
       })
       .then((res) => {
-        console.log("res>>>>222", res);
+        // console.log("res>>>>222", res);
         setOnGoingBooking(res.data);
       })
       .catch((err) => {
-        console.log("err>>>>>>>", err);
+        // console.log("err>>>>>>>", err);
       });
   }, [page, auth.user]);
 
@@ -83,11 +83,11 @@ export default function bookeddates() {
         query: query,
       })
       .then((res) => {
-        console.log("resss", res.data);
+        // console.log("resss", res.data);
         setInComingBooking(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [inComingPage, auth.user]);
 

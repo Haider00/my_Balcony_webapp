@@ -3,7 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function login() {
   const { data: session } = useSession();
-  console.log("resp>>", session.user.email);
+  // console.log("resp>>", session.user.email);
   async function handleGoogleSignin() {
     signIn("google");
   }

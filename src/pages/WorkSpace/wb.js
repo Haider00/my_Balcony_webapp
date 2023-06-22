@@ -28,7 +28,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export const FormWb = ({ handleInfo = ({ }) => { } }) => {
+export const FormWb = ({ handleInfo = ({}) => {} }) => {
   const [info, setInfo] = useState({});
 
   useEffect(() => {
@@ -252,11 +252,11 @@ export const WorksapceImages = () => {
       100,
       0,
       (uri) => {
-        console.log('FILES>>>>1', uri)
+        // console.log('FILES>>>>1', uri)
         api
           .uploadImage({ image: uri })
           .then((res) => {
-            console.log('FILES>>>>', res)
+            // console.log('FILES>>>>', res)
             if (imageType === "main") {
               workSpaceDispatch({
                 type: "SET_WORKSPACE_FIRST_IMAGE",
@@ -279,7 +279,7 @@ export const WorksapceImages = () => {
             // handleUploadProductImage(res.data, product, element.cover);
           })
           .catch((err) => {
-            console.log('FILES>>>>E', err)
+            // console.log('FILES>>>>E', err)
             // setDisplay(true);
             // setMessage("Something Went Wrong While Adding Your Post");
           });
@@ -372,8 +372,8 @@ export const WorksapceImages = () => {
   );
 };
 export const WorksapceImagesBookingOverview = () => {
-  const workspaceDetail = useWorkspaceDetailState()
-  console.log('detail', workspaceDetail?.workspaceDetail?._id)
+  const workspaceDetail = useWorkspaceDetailState();
+  // console.log("detail", workspaceDetail?.workspaceDetail?._id);
   const [mainImage, setMainImage] = useState("");
   const [secondImage, setSecondImage] = useState("");
   const [thirdImage, setThirdImage] = useState("");
@@ -381,11 +381,14 @@ export const WorksapceImagesBookingOverview = () => {
   const uploadFileRef = useRef(null);
 
   useEffect(() => {
-    api.getImages({ query: `?workSpace=${workspaceDetail?.workspaceDetail?._id}` })
+    api
+      .getImages({
+        query: `?workSpace=${workspaceDetail?.workspaceDetail?._id}`,
+      })
       .then((res) => {
-        setMainImage(res.data[0].Location)
-        setSecondImage(res.data[1].Location)
-        setThirdImage(res.data[2].Location)
+        setMainImage(res.data[0].Location);
+        setSecondImage(res.data[1].Location);
+        setThirdImage(res.data[2].Location);
       })
       .catch((err) => {
         console.log("Error3", err);
@@ -419,7 +422,7 @@ export const WorksapceImagesBookingOverview = () => {
       >
         {mainImage && (
           <img
-            style={{ height:'100%', width: '100%', objectFit: 'contain' }}
+            style={{ height: "100%", width: "100%", objectFit: "contain" }}
             src={mainImage}
             alt="image"
           />
@@ -441,10 +444,10 @@ export const WorksapceImagesBookingOverview = () => {
         >
           {secondImage && (
             <img
-            style={{ height:'100%', width: '100%' }}
-            src={secondImage}
-            alt="image"
-          />
+              style={{ height: "100%", width: "100%" }}
+              src={secondImage}
+              alt="image"
+            />
           )}
         </div>
         <div
@@ -461,7 +464,7 @@ export const WorksapceImagesBookingOverview = () => {
         >
           {thirdImage && (
             <img
-              style={{ height: '100%', width: '100%' }}
+              style={{ height: "100%", width: "100%" }}
               src={thirdImage}
               alt="image"
             />
@@ -497,7 +500,7 @@ export const WorksapceImagesWorkspaceEdit = () => {
         api
           .uploadImage({ image: uri })
           .then((res) => {
-            console.log("RESPONSE....", res);
+            // console.log("RESPONSE....", res);
             if (imageType === "main") {
               setMainImage(res.Location);
             } else if (imageType === "second") {

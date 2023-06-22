@@ -42,7 +42,7 @@ export default function HostWorkSpace({}) {
   const [photoName, setphotoName] = useState("+Add photo ID");
   const router = useRouter();
   const auth = useAuthState();
-  console.log("workspaceState>>>>", workspaceState.firstImage);
+  // console.log("workspaceState>>>>", workspaceState.firstImage);
 
   const handlePhotoSelect = (event) => {
     uploadPhotoID(event.target.files[0]);
@@ -84,7 +84,7 @@ export default function HostWorkSpace({}) {
   const handlebox = (isChecked) => {
     setIsChecked(!isChecked);
   };
-  console.log("lll", isChecked);
+  // console.log("lll", isChecked);
   const [feeNametext, setFeeName] = useState("");
 
   const handleFeeNameChangetext = (e) => {
@@ -114,8 +114,8 @@ export default function HostWorkSpace({}) {
   const [message, setMessage] = useState("");
   const [workPlaceDayAndTime, setWorkPlaceDayAndTime] = useState([]);
   const [workPlaceDay, setWorkPlaceDay] = useState([]);
-  console.log("workPlaceDay", workPlaceDay);
-  console.log("workSpace><><><><><><>", workSpace);
+  // console.log("workPlaceDay", workPlaceDay);
+  // console.log("workSpace><><><><><><>", workSpace);
 
   const handleHostWorkSpace = () => {
     api
@@ -149,7 +149,7 @@ export default function HostWorkSpace({}) {
       api
         .uploadFilesToWorkspace({ ...item, workSpace: res?._id })
         .then((res) => {
-          console.log("res....<<<<", res);
+          // console.log("res....<<<<", res);
         })
         .catch((err) => {
           console.log("res....", err);
@@ -258,7 +258,7 @@ export default function HostWorkSpace({}) {
       api
         .createWorkingTimes({ ...element, workSpace: res._id })
         .then((response) => {
-          console.log("timeConsole>>>>", response);
+          // console.log("timeConsole>>>>", response);
         })
         .catch((err) => {
           console.log("timeConsoleError", err);
@@ -274,7 +274,7 @@ export default function HostWorkSpace({}) {
     let arrDay = workPlaceDay;
     if (workPlaceDay.includes(info.day)) {
       arr = [];
-      console.log(arr);
+      // console.log(arr);
 
       for (let i = 0; i < workPlaceDayAndTime.length; i++) {
         const element = workPlaceDayAndTime[i];
@@ -290,7 +290,7 @@ export default function HostWorkSpace({}) {
     }
     setWorkPlaceDay([...arrDay]);
     setWorkPlaceDayAndTime([...arr]);
-    console.log("chlo>>>>>>", info);
+    // console.log("chlo>>>>>>", info);
   };
 
   const uploadFileRef = useRef(null);
@@ -304,11 +304,11 @@ export default function HostWorkSpace({}) {
       100,
       0,
       (uri) => {
-        console.log("FUNTION>>>>>", uri);
+        // console.log("FUNTION>>>>>", uri);
         api
           .uploadImage({ image: uri })
           .then((res) => {
-            console.log("RESPONSE....", res.Location);
+            // console.log("RESPONSE....", res.Location);
             setWorkSpace({ ...workSpace, photoId: res.Location });
             // handleUploadProductImage(res.data, product, element.cover);
           })

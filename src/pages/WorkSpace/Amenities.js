@@ -40,7 +40,7 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
   const [totalChair, setTotalChair] = useState(0);
 
   const handleAmenities = (item) => {
-    console.log('handleAmenities', item)
+    // console.log('handleAmenities', item)
     let arr = amenitiesArr;
     const titleArr = handleAmenitiesTitleArr();
     if (titleArr.includes(item)) {
@@ -53,7 +53,7 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
       arr.push({ title: item, available: true, total: 1 });
       setAmenitiesArr([...arr]);
     }
-    console.log('amenitiesArr',amenitiesArr );
+    // console.log('amenitiesArr',amenitiesArr );
     handleSelectedAmenities(arr);
   };
   const handleAmenitesColor = (item) => {

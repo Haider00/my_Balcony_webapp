@@ -13,11 +13,15 @@ export default function MenuSection() {
   const isAndroidView = theme.breakpoints.down("sm");
 
   const handleGetOnGooglePlayClick = () => {
-    window.location.href =
-      "https://play.google.com/store/apps/details?id=com.instagram.lite&pli=1";
+    if (typeof window !== "undefined") {
+      window.location.href =
+        "https://play.google.com/store/apps/details?id=com.instagram.lite&pli=1";
+    }
   };
   const handleGetOnAppStoreClick = () => {
-    window.location.href = "https://apps.apple.com/app/id389801252";
+    if (typeof window !== "undefined") {
+      window.location.href = "https://apps.apple.com/app/id389801252";
+    }
   };
   return (
     <Box

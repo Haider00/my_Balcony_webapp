@@ -1,12 +1,6 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import {
-  PersonOutline,
-  ChatOutlined,
-  HomeOutlined,
-  GifBoxOutlined,
-  BookmarksOutlined,
-} from "@mui/icons-material";
+import * as Icons from "@mui/icons-material";
 import { useRouter } from "next/router";
 import FormatAlignCenterOutlinedIcon from "@mui/icons-material/FormatAlignCenterOutlined";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -83,7 +77,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
-          <HomeOutlined
+          <Icons.HomeOutlined
             onClick={() => {
               router.push("./");
             }}
@@ -105,7 +99,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
-          <ChatOutlined
+          <Icons.ChatOutlined
             onClick={handleChatClick}
             style={{
               color: selectedTab === 2 ? "#fff" : "#000",
@@ -125,7 +119,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
-          <GifBoxOutlined
+          <Icons.GifBoxOutlined
             onClick={() => {
               router.push("./workFromIndoor");
             }}
@@ -192,7 +186,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
-          <PersonOutline
+          <Icons.PersonOutline
             onClick={handleAccountDashboardClick}
             style={{
               color: selectedTab === 5 ? "#fff" : "#000",

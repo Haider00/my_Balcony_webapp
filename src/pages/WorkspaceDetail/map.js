@@ -3,19 +3,17 @@ import Map from "@components/Map";
 import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
 
 export default function Home() {
-
   const [center, setCenter] = useState([0, 0]);
   const workspaceDetails = useWorkspaceDetailState();
 
   useEffect(() => {
-    if (workspaceDetails.workspaceDetail && workspaceDetails.workspaceDetail.coordinates) {
-
+    if (
+      workspaceDetails.workspaceDetail &&
+      workspaceDetails.workspaceDetail.coordinates
+    ) {
       setCenter(workspaceDetails.workspaceDetail.coordinates);
-
     }
-  })
-  console.log('workspaceDetails>>>>>>', workspaceDetails.workspaceDetail.coordinates)
-
+  });
 
   return (
     <Map center={center} zoom={16}>

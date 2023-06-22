@@ -14,7 +14,7 @@ export default function Map() {
   const center = [geoData.lat, geoData.lng];
 
   return (
-    <div></div>
+    <div>view</div>
     // <MapContainer
     //   center={[40.505, -100.09]}
     //   zoom={12}

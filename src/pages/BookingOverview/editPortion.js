@@ -1,6 +1,5 @@
 import React from "react";
 import { Divider, Button } from "@mui/material";
-import GroupIcon from "@mui/icons-material/Group";
 import { Box, Typography, Rating } from "@mui/material";
 import { Card, CardContent } from "@mui/material";
 import { FormControlLabel } from "@mui/material";
@@ -10,7 +9,7 @@ import { useRouter } from "next/router";
 export default function EditPortion() {
   const router = useRouter();
   const workspaceDetailState = useWorkspaceDetailState();
-  console.log("pogo", workspaceDetailState);
+  // console.log("pogo", workspaceDetailState);
   const totalPeople = workspaceDetailState.workspaceDetail.perPerson;
   const maintenancesFee = workspaceDetailState.workspaceDetail.maintenancesFee;
 
@@ -22,7 +21,7 @@ export default function EditPortion() {
     parseInt(totalPeople);
   const selDates = workspaceDetailState.selectedDatesarr;
   const selDatesLength = selDates.length;
-  console.log("jago", selDatesLength);
+  // console.log("jago", selDatesLength);
   return (
     <>
       <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-start" }}>

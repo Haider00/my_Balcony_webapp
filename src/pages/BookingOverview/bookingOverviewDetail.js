@@ -14,7 +14,7 @@ import { Snackbar, Grid } from "@mui/material";
 export default function BookingOverviewDetail() {
   const router = useRouter();
   const workspaceDetailState = useWorkspaceDetailState();
-  console.log("WSD", workspaceDetailState);
+  // console.log("WSD", workspaceDetailState);
   const auth = useAuthState();
   // console.log('auth', auth.user._id)
   const dispatch = useWorkspaceDetailDispatch();
@@ -26,7 +26,7 @@ export default function BookingOverviewDetail() {
 
   const otherFeeAmount = workspaceDetailState.workspaceDetail.otherFeeAmount;
 
-  console.log("WWW", workspaceDetailState.workspaceDetail.owner);
+  // console.log("WWW", workspaceDetailState.workspaceDetail.owner);
 
   const otherFeeName = workspaceDetailState.workspaceDetail.otherFeeName;
   const totalAmount =
@@ -34,14 +34,14 @@ export default function BookingOverviewDetail() {
     parseInt(totalPeople);
 
   const selDates = workspaceDetailState.selectedDatesarr;
-  console.log("selDates", selDates);
+  // console.log("selDates", selDates);
 
   const selDatesLength = selDates?.length;
 
   const currentDate = () => {
     const currentDate = moment();
     const formattedDate = currentDate.format("DD-MM-YYYY");
-    console.log("formattedDate", formattedDate);
+    // console.log("formattedDate", formattedDate);
     return formattedDate;
   };
 
@@ -108,7 +108,7 @@ export default function BookingOverviewDetail() {
         seller: workspaceDetailState?.workspaceDetail?.owner,
       })
       .then((res) => {
-        console.log("response>>", res);
+        // console.log("response>>", res);
         setMessage("Booking Completed Successfully");
         setDisplay(true);
         router.push("./");

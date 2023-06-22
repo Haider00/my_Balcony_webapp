@@ -263,27 +263,27 @@ const SalesStatistic = (props) => {
 
   const [chartWidth, setChartWidth] = React.useState(800); // initial width value
 
-  React.useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth >= 992) {
-        setChartWidth(800);
-      } else if (window.innerWidth >= 768) {
-        setChartWidth(500);
-      } else if (window.innerWidth >= 560) {
-        setChartWidth(380);
-      } else if (window.innerWidth >= 400) {
-        setChartWidth(250);
-      } else {
-        setChartWidth(200);
-      }
-    }
+  // React.useEffect(() => {
+  //   function handleResize() {
+  //     if (window.innerWidth >= 992) {
+  //       setChartWidth(800);
+  //     } else if (window.innerWidth >= 768) {
+  //       setChartWidth(500);
+  //     } else if (window.innerWidth >= 560) {
+  //       setChartWidth(380);
+  //     } else if (window.innerWidth >= 400) {
+  //       setChartWidth(250);
+  //     } else {
+  //       setChartWidth(200);
+  //     }
+  //   }
 
-    window.addEventListener("resize", handleResize); // add event listener
+  //   window.addEventListener("resize", handleResize); // add event listener
 
-    return () => {
-      window.removeEventListener("resize", handleResize); // remove event listener
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize); // remove event listener
+  //   };
+  // }, []);
 
   return (
     <>

@@ -35,12 +35,12 @@ list-style: none;
 
 export default function AmenitiesPortion() {
   const workspaceDetailState = useWorkspaceDetailState();
-  console.log("ame", workspaceDetailState);
+  // console.log("ame", workspaceDetailState);
   const perPersons = workspaceDetailState.workspaceDetail.perPerson;
   const sharedWorkSpace = workspaceDetailState.workspaceDetail.sharedWorkSpace;
 
   const [coworkspace, setCoworkspace] = useState(false);
-  console.log("coworkspace", coworkspace);
+  // console.log("coworkspace", coworkspace);
 
   useEffect(() => {
     const coworkspaceValue = workspaceDetailState.workspaceDetail.coworkspace;

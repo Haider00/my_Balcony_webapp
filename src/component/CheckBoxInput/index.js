@@ -21,7 +21,7 @@ const CheckBoxInput = ({
     setChecked(!checked);
     onbox(isChecked);
   };
-  console.log("ccv", isChecked);
+
   // React.useEffect(() => {
   //   workspaceDispatch({ type: "", payload: value });
   // }, [value]);

@@ -28,15 +28,15 @@ function useWorkspaceDetailDispatch() {
 function workspaceDetailReducer(state, action) {
   switch (action.type) {
     case "WORKSPACE_DETAIL": {
-      console.log('workspaceDETAIL', action.payload)
+      // console.log('workspaceDETAIL', action.payload)
       return { ...state, workspaceDetail: action.payload };
     }
-    case "WORKSPACE_DAY_AND_TIME":{
-      console.log('haha', action.payload)
+    case "WORKSPACE_DAY_AND_TIME": {
+      // console.log('haha', action.payload)
       return { ...state, workspaceDayTime: action.payload };
     }
-    case "SELECTED_DATES":{
-      console.log('haha', action.payload)
+    case "SELECTED_DATES": {
+      // console.log('haha', action.payload)
       return { ...state, selectedDatesarr: action.payload };
     }
 
@@ -48,8 +48,8 @@ function workspaceDetailReducer(state, action) {
 function WorkspaceDetailProvider({ children }) {
   const [workspace, dispatch] = useReducer(workspaceDetailReducer, {
     workspaceDetail: {},
-    workspaceDayTime:[],
-    selectedDatesarr:[]
+    workspaceDayTime: [],
+    selectedDatesarr: [],
   });
   const memoedWorkspace = useMemo(() => workspace, [workspace]);
   const memoedDispatch = useMemo(() => dispatch, [dispatch]);

@@ -29,11 +29,11 @@ export default function WorkspaceDetail() {
       api
         .getWorkSpace({ query: `?_id=${router.query.wd}` })
         .then((res) => {
-          console.log("resp>>>", res.data[0]);
+          // console.log("resp>>>", res.data[0]);
           setName(res.data[0].name);
 
           const ratings = res.data[0].rating;
-          console.log("ratings", ratings);
+          // console.log("ratings", ratings);
           const sum = ratings
             .map((rating) => rating.rating.$numberDecimal)
             .reduce((a, b) => a + b, 0);
@@ -41,7 +41,7 @@ export default function WorkspaceDetail() {
           setNoOfRating(ratings.length);
           setRating(average);
 
-          console.log("Average rating:", average);
+          // console.log("Average rating:", average);
 
           dispatch({
             type: "WORKSPACE_DETAIL",

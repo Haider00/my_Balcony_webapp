@@ -16,7 +16,7 @@ import { useSession, signOut } from "next-auth/react";
 
 const Form = () => {
   const { data: session } = useSession();
-  console.log("resp>>", session);
+  // console.log("resp>>", session);
 
   const authDispatch = useAuthDispatch();
   const router = useRouter();

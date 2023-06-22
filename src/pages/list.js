@@ -6,7 +6,7 @@ import { CustomHeader, Filter, ScrollCard } from "../component";
 import { Pagination, Typography } from "@mui/material";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { api } from "../utils/api";
-import { FilterAlt, FilterList, MapOutlined } from "@mui/icons-material";
+import * as Icons from "@mui/icons-material";
 import { useRouter } from "next/router";
 
 const center = {
@@ -91,7 +91,7 @@ export default function Maplist() {
                 setShowFilter(true);
               }}
             >
-              <FilterAlt
+              <Icons.FilterAlt
                 style={{
                   color: "#000",
                   fontSize: 35,
@@ -101,7 +101,7 @@ export default function Maplist() {
                 }}
               />
             </div>
-            <MapOutlined
+            <Icons.MapOutlined
               onClick={() => {
                 router.push("./map");
               }}

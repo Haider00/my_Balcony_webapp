@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Drawer from "@mui/material/Drawer";
-import { FilterAlt, FilterList, CloseOutlined } from "@mui/icons-material";
+import * as Icons from "@mui/icons-material";
 import TextField from "@mui/material/TextField";
 import { Box, Typography } from "@mui/material";
 import { amenitiesArr } from "../../utils/amenities";
@@ -44,7 +44,7 @@ export const Filter = ({
         onClose(workSpaceFilter);
       }}
     >
-      <CloseOutlined
+      <Icons.CloseOutlined
         style={{
           color: "#000",
           fontSize: 25,
@@ -162,7 +162,7 @@ export const Filter = ({
             </div>
           ))}
         </div>
-        <FilterAlt
+        <Icons.FilterAlt
           style={{
             color: "#000",
             fontSize: 35,

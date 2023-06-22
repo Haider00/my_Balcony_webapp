@@ -15,7 +15,7 @@ export default function PlannerNotes() {
   let [message1, setMessage1] = useState("");
   const [display, setDisplay] = useState(false);
   const router = useRouter();
-  console.log("message>>>", message);
+  // console.log("message>>>", message);
 
   const authState = useAuthState();
 

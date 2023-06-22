@@ -8,13 +8,11 @@ import { Checkbox } from "@mui/material";
 import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
 import { useRouter } from "next/router";
 import moment from "moment";
-import CheckBoxLabel from '../../component/CheckBoxLabel/index';
-import { BorderColor } from "@mui/icons-material";
+import CheckBoxLabel from "../../component/CheckBoxLabel/index";
 export default function BookingOverviewEdit() {
-
   const router = useRouter();
   const workspaceDetailState = useWorkspaceDetailState();
-  console.log("pogo", workspaceDetailState);
+  // console.log("pogo", workspaceDetailState);
   const totalPeople = workspaceDetailState.workspaceDetail.perPerson;
   const maintenancesFee = workspaceDetailState.workspaceDetail.maintenancesFee;
 
@@ -26,14 +24,14 @@ export default function BookingOverviewEdit() {
     parseInt(totalPeople);
   const selDates = workspaceDetailState.selectedDatesarr;
   const selDatesLength = selDates?.length;
-  console.log("jago", selDatesLength);
+  // console.log("jago", selDatesLength);
 
   const currentDate = () => {
     const currentDate = moment();
-    const formattedDate = currentDate.format('DD-MM-YYYY');
-    console.log('formattedDate', formattedDate);
+    const formattedDate = currentDate.format("DD-MM-YYYY");
+    // console.log('formattedDate', formattedDate);
     return formattedDate;
-  }
+  };
 
   return (
     <>
@@ -46,9 +44,11 @@ export default function BookingOverviewEdit() {
           marginTop: 5,
         }}
       >
-        <Typography sx={{ textDecoration: 'underline' }} variant="h6">Edit</Typography>
+        <Typography sx={{ textDecoration: "underline" }} variant="h6">
+          Edit
+        </Typography>
 
-        <Card sx={{ backgroundColor: '#f0f0f0', mb: 3 }}>
+        <Card sx={{ backgroundColor: "#f0f0f0", mb: 3 }}>
           <CardContent>
             <Typography sx={{ marginTop: 1 }} variant="body2">
               Time Frame of services 8AM - 5PM EST
@@ -70,35 +70,62 @@ export default function BookingOverviewEdit() {
             // setWorkSpace({ ...workSpace, coWorkingWorkspace: e });
           }}
         />
-        <Typography sx={{ opacity:0.5, mt: 2 }} variant="body2">
+        <Typography sx={{ opacity: 0.5, mt: 2 }} variant="body2">
           Workspace would be shared by multiple
         </Typography>
-        <Typography sx={{ opacity:0.5}} variant="body2">
+        <Typography sx={{ opacity: 0.5 }} variant="body2">
           People from different companies
         </Typography>
-        <Typography sx={{ opacity:0.5}} variant="body2">
+        <Typography sx={{ opacity: 0.5 }} variant="body2">
           With the same dates and time frame
         </Typography>
-        <Typography sx={{ opacity:0.5}} variant="body2">
+        <Typography sx={{ opacity: 0.5 }} variant="body2">
           If not checked, than only one coompany &/or
         </Typography>
-        <Typography sx={{ opacity:0.5}} variant="body2">
+        <Typography sx={{ opacity: 0.5 }} variant="body2">
           individual can book the booked date/time.
         </Typography>
 
-        <Typography sx={{ mt: 3, alignSelf: 'center' }} variant="h5">Chat &/or Text Us</Typography>
-        <Typography sx={{ alignSelf: 'center' }} variant="h5">Assistant</Typography>
+        <Typography sx={{ mt: 3, alignSelf: "center" }} variant="h5">
+          Chat &/or Text Us
+        </Typography>
+        <Typography sx={{ alignSelf: "center" }} variant="h5">
+          Assistant
+        </Typography>
 
-        <Box sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignContent: "center",
-          marginTop: 5,
-        }}>
-          <Button sx={{ color: '#000', paddingX: 4, border: 2, borderRadius: 5, borderColor: '#000' }} variant="outlined">Chat</Button>
-          <Button sx={{ color: '#000', paddingX: 4, border: 2, borderRadius: 5, borderColor: '#000' }} variant="outlined">Text</Button>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignContent: "center",
+            marginTop: 5,
+          }}
+        >
+          <Button
+            sx={{
+              color: "#000",
+              paddingX: 4,
+              border: 2,
+              borderRadius: 5,
+              borderColor: "#000",
+            }}
+            variant="outlined"
+          >
+            Chat
+          </Button>
+          <Button
+            sx={{
+              color: "#000",
+              paddingX: 4,
+              border: 2,
+              borderRadius: 5,
+              borderColor: "#000",
+            }}
+            variant="outlined"
+          >
+            Text
+          </Button>
         </Box>
-
       </Box>
     </>
   );

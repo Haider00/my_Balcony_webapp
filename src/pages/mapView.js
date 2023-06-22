@@ -1,96 +1,95 @@
 import React, { useEffect, useState, useRef } from "react";
-import { CustomHeader } from "../component";
-import "leaflet/dist/leaflet.css";
-import Map from "@components/Map";
-import { Box } from "@mui/material";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import { Button } from "@mui/material";
-import { ZoomControl } from "react-leaflet";
-import ClearIcon from "@mui/icons-material/Clear";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { useRouter } from "next/router";
-import FilterComponent from '../components/FilterComponent/index';
-import { useAuthState } from "../context/auth.context";
-import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import { api } from "../utils/api";
-import { ScrollCard } from "../component";
+// import { CustomHeader } from "../component";
+// // import "leaflet/dist/leaflet.css";
+// import Map from "@components/Map";
+// import { Box } from "@mui/material";
+// import FilterAltIcon from "@mui/icons-material/FilterAlt";
+// import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+// import { Button } from "@mui/material";
+// // import { ZoomControl } from "react-leaflet";
+// import ClearIcon from "@mui/icons-material/Clear";
+// import FormGroup from "@mui/material/FormGroup";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Checkbox from "@mui/material/Checkbox";
+// import Typography from "@mui/material/Typography";
+// import TextField from "@mui/material/TextField";
+// import StarIcon from "@mui/icons-material/Star";
+// import StarBorderIcon from "@mui/icons-material/StarBorder";
+// import { useRouter } from "next/router";
+// import { useAuthState } from "../context/auth.context";
+// import { ScrollMenu } from "react-horizontal-scrolling-menu";
+// import { api } from "../utils/api";
+// import { ScrollCard } from "../component";
 
 export default function MapView() {
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [open, setopen] = useState();
-  const [WorkSpace, setWorkSpace] = useState([]);
-  const auth = useAuthState();
-  const menu = useRef();
+  // const [currentLocation, setCurrentLocation] = useState(null);
+  // const [open, setopen] = useState();
+  // const [WorkSpace, setWorkSpace] = useState([]);
+  // const auth = useAuthState();
+  // const menu = useRef();
 
-  useEffect(() => {
-    setTimeout(() => {
-      menu.current.scrollToItem(
-        menu.current.getItemById("1"),
-        "auto",
-        "start"
-      );
-    }, 100);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     menu?.current?.scrollToItem(
+  //       menu?.current?.getItemById("1"),
+  //       "auto",
+  //       "start"
+  //     );
+  //   }, 100);
+  // }, []);
 
-  useEffect(() => {
-    api
-      .getWorkSpace({ query: "" })
-      .then((res) => {
-        console.log("indoor>>>", res.data);
-        setWorkSpace(res.data);
-      })
-      .catch((err) => {
-        console.warn("auth.accessToken...");
-        console.log("Error WorkSpaceList:", err);
-      });
-  }, [auth.accessToken]);
+  // useEffect(() => {
+  //   api
+  //     .getWorkSpace({ query: "" })
+  //     .then((res) => {
+  //       console.log("indoor>>>", res.data);
+  //       setWorkSpace(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.warn("auth.accessToken...");
+  //       console.log("Error WorkSpaceList:", err);
+  //     });
+  // }, [auth.accessToken]);
 
-  console.log("currentlocation>>>", currentLocation);
-  const router = useRouter();
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      setCurrentLocation([latitude, longitude]);
-    });
-  }, []);
+  // console.log("currentlocation>>>", currentLocation);
+  // const router = useRouter();
+  // useEffect(() => {
+  //   navigator?.geolocation?.getCurrentPosition((position) => {
+  //     const { latitude, longitude } = position.coords;
+  //     setCurrentLocation([latitude, longitude]);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.innerHTML = `
-      .leaflet-top {
-        display: none;
-      }
-      .leaflet-bottom.leaflet-right {
-        display: none;
-      }
-      .css-ahj2mt-MuiTypography-root{
-        font-size:8px
-      }
-    `;
-    document.head.appendChild(style);
-  }, []);
+  // useEffect(() => {
+  //   const style = document.createElement("style");
+  //   style.innerHTML = `
+  //     .leaflet-top {
+  //       display: none;
+  //     }
+  //     .leaflet-bottom.leaflet-right {
+  //       display: none;
+  //     }
+  //     .css-ahj2mt-MuiTypography-root{
+  //       font-size:8px
+  //     }
+  //   `;
+  //   document?.head?.appendChild(style);
+  // }, []);
 
-  function handleMarkerDragEnd(event) {
-    setCurrentLocation(event.target.getLatLng());
-  }
+  // function handleMarkerDragEnd(event) {
+  //   setCurrentLocation(event?.target?.getLatLng());
+  // }
 
-  const coordinates = [
-    { lat: 27.712776, lng: 65.005974 },
-    { lat: 29.712776, lng: 65.005974 },
-    { lat: 28.712776, lng: 65.005974 },
-    { lat: 26.712776, lng: 65.005974 },
-  ];
+  // const coordinates = [
+  //   { lat: 27.712776, lng: 65.005974 },
+  //   { lat: 29.712776, lng: 65.005974 },
+  //   { lat: 28.712776, lng: 65.005974 },
+  //   { lat: 26.712776, lng: 65.005974 },
+  // ];
 
   return (
     <>
-      <Box
+      {/* <Box
         sx={{
           position: "absolute",
           top: 0,
@@ -110,7 +109,7 @@ export default function MapView() {
             height: "fit-content",
           }}
         >
-          <CustomHeader page={'map'} />
+          <CustomHeader page={"map"} />
         </Box>
         <Box
           sx={{
@@ -630,14 +629,14 @@ export default function MapView() {
             onClick={() => {
               router.push("./workFromIndoor");
             }}
-            sx={{ fontSize: 30, cursor: 'pointer' }}
+            sx={{ fontSize: 30, cursor: "pointer" }}
           />
 
           <FilterAltIcon
             onClick={() => {
               setopen(true);
             }}
-            sx={{ fontSize: 30, cursor: 'pointer', marginLeft: '10px' }}
+            sx={{ fontSize: 30, cursor: "pointer", marginLeft: "10px" }}
           />
         </Box>
         <Map center={currentLocation} zoom={10} ZoomControl={true}>
@@ -669,7 +668,7 @@ export default function MapView() {
           right: 0,
           zIndex: 999,
           display: "flex",
-          overflowX: 'auto',
+          overflowX: "auto",
         }}
       >
         <ScrollMenu apiRef={menu}>
@@ -686,8 +685,7 @@ export default function MapView() {
             />
           ))}
         </ScrollMenu>
-      </Box>
+      </Box> */}
     </>
   );
 }
-

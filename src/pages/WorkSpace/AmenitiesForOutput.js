@@ -55,7 +55,7 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
       (amenity) => amenity.title.toLowerCase() || ""
     );
     setAmenitiesTitle(amenitiesTitle);
-    console.log("faran", amenitiesTitle);
+    // console.log("faran", amenitiesTitle);
 
     // setAmenitiesTitle(amenitiesTitle + "".toLowerCase());
   }, [workspaceDetailState]);

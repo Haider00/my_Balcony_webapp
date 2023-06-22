@@ -32,7 +32,7 @@ function authReducer(state, action) {
     case "LOGIN": {
       const { user = {}, accessToken = "" } = action.payload || {};
       localStorage.setItem("auth", JSON.stringify(action.payload));
-      console.log("action.payload....", action.payload);
+      // console.log("action.payload....", action.payload);
       return {
         ...state,
         user: user,
@@ -57,7 +57,7 @@ function authReducer(state, action) {
       return { ...state, user: action.payload };
     }
 
-    case "SET_USER_TYPE": { 
+    case "SET_USER_TYPE": {
       localStorage.setItem("@userType", action.payload);
       return { ...state, userType: action.payload };
     }
@@ -92,20 +92,20 @@ function AuthProvider({ children }) {
       if (res !== null) {
         const data = JSON.parse(res);
         dispatch({ type: "LOGIN", payload: data });
-        socket.emit('user_connect',data.user)
+        socket.emit("user_connect", data.user);
       }
     }
-    hanldeLocalAuthentication(); 
+    hanldeLocalAuthentication();
   }, []);
 
   useEffect(() => {
     async function hanldeUserType() {
       const res = await localStorage.getItem("@userType");
-      if (res !== null) {;
+      if (res !== null) {
         dispatch({ type: "SET_USER_TYPE", payload: res });
       }
     }
-    hanldeUserType(); 
+    hanldeUserType();
   }, []);
   useEffect(() => {
     async function handleReautentication() {
@@ -115,10 +115,10 @@ function AuthProvider({ children }) {
           .userReauthentication({ token: auth.accessToken })
           .then((res) => {
             dispatch({ type: "RELOGIN", payload: res.data });
-            socket.emit('user_connect',res.data.user)
+            socket.emit("user_connect", res.data.user);
           })
           .catch((err) => {
-            console.log("err...", err);
+            // console.log("err...", err);
             dispatch({ type: "LOGOUT", payload: "" });
           });
       }

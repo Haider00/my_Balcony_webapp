@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import moment from "moment/moment";
 
 const bookinghistory = (props) => {
-  console.log("propsss>>>", props);
+  // console.log("propsss>>>", props);
   return (
     <>
       <Typography sx={{ fontSize: 34, mt: 3 }}>booking history</Typography>
@@ -19,8 +19,8 @@ const bookinghistory = (props) => {
           mt: 4,
         }}
       >
-        {props.bookinghistory.data?.length > 0 ? (
-          props.bookinghistory.data.map((item) => {
+        {props.bookinghistory?.data?.length > 0 ? (
+          props.bookinghistory?.data?.map((item) => {
             let Workspace = item.workSpace;
             const formattedDates = item.date.map((date) =>
               moment(date).format("DD/MM/YY")

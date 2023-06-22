@@ -257,20 +257,20 @@ export default function chat2() {
           .getChats(`?client=${auth.user?._id}`)
           .then((res) => {
             setChats(res.data.data);
-            console.log("Chats>>>>>>", res.data.data);
+            // console.log("Chats>>>>>>", res.data.data);
           })
           .catch((err) => {
-            console.log("Chats>>>>>E", err);
+            // console.log("Chats>>>>>E", err);
           });
       } else if (auth.userType === "seller") {
         api
           .getChats(`?owner=${auth.user?._id}`)
           .then((res) => {
             setChats(res.data.data);
-            console.log("Chats>>>>>1", res.data.data);
+            // console.log("Chats>>>>>1", res.data.data);
           })
           .catch((err) => {
-            console.log("Chats>>>>>E1", err);
+            // console.log("Chats>>>>>E1", err);
           });
       }
     }
@@ -286,7 +286,7 @@ export default function chat2() {
       .then((res) => {
         setMessageArr([res.data, ...messageArr]);
         socket.emit("send_msg", res.data);
-        console.log("message>>>>>>", res.data);
+        // console.log("message>>>>>>", res.data);
       })
       .catch((err) => {
         console.log("Error", err);
@@ -300,7 +300,7 @@ export default function chat2() {
       .then((res) => {
         setMessageArr(res.data.data);
         setShowForm(true);
-        console.log("messageAgay>>>>>>>", res.data.data);
+        // console.log("messageAgay>>>>>>>", res.data.data);
       })
       .catch((err) => {
         console.log("Error", err);
@@ -309,7 +309,7 @@ export default function chat2() {
 
   useEffect(() => {
     socket.on("msg_created", (res) => {
-      console.log("MSG_RECEIVE>>>", res);
+      // console.log("MSG_RECEIVE>>>", res);
       setMessageArr([res, ...messageArr]);
     });
 
@@ -320,7 +320,7 @@ export default function chat2() {
 
   useEffect(() => {
     socket.on("chat_updated", (res) => {
-      console.log("MSG_UPDATE>>>", res);
+      // console.log("MSG_UPDATE>>>", res);
       const updatedChats = chats.map((chat) =>
         res._id === chat._id ? res : chat
       );

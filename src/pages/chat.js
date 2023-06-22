@@ -206,7 +206,7 @@ export default function Chat() {
   // console.log('message>>>', message);
   // console.log('ChatID>>>', chatID);
 
-  console.log("messageArr>>>>", messageArr);
+  // console.log("messageArr>>>>", messageArr);
 
   useEffect(() => {
     if (auth.user?._id) {
@@ -215,20 +215,20 @@ export default function Chat() {
           .getChats(`?client=${auth.user?._id}`)
           .then((res) => {
             setChats(res.data.data);
-            console.log("Chats>>>>>>", res.data.data);
+            // console.log("Chats>>>>>>", res.data.data);
           })
           .catch((err) => {
-            console.log("Chats>>>>>E", err);
+            // console.log("Chats>>>>>E", err);
           });
       } else if (auth.userType == "seller") {
         api
           .getChats(`?owner=${auth.user?._id}`)
           .then((res) => {
             setChats(res.data.data);
-            console.log("Chats>>>>>1", res.data.data);
+            // console.log("Chats>>>>>1", res.data.data);
           })
           .catch((err) => {
-            console.log("Chats>>>>>E1", err);
+            // console.log("Chats>>>>>E1", err);
           });
       }
     }
@@ -243,10 +243,10 @@ export default function Chat() {
       .createMessage({ chat: chatID, from: auth.user?._id, text: message })
       .then((res) => {
         setMessageArr([res.data, ...messageArr]);
-        console.log("message>>>>>>", res.data);
+        // console.log("message>>>>>>", res.data);
       })
       .catch((err) => {
-        console.log("Error", err);
+        // console.log("Error", err);
       });
     document.getElementById("message").value = "";
   };
@@ -256,10 +256,10 @@ export default function Chat() {
       .getMessages(`?chat=${chatId}`)
       .then((res) => {
         setMessageArr(res.data.data);
-        console.log("messageAgay>>>>>>>", res.data.data);
+        // console.log("messageAgay>>>>>>>", res.data.data);
       })
       .catch((err) => {
-        console.log("Error", err);
+        // console.log("Error", err);
       });
   };
 

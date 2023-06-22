@@ -5,9 +5,7 @@ function usePlannerState() {
   const planner = useContext(PlannerContext);
 
   if (planner === undefined) {
-    throw new Error(
-      "usePlannerState can only be used inside PlannerProvider"
-    );
+    throw new Error("usePlannerState can only be used inside PlannerProvider");
   }
 
   return planner;
@@ -27,22 +25,22 @@ function usePlannerDispatch() {
 function plannerReducer(state, action) {
   switch (action.type) {
     case "SELECTED_DATE": {
-      console.log('aaaa>>>>>>>>>',action.payload)
+      // console.log('aaaa>>>>>>>>>',action.payload)
       return { ...state, selectedDate: action.payload };
     }
     case "MESSAGE": {
-      console.log('aaaa>>>>>>>>>',action.payload)
+      // console.log('aaaa>>>>>>>>>',action.payload)
       return { ...state, message: action.payload };
     }
     default:
       throw new Error(`Invalid action ${action.type}`);
-    }
   }
-  
+}
+
 function PlannerProvider({ children }) {
   const [planner, dispatch] = useReducer(plannerReducer, {
-    selectedDate:"",
-    message:{}
+    selectedDate: "",
+    message: {},
   });
   const memoedplanner = useMemo(() => planner, [planner]);
   const memoedDispatch = useMemo(() => dispatch, [dispatch]);

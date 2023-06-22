@@ -12,8 +12,6 @@
 // import {useState} from "react";
 // import { Snackbar } from "@mui/material";
 
-
-
 // const Header = (props) => {
 //   const router = useRouter();
 //   const auth = useAuthState();
@@ -228,7 +226,7 @@
 //     }
 //   }
 
-//   function handleSearchClick() {  
+//   function handleSearchClick() {
 //     if (props.page === "map") {
 //       setSearchBarOpen(true);
 //     }
@@ -376,7 +374,7 @@ const Header = (props) => {
   let [message, setMessage] = useState("");
   const [display, setDisplay] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
-  console.log("props", props);
+  // console.log("props", props);
 
   function handleClick() {
     if (!auth?.user?._id) {
@@ -519,7 +517,6 @@ const Header = (props) => {
               >
                 <SearchRounded />
               </div>
-              
             </Box>
           )}
         </Box>

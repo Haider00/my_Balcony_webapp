@@ -24,16 +24,16 @@ export default function PlannerCalendar() {
     api
       .getPlanner(`?id=${auth.user?._id}`)
       .then((res) => {
-        console.log("planner>>>", res.data);
+        // console.log("planner>>>", res.data);
         const messagesForDates = {};
         res.data.forEach((item) => {
-          console.log(">>>>>", item.title);
+          // console.log(">>>>>", item.title);
           messagesForDates[moment(item.date).format("YYYY-MM-DD")] = item.title;
         });
         setMessages(messagesForDates);
       })
       .catch((err) => {
-        console.log("planner>>>1", err);
+        // console.log("planner>>>1", err);
       });
   }, [auth.user?._id]);
 

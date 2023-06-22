@@ -34,7 +34,7 @@ export default function ReactCalendar() {
   const currentDate = moment();
 
   // console.log('selectedDates', workspaceDetailState?.workspaceDayTime);
-  console.log("endDate", endDate);
+  // console.log("endDate", endDate);
 
   useEffect(() => {
     let days = [];
@@ -45,7 +45,7 @@ export default function ReactCalendar() {
         const element = workspaceDetailState.workspaceDayTime[i];
         days.push(element.day);
       }
-      console.log("days", days);
+      // console.log("days", days);
 
       const currentMonth = moment().month();
       const currentYear = moment().year();
@@ -63,7 +63,7 @@ export default function ReactCalendar() {
       setUnavailableDates(
         datesInMonth.map((dateString) => new Date(dateString))
       );
-      console.log("datesInMonth", datesInMonth);
+      // console.log("datesInMonth", datesInMonth);
 
       setAvailableDays(workspaceDetailState.workspaceDayTime);
     }
@@ -90,7 +90,7 @@ export default function ReactCalendar() {
           }`,
         })
         .then((response) => {
-          console.log("response<<<<", response.data);
+          // console.log("response<<<<", response.data);
           let dates = [];
           if (
             response &&
@@ -124,7 +124,7 @@ export default function ReactCalendar() {
     }
   }, [selectedMonth, workspaceDetailState.workspaceDetail._id]);
 
-  console.log("disableDates:", disableDates);
+  // console.log("disableDates:", disableDates);
 
   const selectionRange = {
     startDate: startDate,
@@ -132,7 +132,7 @@ export default function ReactCalendar() {
     key: "selection",
   };
 
-  console.log("selectionRange", selectionRange);
+  // console.log("selectionRange", selectionRange);
   const customRangeStyles = {
     selection: {
       background: "black",

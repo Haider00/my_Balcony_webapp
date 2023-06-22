@@ -6,12 +6,14 @@ import RatingBar from "@components/RatingBar/index";
 import { useAuthState } from "src/context/auth.context";
 
 export default function ongoingbooking(props) {
-  console.log('props>>>', props.onGoingBooking)
+  // console.log('props>>>', props.onGoingBooking)
   const auth = useAuthState();
-  console.log('hahah',auth.user)
+  // console.log('hahah',auth.user)
   return (
     <>
-      <Typography sx={{ fontSize: 34, mt: 3, textAlign: 'center' }}>ongoing booking</Typography>
+      <Typography sx={{ fontSize: 34, mt: 3, textAlign: "center" }}>
+        ongoing booking
+      </Typography>
       <Grid
         container
         sx={{
@@ -25,16 +27,16 @@ export default function ongoingbooking(props) {
           props.onGoingBooking.map((item) => {
             let Workspace = item.workSpace;
             const formattedDates = item.date.map((date) =>
-              moment(date).format('DD/MM/YY')
+              moment(date).format("DD/MM/YY")
             );
-            console.log('item<<<<',item.workSpace.owner)
+            // console.log('item<<<<',item.workSpace.owner)
             let cleaningFee = item.workSpace.cleaningFee;
             let maintenancesFee = item.workSpace.maintenancesFee;
             let otherFeeAmount = item.workSpace.otherFeeAmount;
             let perPerson = item.workSpace.perPerson;
 
             return (
-              <Grid sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <Card
                   sx={{
                     width: 350,
@@ -58,7 +60,11 @@ export default function ongoingbooking(props) {
                       }}
                     >
                       <img
-                        src={item.image ? item.image : "https://wallpaperaccess.com/full/38119.jpg"}
+                        src={
+                          item.image
+                            ? item.image
+                            : "https://wallpaperaccess.com/full/38119.jpg"
+                        }
                         alt="Workspace Image"
                         style={{
                           width: "100%",
@@ -91,7 +97,7 @@ export default function ongoingbooking(props) {
                         color="#000"
                         gutterBottom
                       >
-                        Date of Workspace Check-in: {formattedDates.join(', ')}
+                        Date of Workspace Check-in: {formattedDates.join(", ")}
                       </Typography>
                       <Typography
                         sx={{
@@ -118,15 +124,26 @@ export default function ongoingbooking(props) {
                         color="#000"
                         gutterBottom
                       >
-                        Total: ${parseInt(cleaningFee) + parseInt(maintenancesFee) + (parseInt(otherFeeAmount)) * (parseInt(perPerson))}
+                        Total: $
+                        {parseInt(cleaningFee) +
+                          parseInt(maintenancesFee) +
+                          parseInt(otherFeeAmount) * parseInt(perPerson)}
                       </Typography>
                     </Box>
                   </CardContent>
                 </Card>
-                <RatingBar userID={auth?.user?._id} workSpaceID={item.workSpace?._id} bookingID={item._id} ownerID={item.workSpace.owner}/>
+                <RatingBar
+                  userID={auth?.user?._id}
+                  workSpaceID={item.workSpace?._id}
+                  bookingID={item._id}
+                  ownerID={item.workSpace.owner}
+                />
               </Grid>
             );
-          })) : (<Typography>No ongoing bookings.</Typography>)}
+          })
+        ) : (
+          <Typography>No ongoing bookings.</Typography>
+        )}
       </Grid>
     </>
   );

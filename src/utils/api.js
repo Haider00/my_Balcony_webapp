@@ -86,7 +86,7 @@ class Api {
     return data;
   }
   async createWorkSpace(payload) {
-    console.log("pppppppp>>>", payload);
+    // console.log("pppppppp>>>", payload);
     const { data } = await axios.post("/workSpace", payload, config);
     return data;
   }
@@ -141,14 +141,14 @@ class Api {
   // }
 
   async attachCard(payload) {
-    console.log("payload", payload);
+    // console.log("payload", payload);
     const data = await axios.post("/customer_attach_card", payload, config);
     return data;
   }
   async getCard(payload) {
-    console.log("payload", payload);
+    // console.log("payload", payload);
     const { query = "" } = payload;
-    console.log("query", query);
+    // console.log("query", query);
     const { data } = await axios.get(`/cards${query}`, payload, config);
     return data;
   }
@@ -166,12 +166,12 @@ class Api {
     return data;
   }
   async createPlanner(payload) {
-    console.log("papapapa>>>>", payload);
+    // console.log("papapapa>>>>", payload);
     const { data } = await axios.post("/planner", payload, config);
     return data;
   }
   async getPlanner(payload) {
-    console.log("api>>>", payload);
+    // console.log("api>>>", payload);
     const { data } = await axios.get(`/planner${payload}`, config);
     return data;
   }

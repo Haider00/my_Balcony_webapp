@@ -23,10 +23,12 @@ export default function SignUp() {
   const menu = useRef();
 
   useEffect(() => {
-    window.history.pushState(null, "", window.location.href);
-    window.onpopstate = function () {
+    if (typeof window !== "undefined") {
       window.history.pushState(null, "", window.location.href);
-    };
+      window.onpopstate = function () {
+        window.history.pushState(null, "", window.location.href);
+      };
+    }
   }, []);
   useEffect(() => {
     setTimeout(() => {
@@ -43,9 +45,9 @@ export default function SignUp() {
     api
       .getWorkSpace({ query: "?workspaceType=indoor" })
       .then((res) => {
-        console.log("indoor>>>", res.data);
-        console.warn("auth.accessToken...");
-        console.log("jjj", res.data);
+        // console.log("indoor>>>", res.data);
+        // console.warn("auth.accessToken...");
+        // console.log("jjj", res.data);
         setIndoorWorkSpace(res.data);
       })
       .catch((err) => {
@@ -57,15 +59,15 @@ export default function SignUp() {
     api
       .getWorkSpace({ query: "?workspaceType=outdoor" })
       .then((res) => {
-        console.log("outside>>>", res.data);
+        // console.log("outside>>>", res.data);
         setOutdoorWorkSpace(res.data);
       })
       .catch((err) => {
         console.log("Error WorkSpaceList:", err);
       });
   }, [auth.accessToken]);
-  console.log("indoorWorkSpace", indoorWorkSpace);
-  console.log("outdoorWorkSpace", outdoorWorkSpace);
+  // console.log("indoorWorkSpace", indoorWorkSpace);
+  // console.log("outdoorWorkSpace", outdoorWorkSpace);
 
   return (
     <>

@@ -7,32 +7,34 @@ import { api } from "src/utils/api";
 import moment from "moment/moment";
 export default function incomingbooking(props) {
   if (props && props.inComingBooking) {
-    console.log('propsssss>>>', props.inComingBooking)
+    // console.log('propsssss>>>', props.inComingBooking)
   }
 
-  const acceptOrder = (id) => { 
+  const acceptOrder = (id) => {
     api
-      .editBooking({ _id: id, status: 'approve' })
-      .then(res => {
-        console.log('status>>>', res);
+      .editBooking({ _id: id, status: "approve" })
+      .then((res) => {
+        // console.log('status>>>', res);
       })
-      .catch(err => {
-        console.log('status>>>1', err);
+      .catch((err) => {
+        console.log("status>>>1", err);
       });
-  }
+  };
   const rejectOrder = (id) => {
     api
-      .editBooking({ _id: id, status: 'rejected' })
-      .then(res => {
-        console.log('status>>>', res);
+      .editBooking({ _id: id, status: "rejected" })
+      .then((res) => {
+        // console.log('status>>>', res);
       })
-      .catch(err => {
-        console.log('status>>>1', err);
+      .catch((err) => {
+        console.log("status>>>1", err);
       });
-  }
+  };
   return (
     <>
-      <Typography sx={{ fontSize: 34, mt: 3, textAlign: 'center' }}>incoming booking</Typography>
+      <Typography sx={{ fontSize: 34, mt: 3, textAlign: "center" }}>
+        incoming booking
+      </Typography>
       <Grid
         container
         sx={{
@@ -46,9 +48,9 @@ export default function incomingbooking(props) {
       >
         {props.inComingBooking?.length > 0 ? (
           props.inComingBooking.map((item) => {
-            console.log('item...',item.workSpace.name)
+            console.log("item...", item.workSpace.name);
             const formattedDates = item.date.map((date) =>
-              moment(date).format('DD/MM/YY')
+              moment(date).format("DD/MM/YY")
             );
             let Workspace = item.workSpace;
             let cleaningFee = item.workSpace.cleaningFee;
@@ -88,7 +90,11 @@ export default function incomingbooking(props) {
                         }}
                       >
                         <img
-                          src={item.image ? item.image : "https://wallpaperaccess.com/full/38119.jpg"}
+                          src={
+                            item.image
+                              ? item.image
+                              : "https://wallpaperaccess.com/full/38119.jpg"
+                          }
                           alt="Workspace Image"
                           style={{
                             width: "100%",
@@ -121,7 +127,8 @@ export default function incomingbooking(props) {
                           color="#000"
                           gutterBottom
                         >
-                          Date of Workspace Check-in: {formattedDates.join(', ')}
+                          Date of Workspace Check-in:{" "}
+                          {formattedDates.join(", ")}
                         </Typography>
                         <Typography
                           sx={{
@@ -148,7 +155,10 @@ export default function incomingbooking(props) {
                           color="#000"
                           gutterBottom
                         >
-                          Total: ${parseInt(cleaningFee) + parseInt(maintenancesFee) + (parseInt(otherFeeAmount)) * (parseInt(perPerson))}
+                          Total: $
+                          {parseInt(cleaningFee) +
+                            parseInt(maintenancesFee) +
+                            parseInt(otherFeeAmount) * parseInt(perPerson)}
                         </Typography>
                       </Box>
                     </CardContent>
@@ -163,7 +173,9 @@ export default function incomingbooking(props) {
                   >
                     <Box>
                       <Button
-                        onClick={() => { acceptOrder(item._id) }}
+                        onClick={() => {
+                          acceptOrder(item._id);
+                        }}
                         variant="contained"
                         sx={{
                           backgroundColor: "#005451",
@@ -178,7 +190,9 @@ export default function incomingbooking(props) {
                     </Box>
                     <Box>
                       <Button
-                        onClick={() => { rejectOrder(item._id) }}
+                        onClick={() => {
+                          rejectOrder(item._id);
+                        }}
                         variant="contained"
                         sx={{
                           backgroundColor: "#ff0000",
@@ -195,7 +209,10 @@ export default function incomingbooking(props) {
                 </Box>
               </>
             );
-          })) : (<Typography>No Incoming bookings.</Typography>)}
+          })
+        ) : (
+          <Typography>No Incoming bookings.</Typography>
+        )}
       </Grid>
     </>
   );
