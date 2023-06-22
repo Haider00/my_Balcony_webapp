@@ -5,6 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 const nextConfig = {
   reactStrictMode: true,
+  distDir: "build",
   webpack: (config) => {
     config.plugins.push(
       new CopyPlugin({
