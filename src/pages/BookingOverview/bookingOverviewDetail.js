@@ -64,7 +64,7 @@ export default function BookingOverviewDetail() {
   }, [auth.user]);
 
   useEffect(() => {
-    const rating = workspaceDetailState.workspaceDetail.rating;
+    const rating = workspaceDetailState?.workspaceDetail?.rating;
     const sum = rating
       ?.map((rating) => {
         return rating?.rating?.$numberDecimal || 0.0;
@@ -72,7 +72,7 @@ export default function BookingOverviewDetail() {
       .reduce((a, b) => a + b, 0);
     const average = sum / rating?.length;
     setRatingStar(average);
-  }, [rating]);
+  }, []);
 
   const handleCardNumber = () => {
     return (
