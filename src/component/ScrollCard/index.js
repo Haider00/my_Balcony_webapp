@@ -11,12 +11,14 @@ export default function Card({ title, itemId, image, onClick, rating = [] }) {
 
   useEffect(() => {
     const sum = rating
-      .map((rating) => rating.rating.$numberDecimal)
+      .map((rating) => {
+        return rating.rating?.$numberDecimal || 0.0;
+      })
       .reduce((a, b) => a + b, 0);
     const average = sum / rating.length;
     setNoOfRating(rating.length);
     setRatingStar(average);
-  }, []);
+  }, [rating]);
 
   return (
     <div onClick={onClick}>

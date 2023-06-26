@@ -66,11 +66,13 @@ export default function BookingOverviewDetail() {
   useEffect(() => {
     const rating = workspaceDetailState.workspaceDetail.rating;
     const sum = rating
-      ?.map((rating) => rating.rating.$numberDecimal)
+      ?.map((rating) => {
+        return rating?.rating?.$numberDecimal || 0.0;
+      })
       .reduce((a, b) => a + b, 0);
-    const average = sum / rating.length;
+    const average = sum / rating?.length;
     setRatingStar(average);
-  }, []);
+  }, [rating]);
 
   const handleCardNumber = () => {
     return (
