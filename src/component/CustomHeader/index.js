@@ -367,13 +367,15 @@ import { useRouter } from "next/router";
 import { useAuthState } from "src/context/auth.context";
 import { useState } from "react";
 import { Snackbar } from "@mui/material";
-
+import { useAuthDispatch } from "src/context/auth.context";
 const Header = (props) => {
   const router = useRouter();
   const auth = useAuthState();
+  const authDispatch = useAuthDispatch();
   let [message, setMessage] = useState("");
   const [display, setDisplay] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
+
   // console.log("props", props);
 
   function handleClick() {
@@ -381,7 +383,7 @@ const Header = (props) => {
       setMessage("You must be logged in first");
       setDisplay(true);
     } else {
-      router.push("./accountDashboard");
+      router.push("./signin");
     }
   }
 
@@ -393,6 +395,12 @@ const Header = (props) => {
 
   function handleCloseClick() {
     setSearchBarOpen(false);
+  }
+  function handleLogout() {
+    authDispatch({ type: "LOGOUT", payload: "" });
+    setMessage("You have been logged out");
+    setDisplay(true);
+    router.push("./signin");
   }
 
   return (
@@ -499,6 +507,25 @@ const Header = (props) => {
               >
                 account
               </Button>
+
+              <Button
+                onClick={handleLogout}
+                sx={{
+                  height: 30,
+                  backgroundColor: "#005451",
+                  fontSize: 13,
+                  fontWeight: "300",
+                  borderRadius: 3,
+                  textTransform: "lowercase",
+                  paddingRight: 3,
+                  paddingLeft: 3,
+                  marginRight: 2,
+                }}
+                variant="contained"
+              >
+                Logout
+              </Button>
+
               <div
                 onClick={handleSearchClick}
                 style={{

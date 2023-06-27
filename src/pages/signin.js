@@ -4,7 +4,8 @@ import Grid from "@mui/material/Grid";
 import { CustomHeader } from "../component";
 import FormWb, { LeftWallpaperWb } from "./Signin/wb";
 import Form from "./Signin/form";
-
+import Image from "next/image";
+import Leftewallpaper from "src/assets/images/tabletop.png";
 export default function SignUp() {
   return (
     <>
@@ -15,7 +16,11 @@ export default function SignUp() {
             <CustomHeader />
           </Grid>
 
-          <LeftWallpaperWb />
+          <Grid item xs={6} md={7}>
+            <Box style={{ position: "relative", top: -120, zIndex: -1 }}>
+              <Image src={Leftewallpaper} alt="" />
+            </Box>
+          </Grid>
           <Grid
             sx={{ display: { xs: "none", md: "block" } }}
             item

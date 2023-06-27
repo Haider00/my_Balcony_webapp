@@ -23,23 +23,32 @@ export const Form = () => {
       info.firstName &&
       info.lastName &&
       info.password &&
-      info.phone
+      info.phone &&
+      /^\d+$/.test(info.phone)
     ) {
       api
         .userRegistration(info)
         .then((res) => {
-          // console.log(res);
           setMessage("You have registered successfully");
           setDisplay(true);
           authDispatch({ type: "LOGIN", payload: res });
           router.push("./signin");
         })
-        .catch((err) => {
-          setMessage("something went wrong while registration");
-          setDisplay(true);
+        .catch((error) => {
+          if (
+            error.response &&
+            error.response.data &&
+            error.response.data.message
+          ) {
+            setMessage(error.response.data.message);
+            setDisplay(true);
+          } else {
+            setMessage("something went wrong while registration ");
+            setDisplay(true);
+          }
         });
     } else {
-      setMessage("please check your fields");
+      setMessage("Phone number should be in digits");
       setDisplay(true);
     }
   };
@@ -94,6 +103,7 @@ export const Form = () => {
         // variant="outlined"
         size="small"
       />
+
       <TextInput
         width="75%"
         onChange={(e) => {
@@ -104,7 +114,9 @@ export const Form = () => {
         label="password"
         // variant="outlined"
         size="small"
+        type="password"
       />
+
       <TextInput
         width="75%"
         onChange={(e) => {

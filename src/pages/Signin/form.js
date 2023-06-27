@@ -80,6 +80,7 @@ const Form = () => {
         id="password"
         label="password"
         size="small"
+        type="password"
       />
       <Button
         onClick={() => {

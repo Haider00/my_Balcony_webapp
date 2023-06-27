@@ -8,8 +8,9 @@ const Button = ({
   width = "90%",
   containerWidth = "100%",
   size = "small",
+  type = "text",
   alignItems = "center",
-  onChange = () => { },
+  onChange = () => {},
 }) => {
   return (
     <div
@@ -26,6 +27,7 @@ const Button = ({
       <input
         onChange={onChange}
         id={id}
+        type={type}
         style={{
           padding: "10px",
           border: "none",
