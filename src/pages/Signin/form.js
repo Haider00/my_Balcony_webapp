@@ -95,19 +95,11 @@ const Form = () => {
     }
   };
   const handleSignInWithGoogle = () => {
-    if (!session) {
-      signIn("google");
-    } else {
-      console.log("Session already exists");
-    }
+    signIn("google");
   };
 
   const handleSignInWithFacebook = () => {
-    if (!session) {
-      signIn("facebook");
-    } else {
-      console.log("Session already exists");
-    }
+    signIn("facebook");
   };
   return (
     <div
