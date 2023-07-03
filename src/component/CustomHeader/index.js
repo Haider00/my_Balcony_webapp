@@ -368,6 +368,7 @@ import { useAuthState } from "src/context/auth.context";
 import { useState } from "react";
 import { Snackbar } from "@mui/material";
 import { useAuthDispatch } from "src/context/auth.context";
+import { useSession, signOut } from "next-auth/react";
 const Header = (props) => {
   const router = useRouter();
   const auth = useAuthState();
@@ -375,8 +376,8 @@ const Header = (props) => {
   let [message, setMessage] = useState("");
   const [display, setDisplay] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
-
-  // console.log("props", props);
+  const { data: session } = useSession();
+  console.log("resp>>1", session);
 
   function handleClick() {
     if (!auth?.user?._id) {
@@ -401,6 +402,8 @@ const Header = (props) => {
     setMessage("You have been logged out");
     setDisplay(true);
     router.push("./signin");
+    signOut("google");
+    signOut("facebook");
   }
 
   return (
@@ -507,24 +510,25 @@ const Header = (props) => {
               >
                 account
               </Button>
-
-              <Button
-                onClick={handleLogout}
-                sx={{
-                  height: 30,
-                  backgroundColor: "#005451",
-                  fontSize: 13,
-                  fontWeight: "300",
-                  borderRadius: 3,
-                  textTransform: "lowercase",
-                  paddingRight: 3,
-                  paddingLeft: 3,
-                  marginRight: 2,
-                }}
-                variant="contained"
-              >
-                Logout
-              </Button>
+              {session ? (
+                <Button
+                  onClick={handleLogout}
+                  sx={{
+                    height: 30,
+                    backgroundColor: "#005451",
+                    fontSize: 13,
+                    fontWeight: "300",
+                    borderRadius: 3,
+                    textTransform: "lowercase",
+                    paddingRight: 3,
+                    paddingLeft: 3,
+                    marginRight: 2,
+                  }}
+                  variant="contained"
+                >
+                  Logout
+                </Button>
+              ) : null}
 
               <div
                 onClick={handleSearchClick}

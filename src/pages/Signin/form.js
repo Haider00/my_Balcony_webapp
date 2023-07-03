@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import FacebookRounded from "@mui/icons-material/FacebookRounded";
 import Google from "@mui/icons-material/Google";
 import Apple from "@mui/icons-material/Apple";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, TextInput } from "../../component";
 import { api } from "../../utils/api";
 import { signIn } from "next-auth/react";
@@ -16,9 +16,62 @@ import { useSession, signOut } from "next-auth/react";
 
 const Form = () => {
   const { data: session } = useSession();
-  // console.log("resp>>", session);
-
   const authDispatch = useAuthDispatch();
+  console.log("resp>>", session);
+
+  useEffect(() => {
+    if (session) {
+      console.log("Sign-in error", session);
+      if (session?.error) {
+        console.log("Sign-in error", session);
+      } else {
+        const userInfo = session?.token;
+        console.log("User info", userInfo);
+        if (userInfo) {
+          if (userInfo.picture.includes("google")) {
+            console.log("Google sign-in SUCCESS", userInfo);
+            api
+              .socialAuth({
+                ...userInfo,
+                firstName: userInfo.name,
+                image: userInfo.picture,
+                email: userInfo.email,
+                socialId: userInfo.sub,
+                authType: "google",
+              })
+              .then((res) => {
+                console.log("Google sign-in SUCCESS", res);
+                authDispatch({ type: "LOGIN", payload: res });
+                router.push("./");
+              })
+              .catch(() => {
+                console.log("API error");
+              });
+          } else if (userInfo.picture.includes("fbsbx")) {
+            console.log("Facebook sign-in SUCCESS", userInfo);
+            api
+              .socialAuth({
+                ...userInfo,
+                firstName: userInfo.name,
+                image: userInfo.picture,
+                email: userInfo.email,
+                socialId: userInfo.sub,
+                authType: "facebook",
+              })
+              .then((res) => {
+                console.log("Facebook sign-in SUCCESS", res);
+                authDispatch({ type: "LOGIN", payload: res });
+                router.push("./");
+              })
+              .catch(() => {
+                console.log("API error");
+              });
+          }
+        }
+      }
+    }
+  }, [session]);
+
   const router = useRouter();
   const [info, setInfo] = useState({});
   const [display, setDisplay] = useState(false);
@@ -41,7 +94,21 @@ const Form = () => {
       setDisplay(true);
     }
   };
+  const handleSignInWithGoogle = () => {
+    if (!session) {
+      signIn("google");
+    } else {
+      console.log("Session already exists");
+    }
+  };
 
+  const handleSignInWithFacebook = () => {
+    if (!session) {
+      signIn("facebook");
+    } else {
+      console.log("Session already exists");
+    }
+  };
   return (
     <div
       style={{
@@ -118,9 +185,7 @@ const Form = () => {
       >
         <FacebookRounded style={{ color: "#1877F2", fontSize: 30 }} />
         <Button
-          onClick={async () => {
-            signIn("facebook");
-          }}
+          onClick={handleSignInWithFacebook}
           title="Continue with Facebook"
           width="85%"
           backgroundColor="#1877F2"
@@ -135,9 +200,7 @@ const Form = () => {
         }}
       >
         <Button
-          onClick={() => {
-            signIn("google");
-          }}
+          onClick={handleSignInWithGoogle}
           title="Continue with Google"
           width="85%"
           color="#444"
@@ -145,26 +208,7 @@ const Form = () => {
         />
         <Google style={{ color: "#FE2B25", fontSize: 30 }} />
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "80%",
-        }}
-      >
-        <Apple
-          onClick={() => {
-            signIn("apple");
-          }}
-          style={{ color: "#000", fontSize: 30 }}
-        />
-        <Button
-          title="Continue with Apple"
-          width="80%"
-          backgroundColor="#000"
-        />
-      </div>
+
       <Box
         sx={{
           display: "flex",
