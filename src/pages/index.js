@@ -22,14 +22,14 @@ export default function SignUp() {
   const auth = useAuthState();
   const menu = useRef();
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.history.pushState(null, "", window.location.href);
-      window.onpopstate = function () {
-        window.history.pushState(null, "", window.location.href);
-      };
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     window.history.pushState(null, "", window.location.href);
+  //     window.onpopstate = function () {
+  //       window.history.pushState(null, "", window.location.href);
+  //     };
+  //   }
+  // }, []);
   useEffect(() => {
     setTimeout(() => {
       menu.current?.scrollToItem(
@@ -45,7 +45,7 @@ export default function SignUp() {
     api
       .getWorkSpace({ query: "?workspaceType=indoor" })
       .then((res) => {
-        // console.log("indoor>>>", res.data);
+        console.log("indoor>>>", res.data);
         // console.warn("auth.accessToken...");
         // console.log("jjj", res.data);
         setIndoorWorkSpace(res.data);
@@ -66,8 +66,8 @@ export default function SignUp() {
         console.log("Error WorkSpaceList:", err);
       });
   }, [auth.accessToken]);
-  // console.log("indoorWorkSpace", indoorWorkSpace);
-  // console.log("outdoorWorkSpace", outdoorWorkSpace);
+  console.log("indoorWorkSpace", indoorWorkSpace);
+  console.log("outdoorWorkSpace", outdoorWorkSpace);
 
   return (
     <>

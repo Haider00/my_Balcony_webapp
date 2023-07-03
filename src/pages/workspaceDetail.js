@@ -41,8 +41,6 @@ export default function WorkspaceDetail() {
           setNoOfRating(ratings.length);
           setRating(average);
 
-          // console.log("Average rating:", average);
-
           dispatch({
             type: "WORKSPACE_DETAIL",
             payload: res.data[0],

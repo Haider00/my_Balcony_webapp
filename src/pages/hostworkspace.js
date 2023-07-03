@@ -114,8 +114,7 @@ export default function HostWorkSpace({}) {
   const [message, setMessage] = useState("");
   const [workPlaceDayAndTime, setWorkPlaceDayAndTime] = useState([]);
   const [workPlaceDay, setWorkPlaceDay] = useState([]);
-  // console.log("workPlaceDay", workPlaceDay);
-  // console.log("workSpace><><><><><><>", workSpace);
+  console.log("workSpace", workSpace);
 
   const handleHostWorkSpace = () => {
     api
@@ -127,7 +126,6 @@ export default function HostWorkSpace({}) {
       })
       .then((res) => {
         setMessage("workspace hosted successfully");
-        console.log("response", res);
         setDisplay(true);
         createWorkSpaceTimeAndDay(res);
         handlePatchImage(res);
@@ -138,7 +136,6 @@ export default function HostWorkSpace({}) {
   };
 
   const handlePatchImage = (res) => {
-    alert("upload image called");
     patchWorkspaceImage(workspaceState.firstImage, res);
     patchWorkspaceImage(workspaceState.secondImage, res);
     patchWorkspaceImage(workspaceState.thirdImage, res);
@@ -149,7 +146,7 @@ export default function HostWorkSpace({}) {
       api
         .uploadFilesToWorkspace({ ...item, workSpace: res?._id })
         .then((res) => {
-          // console.log("res....<<<<", res);
+          console.log("res....<<<<", res);
         })
         .catch((err) => {
           console.log("res....", err);
@@ -267,14 +264,12 @@ export default function HostWorkSpace({}) {
         });
     }
   };
-  // console.log('id>>>>',workSpace);
 
   const handleWorkSpaceDayAndTime = (info) => {
     let arr = workPlaceDayAndTime;
     let arrDay = workPlaceDay;
     if (workPlaceDay.includes(info.day)) {
       arr = [];
-      // console.log(arr);
 
       for (let i = 0; i < workPlaceDayAndTime.length; i++) {
         const element = workPlaceDayAndTime[i];
@@ -304,13 +299,13 @@ export default function HostWorkSpace({}) {
       100,
       0,
       (uri) => {
-        // console.log("FUNTION>>>>>", uri);
+        console.log("FUNTION>>>>>", uri);
         api
           .uploadImage({ image: uri })
           .then((res) => {
-            // console.log("RESPONSE....", res.Location);
+            console.log("RESPONSE....", res.Location);
             setWorkSpace({ ...workSpace, photoId: res.Location });
-            // handleUploadProductImage(res.data, product, element.cover);
+            handleUploadProductImage(res.data, product, element.cover);
           })
           .catch((err) => {
             console.log("RESPONSE....E", err);
@@ -607,12 +602,13 @@ export default function HostWorkSpace({}) {
               />
             </div>
             {isCheckedfeename && (
-              <CheckBoxInput
-                onChangeInput={(e) => {
-                  setWorkSpace({
-                    ...workSpace,
-                    otherFeeAmount: e.target.value,
-                  });
+              <TextField
+                sx={{ marginY: 1, width: "100%" }}
+                variant="outlined"
+                size="small"
+                label="Amount"
+                onChange={(e) => {
+                  setWorkSpace({...workSpace, otherFeeAmount: e.target.value});
                 }}
                 title="Amount"
               />
