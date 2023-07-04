@@ -71,16 +71,16 @@ export default function SignUp() {
 
   return (
     <>
-      <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
+      <Box style={{marginTop:'70px', maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
         <Box>
           <CustomHeader />
         </Box>
         <Grid container>
           <Grid style={{ marginTop: 56 }} item xs={1} md={1}>
-            <WebTabs />
+            <WebTabs selectedTab={1}/> 
           </Grid>
           <Grid item xs={6} md={7}>
-            <Box style={{ position: "relative", top: -120, zIndex: -1 }}>
+            <Box style={{ position: "relative",left:-220 ,top: -180, zIndex: -1 }}>
               <Image src={Leftewallpaper} alt="" />
             </Box>
           </Grid>
@@ -88,7 +88,6 @@ export default function SignUp() {
             <FormWb />
           </Grid>
         </Grid>
-
         <Grid className="scrollbar" container xs={12}>
           <Box
             sx={{
@@ -110,22 +109,25 @@ export default function SignUp() {
                 work from outside
               </Typography>
             </div>
-            <ScrollMenu apiRef={menu}>
-              {outdoorWorkSpace?.reverse().map((item, index) => (
-                <ScrollCard
-                  onClick={() => {
-                    router.push(`./workspaceDetail?wd=${item._id}`);
-                  }}
-                  title={item.name}
-                  itemId={item._id}
-                  key={item._id}
-                  image={item.image}
-                  rating={item.rating}
-                />
-              ))}
-            </ScrollMenu>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <ScrollMenu apiRef={menu}>
+                {outdoorWorkSpace?.reverse().map((item, index) => (
+                  <ScrollCard
+                    onClick={() => {
+                      router.push(`./workspaceDetail?wd=${item._id}`);
+                    }}
+                    title={item.name}
+                    itemId={item._id}
+                    key={item._id}
+                    image={item.image}
+                    rating={item.rating}
+                  />
+                ))}
+              </ScrollMenu>
+            </div>
           </Box>
         </Grid>
+
         <HostWorkSpaceMb />
         <Grid className="scrollbar" item xs={12}>
           <Box

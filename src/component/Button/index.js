@@ -23,6 +23,10 @@ const Button = ({
           onClick();
         }}
         sx={{
+          "&:hover": {
+            backgroundColor: "#ffff00",
+            color:'#000'
+          },
           backgroundColor: backgroundColor,
           borderRadius: 2,
           width: "100%",

@@ -53,6 +53,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
       />
       <Card
         style={{
+          position:'relative',
           height: 300,
           width: 60,
           backgroundColor: "#fff",
@@ -64,7 +65,6 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           paddingTop: 5,
           paddingBottom: 5,
         }}
-        sx={{ mx: "auto" }}
       >
         <div
           style={{
@@ -131,7 +131,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           />
         </div>
 
-        {/* <div
+        <div
           style={{
             height: 50,
             width: 50,
@@ -150,29 +150,6 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
               cursor: "pointer",
             }}
           />
-        </div> */}
-
-        <div
-          style={{
-            height: 50,
-            width: 50,
-            backgroundColor: selectedTab === 6 ? "#005451" : "#fff",
-            borderRadius: 15,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CalendarMonthIcon
-            onClick={() => {
-              router.push("./planner");
-            }}
-            style={{
-              color: selectedTab === 6 ? "#fff" : "#000",
-              fontSize: 35,
-              cursor: "pointer",
-            }}
-          />
         </div>
 
         <div
@@ -186,10 +163,33 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
+          <CalendarMonthIcon
+            onClick={() => {
+              router.push("./planner");
+            }}
+            style={{
+              color: selectedTab === 5 ? "#fff" : "#000",
+              fontSize: 35,
+              cursor: "pointer",
+            }}
+          />
+        </div>
+
+        <div
+          style={{
+            height: 50,
+            width: 50,
+            backgroundColor: selectedTab === 6 ? "#005451" : "#fff",
+            borderRadius: 15,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Icons.PersonOutline
             onClick={handleAccountDashboardClick}
             style={{
-              color: selectedTab === 5 ? "#fff" : "#000",
+              color: selectedTab === 6 ? "#fff" : "#000",
               fontSize: 35,
               cursor: "pointer",
             }}

@@ -16,9 +16,9 @@ export const HostWorkSpaceMb = () => {
           marginBottom: 10,
         }}
       >
-        <Typography component="h1" variant="h5">
+        {/* <Typography component="h1" variant="h5">
           host your workspace
-        </Typography>
+        </Typography> */}
       </div>
       <img
         src={`${"https://wallpaperaccess.com/full/3678503.png"}`}

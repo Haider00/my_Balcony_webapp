@@ -23,6 +23,25 @@ export default function MenuSection() {
       window.location.href = "https://apps.apple.com/app/id389801252";
     }
   };
+  const handleFacebookClick = () => {
+    if (typeof window !== "undefined") {
+      window.location.href =
+        "https://www.facebook.com/balconyws";
+    }
+  };
+  const handleTwitterClick = () => {
+    if (typeof window !== "undefined") {
+      window.location.href =
+        "https://twitter.com/balconyws";
+    }
+  };
+  const handleInstagramClick = () => {
+    if (typeof window !== "undefined") {
+      window.location.href =
+        "https://www.instagram.com/balconyworkspaces/";
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -41,12 +60,12 @@ export default function MenuSection() {
           }}
         >
           <CardContent>
-            <Typography variant="h6" sx={{ fontSize: 28, mb: 4 }}>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto-Regular', fontSize: 28, mb: 4 }}>
               read, discover, explore..
             </Typography>
             <Link href="http://">
               <Typography
-                sx={{ marginTop: 1, fontSize: 22 }}
+                sx={{ fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
                 variant="subtitle1"
               >
                 about Us
@@ -54,7 +73,7 @@ export default function MenuSection() {
             </Link>
             <Link href="http://">
               <Typography
-                sx={{ marginTop: 1, fontSize: 22 }}
+                sx={{ fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
                 variant="subtitle1"
               >
                 terms & conditions
@@ -62,7 +81,7 @@ export default function MenuSection() {
             </Link>
             <Link href="http://">
               <Typography
-                sx={{ marginTop: 1, fontSize: 22 }}
+                sx={{ fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
                 variant="subtitle1"
               >
                 privacy policy
@@ -70,7 +89,7 @@ export default function MenuSection() {
             </Link>
             <Link href="http://">
               <Typography
-                sx={{ marginTop: 1, fontSize: 22 }}
+                sx={{ fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
                 variant="subtitle1"
               >
                 faq
@@ -78,7 +97,7 @@ export default function MenuSection() {
             </Link>
             <Link href="http://">
               <Typography
-                sx={{ marginTop: 1, fontSize: 22 }}
+                sx={{ fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
                 variant="subtitle1"
               >
                 become a workspace Host
@@ -107,13 +126,13 @@ export default function MenuSection() {
               linkProps={{ title: "iOS Store Button" }}
             />
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <InstagramIcon sx={{ ml: 1 }} />
-              <TwitterIcon sx={{ ml: 1 }} />
-              <FacebookOutlinedIcon sx={{ ml: 1 }} />
+              <InstagramIcon onClick={handleInstagramClick} sx={{ ml: 1, color: 'grey' }} />
+              <TwitterIcon onClick={handleTwitterClick} sx={{ ml: 1, color: 'grey' }} />
+              <FacebookOutlinedIcon onClick={handleFacebookClick} sx={{ ml: 1, color: 'grey' }} />
             </Box>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", p: 1 }}>
-            <Typography sx={{ fontSize: 12 }}>
+            <Typography sx={{ fontFamily: 'Roboto-Regular', fontSize: 12 }}>
               © homework workspaces LLC {new Date().getFullYear()}
             </Typography>
           </Box>

@@ -44,7 +44,7 @@ export default function HostWorkSpace({}) {
         <Grid item xs={12}>
           <CustomHeader />
         </Grid>
-        <WorksapceImages />
+        <WorksapceImages/>
         <LeftWallpaperWb />
         <FormWb
           handleInfo={(e) => {

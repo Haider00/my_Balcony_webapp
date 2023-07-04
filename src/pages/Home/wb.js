@@ -94,8 +94,6 @@ export const HostWorkSpaceWb = () => {
   const [message, setMessage] = useState("");
 
   function sellerAccessControl() {
-    // const userType = "seller"
-    // console.log('typeCheck')
     authDispatch({ type: "SET_USER_TYPE", payload: "seller" });
   }
 
@@ -149,14 +147,14 @@ export const HostWorkSpaceWb = () => {
               flexDirection: "column",
             }}
           >
-            <Typography sx={{ marginX: 1 }} variant="h4">
-              {"host"}
+            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+              host
             </Typography>
-            <Typography sx={{ marginX: 1 }} variant="h4">
-              {"Your"}
+            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+              Your
             </Typography>
-            <Typography sx={{ marginX: 1 }} variant="h4">
-              {"Workspace"}
+            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+              Workspace
             </Typography>
           </Box>
           <Box
@@ -164,32 +162,33 @@ export const HostWorkSpaceWb = () => {
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              marginBottom: 5,
+              marginBottom: 3,
+              marginTop: 1,
             }}
           >
-            <Typography sx={{ marginX: 1, fontSize: 14, fontWeight: "600" }}>
+            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 14, fontWeight: "600" }}>
               {"Indoor and Outdoor! Let People"}
             </Typography>
-            <Typography sx={{ marginX: 1, fontSize: 14, fontWeight: "600" }}>
+            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 14, fontWeight: "600" }}>
               {"Discover your worksapce on our"}
             </Typography>
-            <Typography sx={{ marginX: 1, fontSize: 14, fontWeight: "600" }}>
+            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 14, fontWeight: "600" }}>
               {"Platform"}
             </Typography>
           </Box>
-          <Typography sx={{ marginX: 1, fontSize: 18, fontWeight: "300" }}>
+          <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 18, fontWeight: "300" }}>
             {"Learn"}
           </Typography>
-          <Typography sx={{ marginX: 1, fontSize: 18, fontWeight: "300" }}>
+          <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 18, fontWeight: "300" }}>
             {"Study"}
           </Typography>
-          <Typography sx={{ marginX: 1, fontSize: 18, fontWeight: "300" }}>
+          <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 18, fontWeight: "300" }}>
             {"Work"}
           </Typography>
-          <Typography sx={{ marginX: 1, fontSize: 18, fontWeight: "300" }}>
+          <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 18, fontWeight: "300" }}>
             {"Collaborate"}
           </Typography>
-          <Typography sx={{ marginX: 1, fontSize: 18, fontWeight: "300" }}>
+          <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 18, fontWeight: "300" }}>
             {"& More"}
           </Typography>
 

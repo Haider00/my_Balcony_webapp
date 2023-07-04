@@ -105,7 +105,7 @@ export default function BookingOverview() {
           display: "flex",
           justifyContent: "center",
           alignItems: "flex-start",
-          mt: 5,
+          mt: 20,
         }}
         container
       >

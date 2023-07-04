@@ -27,10 +27,10 @@ export default function Planner() {
         <CustomHeader />
         <Grid
           container
-          sx={{ display: "flex", justifyContent: "space-evenly", mt: 5 }}
+          sx={{ display: "flex", justifyContent: "space-evenly", mt: 15 }}
         >
           <Grid sx={{ textAlign: "center" }} item xs={12} sm={12} md={1} lg={1}>
-            <WebTabs />
+            <WebTabs selectedTab={5} />
           </Grid>
           <Grid
             sx={{ mt: 2, textAlign: "center" }}

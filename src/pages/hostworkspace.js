@@ -329,7 +329,7 @@ export default function HostWorkSpace({}) {
           message={<span id="message-id">{message}</span>}
         />
         <Grid sx={{ justifyContent: "center" }} container spacing={2}>
-          <Grid item xs={12}>
+          <Grid sx={{marginBottom:10}} item xs={12}>
             <CustomHeader />
           </Grid>
           <LeftWallpaperWb />

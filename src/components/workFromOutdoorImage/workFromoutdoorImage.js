@@ -11,15 +11,11 @@ export default function WorkFromOutdoorImage() {
   const [outdoorWorkspace, setOutdoorWorkSpace] = useState([]);
   const [inComingPage, setInComingPage] = useState(1);
   const [page, setPage] = useState(1);
-  console.log("aaaaa", outdoorWorkspace);
 
   useEffect(() => {
     api
       .getWorkSpace({ query: `?workspaceType=outdoor&page=${inComingPage}` })
       .then((res) => {
-        // console.log("indoar>>>", res.data);
-        // console.warn("auth.accessToken...");
-        // console.log("jjj", res.data);
         setOutdoorWorkSpace(res);
       })
       .catch((err) => {
@@ -33,10 +29,8 @@ export default function WorkFromOutdoorImage() {
   };
 
   const hanldeRating = (item) => {
-    const sum = item.rating
-      .map((rating) => rating.rating.$numberDecimal)
-      .reduce((a, b) => a + b, 0);
-    const average = sum / item.rating.length;
+    const sum = item?.rating?.map((rating) => rating.rating.$numberDecimal).reduce((a, b) => a + b, 0);
+    const average = sum / item?.rating?.length;
     return <Rating value={average} name="simple-controlled" readOnly />;
   };
 
@@ -79,15 +73,15 @@ export default function WorkFromOutdoorImage() {
         spacing={4}
       >
         {outdoorWorkspace.data?.map((item) => (
-          <div style={{ flexDirection: "column", margin: 10 }}>
+          <div style={{ margin: 10 }}>
             <div
               onClick={() => {
                 router.push(`./workspaceDetail?wd=${item._id}`);
               }}
               style={{
                 cursor: "pointer",
-                height: 180,
-                width: "310px",
+                height: 150,
+                width: "280px",
                 borderRadius: 10,
                 backgroundColor: "#000",
                 position: "relative", // Add this line to make the parent container a positioning context
@@ -147,12 +141,14 @@ export default function WorkFromOutdoorImage() {
           </div>
         ))}
       </Grid>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Pagination
         page={page}
         count={Math.ceil(outdoorWorkspace.total / outdoorWorkspace.limit)}
         color="primary"
         onChange={handleChangePage}
       />
+      </div>
     </>
   );
 }
