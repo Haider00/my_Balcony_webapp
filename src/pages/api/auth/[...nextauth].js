@@ -24,6 +24,12 @@ export default NextAuth({
       clientSecret: "",
     }),
   ],
+  events: {
+    error: async (message, object) => {
+      console.error("Error Message: ", message);
+      console.error("Error Object: ", object);
+    },
+  },
   secret: process.env.SECRET,
 
   session: {
