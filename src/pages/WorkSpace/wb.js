@@ -237,6 +237,7 @@ export const WorksapceImages = () => {
   const uploadFileRef = useRef(null);
 
   const handleUploadImage = (e) => {
+    console.log('e',e);
     uploadImages(e.target.files[0]);
   };
   const handleUploadImageClick = () => {
@@ -256,7 +257,7 @@ export const WorksapceImages = () => {
         api
           .uploadImage({ image: uri })
           .then((res) => {
-            // console.log('FILES>>>>', res)
+            console.log('FILES>>>>', res)
             if (imageType === "main") {
               workSpaceDispatch({
                 type: "SET_WORKSPACE_FIRST_IMAGE",
@@ -279,7 +280,7 @@ export const WorksapceImages = () => {
             // handleUploadProductImage(res.data, product, element.cover);
           })
           .catch((err) => {
-            // console.log('FILES>>>>E', err)
+            console.log('FILES>>>>E', err.response)
             // setDisplay(true);
             // setMessage("Something Went Wrong While Adding Your Post");
           });

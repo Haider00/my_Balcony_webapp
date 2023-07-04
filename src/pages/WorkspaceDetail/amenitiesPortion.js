@@ -12,26 +12,6 @@ margin: 0;
 const ListItem = styledcomp.li`
 list-style: none;
 `;
-// const workspaceDetails = {
-//   name: "Sanan's Workspace",
-//   coordinates: [23.7, -72.88],
-//   image: "image Location",
-//   address: "Nazar shah street",
-//   address2: "Ghona",
-//   city: "LHR",
-//   cleaningFee: 200,
-//   country: "Pakistan",
-//   currency: "USD",
-//   flatFee: true,
-//   workspaceType: "Indoor",
-//   maintenancesFee: 400,
-//   otherFeeAmount: 100,
-//   otherFeeName: "Other Fee",
-//   perPerson: 10,
-//   percentage: false,
-//   state: "Punjab",
-//   coworkspace: true,
-// };
 
 export default function AmenitiesPortion() {
   const workspaceDetailState = useWorkspaceDetailState();
@@ -53,7 +33,7 @@ export default function AmenitiesPortion() {
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
         <Box style={{ width: "100%", paddingLeft: 25 }}>
-          <Typography variant="h5" sx={{ mb: 2, textAlign: "left" }}>
+          <Typography variant="h5" sx={{ mb: 2, textAlign: "center" }}>
             amenities
           </Typography>
         </Box>
@@ -68,7 +48,7 @@ export default function AmenitiesPortion() {
           alignItems: "end",
         }}
       >
-        <Typography variant="h6" sx={{ mb: 1 }}>
+        <Typography variant="h6" sx={{ mb: 1, alignSelf:"center" }}>
           <Listcontainer
             style={{
               padding: 0,
@@ -100,11 +80,11 @@ export default function AmenitiesPortion() {
           <>
             <Typography
               variant="button"
-              sx={{ mb: 1, fontSize: "24px", fontWeight: "400" }}
+              sx={{ mb: 1, fontSize: "24px", fontWeight: "400", alignSelf:"center"}}
             >
               Shared Workspace
             </Typography>
-            <GroupIcon sx={{ mb: 1 }} fontSize="large" />
+            <GroupIcon sx={{ mb: 1, alignSelf:"center" }} fontSize="large" />
             <Typography
               sx={{ width: "95%", textAlign: "center" }}
               variant="caption"

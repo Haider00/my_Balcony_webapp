@@ -132,6 +132,7 @@
 // export default TimeRange;
 
 import * as React from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import CheckBox from "@mui/icons-material/CheckBoxOutlined";
 import CropSquare from "@mui/icons-material/CropSquare";
@@ -141,11 +142,27 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Snackbar } from "@mui/material";
 
 const TimeRange = ({ title = "", handleTimeRange = ({}) => {} }) => {
-  const [checked, setChecked] = React.useState(false);
-  const [amValue, setAmValue] = React.useState(null);
-  const [pmValue, setPmValue] = React.useState(null);
-  const [display, setDisplay] = React.useState(false);
-  const [message, setMessage] = React.useState("");
+  const [checked, setChecked] = useState(false);
+  const [amValue, setAmValue] = useState(null);
+  const [pmValue, setPmValue] = useState(getInitialPMTime());
+  const [display, setDisplay] = useState(false);
+  const [message, setMessage] = useState("");
+
+  function getInitialPMTime() {
+    const now = new Date();
+    now.setHours(12, 0, 0);
+    return now;
+  }
+  useEffect(() => {
+    if (checked && amValue) {
+      handleTimeRange({
+        day: title,
+        from: amValue,
+        to: pmValue,
+        available: checked,
+      });
+    }
+  }, [amValue, pmValue, checked]);
 
   const handleAmChange = (newValue) => {
     if (checked) {
@@ -161,12 +178,6 @@ const TimeRange = ({ title = "", handleTimeRange = ({}) => {} }) => {
     }
     if (amValue) {
       setPmValue(newValue);
-      handleTimeRange({
-        day: title,
-        from: amValue,
-        to: pmValue,
-        available: checked,
-      });
     } else {
       setMessage("please check start time");
       setDisplay(true);

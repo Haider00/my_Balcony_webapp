@@ -114,6 +114,7 @@ class Api {
   }
 
   async uploadImage(payload) {
+    console.log('payload>>',payload)
     const { data } = await axios.post("/file", payload, config);
     return data;
   }
