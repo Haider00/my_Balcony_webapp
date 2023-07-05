@@ -15,12 +15,17 @@ import Leftewallpaper from "src/assets/images/tabletop.png";
 import { useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
 import MenuSection from "./MenuSection/menuSection";
 import Image from "next/image";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
 export default function SignUp() {
   const router = useRouter();
   const [indoorWorkSpace, setIndoorWorkSpace] = useState([]);
   const [outdoorWorkSpace, setOutdoorWorkSpace] = useState([]);
   const auth = useAuthState();
   const menu = useRef();
+  const theme = useTheme();
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
@@ -71,16 +76,16 @@ export default function SignUp() {
 
   return (
     <>
-      <Box style={{marginTop:'70px', maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
+      <Box style={{ marginTop: '70px', maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
         <Box>
           <CustomHeader />
         </Box>
         <Grid container>
           <Grid style={{ marginTop: 56 }} item xs={1} md={1}>
-            <WebTabs selectedTab={1}/> 
+            <WebTabs selectedTab={1} />
           </Grid>
-          <Grid item xs={6} md={7}>
-            <Box style={{ position: "relative",left:-220 ,top: -180, zIndex: -1 }}>
+          <Grid item xs={6} md={7} style={{ display: isMediumScreen ? 'none' : 'block' }}>
+            <Box style={{ position: "relative", left: -220, top: -180, zIndex: -1 }}>
               <Image src={Leftewallpaper} alt="" />
             </Box>
           </Grid>

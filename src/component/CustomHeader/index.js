@@ -3,7 +3,6 @@ import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import SearchRounded from "@mui/icons-material/Search";
 import CloseRounded from "@mui/icons-material/Close";
 import MenuBox from "@mui/icons-material/Menu";
@@ -14,6 +13,8 @@ import { useState } from "react";
 import { Snackbar } from "@mui/material";
 import { useAuthDispatch } from "src/context/auth.context";
 import { useSession, signOut } from "next-auth/react";
+import { Button, Menu, MenuItem } from '@mui/material';
+
 const Header = (props) => {
   const router = useRouter();
   const auth = useAuthState();
@@ -22,13 +23,13 @@ const Header = (props) => {
   const [display, setDisplay] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
   const { data: session } = useSession();
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  function handleClick() {
+  function handleClick(event) {
     if (!auth?.user?._id) {
-      setMessage("You must be logged in first");
-      setDisplay(true);
+      setAnchorEl(event.currentTarget);
     } else {
-      router.push("./signin");
+      router.push("./accountDashboard");
     }
   }
 
@@ -65,13 +66,13 @@ const Header = (props) => {
       />
       <Card
         sx={{
-          width:'90%',
+          width: '90%',
           flex: 1,
           display: { xs: "none", md: "flex" },
           padding: { xs: 1, md: 2 },
           marginX: 5,
           marginY: 1,
-          marginBottom:'20px',
+          marginBottom: '20px',
           alignItems: "center",
           justifyContent: "space-between",
           borderRadius: 5,
@@ -163,6 +164,39 @@ const Header = (props) => {
               >
                 account
               </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={() => setAnchorEl(null)}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                PaperProps={{
+                  style: {
+                    borderRadius:'10px',
+                    paddingTop:'5px',
+                    paddingBottom:'5px'
+                  },
+                }}
+              >
+                <MenuItem sx={{
+                  '&:hover': {
+                    backgroundColor: 'yellow',
+                    color: 'black',
+                  },
+                }} onClick={() => router.push('./signin')}>Sign In</MenuItem>
+                <MenuItem sx={{
+                  '&:hover': {
+                    backgroundColor: 'yellow',
+                    color: 'black',
+                  },
+                }} onClick={() => router.push('./signup')}>Sign Up</MenuItem>
+              </Menu>
               {session ? (
                 <Button
                   onClick={handleLogout}

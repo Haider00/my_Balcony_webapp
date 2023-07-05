@@ -7,10 +7,13 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { useTheme } from "@mui/material/styles";
+import { useRouter } from "next/router";
+
 
 export default function MenuSection() {
   const theme = useTheme();
   const isAndroidView = theme.breakpoints.down("sm");
+  const router = useRouter();
 
   const handleGetOnGooglePlayClick = () => {
     if (typeof window !== "undefined") {
@@ -63,46 +66,38 @@ export default function MenuSection() {
             <Typography variant="h6" sx={{ fontFamily: 'Roboto-Regular', fontSize: 28, mb: 4 }}>
               read, discover, explore..
             </Typography>
-            <Link href="http://">
-              <Typography
-                sx={{ fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
-                variant="subtitle1"
-              >
-                about Us
-              </Typography>
-            </Link>
-            <Link href="http://">
-              <Typography
-                sx={{ fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
-                variant="subtitle1"
-              >
-                terms & conditions
-              </Typography>
-            </Link>
-            <Link href="http://">
-              <Typography
-                sx={{ fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
-                variant="subtitle1"
-              >
-                privacy policy
-              </Typography>
-            </Link>
-            <Link href="http://">
-              <Typography
-                sx={{ fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
-                variant="subtitle1"
-              >
-                faq
-              </Typography>
-            </Link>
-            <Link href="http://">
-              <Typography
-                sx={{ fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
-                variant="subtitle1"
-              >
-                become a workspace Host
-              </Typography>
-            </Link>
+            <Typography
+              sx={{ cursor: 'pointer', fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
+              variant="subtitle1"
+            >
+              about Us
+            </Typography>
+            <Typography
+              onClick={() => router.push('/termsOfServices')}
+              sx={{ cursor: 'pointer', fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
+              variant="subtitle1"
+            >
+              terms of services
+            </Typography>
+            <Typography
+              onClick={() => router.push('/privacyPolicy')}
+              sx={{ cursor: 'pointer', fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
+              variant="subtitle1"
+            >
+              privacy policy
+            </Typography>
+            <Typography
+              sx={{ cursor: 'pointer', fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
+              variant="subtitle1"
+            >
+              faq
+            </Typography>
+            <Typography
+              sx={{ cursor: 'pointer', fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
+              variant="subtitle1"
+            >
+              become a workspace Host
+            </Typography>
           </CardContent>
           <Box
             sx={{
