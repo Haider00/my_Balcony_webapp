@@ -51,8 +51,6 @@ export default function SignUp() {
       .getWorkSpace({ query: "?workspaceType=indoor" })
       .then((res) => {
         console.log("indoor>>>", res.data);
-        // console.warn("auth.accessToken...");
-        // console.log("jjj", res.data);
         setIndoorWorkSpace(res.data);
       })
       .catch((err) => {
@@ -64,7 +62,6 @@ export default function SignUp() {
     api
       .getWorkSpace({ query: "?workspaceType=outdoor" })
       .then((res) => {
-        // console.log("outside>>>", res.data);
         setOutdoorWorkSpace(res.data);
       })
       .catch((err) => {
@@ -93,6 +90,7 @@ export default function SignUp() {
             <FormWb />
           </Grid>
         </Grid>
+
         <Grid className="scrollbar" container xs={12}>
           <Box
             sx={{
@@ -103,19 +101,11 @@ export default function SignUp() {
               marginBottom: 10,
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "flex-end",
-              }}
-            >
-              <Typography sx={{ marginX: 1 }} component="h1" variant="h5">
+            <div className="scrollHomePage" >
+              <Typography sx={{textAlign:'end'}} component="h1" variant="h5">
                 work from outside
               </Typography>
-            </div>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <ScrollMenu apiRef={menu}>
+              <ScrollMenu className="scrollMenu" apiRef={menu}>
                 {outdoorWorkSpace?.reverse().map((item, index) => (
                   <ScrollCard
                     onClick={() => {
@@ -133,18 +123,24 @@ export default function SignUp() {
           </Box>
         </Grid>
 
+
         <HostWorkSpaceMb />
-        <Grid className="scrollbar" item xs={12}>
+
+
+        <Grid className="scrollbar" container xs={12}>
           <Box
             sx={{
               width: "100%",
               display: "flex",
               flexDirection: "column",
+              justifyContent: "flex-end",
+              marginBottom: 10,
             }}
           >
             <Typography sx={{ marginX: 1 }} component="h1" variant="h5">
               work indoor
             </Typography>
+
             <ScrollMenu apiRef={menu}>
               {indoorWorkSpace?.reverse().map((item, index) => (
                 <ScrollCard

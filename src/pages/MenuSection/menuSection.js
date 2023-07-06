@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent, Typography, Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Link from "next/link";
 import MobileStoreButton from "react-mobile-store-button";
@@ -8,6 +8,13 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/router";
+import PlayStore from "src/assets/images/playStore.png"
+import Appstore from "src/assets/images/appStore.png"
+import Instagram from "src/assets/images/instagram.png"
+import Twitter from "src/assets/images/twitter.png"
+import Facebook from "src/assets/images/facebook.png"
+import Image from "next/image";
+
 
 
 export default function MenuSection() {
@@ -108,22 +115,14 @@ export default function MenuSection() {
               p: 1,
             }}
           >
-            <MobileStoreButton
-              onClick={handleGetOnGooglePlayClick}
-              width="150px"
-              store="android"
-              linkProps={{ title: "Android Store Button" }}
-            />
-            <MobileStoreButton
-              onClick={handleGetOnAppStoreClick}
-              width="150px"
-              store="ios"
-              linkProps={{ title: "iOS Store Button" }}
-            />
+
+            <Button onClick={handleGetOnGooglePlayClick}><Image width={150} src={PlayStore} alt="" /></Button>
+            <Button onClick={handleGetOnAppStoreClick}><Image src={Appstore} alt="" /></Button>
+
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <InstagramIcon onClick={handleInstagramClick} sx={{ ml: 1, color: 'grey' }} />
-              <TwitterIcon onClick={handleTwitterClick} sx={{ ml: 1, color: 'grey' }} />
-              <FacebookOutlinedIcon onClick={handleFacebookClick} sx={{ ml: 1, color: 'grey' }} />
+              <Button onClick={handleInstagramClick}><Image src={Instagram} alt="" /></Button>
+              <Button onClick={handleTwitterClick}><Image src={Twitter} alt="" /></Button>
+              <Button onClick={handleFacebookClick}><Image src={Facebook} alt="" /></Button>
             </Box>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", p: 1 }}>

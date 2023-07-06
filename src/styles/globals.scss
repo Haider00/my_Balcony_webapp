@@ -27,3 +27,12 @@ img {
 .scrollmenu-allign .react-horizontal-scrolling-menu--scroll-container {
   justify-content: flex-end;
  }
+ .scrollHomePage .react-horizontal-scrolling-menu--scroll-container {
+  flex-direction: row-reverse;
+}
+.scrollMenu::-webkit-scrollbar {
+  display: none;
+}
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
+}
