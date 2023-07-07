@@ -8,6 +8,9 @@ import { api } from "../../utils/api";
 import { useAuthDispatch } from "../../context/auth.context";
 import { useRouter } from "next/router";
 import { Snackbar } from "@mui/material";
+import FacebookRounded from "@mui/icons-material/FacebookRounded";
+import Google from "@mui/icons-material/Google";
+import Link from 'next/link';
 
 export const Form = () => {
   const router = useRouter();
@@ -52,6 +55,15 @@ export const Form = () => {
       setDisplay(true);
     }
   };
+
+  const handleSignInWithFacebook = () => {
+    signIn("facebook");
+  };
+
+  const handleSignInWithGoogle = () => {
+    signIn("google");
+  };
+
   return (
     <div
       style={{
@@ -132,7 +144,7 @@ export const Form = () => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "flex-start",
           width: "80%",
           marginY: 2,
         }}
@@ -141,11 +153,23 @@ export const Form = () => {
         <Typography
           component="h1"
           variant="h6"
+          fontFamily="Roboto-Regular"
           style={{
             width: "100%",
           }}
         >
-          I agree to Balcony Term of Services and Privacy Policy
+          I agree to Balcony{' '}
+          <Link href="/termsOfServices" passHref>
+            <Typography component="span" variant="inherit" sx={{ textDecoration: 'underline' }}>
+              Term of Services
+            </Typography>
+          </Link>{' '}
+          and{' '}
+          <Link href="/privacyPolicy" passHref>
+            <Typography component="span" variant="inherit" sx={{ textDecoration: 'underline' }}>
+              Privacy Policy
+            </Typography>
+          </Link>
         </Typography>
       </Box>
       <Button
@@ -155,6 +179,60 @@ export const Form = () => {
         title="Register"
         width="80%"
       />
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center",
+          width: "80%",
+          marginY: 3,
+        }}
+      >
+        <div
+          style={{
+            height: 1,
+            width: "25%",
+            backgroundColor: "#000",
+          }}
+        />
+        <div>or</div>
+        <div style={{ height: 1, width: "25%", backgroundColor: "#000" }} />
+      </Box>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "80%",
+        }}
+      >
+        <FacebookRounded style={{ color: "#1877F2", fontSize: 30 }} />
+        <Button
+          onClick={handleSignInWithFacebook}
+          title="Continue with Facebook"
+          width="85%"
+          backgroundColor="#1877F2"
+        />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "80%",
+        }}
+      >
+        <Button
+          onClick={handleSignInWithGoogle}
+          title="Continue with Google"
+          width="85%"
+          color="#444"
+          backgroundColor="#F0F0F0"
+        />
+        <Google style={{ color: "#FE2B25", fontSize: 30 }} />
+      </div>
 
       <Box
         sx={{
@@ -172,7 +250,7 @@ export const Form = () => {
             width: "50%",
           }}
         >
-          Already Have an accountt?
+          Already Have an account?
         </Typography>
         <div style={{ height: 30, width: 1, backgroundColor: "#000" }} />
         <div

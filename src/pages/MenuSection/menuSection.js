@@ -77,7 +77,7 @@ export default function MenuSection() {
               sx={{ cursor: 'pointer', fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
               variant="subtitle1"
             >
-              about Us
+              about us
             </Typography>
             <Typography
               onClick={() => router.push('/termsOfServices')}

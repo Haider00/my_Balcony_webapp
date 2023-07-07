@@ -22,11 +22,10 @@ const Item = styled(Paper)(({ theme }) => ({
 export const FormWb = () => {
   const router = useRouter();
   return (
-    <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={12} md={12}>
+    <Grid item sm={12} xs={12} md={12}>
       <Box
         sx={{
           display: "flex",
-          bgcolor: "background.paper",
           justifyContent: "center",
           alignItems: "center",
           marginTop: 7,
@@ -41,7 +40,7 @@ export const FormWb = () => {
             padding: { xs: 1, md: 2 },
             marginX: 3.5,
             marginY: 1.5,
-            justifyContent: "space-between",
+            // justifyContent: "space-between",
           }}
         >
           <Title title="find workspaces" />
@@ -133,8 +132,8 @@ export const HostWorkSpaceWb = () => {
             alt={"Title"}
             style={{
               display: "block",
-              width: "100%",
-              height: 400,
+              width: 654,
+              height: 757,
               borderRadius: 5,
             }}
           />
@@ -147,13 +146,13 @@ export const HostWorkSpaceWb = () => {
               flexDirection: "column",
             }}
           >
-            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+            <Typography sx={{fontSize:'80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
               host
             </Typography>
-            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+            <Typography sx={{fontSize:'80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
               Your
             </Typography>
-            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+            <Typography sx={{fontSize:'80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
               Workspace
             </Typography>
           </Box>
@@ -166,36 +165,37 @@ export const HostWorkSpaceWb = () => {
               marginTop: 1,
             }}
           >
-            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 14, fontWeight: "600" }}>
+            <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "600" }}>
               {"Indoor and Outdoor! Let People"}
             </Typography>
-            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 14, fontWeight: "600" }}>
+            <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "600" }}>
               {"Discover your worksapce on our"}
             </Typography>
-            <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 14, fontWeight: "600" }}>
+            <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "600" }}>
               {"Platform"}
             </Typography>
           </Box>
-          <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 18, fontWeight: "300" }}>
+          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300" }}>
             {"Learn"}
           </Typography>
-          <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 18, fontWeight: "300" }}>
+          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300" }}>
             {"Study"}
           </Typography>
-          <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 18, fontWeight: "300" }}>
+          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300" }}>
             {"Work"}
           </Typography>
-          <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 18, fontWeight: "300" }}>
+          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300" }}>
             {"Collaborate"}
           </Typography>
-          <Typography sx={{ fontFamily: 'Roboto-Regular', marginX: 1, fontSize: 18, fontWeight: "300" }}>
+          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300" }}>
             {"& More"}
           </Typography>
 
           <Button
             onClick={handleHostWorkspace}
             title="Host WorkSpace"
-            width="75%"
+            width='325px'
+            height='59px'
           />
         </Grid>
       </Grid>

@@ -25,6 +25,7 @@ export default function SignUp() {
   const auth = useAuthState();
   const menu = useRef();
   const theme = useTheme();
+
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   // useEffect(() => {
@@ -68,8 +69,6 @@ export default function SignUp() {
         console.log("Error WorkSpaceList:", err);
       });
   }, [auth.accessToken]);
-  console.log("indoorWorkSpace", indoorWorkSpace);
-  console.log("outdoorWorkSpace", outdoorWorkSpace);
 
   return (
     <>
@@ -78,7 +77,7 @@ export default function SignUp() {
           <CustomHeader />
         </Box>
         <Grid container>
-          <Grid style={{ marginTop: 56 }} item xs={1} md={1}>
+          <Grid item style={{ marginTop: 56 }}  xs={1} md={1}>
             <WebTabs selectedTab={1} />
           </Grid>
           <Grid item xs={6} md={7} style={{ display: isMediumScreen ? 'none' : 'block' }}>
@@ -86,7 +85,7 @@ export default function SignUp() {
               <Image src={Leftewallpaper} alt="" />
             </Box>
           </Grid>
-          <Grid item xs={4} md={4}>
+          <Grid sx={{justifyContent:'center', alignItems:'center'}} item xs={12} md={4} sm={12}>
             <FormWb />
           </Grid>
         </Grid>
@@ -122,10 +121,6 @@ export default function SignUp() {
             </div>
           </Box>
         </Grid>
-
-
-        <HostWorkSpaceMb />
-
 
         <Grid className="scrollbar" container xs={12}>
           <Box
