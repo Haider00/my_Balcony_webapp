@@ -52,11 +52,7 @@ const Header = ({ signupactivated }) => {
     <>
       <Card
         sx={{
-<<<<<<< HEAD
           width: "94%",
-=======
-          width: '93%',
->>>>>>> 5c6794138ff8a28db46a01e2f5b81aec2a737a22
           flex: 1,
           display: { xs: "none", md: "flex" },
           padding: { xs: 1, md: 2 },
