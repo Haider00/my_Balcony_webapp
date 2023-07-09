@@ -72,6 +72,7 @@ export const FormWb = () => {
               backgroundColor: "#005451",
               width: "90%",
               alignSelf:"center",
+              borderRadius:'16px',
               marginBottom:3,
               "&:hover": {
                 backgroundColor: "#ffff00",
@@ -142,7 +143,7 @@ export const HostWorkSpaceWb = () => {
             style={{
               display: "block",
               width: 654,
-              height: 757,
+              height: 772,
               borderRadius: 5,
             }}
           />
@@ -201,11 +202,23 @@ export const HostWorkSpaceWb = () => {
           </Typography>
 
           <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#005451",
+              width: "325px",
+              height:'59px',
+              alignSelf:"center",
+              marginBottom:3,
+              borderRadius:'16px',
+              fontFamily:'Roboto-Regular',
+              fontSize:'25px',
+              "&:hover": {
+                backgroundColor: "#ffff00",
+                color: '#000'
+              },
+            }}
             onClick={handleHostWorkspace}
-            title="Host WorkSpace"
-            width='325px'
-            height='59px'
-          />
+          >SEARCH</Button>
         </Grid>
       </Grid>
     </>

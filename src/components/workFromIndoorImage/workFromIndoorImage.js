@@ -68,7 +68,6 @@ export default function WorkFromIndoorImage() {
       </Grid>
 
       <Grid
-        
         sx={{ marginY: 2, justifyContent:"space-between" }}
         container
         spacing={4}

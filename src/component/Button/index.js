@@ -5,7 +5,7 @@ import MuiButton from "@mui/material/Button";
 const Button = ({
   title = "",
   width = "100%",
-  backgroundColor = "#ffff00",
+  backgroundColor = "#005451",
   color = "#fff",
   fontSize = "",
   height = "",

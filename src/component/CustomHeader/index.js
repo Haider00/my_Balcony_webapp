@@ -260,7 +260,6 @@ import { useRouter } from "next/router";
 import { Button, Menu, MenuItem } from '@mui/material';
 import MenuBox from "@mui/icons-material/Menu";
 import { useAuthState } from "src/context/auth.context";
-import FormWb from "src/pages/Signin/wb";
 
 
 
@@ -288,11 +287,10 @@ const Header = () => {
     <>
       <Card
         sx={{
-          width: '94%',
+          width: '93%',
           flex: 1,
           display: { xs: "none", md: "flex" },
           padding: { xs: 1, md: 2 },
-          // marginX: 5,
           marginY: 1,
           alignItems: "center",
           justifyContent: "space-between",
@@ -362,8 +360,7 @@ const Header = () => {
               },
             }}
           >
-            <FormWb/>
-            {/* <MenuItem sx={{
+            <MenuItem sx={{
               '&:hover': {
                 backgroundColor: 'yellow',
                 color: 'black',
@@ -374,7 +371,7 @@ const Header = () => {
                 backgroundColor: 'yellow',
                 color: 'black',
               },
-            }} onClick={() => router.push('./signup')}>Sign Up</MenuItem> */}
+            }} onClick={() => router.push('./signup')}>Sign Up</MenuItem>
           </Menu>
           <div
             onClick={() => {

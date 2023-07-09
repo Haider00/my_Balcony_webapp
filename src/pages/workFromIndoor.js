@@ -9,6 +9,7 @@ import Image from "next/image";
 import WorkFromOutdoorImage from '@components/workFromOutdoorImage/workFromoutdoorImage';
 import Pagination from '@mui/material/Pagination';
 import TableBottom from "src/assets/images/tablebottom.png";
+import {Divider} from '@mui/material';
 // import TableBottom from 'src/assets/svg/TableBottom';
 
 export default function WorkFromIndoor() {
@@ -16,13 +17,14 @@ export default function WorkFromIndoor() {
         <>
             <CustomHeader />
 
-            <Grid style={{ justifyContent: 'center', alignItems: 'center', maxWidth: 1400, marginLeft: "auto", marginRight: "auto", marginTop:130}} sx={{ marginY: 1, }} container >
-                <Grid container>
+            <Grid style={{ justifyContent: 'center', alignItems: 'center', maxWidth: 1400, marginLeft: "auto", marginRight: "auto", marginTop: 130 }} sx={{ marginY: 1, }} container >
+                <Grid container sx={{ justifyContent: 'space-between' }}>
                     <Grid md={1}
                         lg={1}
                         xs={1}
                         sm={12} item>
-                        <WebTabs selectedTab={3} /></Grid>
+                        <WebTabs selectedTab={3} />
+                    </Grid>
                     <Grid
                         item
                         md={12}
@@ -31,6 +33,13 @@ export default function WorkFromIndoor() {
                         sm={12}
                     >
                         <WorkFromIndoorImage />
+                    </Grid>
+                    <Grid item
+                        md={12}
+                        lg={1}
+                        xs={12}
+                        sm={12}>
+                            <Divider orientation="vertical" flexItem />
                     </Grid>
                     <Grid
                         item
@@ -58,7 +67,7 @@ export default function WorkFromIndoor() {
                     </Grid>
                 </Grid>
             </Grid>
-            
+
             <Grid
                 sx={{
                     marginTop: 4,
