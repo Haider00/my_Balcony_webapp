@@ -15,6 +15,7 @@ const Button = ({
   return (
     <div
       style={{
+        marginLeft:15,
         position: "relative",
         marginTop: 15,
         marginBottom: 15,
@@ -37,13 +38,14 @@ const Button = ({
           backgroundColor: "transparent",
           outline: "1px solid #000",
           width: width,
+          height:"59px"
         }}
       />
 
       <label
         style={{
           position: "absolute",
-          left: 18,
+          left: 5,
           transform:
             alignItems === "center"
               ? "translate(55px, -12px) scale(0.9)"
@@ -51,7 +53,8 @@ const Button = ({
           color: "#000",
           paddingInline: "5px",
           backgroundColor: "#fff",
-          fontFamily:"Roboto-Regular"
+          fontFamily:"Roboto-Regular",
+          fontSize:"20px"
         }}
       >
         {label}

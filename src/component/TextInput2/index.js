@@ -27,6 +27,7 @@ const Button = ({
           borderTop: 0,
           borderLeft: 0,
           borderRight: 0,
+          outline:'none'
         }}
       />
     </div>

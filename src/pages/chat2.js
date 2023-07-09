@@ -420,7 +420,7 @@ export default function chat2() {
                   </Card>
                 ))
               ) : (
-                <Typography variant="body1">No chats available.</Typography>
+                <Typography sx={{mt:30}} variant="body1">No chats available.</Typography>
               )}
             </Grid>
           </Grid>
@@ -435,6 +435,7 @@ export default function chat2() {
             md={12}
             lg={5}
           >
+            {chatID && <>
             <Typography variant="h5">Chat Name</Typography>
             <Grid
               sx={{
@@ -484,7 +485,6 @@ export default function chat2() {
                 <Typography variant="body1">No Messages Available.</Typography>
               )}
             </Grid>
-            {showForm && (
               <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <TextField
                   id="message"
@@ -499,7 +499,7 @@ export default function chat2() {
                   sx={{ cursor: "pointer", marginTop: 3 }}
                 />
               </Box>
-            )}
+            </>}
           </Grid>
         </Grid>
       </Box>

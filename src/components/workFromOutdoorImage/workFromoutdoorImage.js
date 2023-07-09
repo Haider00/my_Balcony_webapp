@@ -63,17 +63,12 @@ export default function WorkFromOutdoorImage() {
       </Grid>
 
       <Grid
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-start",
-        }}
-        sx={{ marginY: 2 }}
+        sx={{ marginY: 2, justifyContent:"space-between"  }}
         container
         spacing={4}
       >
         {outdoorWorkspace.data?.map((item) => (
-          <div style={{ margin: 10 }}>
+          <div style={{ margin: 10, width:'35%' }}>
             <div
               onClick={() => {
                 router.push(`./workspaceDetail?wd=${item._id}`);

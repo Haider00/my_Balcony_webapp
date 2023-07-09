@@ -52,11 +52,14 @@ const Header = ({ signupactivated }) => {
     <>
       <Card
         sx={{
+<<<<<<< HEAD
           width: "94%",
+=======
+          width: '93%',
+>>>>>>> 5c6794138ff8a28db46a01e2f5b81aec2a737a22
           flex: 1,
           display: { xs: "none", md: "flex" },
           padding: { xs: 1, md: 2 },
-          // marginX: 5,
           marginY: 1,
           alignItems: "center",
           justifyContent: "space-between",
@@ -155,7 +158,6 @@ const Header = ({ signupactivated }) => {
               style={{
                 height: 30,
                 width: 30,
-                //   backgroundColor: "#005451",
                 fontSize: 20,
                 color: "#fff",
               }}
