@@ -20,7 +20,10 @@ export default function UsersManager() {
     <>
       <CustomHeader />
       <AdminMobileDropDown />
-      <Grid container sx={{ display: "flex", justifyContent: "center" }}>
+      <Grid
+        container
+        sx={{ display: "flex", justifyContent: "center", mt: 10 }}
+      >
         <StyledGrid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={3}>
           <Admin selectedTab={3} />
         </StyledGrid>

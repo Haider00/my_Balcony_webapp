@@ -14,10 +14,11 @@ import { Snackbar } from "@mui/material";
 import React from "react";
 import { useSession, signOut } from "next-auth/react";
 import TextInput2 from "../../component/TextInput2/index";
-const Form = () => {
+import { CustomHeader } from "../../component";
+const Form = ({ showSignupForm }) => {
   const { data: session } = useSession();
   const authDispatch = useAuthDispatch();
-  console.log("resp>>", session);
+  console.log("resp>>spf", showSignupForm);
 
   useEffect(() => {
     if (session) {
@@ -76,7 +77,7 @@ const Form = () => {
   const [info, setInfo] = useState({});
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
-
+  const [signupactivated, setsignupactivated] = useState(false);
   const handleSubmitSigInForm = () => {
     if (info && info.email && info.password) {
       api
@@ -101,208 +102,221 @@ const Form = () => {
   const handleSignInWithFacebook = () => {
     signIn("facebook");
   };
+
+  const handleClick = () => {
+    if (!showSignupForm) {
+      router.push("./signup");
+    } else {
+      setsignupactivated(true);
+    }
+  };
+
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        flexDirection: "column",
-        paddingTop: "40px",
-        paddingBottom: "40px",
-      }}
-    >
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={display}
-        onClose={() => {
-          setDisplay(false);
-        }}
-        ContentProps={{
-          "aria-describedby": "message-id",
-        }}
-        message={<span id="message-id">{message}</span>}
-      />
-      <div style={{ marginBottom: "30px", width: "355px" }}>
-        <TextInput2
-          onChange={(e) => {
-            setInfo({ ...info, email: e.target.value });
-          }}
-          id="email/phone"
-          label="email:"
-        />
-      </div>
-      <div style={{ marginBottom: "30px", width: "355px", textAlign: "left" }}>
-        <div style={{ fontSize: "20px", width: "35%", textAlign: "center" }}>
-          or
-        </div>
-        <div style={{ width: "65%" }}></div>
-      </div>
-      <div style={{ marginBottom: "30px", width: "355px" }}>
-        <TextInput2
-          // onChange={(e) => {
-          //   setInfo({ ...info, email: e.target.value });
-          // }}
-          id="phone"
-          label="phone:"
-        />
-      </div>
-      <div style={{ marginBottom: "30px", width: "355px" }}>
-        <TextInput2
-          onChange={(e) => {
-            setInfo({ ...info, password: e.target.value });
-          }}
-          id="password"
-          label="password:"
-          type="password"
-        />
-      </div>
-      <Button
-        onClick={() => {
-          handleSubmitSigInForm();
-        }}
-        title="Sign In"
-        width="302px"
-        height="55.8px"
-        color="#000"
-        fontSize="23px"
-        textTransform="none"
-      />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          width: "50%",
-          marginY: 3,
-        }}
-      >
-        <div
-          style={{
-            height: 1,
-            width: "35%",
-            backgroundColor: "#000",
-          }}
-        />
-        <div>or</div>
-        <div style={{ height: 1, width: "35%", backgroundColor: "#000" }} />
-      </Box>
-
-      
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "302px",
-        }}
-      >
-        <FacebookRounded style={{ color: "#1877F2", fontSize: 30 }} />
-        <Button
-          onClick={handleSignInWithFacebook}
-          title="Continue with Facebook"
-          width="85%"
-          backgroundColor="#1877F2"
-          fontSize="14"
-          textTransform="none"
-        />
+    <>
+      <div style={{ display: "none" }}>
+        <CustomHeader signupactivated={signupactivated} />
       </div>
       <div
         style={{
+          width: "100%",
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
-          width: "302px",
+          flexDirection: "column",
+          paddingTop: "40px",
+          paddingBottom: "40px",
         }}
       >
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={display}
+          onClose={() => {
+            setDisplay(false);
+          }}
+          ContentProps={{
+            "aria-describedby": "message-id",
+          }}
+          message={<span id="message-id">{message}</span>}
+        />
+        <div style={{ marginBottom: "30px", width: "355px" }}>
+          <TextInput2
+            onChange={(e) => {
+              setInfo({ ...info, email: e.target.value });
+            }}
+            id="email/phone"
+            label="email:"
+          />
+        </div>
+        <div
+          style={{ marginBottom: "30px", width: "355px", textAlign: "left" }}
+        >
+          <div style={{ fontSize: "20px", width: "35%", textAlign: "center" }}>
+            or
+          </div>
+          <div style={{ width: "65%" }}></div>
+        </div>
+        <div style={{ marginBottom: "30px", width: "355px" }}>
+          <TextInput2
+            // onChange={(e) => {
+            //   setInfo({ ...info, email: e.target.value });
+            // }}
+            id="phone"
+            label="phone:"
+          />
+        </div>
+        <div style={{ marginBottom: "30px", width: "355px" }}>
+          <TextInput2
+            onChange={(e) => {
+              setInfo({ ...info, password: e.target.value });
+            }}
+            id="password"
+            label="password:"
+            type="password"
+          />
+        </div>
         <Button
-          onClick={handleSignInWithGoogle}
-          title="Continue with Google"
-          width="85%"
-          color="#444"
-          backgroundColor="#F0F0F0"
+          onClick={() => {
+            handleSubmitSigInForm();
+          }}
+          title="Sign In"
+          width="302px"
+          height="55.8px"
+          color="#000"
+          fontSize="23px"
           textTransform="none"
         />
-        <Google style={{ color: "#FE2B25", fontSize: 30 }} />
-      </div>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+            width: "50%",
+            marginY: 3,
+          }}
+        >
+          <div
+            style={{
+              height: 1,
+              width: "35%",
+              backgroundColor: "#000",
+            }}
+          />
+          <div>or</div>
+          <div style={{ height: 1, width: "35%", backgroundColor: "#000" }} />
+        </Box>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          width: "80%",
-          marginY: 2,
-        }}
-      >
         <div
           style={{
-            width: "50%",
-            fontSize: "14px",
-            fontWeight: "700",
-            textAlign: "right",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "302px",
           }}
         >
-          Don’t have an Account?
+          <FacebookRounded style={{ color: "#1877F2", fontSize: 30 }} />
+          <Button
+            onClick={handleSignInWithFacebook}
+            title="Continue with Facebook"
+            width="85%"
+            backgroundColor="#1877F2"
+            fontSize="14"
+            textTransform="none"
+          />
         </div>
-        <div style={{ height: 30, width: 1, backgroundColor: "#000" }} />
-        <div
-          onClick={() => {
-            router.push("./signup");
-          }}
-          style={{
-            width: "40%",
-            cursor: "pointer",
-            textAlign: "left",
-            fontSize: "18px",
-            fontWeight: "700",
-            textDecoration: "underline",
-          }}
-        >
-          Sign Up
-        </div>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          width: "80%",
-          marginY: 2,
-        }}
-      >
         <div
           style={{
-            width: "50%",
-            cursor: "pointer",
-            fontSize: "14px",
-            fontWeight: "700",
-            textAlign: "right",
-          }}
-          onClick={() => {
-            router.push("./resetPass");
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "302px",
           }}
         >
-          Forgot Your Password..
+          <Button
+            onClick={handleSignInWithGoogle}
+            title="Continue with Google"
+            width="85%"
+            color="#444"
+            backgroundColor="#F0F0F0"
+            textTransform="none"
+          />
+          <Google style={{ color: "#FE2B25", fontSize: 30 }} />
         </div>
-        <div style={{ height: 30, width: 1, backgroundColor: "#000" }} />
-        <div
-          style={{
-            width: "40%",
-            cursor: "pointer",
-            textAlign: "left",
-            fontSize: "18px",
-            fontWeight: "700",
-            textDecoration: "underline",
-          }}
-          onClick={() => {
-            router.push("./resetPass");
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+            width: "80%",
+            marginY: 2,
           }}
         >
-          Reset Password
-        </div>
-      </Box>
-    </div>
+          <div
+            style={{
+              width: "50%",
+              fontSize: "14px",
+              fontWeight: "700",
+              textAlign: "right",
+            }}
+          >
+            Don’t have an Account?
+          </div>
+          <div style={{ height: 30, width: 1, backgroundColor: "#000" }} />
+          <div
+            onClick={handleClick}
+            style={{
+              width: "40%",
+              cursor: "pointer",
+              textAlign: "left",
+              fontSize: "18px",
+              fontWeight: "700",
+              textDecoration: "underline",
+            }}
+          >
+            Sign Up
+          </div>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+            width: "80%",
+            marginY: 2,
+          }}
+        >
+          <div
+            style={{
+              width: "50%",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: "700",
+              textAlign: "right",
+            }}
+            onClick={() => {
+              router.push("./resetPass");
+            }}
+          >
+            Forgot Your Password..
+          </div>
+          <div style={{ height: 30, width: 1, backgroundColor: "#000" }} />
+          <div
+            style={{
+              width: "40%",
+              cursor: "pointer",
+              textAlign: "left",
+              fontSize: "18px",
+              fontWeight: "700",
+              textDecoration: "underline",
+            }}
+            onClick={() => {
+              router.push("./resetPass");
+            }}
+          >
+            Reset Password
+          </div>
+        </Box>
+      </div>
+    </>
   );
 };
 export default Form;
