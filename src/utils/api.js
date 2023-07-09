@@ -1,7 +1,7 @@
 import axios from "axios";
 // const url = "http://192.168.100.61:3000/api";
-const url = "http://172.105.159.234:3000/api";
-// const url = "http://192.168.1.18:3000/api";
+// const url = "http://172.105.159.234:3000/api";
+const url = "http://192.168.1.10:4000/api";
 
 const config = {
   headers: {
@@ -113,8 +113,16 @@ class Api {
     return data;
   }
 
+  async updateWorkSpace(payload) {
+    const { body, query } = payload;
+    console.log("payload", payload);
+    const { data } = await axios.patch(`/workSpace/${query.workspaceId}`, body);
+    console.log("payload2", data);
+    return data;
+  }
+
   async uploadImage(payload) {
-    console.log('payload>>',payload)
+    console.log("payload>>", payload);
     const { data } = await axios.post("/file", payload, config);
     return data;
   }

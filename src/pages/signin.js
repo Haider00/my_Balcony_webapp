@@ -30,7 +30,7 @@ export default function SignUp() {
             <FormWb />
           </Grid>
           <Grid
-            sx={{ display: { xs: "block", md: "none" } }}
+            sx={{ display: { xs: "block", md: "none" }, borderRadius: 30 }}
             item
             xs={12}
             md={5}

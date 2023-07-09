@@ -13,7 +13,7 @@ import { useAuthDispatch } from "../../context/auth.context";
 import { Snackbar } from "@mui/material";
 import React from "react";
 import { useSession, signOut } from "next-auth/react";
-
+import TextInput2 from "../../component/TextInput2/index";
 const Form = () => {
   const { data: session } = useSession();
   const authDispatch = useAuthDispatch();
@@ -108,6 +108,8 @@ const Form = () => {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
+        paddingTop: "40px",
+        paddingBottom: "40px",
       }}
     >
       <Snackbar
@@ -121,51 +123,69 @@ const Form = () => {
         }}
         message={<span id="message-id">{message}</span>}
       />
-      <TextInput
-        onChange={(e) => {
-          setInfo({ ...info, email: e.target.value });
-        }}
-        alignItems="flex-start"
-        id="email/phone"
-        label="email/phone"
-        size="small"
-      />
-
-      <TextInput
-        onChange={(e) => {
-          setInfo({ ...info, password: e.target.value });
-        }}
-        alignItems="flex-start"
-        id="password"
-        label="password"
-        size="small"
-        type="password"
-      />
+      <div style={{ marginBottom: "30px", width: "355px" }}>
+        <TextInput2
+          onChange={(e) => {
+            setInfo({ ...info, email: e.target.value });
+          }}
+          id="email/phone"
+          label="email:"
+        />
+      </div>
+      <div style={{ marginBottom: "30px", width: "355px", textAlign: "left" }}>
+        <div style={{ fontSize: "20px", width: "35%", textAlign: "center" }}>
+          or
+        </div>
+        <div style={{ width: "65%" }}></div>
+      </div>
+      <div style={{ marginBottom: "30px", width: "355px" }}>
+        <TextInput2
+          // onChange={(e) => {
+          //   setInfo({ ...info, email: e.target.value });
+          // }}
+          id="phone"
+          label="phone:"
+        />
+      </div>
+      <div style={{ marginBottom: "30px", width: "355px" }}>
+        <TextInput2
+          onChange={(e) => {
+            setInfo({ ...info, password: e.target.value });
+          }}
+          id="password"
+          label="password:"
+          type="password"
+        />
+      </div>
       <Button
         onClick={() => {
           handleSubmitSigInForm();
         }}
-        title="SIGN IN"
-        width="80%"
+        title="Sign In"
+        width="302px"
+        height="55.8px"
+        color="#000"
+        fontSize="23px"
+        textTransform="none"
       />
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-around",
           alignItems: "center",
-          width: "80%",
+          width: "50%",
           marginY: 3,
         }}
       >
         <div
           style={{
             height: 1,
-            width: "25%",
+            width: "35%",
             backgroundColor: "#000",
           }}
         />
         <div>or</div>
-        <div style={{ height: 1, width: "25%", backgroundColor: "#000" }} />
+        <div style={{ height: 1, width: "35%", backgroundColor: "#000" }} />
       </Box>
 
       
@@ -174,7 +194,7 @@ const Form = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          width: "80%",
+          width: "302px",
         }}
       >
         <FacebookRounded style={{ color: "#1877F2", fontSize: 30 }} />
@@ -183,6 +203,8 @@ const Form = () => {
           title="Continue with Facebook"
           width="85%"
           backgroundColor="#1877F2"
+          fontSize="14"
+          textTransform="none"
         />
       </div>
       <div
@@ -190,7 +212,7 @@ const Form = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          width: "80%",
+          width: "302px",
         }}
       >
         <Button
@@ -199,6 +221,7 @@ const Form = () => {
           width="85%"
           color="#444"
           backgroundColor="#F0F0F0"
+          textTransform="none"
         />
         <Google style={{ color: "#FE2B25", fontSize: 30 }} />
       </div>
@@ -215,16 +238,26 @@ const Form = () => {
         <div
           style={{
             width: "50%",
+            fontSize: "14px",
+            fontWeight: "700",
+            textAlign: "right",
           }}
         >
-          Do You Have An Account?
+          Don’t have an Account?
         </div>
         <div style={{ height: 30, width: 1, backgroundColor: "#000" }} />
         <div
           onClick={() => {
             router.push("./signup");
           }}
-          style={{ width: "40%", cursor: "pointer" }}
+          style={{
+            width: "40%",
+            cursor: "pointer",
+            textAlign: "left",
+            fontSize: "18px",
+            fontWeight: "700",
+            textDecoration: "underline",
+          }}
         >
           Sign Up
         </div>
@@ -242,16 +275,26 @@ const Form = () => {
           style={{
             width: "50%",
             cursor: "pointer",
+            fontSize: "14px",
+            fontWeight: "700",
+            textAlign: "right",
           }}
           onClick={() => {
             router.push("./resetPass");
           }}
         >
-          Forgot Password?
+          Forgot Your Password..
         </div>
         <div style={{ height: 30, width: 1, backgroundColor: "#000" }} />
         <div
-          style={{ width: "40%", cursor: "pointer" }}
+          style={{
+            width: "40%",
+            cursor: "pointer",
+            textAlign: "left",
+            fontSize: "18px",
+            fontWeight: "700",
+            textDecoration: "underline",
+          }}
           onClick={() => {
             router.push("./resetPass");
           }}

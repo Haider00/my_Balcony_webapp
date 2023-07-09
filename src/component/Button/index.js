@@ -5,8 +5,11 @@ import MuiButton from "@mui/material/Button";
 const Button = ({
   title = "",
   width = "100%",
-  backgroundColor = "#005451",
+  backgroundColor = "#ffff00",
   color = "#fff",
+  fontSize = "",
+  height = "",
+  textTransform = "",
   onClick = () => {},
 }) => {
   return (
@@ -31,6 +34,9 @@ const Button = ({
           borderRadius: 2,
           width: "100%",
           color: color,
+          fontSize: fontSize,
+          height: height,
+          textTransform: textTransform,
         }}
         variant="contained"
       >
