@@ -260,6 +260,7 @@ import { useRouter } from "next/router";
 import { Button, Menu, MenuItem } from '@mui/material';
 import MenuBox from "@mui/icons-material/Menu";
 import { useAuthState } from "src/context/auth.context";
+import FormWb from "src/pages/Signin/wb";
 
 
 
@@ -361,7 +362,8 @@ const Header = () => {
               },
             }}
           >
-            <MenuItem sx={{
+            <FormWb/>
+            {/* <MenuItem sx={{
               '&:hover': {
                 backgroundColor: 'yellow',
                 color: 'black',
@@ -372,7 +374,7 @@ const Header = () => {
                 backgroundColor: 'yellow',
                 color: 'black',
               },
-            }} onClick={() => router.push('./signup')}>Sign Up</MenuItem>
+            }} onClick={() => router.push('./signup')}>Sign Up</MenuItem> */}
           </Menu>
           <div
             onClick={() => {
@@ -397,7 +399,6 @@ const Header = () => {
               style={{
                 height: 30,
                 width: 30,
-                //   backgroundColor: "#005451",
                 fontSize: 20,
                 color: "#fff",
               }}

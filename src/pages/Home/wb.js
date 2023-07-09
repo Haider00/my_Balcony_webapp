@@ -5,11 +5,11 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import { IncrementalInput, Title, Button, TextInput } from "../../component";
+import { IncrementalInput, Title, TextInput } from "../../component";
 import { useRouter } from "next/router";
 import TableTop from "src/assets/svg/TableTop";
 import { useAuthState, useAuthDispatch } from "src/context/auth.context";
-import { Snackbar } from "@mui/material";
+import { Snackbar, Button } from "@mui/material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -43,7 +43,7 @@ export const FormWb = () => {
             // justifyContent: "space-between",
           }}
         >
-          <Title title="find workspaces" />
+          <Typography sx={{ fontFamily: "Roboto-Regular", fontSize: "40px", alignSelf: "center" }}>find workspaces</Typography>
           <TextInput
             alignItems="flex-start"
             id="place"
@@ -67,12 +67,21 @@ export const FormWb = () => {
 
           <IncrementalInput />
           <Button
-            width="90%"
-            onClick={() => {
-              router.push("./workspaceDetail");
+            variant="contained"
+            sx={{
+              backgroundColor: "#005451",
+              width: "90%",
+              alignSelf:"center",
+              marginBottom:3,
+              "&:hover": {
+                backgroundColor: "#ffff00",
+                color: '#000'
+              },
             }}
-            title="SEARCH"
-          />
+            onClick={() => {
+              router.push("./WorkFromIndoor");
+            }}
+          >SEARCH</Button>
         </Card>
       </Box>
     </Grid>
@@ -146,13 +155,13 @@ export const HostWorkSpaceWb = () => {
               flexDirection: "column",
             }}
           >
-            <Typography sx={{fontSize:'80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+            <Typography sx={{ fontSize: '80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
               host
             </Typography>
-            <Typography sx={{fontSize:'80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+            <Typography sx={{ fontSize: '80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
               Your
             </Typography>
-            <Typography sx={{fontSize:'80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+            <Typography sx={{ fontSize: '80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
               Workspace
             </Typography>
           </Box>

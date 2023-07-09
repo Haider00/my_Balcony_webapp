@@ -77,15 +77,15 @@ export default function SignUp() {
           <CustomHeader />
         </Box>
         <Grid container>
-          <Grid item style={{ marginTop: 56 }}  xs={1} md={1}>
+          <Grid item style={{ marginTop: 56 }}  xs={1} md={1} lg={1}>
             <WebTabs selectedTab={1} />
           </Grid>
-          <Grid item xs={6} md={7} style={{ display: isMediumScreen ? 'none' : 'block' }}>
+          <Grid item xs={6} md={7} lg={7} style={{ display: isMediumScreen ? 'none' : 'block' }}>
             <Box style={{ position: "relative", left: -220, top: -180, zIndex: -1 }}>
               <Image src={Leftewallpaper} alt="" />
             </Box>
           </Grid>
-          <Grid sx={{justifyContent:'center', alignItems:'center'}} item xs={12} md={4} sm={12}>
+          <Grid sx={{justifyContent:'center', alignItems:'center'}} item xs={12} md={4} lg={4} sm={12}>
             <FormWb />
           </Grid>
         </Grid>

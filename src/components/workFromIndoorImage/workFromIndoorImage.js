@@ -68,17 +68,13 @@ export default function WorkFromIndoorImage() {
       </Grid>
 
       <Grid
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-start",
-        }}
-        sx={{ marginY: 2 }}
+        
+        sx={{ marginY: 2, justifyContent:"space-between" }}
         container
         spacing={4}
       >
         {indoorWorkspace.data?.map((item) => (
-          <div style={{ flexDirection: "column", margin: 10 }}>
+          <div style={{ margin: 10, width:"35%" }}>
             <div
               onClick={() => {
                 router.push(`./workspaceDetail?wd=${item._id}`);
