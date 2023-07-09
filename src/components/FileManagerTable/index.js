@@ -1,96 +1,328 @@
-import React, { useState } from 'react'
-import Checkbox from '@mui/material/Checkbox';
-import Avatar from '@mui/material/Avatar';
-import AppleIcon from '@mui/icons-material/Apple';
-import AdbIcon from '@mui/icons-material/Adb';
-import { Grid, Typography, Button } from '@mui/material';
-import Switch from '@mui/material/Switch';
-import FilePresentIcon from '@mui/icons-material/FilePresent';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
+import React, { useState } from "react";
+import Checkbox from "@mui/material/Checkbox";
+import Avatar from "@mui/material/Avatar";
+import AppleIcon from "@mui/icons-material/Apple";
+import AdbIcon from "@mui/icons-material/Adb";
+import { Grid, Typography, Button } from "@mui/material";
+import Switch from "@mui/material/Switch";
+import FilePresentIcon from "@mui/icons-material/FilePresent";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import { api } from "../../utils/api";
+import { List, ListItem, ListItemText } from "@mui/material";
+import Pagination from "@mui/material/Pagination";
+import TextField from "@mui/material/TextField";
 
+import styled from "styled-components";
+
+const Section = styled.div`
+  section {
+    display: flex;
+    justify-content: center;
+  }
+
+  .control-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 150px;
+    height: 50px;
+  }
+
+  .states-control input {
+    display: none;
+  }
+
+  .states-control input:checked ~ .display {
+    background-color: white;
+  }
+
+  .states-control .display {
+    box-sizing: border-box;
+    width: 60px;
+    height: 20px;
+    border-radius: 12px;
+  }
+
+  .states-control .display:after {
+    position: relative;
+    display: block;
+    content: "";
+    height: 100%;
+    left: 0;
+    border-radius: 12px;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.6);
+  }
+
+  .states-control .display label {
+    height: 100%;
+    float: left;
+    cursor: pointer;
+  }
+
+  .states-control .radiobuttons input.rejected:checked ~ .display:after {
+    left: 0;
+  }
+
+  .states-control.three-states input.pending:checked ~ .display:after {
+    left: calc(100% / 3);
+    background-color: yellow;
+  }
+
+  .states-control.three-states input.accepted:checked ~ .display:after {
+    left: calc(100% / 3 * 2);
+  }
+
+  .states-control.three-states .display:after {
+    width: calc(100% / 3);
+  }
+
+  .states-control.three-states label {
+    width: calc(100% / 3);
+  }
+
+  .states-control.three-states input.rejected:checked ~ .display {
+    background-color: red;
+  }
+  .states-control.three-states input.pending:checked ~ .display {
+    background-color: black;
+  }
+  .states-control.three-states input.accepted:checked ~ .display {
+    background-color: green;
+  }
+`;
 
 export default function TableRow() {
+  const [WorkSpaces, setWorkSpaces] = useState([]);
+  console.log("workspaces", WorkSpaces);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 10;
 
-    const handleChange = (event) => {
-        setSelectedValue(event.target.value);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const handleChangePage = (event, value) => {
+    setCurrentPage(value);
+  };
+
+  const [expandedItem, setExpandedItem] = useState(null);
+  const handleExpandItem = (index) => {
+    setExpandedItem((prevExpandedItem) =>
+      prevExpandedItem === index ? null : index
+    );
+  };
+
+  const handleStatusChange = (index, status) => {
+    const updatedWorkSpaces = [...WorkSpaces];
+    updatedWorkSpaces[index].status = status;
+    setWorkSpaces(updatedWorkSpaces);
+
+    const workspaceId = updatedWorkSpaces[index]._id;
+
+    api
+      .updateWorkSpace({ body: { status }, query: { workspaceId } })
+      .then((res) => {
+        console.log("Workspace updated successfully:");
+      })
+      .catch((err) => {
+        console.log("Error updating workspace:", err);
+      });
+  };
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.getWorkSpace({
+          query: `?page=${currentPage}&limit=${itemsPerPage}`,
+        });
+        setWorkSpaces(res.data);
+        setTotalPages(Math.ceil(res.total / itemsPerPage));
+      } catch (err) {
+        console.log("Error fetching workspaces:", err);
+      }
     };
 
-    const [selectedValue, setSelectedValue] = useState('');
+    fetchData();
+  }, [currentPage]);
 
-    const [isHovered, setIsHovered] = useState(false);
-    const [isHoveredbg, setIsHoveredbg] = useState(false);
+  const [percentage, setPercentage] = useState(20);
+  const handlePercentageChange = (event, index) => {
+    const value = event.target.value;
+    const updatedWorkSpaces = [...WorkSpaces];
+    updatedWorkSpaces[index].chargesPercentage = value;
+    setWorkSpaces(updatedWorkSpaces);
+    setPercentage(value);
+  };
 
-    const handleMouseEnter = () => {
-        setIsHovered(true);
-    };
+  const handlePercentageBlur = (index) => {
+    const workspace = WorkSpaces[index];
+    const workspaceId = workspace._id;
 
-    const handleMouseLeave = () => {
-        setIsHovered(false);
-    };
+    const chargesPercentage = workspace.chargesPercentage;
+    console.log("prcn", chargesPercentage);
+    api
+      .updateWorkSpace({
+        body: { chargesPercentage },
+        query: { workspaceId },
+      })
+      .then((res) => {
+        console.log("Percentage updated successfully:");
+      })
+      .catch((err) => {
+        console.log("Error number updating Percentage:", err);
+      });
+  };
 
-    const handleMouseEnterbg = () => {
-        setIsHoveredbg(true);
-    };
+  const [selectedValue, setSelectedValue] = useState("");
 
-    const handleMouseLeavebg = () => {
-        setIsHoveredbg(false);
-    };
-    return (
-        <>
-            <tr
-                onMouseEnter={handleMouseEnterbg}
-                onMouseLeave={handleMouseLeavebg} style={{ paddingLeft: '10px', backgroundColor: isHoveredbg ? '#eaf2ff' : 'inherit' }}>
-                <td style={{ alignItems: 'center' }}>
-                    <Typography variant="subtitle2">1325440</Typography>
-                </td>
-                <td style={{ paddingLeft: '10px', marginTop: 10 }}>
-                    <Typography variant="subtitle2">Commercial, Office</Typography>
-                </td>
-                <td style={{ alignSelf: 'center', paddingLeft: '10px', marginTop: 10 }}>
-                    <Typography variant="subtitle2">Commercial, Office</Typography>
-                </td>
-                <td style={{ alignItems: 'center', marginRight: 3 }}>
-                    <FormControl style={{
-                        width: '120px', height: '70px', borderColor:
-                            selectedValue === 10 ? 'green' :
-                                selectedValue === 20 ? 'yellow' :
-                                    selectedValue === 30 ? 'red' :
-                                        'inherit'
-                    }}>
-                        <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={selectedValue}
-                            onChange={handleChange}
-                            label="Age"
-                        >
-                            <MenuItem value={10} style={{ backgroundColor: selectedValue === 10 ? 'green' : 'inherit' }}>
-                                Accept
-                            </MenuItem>
-                            <MenuItem value={20} style={{ backgroundColor: selectedValue === 20 ? 'yellow' : 'inherit' }}>
-                                Hold
-                            </MenuItem>
-                            <MenuItem value={30} style={{ backgroundColor: selectedValue === 30 ? 'red' : 'inherit' }}>
-                                Reject
-                            </MenuItem>
-                        </Select>
-                    </FormControl>
-                </td>
-                <td style={{ alignItems: 'center', marginTop: 10 }}>
-                    <Typography variant="subtitle2">Commercial, Office</Typography>
-                </td>
-                <td style={{ alignItems: 'center', marginTop: 10 }}>
-                    <FilePresentIcon />
-                </td>
-                <td style={{ alignItems: 'center', marginTop: 10 }}>
-                    <MoreHorizIcon />
-                </td>
-            </tr>
-        </>
-    )
+  const [isHovered, setIsHovered] = useState(false);
+  const [isHoveredbg, setIsHoveredbg] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const handleMouseEnterbg = () => {
+    setIsHoveredbg(true);
+  };
+
+  const handleMouseLeavebg = () => {
+    setIsHoveredbg(false);
+  };
+  return (
+    <>
+      {WorkSpaces.map((workspace, index) => (
+        <tr
+          onMouseEnter={handleMouseEnterbg}
+          onMouseLeave={handleMouseLeavebg}
+          style={{
+            paddingLeft: "10px",
+          }}
+        >
+          <td style={{ alignItems: "center" }}>
+            <Typography variant="subtitle2">{workspace.name}</Typography>
+          </td>
+          <td style={{ paddingLeft: "10px", marginTop: 10 }}>
+            <TextField
+              type="number"
+              InputProps={{
+                inputProps: {
+                  max: 100,
+                  min: 10,
+                },
+              }}
+              value={workspace.percentage}
+              onChange={(event) => handlePercentageChange(event, index)}
+              onBlur={() => handlePercentageBlur(index)}
+            />
+          </td>
+          <td
+            style={{ alignSelf: "center", paddingLeft: "10px", marginTop: 10 }}
+          >
+            <Typography variant="subtitle2">{workspace._id}</Typography>
+          </td>
+          <td>
+            <Section>
+              <section>
+                <div className="control-container">
+                  <div className="states-control three-states radiobuttons">
+                    <input
+                      type="radio"
+                      id={`three-rejected-${index}`}
+                      className="rejected"
+                      name={`three-options-${index}`}
+                      value="rejected"
+                      onChange={() => handleStatusChange(index, "rejected")}
+                      checked={workspace.status === "rejected"}
+                    />
+                    <input
+                      type="radio"
+                      id={`three-pending-${index}`}
+                      className="pending"
+                      name={`three-options-${index}`}
+                      value="pending"
+                      checked={workspace.status === "pending"}
+                      onChange={() => handleStatusChange(index, "pending")}
+                    />
+                    <input
+                      type="radio"
+                      id={`three-accepted-${index}`}
+                      className="accepted"
+                      name={`three-options-${index}`}
+                      value="accepted"
+                      onChange={() => handleStatusChange(index, "accepted")}
+                      checked={workspace.status === "accepted"}
+                    />
+
+                    <div className="display">
+                      <label
+                        className="rejected"
+                        htmlFor={`three-rejected-${index}`}
+                      ></label>
+                      <label
+                        className="pending"
+                        htmlFor={`three-pending-${index}`}
+                      ></label>
+                      <label
+                        className="accepted"
+                        htmlFor={`three-accepted-${index}`}
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </Section>
+          </td>
+          <td style={{ alignItems: "center", marginTop: 10 }}>
+            <Typography variant="subtitle2">{workspace.owner}</Typography>
+          </td>
+          <td style={{ alignItems: "center", marginTop: 10 }}>
+            <FilePresentIcon />
+          </td>
+
+          <td
+            className="edit-list"
+            style={{
+              alignItems: "center",
+              marginTop: 10,
+              position: "absolute",
+            }}
+          >
+            {expandedItem === index ? (
+              <List sx={{ zIndex: 100, background: "#fff", boxShadow: 3 }}>
+                <ListItem button>
+                  <ListItemText primary="Download" />
+                </ListItem>
+
+                <ListItem button>
+                  <ListItemText primary="Share" />
+                </ListItem>
+              </List>
+            ) : (
+              <MoreHorizIcon onClick={() => handleExpandItem(index)} />
+            )}
+          </td>
+        </tr>
+      ))}
+
+      <tr className="pagination-row">
+        <Pagination
+          page={currentPage}
+          count={totalPages}
+          color="primary"
+          onChange={handleChangePage}
+        />
+      </tr>
+    </>
+  );
 }
