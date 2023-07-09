@@ -14,7 +14,7 @@ export default function SignUp() {
         </Grid>
 
         <LeftWallpaperWb />
-        <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={12} md={5}>
+        <Grid sx={{mt:15, display: { xs: "none", md: "block" } }} item xs={12} md={5}>
           <FormWb />
         </Grid>
         <Grid sx={{ display: { xs: "block", md: "none" } }} item xs={12} md={5}>

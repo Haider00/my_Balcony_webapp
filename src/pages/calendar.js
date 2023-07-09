@@ -27,7 +27,7 @@ export default function UsersManager() {
   return (
     <>
       <CustomHeader />
-      <Grid container sx={{ display: "flex", justifyContent: "center" }}>
+      <Grid container sx={{marginTop:10, display: "flex", justifyContent: "center" }}>
         <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={3}>
           <Admin selectedTab={6} />
         </Grid>

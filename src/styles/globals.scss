@@ -34,3 +34,12 @@ img {
   background-color: #000 !important;
   border-radius: 8px !important;
 }
+ .scrollHomePage .react-horizontal-scrolling-menu--scroll-container {
+  flex-direction: row-reverse;
+}
+.scrollMenu::-webkit-scrollbar {
+  display: none;
+}
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
+}

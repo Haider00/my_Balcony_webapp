@@ -59,7 +59,7 @@ export default function WorkspaceDetail() {
 
         <Grid
           container
-          sx={{ display: "flex", justifyContent: "center", mt: 5 }}
+          sx={{ display: "flex", justifyContent: "center", mt: 18 }}
         >
           <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={4}>
             <BushwickLofts

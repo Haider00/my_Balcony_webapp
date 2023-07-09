@@ -7,7 +7,6 @@ import Rating from "@mui/material/Rating";
 export default function Card({ title, itemId, image, onClick, rating = [] }) {
   const [ratingStar, setRatingStar] = useState(2);
   const [noOfRating, setNoOfRating] = useState(2);
-  // console.log("rating", rating);
 
   useEffect(() => {
     const sum = rating
@@ -26,30 +25,28 @@ export default function Card({ title, itemId, image, onClick, rating = [] }) {
         sx={{
           display: "flex",
           flexDirection: "column",
-          height: 160,
-          width: 220,
+          width: "365px",
+          height: "302px",
           margin: 1,
         }}
       >
         <img
-          src={`${
-            image ? image : "https://wallpaperaccess.com/full/3678503.png"
-          }`}
-          srcSet={`${
-            image ? image : "https://wallpaperaccess.com/full/38119.jpg"
-          }`}
+          src={`${image ? image : "https://wallpaperaccess.com/full/3678503.png"
+            }`}
+          srcSet={`${image ? image : "https://wallpaperaccess.com/full/38119.jpg"
+            }`}
           alt={"Title"}
           style={{
             borderBottomLeftRadius: 4,
             borderBottomRightRadius: 4,
             display: "block",
-            width: "100%",
-            height: 120,
+            width: "365px",
+            height: "302px",
             borderRadius: 10,
             objectFit: "cover",
           }}
         />
-        <Typography sx={{ fontSize: 13, marginX: 1 }}>{title}</Typography>
+        <Typography sx={{fontFamily:'Roboto' ,fontSize: 20, marginX: 1 }}>{title}</Typography>
         <div style={{ display: "flex", marginLeft: 7 }}>
           <Rating
             style={{ fontSize: 20 }}
@@ -58,7 +55,7 @@ export default function Card({ title, itemId, image, onClick, rating = [] }) {
             name="simple-controlled"
             readOnly
           />
-          <Typography sx={{ fontSize: 13, marginX: 1 }}>
+          <Typography sx={{fontFamily:'Roboto' ,fontSize: 14, marginX: 1 }}>
             ({noOfRating})
           </Typography>
         </div>

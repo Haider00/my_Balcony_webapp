@@ -16,13 +16,13 @@ export default function SignUp() {
             <CustomHeader />
           </Grid>
 
-          <Grid item xs={6} md={7}>
+          <Grid sx={{mt:5}} item xs={6} md={7}>
             <Box style={{ position: "relative", top: -120, zIndex: -1 }}>
               <Image src={Leftewallpaper} alt="" />
             </Box>
           </Grid>
           <Grid
-            sx={{ display: { xs: "none", md: "block" } }}
+            sx={{mt:15, display: { xs: "none", md: "block" } }}
             item
             xs={12}
             md={5}

@@ -14,7 +14,7 @@ export default function BookingOverview() {
     <>
       <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
         <CustomHeader />
-        <Grid container>
+        <Grid sx={{marginTop:15}} container>
           <Grid
             item
             xs={12}

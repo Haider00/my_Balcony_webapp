@@ -48,7 +48,7 @@ export default function BookingOverview() {
         }}
         message={<span id="message-id">{message}</span>}
       />
-      <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
+      <Box style={{marginTop:120, maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
         <Grid
           sx={{
             display: "flex",
@@ -59,7 +59,7 @@ export default function BookingOverview() {
           container
         >
           <Grid style={{ marginTop: 56 }} item xs={1} md={1}>
-            <WebTabs />
+            <WebTabs selectedTab={6} />
           </Grid>
           {auth.userType == "seller" ? (
             <Grid

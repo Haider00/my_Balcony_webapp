@@ -2,16 +2,29 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import * as Icons from "@mui/icons-material";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import FormatAlignCenterOutlinedIcon from "@mui/icons-material/FormatAlignCenterOutlined";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useAuthState } from "src/context/auth.context";
 import { useState } from "react";
-import { Snackbar } from "@mui/material";
+import { Snackbar, Typography } from "@mui/material";
+import Image from "next/image";
+import AccountBlack from "src/assets/images/accountBlack.png"
+import AccountWhite from "src/assets/images/accountWhite.png"
+import PlannerWhite from "src/assets/images/calendarWhite.png"
+import PlannerBlack from "src/assets/images/calendarBlack.png"
+import BookedBlack from "src/assets/images/BookedBlack.png"
+import BookedWhite from "src/assets/images/BookedWhite.png"
+import ChatBlack from "src/assets/images/chatBlack.png"
+import ChatWhite from "src/assets/images/chatWhite.png"
+
+
 const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
   const router = useRouter();
   const auth = useAuthState();
   let [message, setMessage] = useState("");
   const [display, setDisplay] = useState(false);
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
 
   function handleAccountDashboardClick() {
     if (!auth?.user?._id) {
@@ -37,6 +50,22 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
       router.push("./chat2");
     }
   }
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileScreen(window.innerWidth < 900);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  if (isMobileScreen) {
+    return null;
+  }
   return (
     <>
       <Snackbar
@@ -53,8 +82,9 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
       />
       <Card
         style={{
-          height: 300,
-          width: 60,
+          position:'relative',
+          height: 400,
+          width: 80,
           backgroundColor: "#fff",
           borderRadius: 10,
           display: "flex",
@@ -64,7 +94,6 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           paddingTop: 5,
           paddingBottom: 5,
         }}
-        sx={{ mx: "auto" }}
       >
         <div
           style={{
@@ -88,6 +117,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             }}
           />
         </div>
+        <Typography variant="caption">home</Typography>
         <div
           style={{
             height: 50,
@@ -99,15 +129,18 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
-          <Icons.ChatOutlined
-            onClick={handleChatClick}
-            style={{
+          {selectedTab === 2 ? <Image style={{
               color: selectedTab === 2 ? "#fff" : "#000",
               fontSize: 35,
               cursor: "pointer",
-            }}
-          />
+            }} onClick={handleChatClick} src={ChatWhite} alt="" /> : 
+            <Image style={{
+              color: selectedTab === 2 ? "#fff" : "#000",
+              fontSize: 35,
+              cursor: "pointer",
+            }} onClick={handleChatClick} src={ChatBlack} alt="" />}
         </div>
+          <Typography variant="caption">chat</Typography>
         <div
           style={{
             height: 50,
@@ -130,11 +163,11 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             }}
           />
         </div>
-
-        {/* <div
+        <Typography variant="caption">lists</Typography>
+        <div
           style={{
-            height: 50,
-            width: 50,
+            height: 60,
+            width: 60,
             backgroundColor: selectedTab === 4 ? "#005451" : "#fff",
             borderRadius: 15,
             display: "flex",
@@ -142,43 +175,23 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
-          <FormatAlignCenterOutlinedIcon
-            onClick={handleBookedDatesClick}
-            style={{
+          {selectedTab === 4 ? <Image style={{
               color: selectedTab === 4 ? "#fff" : "#000",
               fontSize: 35,
               cursor: "pointer",
-            }}
-          />
-        </div> */}
-
-        <div
-          style={{
-            height: 50,
-            width: 50,
-            backgroundColor: selectedTab === 6 ? "#005451" : "#fff",
-            borderRadius: 15,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CalendarMonthIcon
-            onClick={() => {
-              router.push("./planner");
-            }}
-            style={{
-              color: selectedTab === 6 ? "#fff" : "#000",
+            }} onClick={handleBookedDatesClick} src={BookedWhite} alt="" /> : 
+            <Image style={{
+              color: selectedTab === 4 ? "#fff" : "#000",
               fontSize: 35,
               cursor: "pointer",
-            }}
-          />
+            }} onClick={handleBookedDatesClick} src={BookedBlack} alt="" />}
         </div>
+        <Typography variant="caption">booked</Typography>
 
         <div
           style={{
-            height: 50,
-            width: 50,
+            height: 60,
+            width: 60,
             backgroundColor: selectedTab === 5 ? "#005451" : "#fff",
             borderRadius: 15,
             display: "flex",
@@ -186,15 +199,47 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
-          <Icons.PersonOutline
-            onClick={handleAccountDashboardClick}
-            style={{
+          {selectedTab === 5 ? <Image style={{
               color: selectedTab === 5 ? "#fff" : "#000",
               fontSize: 35,
               cursor: "pointer",
-            }}
-          />
+            }} onClick={() => {
+              router.push("./planner");
+            }} src={PlannerWhite} alt="" /> : 
+            <Image style={{
+              color: selectedTab === 5 ? "#fff" : "#000",
+              fontSize: 35,
+              cursor: "pointer",
+            }} onClick={() => {
+              router.push("./planner");
+            }} src={PlannerBlack} alt="" />}
         </div>
+        <Typography variant="caption">planer</Typography>
+
+        <div
+          style={{
+            height: 60,
+            width: 60,
+            backgroundColor: selectedTab === 6 ? "#005451" : "#fff",
+            borderRadius: 15,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {selectedTab === 6 ? <Image style={{
+              color: selectedTab === 6 ? "#fff" : "#000",
+              fontSize: 35,
+              cursor: "pointer",
+            }} onClick={handleAccountDashboardClick} src={AccountWhite} alt="" /> : 
+            
+            <Image style={{
+              color: selectedTab === 6 ? "#fff" : "#000",
+              fontSize: 35,
+              cursor: "pointer",
+            }} onClick={handleAccountDashboardClick} src={AccountBlack} alt="" />}
+        </div>
+        <Typography variant="caption">account</Typography>
       </Card>
     </>
   );

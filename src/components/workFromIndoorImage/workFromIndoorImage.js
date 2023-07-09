@@ -30,14 +30,12 @@ export default function WorkFromIndoorImage() {
     setInComingPage(value);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const hanldeRating = (item) => {
     // console.log('item',item.rating)
-    const sum = item.rating
-      .map((rating) => rating.rating.$numberDecimal)
-      .reduce((a, b) => a + b, 0);
-    const average = sum / item.rating.length;
+    const sum = item?.rating?.map((rating) => rating.rating.$numberDecimal).reduce((a, b) => a + b, 0);
+    const average = sum / item?.rating?.length;
     return <Rating value={average} name="simple-controlled" readOnly />;
   };
 
@@ -87,8 +85,8 @@ export default function WorkFromIndoorImage() {
               }}
               style={{
                 cursor: "pointer",
-                height: 180,
-                width: "310px",
+                height: 150,
+                width: "280px",
                 borderRadius: 10,
                 backgroundColor: "#000",
                 position: "relative", // Add this line to make the parent container a positioning context
@@ -147,12 +145,14 @@ export default function WorkFromIndoorImage() {
           </div>
         ))}
       </Grid>
-      <Pagination
-        page={page}
-        count={Math.ceil(indoorWorkspace.total / indoorWorkspace.limit)}
-        color="primary"
-        onChange={handleChangePage}
-      />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Pagination
+          page={page}
+          count={Math.ceil(indoorWorkspace.total / indoorWorkspace.limit)}
+          color="primary"
+          onChange={handleChangePage}
+        />
+      </div>
     </>
   );
 }

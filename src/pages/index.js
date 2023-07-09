@@ -15,12 +15,18 @@ import Leftewallpaper from "src/assets/images/tabletop.png";
 import { useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context";
 import MenuSection from "./MenuSection/menuSection";
 import Image from "next/image";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
 export default function SignUp() {
   const router = useRouter();
   const [indoorWorkSpace, setIndoorWorkSpace] = useState([]);
   const [outdoorWorkSpace, setOutdoorWorkSpace] = useState([]);
   const auth = useAuthState();
   const menu = useRef();
+  const theme = useTheme();
+
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
@@ -46,8 +52,6 @@ export default function SignUp() {
       .getWorkSpace({ query: "?workspaceType=indoor" })
       .then((res) => {
         console.log("indoor>>>", res.data);
-        // console.warn("auth.accessToken...");
-        // console.log("jjj", res.data);
         setIndoorWorkSpace(res.data);
       })
       .catch((err) => {
@@ -59,32 +63,29 @@ export default function SignUp() {
     api
       .getWorkSpace({ query: "?workspaceType=outdoor" })
       .then((res) => {
-        // console.log("outside>>>", res.data);
         setOutdoorWorkSpace(res.data);
       })
       .catch((err) => {
         console.log("Error WorkSpaceList:", err);
       });
   }, [auth.accessToken]);
-  console.log("indoorWorkSpace", indoorWorkSpace);
-  console.log("outdoorWorkSpace", outdoorWorkSpace);
 
   return (
     <>
-      <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
+      <Box style={{ marginTop: '70px', maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
         <Box>
           <CustomHeader />
         </Box>
         <Grid container>
-          <Grid style={{ marginTop: 56 }} item xs={1} md={1}>
-            <WebTabs />
+          <Grid item style={{ marginTop: 56 }}  xs={1} md={1}>
+            <WebTabs selectedTab={1} />
           </Grid>
-          <Grid item xs={6} md={7}>
-            <Box style={{ position: "relative", top: -120, zIndex: -1 }}>
+          <Grid item xs={6} md={7} style={{ display: isMediumScreen ? 'none' : 'block' }}>
+            <Box style={{ position: "relative", left: -220, top: -180, zIndex: -1 }}>
               <Image src={Leftewallpaper} alt="" />
             </Box>
           </Grid>
-          <Grid item xs={4} md={4}>
+          <Grid sx={{justifyContent:'center', alignItems:'center'}} item xs={12} md={4} sm={12}>
             <FormWb />
           </Grid>
         </Grid>
@@ -99,45 +100,42 @@ export default function SignUp() {
               marginBottom: 10,
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "flex-end",
-              }}
-            >
-              <Typography sx={{ marginX: 1 }} component="h1" variant="h5">
+            <div className="scrollHomePage" >
+              <Typography sx={{textAlign:'end'}} component="h1" variant="h5">
                 work from outside
               </Typography>
+              <ScrollMenu className="scrollMenu" apiRef={menu}>
+                {outdoorWorkSpace?.reverse().map((item, index) => (
+                  <ScrollCard
+                    onClick={() => {
+                      router.push(`./workspaceDetail?wd=${item._id}`);
+                    }}
+                    title={item.name}
+                    itemId={item._id}
+                    key={item._id}
+                    image={item.image}
+                    rating={item.rating}
+                  />
+                ))}
+              </ScrollMenu>
             </div>
-            <ScrollMenu apiRef={menu}>
-              {outdoorWorkSpace?.reverse().map((item, index) => (
-                <ScrollCard
-                  onClick={() => {
-                    router.push(`./workspaceDetail?wd=${item._id}`);
-                  }}
-                  title={item.name}
-                  itemId={item._id}
-                  key={item._id}
-                  image={item.image}
-                  rating={item.rating}
-                />
-              ))}
-            </ScrollMenu>
           </Box>
         </Grid>
-        <HostWorkSpaceMb />
-        <Grid className="scrollbar" item xs={12}>
+
+        <Grid className="scrollbar" container xs={12}>
           <Box
             sx={{
               width: "100%",
               display: "flex",
               flexDirection: "column",
+              justifyContent: "flex-end",
+              marginBottom: 10,
             }}
           >
             <Typography sx={{ marginX: 1 }} component="h1" variant="h5">
               work indoor
             </Typography>
+
             <ScrollMenu apiRef={menu}>
               {indoorWorkSpace?.reverse().map((item, index) => (
                 <ScrollCard

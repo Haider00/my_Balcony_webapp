@@ -350,7 +350,7 @@ export default function chat2() {
           xs={12}
           sm={12}
           lg={12}
-          sx={{ mt: 6, display: "flex", justifyContent: "space-between" }}
+          sx={{ mt: 18, display: "flex", justifyContent: "space-between" }}
           container
         >
           <Grid style={{ marginTop: 56 }} item xs={1} md={1}>

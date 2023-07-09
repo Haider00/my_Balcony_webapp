@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent, Typography, Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Link from "next/link";
 import MobileStoreButton from "react-mobile-store-button";
@@ -7,10 +7,20 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { useTheme } from "@mui/material/styles";
+import { useRouter } from "next/router";
+import PlayStore from "src/assets/images/playStore.png"
+import Appstore from "src/assets/images/appStore.png"
+import Instagram from "src/assets/images/instagram.png"
+import Twitter from "src/assets/images/twitter.png"
+import Facebook from "src/assets/images/facebook.png"
+import Image from "next/image";
+
+
 
 export default function MenuSection() {
   const theme = useTheme();
   const isAndroidView = theme.breakpoints.down("sm");
+  const router = useRouter();
 
   const handleGetOnGooglePlayClick = () => {
     if (typeof window !== "undefined") {
@@ -23,6 +33,25 @@ export default function MenuSection() {
       window.location.href = "https://apps.apple.com/app/id389801252";
     }
   };
+  const handleFacebookClick = () => {
+    if (typeof window !== "undefined") {
+      window.location.href =
+        "https://www.facebook.com/balconyws";
+    }
+  };
+  const handleTwitterClick = () => {
+    if (typeof window !== "undefined") {
+      window.location.href =
+        "https://twitter.com/balconyws";
+    }
+  };
+  const handleInstagramClick = () => {
+    if (typeof window !== "undefined") {
+      window.location.href =
+        "https://www.instagram.com/balconyworkspaces/";
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -41,49 +70,41 @@ export default function MenuSection() {
           }}
         >
           <CardContent>
-            <Typography variant="h6" sx={{ fontSize: 28, mb: 4 }}>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto-Regular', fontSize: 28, mb: 4 }}>
               read, discover, explore..
             </Typography>
-            <Link href="http://">
-              <Typography
-                sx={{ marginTop: 1, fontSize: 22 }}
-                variant="subtitle1"
-              >
-                about Us
-              </Typography>
-            </Link>
-            <Link href="http://">
-              <Typography
-                sx={{ marginTop: 1, fontSize: 22 }}
-                variant="subtitle1"
-              >
-                terms & conditions
-              </Typography>
-            </Link>
-            <Link href="http://">
-              <Typography
-                sx={{ marginTop: 1, fontSize: 22 }}
-                variant="subtitle1"
-              >
-                privacy policy
-              </Typography>
-            </Link>
-            <Link href="http://">
-              <Typography
-                sx={{ marginTop: 1, fontSize: 22 }}
-                variant="subtitle1"
-              >
-                faq
-              </Typography>
-            </Link>
-            <Link href="http://">
-              <Typography
-                sx={{ marginTop: 1, fontSize: 22 }}
-                variant="subtitle1"
-              >
-                become a workspace Host
-              </Typography>
-            </Link>
+            <Typography
+              sx={{ cursor: 'pointer', fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
+              variant="subtitle1"
+            >
+              about us
+            </Typography>
+            <Typography
+              onClick={() => router.push('/termsOfServices')}
+              sx={{ cursor: 'pointer', fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
+              variant="subtitle1"
+            >
+              terms of services
+            </Typography>
+            <Typography
+              onClick={() => router.push('/privacyPolicy')}
+              sx={{ cursor: 'pointer', fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
+              variant="subtitle1"
+            >
+              privacy policy
+            </Typography>
+            <Typography
+              sx={{ cursor: 'pointer', fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
+              variant="subtitle1"
+            >
+              faq
+            </Typography>
+            <Typography
+              sx={{ cursor: 'pointer', fontFamily: 'Roboto-Regular', marginTop: 1, fontSize: 22 }}
+              variant="subtitle1"
+            >
+              become a workspace Host
+            </Typography>
           </CardContent>
           <Box
             sx={{
@@ -94,26 +115,18 @@ export default function MenuSection() {
               p: 1,
             }}
           >
-            <MobileStoreButton
-              onClick={handleGetOnGooglePlayClick}
-              width="150px"
-              store="android"
-              linkProps={{ title: "Android Store Button" }}
-            />
-            <MobileStoreButton
-              onClick={handleGetOnAppStoreClick}
-              width="150px"
-              store="ios"
-              linkProps={{ title: "iOS Store Button" }}
-            />
+
+            <Button onClick={handleGetOnGooglePlayClick}><Image width={150} src={PlayStore} alt="" /></Button>
+            <Button onClick={handleGetOnAppStoreClick}><Image src={Appstore} alt="" /></Button>
+
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <InstagramIcon sx={{ ml: 1 }} />
-              <TwitterIcon sx={{ ml: 1 }} />
-              <FacebookOutlinedIcon sx={{ ml: 1 }} />
+              <Button onClick={handleInstagramClick}><Image src={Instagram} alt="" /></Button>
+              <Button onClick={handleTwitterClick}><Image src={Twitter} alt="" /></Button>
+              <Button onClick={handleFacebookClick}><Image src={Facebook} alt="" /></Button>
             </Box>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", p: 1 }}>
-            <Typography sx={{ fontSize: 12 }}>
+            <Typography sx={{ fontFamily: 'Roboto-Regular', fontSize: 12 }}>
               © homework workspaces LLC {new Date().getFullYear()}
             </Typography>
           </Box>

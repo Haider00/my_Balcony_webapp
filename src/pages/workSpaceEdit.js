@@ -12,7 +12,7 @@ export default function BookingOverview() {
     return (
         <>
             <CustomHeader />
-            <Grid container>
+            <Grid sx={{mt:15}} container>
                 <Grid
                     item
                     xs={12}

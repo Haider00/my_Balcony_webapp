@@ -43,7 +43,7 @@ const Button = ({
       <label
         style={{
           position: "absolute",
-          left: 0,
+          left: 18,
           transform:
             alignItems === "center"
               ? "translate(55px, -12px) scale(0.9)"
@@ -51,6 +51,7 @@ const Button = ({
           color: "#000",
           paddingInline: "5px",
           backgroundColor: "#fff",
+          fontFamily:"Roboto-Regular"
         }}
       >
         {label}
