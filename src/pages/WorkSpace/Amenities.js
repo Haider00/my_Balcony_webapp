@@ -39,23 +39,68 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
   const [totalSmallTable, setTotalSmallTable] = useState(0);
   const [totalChair, setTotalChair] = useState(0);
 
+  useEffect(() => {
+    handleCounterAmenities({
+      title: "largeTable",
+      available: true,
+      total: totalLargeTable,
+    });
+  }, [totalLargeTable, totalMediumTable, totalSmallTable, totalChair]);
+  useEffect(() => {
+    handleCounterAmenities({
+      title: "mediumTable",
+      available: true,
+      total: totalMediumTable,
+    });
+  }, [totalLargeTable, totalMediumTable, totalSmallTable, totalChair]);
+  useEffect(() => {
+    handleCounterAmenities({
+      title: "smallTable",
+      available: true,
+      total: totalSmallTable,
+    });
+  }, [totalLargeTable, totalMediumTable, totalSmallTable, totalChair]);
+  useEffect(() => {
+    handleCounterAmenities({
+      title: "chair",
+      available: true,
+      total: totalChair,
+    });
+  }, [totalLargeTable, totalMediumTable, totalSmallTable, totalChair]);
+
+  const handleCounterAmenities = (newItem) => {
+    const index = amenitiesArr.findIndex(
+      (item) => item.title === newItem.title
+    );
+    if (index !== -1) {
+      if (newItem.total > 0) {
+        amenitiesArr[index] = newItem;
+      } else {
+        amenitiesArr.splice(index, 1);
+      }
+    } else if (newItem.total > 0) {
+      amenitiesArr.push(newItem);
+    }
+    setAmenitiesArr([...amenitiesArr]);
+    handleSelectedAmenities(amenitiesArr);
+  };
+
   const handleAmenities = (item) => {
-    // console.log('handleAmenities', item)
     let arr = amenitiesArr;
     const titleArr = handleAmenitiesTitleArr();
     if (titleArr.includes(item)) {
       const index = titleArr.indexOf(item);
       if (index > -1) {
-        arr.splice(index, 1); // 2nd parameter means remove one item only
+        arr.splice(index, 1);
       }
-      setAmenitiesArr([...arr]);
+      // setAmenitiesArr([...arr]);
     } else {
       arr.push({ title: item, available: true, total: 1 });
-      setAmenitiesArr([...arr]);
+      // setAmenitiesArr([...arr]);
     }
-    // console.log('amenitiesArr',amenitiesArr );
     handleSelectedAmenities(arr);
   };
+
   const handleAmenitesColor = (item) => {
     const titleArr = handleAmenitiesTitleArr();
     if (titleArr.includes(item)) {
