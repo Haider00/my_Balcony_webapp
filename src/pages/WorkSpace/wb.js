@@ -215,13 +215,14 @@ export const LeftWallpaperWb = () => {
     >
       <Typography
         style={{
-          width: "50%",
-          fontSize: 26,
+          width: "100%",
+          fontSize: 34,
           color: "#000",
           fontWeight: "600",
+          fontFamily:'Roboto-Regular'
         }}
       >
-        We need Few Information About You And Your WorkSpace
+        We need a few information about you and your workSpace
       </Typography>
     </Grid>
   );

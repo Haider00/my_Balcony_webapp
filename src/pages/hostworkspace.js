@@ -851,6 +851,7 @@ export default function HostWorkSpace({}) {
           <Button
             title="List Workspace"
             width="50%"
+            height="59px"
             onClick={() => {
               handleValidations();
             }}

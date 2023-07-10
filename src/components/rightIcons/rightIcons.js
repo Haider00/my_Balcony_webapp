@@ -24,10 +24,6 @@ export default function RightIcons() {
   return (
     <>
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <MapIcon sx={{ fontSize: 30 }} />
-        <FilterAltIcon sx={{ marginLeft: 2, fontSize: 30 }} />
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           sx={{
             fontSize: 9,
@@ -35,11 +31,14 @@ export default function RightIcons() {
             padding: 0,
             minWidth: 0,
             textTransform: "none",
+            display:'flex',
+            flexDirection:'column'
           }}
           onClick={() => {
             router.push("./mapView");
           }}
         >
+          <MapIcon sx={{ fontSize: 30 }} />
           Map View
         </Button>
 
@@ -51,11 +50,14 @@ export default function RightIcons() {
             minWidth: 0,
             textTransform: "none",
             ml: 2,
+            display:'flex',
+            flexDirection:'column'
           }}
           onClick={() => {
             setopen(true);
           }}
         >
+        <FilterAltIcon sx={{ fontSize: 30 }} />
           Filter
         </Button>
       </Box>

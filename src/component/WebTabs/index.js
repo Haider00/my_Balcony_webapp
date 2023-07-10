@@ -82,7 +82,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
       />
       <Card
         style={{
-          position:'relative',
+          position:'absolute',
           height: 400,
           width: 80,
           backgroundColor: "#fff",
