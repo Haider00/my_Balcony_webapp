@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import TableTop from "src/assets/svg/TableTop";
 import { useAuthState, useAuthDispatch } from "src/context/auth.context";
 import { Snackbar, Button } from "@mui/material";
+import { capitalize } from 'lodash';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -71,9 +72,9 @@ export const FormWb = () => {
             sx={{
               backgroundColor: "#005451",
               width: "90%",
-              alignSelf:"center",
-              borderRadius:'16px',
-              marginBottom:3,
+              alignSelf: "center",
+              borderRadius: '16px',
+              marginBottom: 3,
               "&:hover": {
                 backgroundColor: "#ffff00",
                 color: '#000'
@@ -107,14 +108,12 @@ export const HostWorkSpaceWb = () => {
   }
 
   function handleHostWorkspace() {
-    if (!auth.user) {
-      setMessage("You must be login first");
-      setDisplay(true);
-      router.push("./signin");
-    } else {
-      sellerAccessControl();
-      router.push("./hostworkspace");
-    }
+    sellerAccessControl();
+    router.push("./hostworkspace");
+  }
+
+  function handleHostWorkspaceSignIn() {
+    router.push('./signin')
   }
 
   return (
@@ -171,7 +170,7 @@ export const HostWorkSpaceWb = () => {
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              marginBottom: 3,
+              marginBottom: 1,
               marginTop: 1,
             }}
           >
@@ -197,28 +196,47 @@ export const HostWorkSpaceWb = () => {
           <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300" }}>
             {"Collaborate"}
           </Typography>
-          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300" }}>
+          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300", mb: 2 }}>
             {"& More"}
           </Typography>
 
-          <Button
+          {auth?.user?._id ? <Button
             variant="contained"
             sx={{
+              textTransform: 'capitalize',
               backgroundColor: "#005451",
               width: "325px",
-              height:'59px',
-              alignSelf:"center",
-              marginBottom:3,
-              borderRadius:'16px',
-              fontFamily:'Roboto-Regular',
-              fontSize:'25px',
+              height: '59px',
+              alignSelf: "center",
+              marginBottom: 3,
+              borderRadius: '16px',
+              fontFamily: 'Roboto-Regular',
+              fontSize: '25px',
               "&:hover": {
                 backgroundColor: "#ffff00",
                 color: '#000'
               },
             }}
             onClick={handleHostWorkspace}
-          >SEARCH</Button>
+          >Host Workspace</Button> : <Button
+            variant="contained"
+            sx={{
+              textTransform: 'capitalize',
+              backgroundColor: "#005451",
+              width: "325px",
+              height: '59px',
+              alignSelf: "center",
+              marginBottom: 3,
+              borderRadius: '16px',
+              fontFamily: 'Roboto-Regular',
+              fontSize: '25px',
+              "&:hover": {
+                backgroundColor: "#ffff00",
+                color: '#000'
+              },
+            }}
+            onClick={handleHostWorkspaceSignIn}
+          >Sign In</Button>}
         </Grid>
       </Grid>
     </>
