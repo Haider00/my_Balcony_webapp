@@ -12,7 +12,7 @@ const Button = ({
 }) => {
   return (
     <div style={{ display: "flex" }}>
-      <label style={{ fontSize: "20px", width: "25%", textAlign: "right" }}>
+      <label style={{ fontSize: "20px", width: "30%", textAlign: "right" }}>
         {label}
       </label>
       &nbsp;&nbsp;
@@ -21,13 +21,13 @@ const Button = ({
         id={id}
         type={type}
         style={{
-          width: "65%",
+          width: "60%",
           background: "#fff",
           borderBottom: "3px solid #000",
           borderTop: 0,
           borderLeft: 0,
           borderRight: 0,
-          outline:'none'
+          outline: "none",
         }}
       />
     </div>
