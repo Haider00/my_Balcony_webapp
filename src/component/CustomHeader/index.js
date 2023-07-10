@@ -13,19 +13,13 @@ import { useAuthState } from "src/context/auth.context";
 import Formsignin from "src/pages/Signin/form";
 import Formsignup from "src/pages/Signup/form";
 import { FormWb } from "src/pages/Home/wb";
+import { Translate } from "@mui/icons-material";
 
-const Header = ({ signupactivated }) => {
-  const [showSignupForm, setShowSignupForm] = useState(false);
-  console.log("PPPP", showSignupForm);
-  console.log("yesok", signupactivated);
-  const [kk, setKk] = useState(signupactivated);
-  console.log("kk", kk);
+const Header = () => {
+  const [route, setRoute] = useState("signIn");
   const router = useRouter();
   const auth = useAuthState();
-  React.useEffect(() => {
-    setKk(signupactivated);
-    console.log("ang", kk);
-  }, [signupactivated]);
+
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorE2, setAnchorE2] = useState(null);
@@ -34,7 +28,7 @@ const Header = ({ signupactivated }) => {
   };
   const handlesearchClick = () => {
     if (anchorE2) {
-      setAnchorE2(null); // Close the menu/form
+      setAnchorE2(null);
     } else {
       setAnchorE2(event.currentTarget); // Open the menu/form
     }
@@ -42,7 +36,6 @@ const Header = ({ signupactivated }) => {
 
   function handleClick(event) {
     if (!auth?.user?._id) {
-      setShowSignupForm(true);
       setAnchorEl(event.currentTarget);
     } else {
       router.push("./accountDashboard");
@@ -60,9 +53,12 @@ const Header = ({ signupactivated }) => {
           alignItems: "center",
           justifyContent: "space-between",
           borderRadius: 5,
+
           position: "fixed",
-          top: 0,
           zIndex: 100,
+          top: "10%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
         }}
       >
         <Typography
@@ -126,10 +122,20 @@ const Header = ({ signupactivated }) => {
                 },
               }}
             >
-              {signupactivated ? (
-                <Formsignup />
+              {route === "signUp" ? (
+                <Formsignup
+                  from={"header"}
+                  onChangeRoute={(res) => {
+                    setRoute(res);
+                  }}
+                />
               ) : (
-                <Formsignin showSignupForm={showSignupForm} />
+                <Formsignin
+                  from={"header"}
+                  onChangeRoute={(res) => {
+                    setRoute(res);
+                  }}
+                />
               )}
             </Menu>
           </div>

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-import { Form } from "./form";
+import Form from "./form";
 import TableTop from "src/assets/svg/TableTop";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -14,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export const FormWb = () => {
+const FormWb = () => {
   return (
     <Box
       sx={{
@@ -45,8 +45,13 @@ export const FormWb = () => {
 };
 export const LeftWallpaperWb = () => {
   return (
-    <Grid sx={{mt:5, display: { xs: "none", md: "block" } }} item xs={12} md={7}>
-      <TableTop/>
+    <Grid
+      sx={{ mt: 5, display: { xs: "none", md: "block" } }}
+      item
+      xs={12}
+      md={7}
+    >
+      <TableTop />
     </Grid>
   );
 };

@@ -15,10 +15,9 @@ import React from "react";
 import { useSession, signOut } from "next-auth/react";
 import TextInput2 from "../../component/TextInput2/index";
 import { CustomHeader } from "../../component";
-const Form = ({ showSignupForm }) => {
+const Form = ({ from = "", onChangeRoute = () => {} }) => {
   const { data: session } = useSession();
   const authDispatch = useAuthDispatch();
-  console.log("resp>>spf", showSignupForm);
 
   useEffect(() => {
     if (session) {
@@ -77,7 +76,6 @@ const Form = ({ showSignupForm }) => {
   const [info, setInfo] = useState({});
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
-  const [signupactivated, setsignupactivated] = useState(false);
   const handleSubmitSigInForm = () => {
     if (info && info.email && info.password) {
       api
@@ -104,18 +102,15 @@ const Form = ({ showSignupForm }) => {
   };
 
   const handleClick = () => {
-    if (!showSignupForm) {
+    if (!from) {
       router.push("./signup");
     } else {
-      setsignupactivated(true);
+      onChangeRoute("signUp");
     }
   };
 
   return (
     <>
-      <div style={{ display: "none" }}>
-        <CustomHeader signupactivated={signupactivated} />
-      </div>
       <div
         style={{
           width: "100%",

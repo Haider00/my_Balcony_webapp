@@ -10,9 +10,9 @@ import { useRouter } from "next/router";
 import { Snackbar } from "@mui/material";
 import FacebookRounded from "@mui/icons-material/FacebookRounded";
 import Google from "@mui/icons-material/Google";
-import Link from 'next/link';
-
-export const Form = () => {
+import Link from "next/link";
+import TextInput2 from "../../component/TextInput2/index";
+const Form = ({ from = "", onChangeRoute = () => {} }) => {
   const router = useRouter();
   const [info, setInfo] = useState({});
   const [display, setDisplay] = useState(false);
@@ -64,6 +64,13 @@ export const Form = () => {
     signIn("google");
   };
 
+  const handleClick = () => {
+    if (!from) {
+      router.push("./signin");
+    } else {
+      onChangeRoute("signIn");
+    }
+  };
   return (
     <div
       style={{
@@ -71,6 +78,8 @@ export const Form = () => {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
+        paddingTop: "40px",
+        paddingBottom: "40px",
       }}
     >
       <Snackbar
@@ -84,62 +93,70 @@ export const Form = () => {
         }}
         message={<span id="message-id">{message}</span>}
       />
-      <TextInput
-        width="75%"
-        onChange={(e) => {
-          setInfo({ ...info, firstName: e.target.value });
-        }}
-        id="firstName"
-        label="First Name"
-        size="small"
-      />
-      <TextInput
-        width="75%"
-        onChange={(e) => {
-          setInfo({ ...info, lastName: e.target.value });
-        }}
-        // sx={{ marginY: 1.5, width: "80%" }}
-        id="lastName"
-        label="Last Name"
-        // variant="outlined"
-        size="small"
-      />
-      <TextInput
-        width="75%"
-        onChange={(e) => {
-          setInfo({ ...info, email: e.target.value });
-        }}
-        // sx={{ marginY: 1.5, width: "80%" }}
-        id="email"
-        label="email"
-        // variant="outlined"
-        size="small"
-      />
-
-      <TextInput
-        width="75%"
-        onChange={(e) => {
-          setInfo({ ...info, password: e.target.value });
-        }}
-        // sx={{ marginY: 1.5, width: "80%" }}
-        id="password"
-        label="password"
-        // variant="outlined"
-        size="small"
-        type="password"
-      />
-
-      <TextInput
-        width="75%"
-        onChange={(e) => {
-          setInfo({ ...info, phone: e.target.value });
-        }}
-        // sx={{ marginY: 1.5, width: "80%", marginBottom: 3 }}
-        id="phone"
-        label="phone"
-        // variant="outlined"
-        size="small"
-      />
+      <div style={{ marginBottom: "30px", width: "355px" }}>
+        <TextInput2
+          width="75%"
+          onChange={(e) => {
+            setInfo({ ...info, firstName: e.target.value });
+          }}
+          id="firstName"
+          label="first name:"
+          size="small"
+        />
+      </div>
+      <div style={{ marginBottom: "30px", width: "355px" }}>
+        <TextInput2
+          width="75%"
+          onChange={(e) => {
+            setInfo({ ...info, lastName: e.target.value });
+          }}
+          // sx={{ marginY: 1.5, width: "80%" }}
+          id="lastName"
+          label="last name:"
+          // variant="outlined"
+          size="small"
+        />
+      </div>
+      <div style={{ marginBottom: "30px", width: "355px" }}>
+        <TextInput2
+          width="75%"
+          onChange={(e) => {
+            setInfo({ ...info, email: e.target.value });
+          }}
+          // sx={{ marginY: 1.5, width: "80%" }}
+          id="email"
+          label="email:"
+          // variant="outlined"
+          size="small"
+        />
+      </div>
+      <div style={{ marginBottom: "30px", width: "355px" }}>
+        <TextInput2
+          width="75%"
+          onChange={(e) => {
+            setInfo({ ...info, password: e.target.value });
+          }}
+          // sx={{ marginY: 1.5, width: "80%" }}
+          id="password"
+          label="password:"
+          // variant="outlined"
+          size="small"
+          type="password"
+        />
+      </div>
+      <div style={{ marginBottom: "30px", width: "355px" }}>
+        <TextInput2
+          width="75%"
+          onChange={(e) => {
+            setInfo({ ...info, phone: e.target.value });
+          }}
+          // sx={{ marginY: 1.5, width: "80%", marginBottom: 3 }}
+          id="phone"
+          label="phone:"
+          // variant="outlined"
+          size="small"
+        />
+      </div>
       <Box
         sx={{
           display: "flex",
@@ -158,15 +175,23 @@ export const Form = () => {
             width: "100%",
           }}
         >
-          I agree to Balcony{' '}
+          I agree to Balcony{" "}
           <Link href="/termsOfServices" passHref>
-            <Typography component="span" variant="inherit" sx={{ textDecoration: 'underline' }}>
+            <Typography
+              component="span"
+              variant="inherit"
+              sx={{ textDecoration: "underline" }}
+            >
               Term of Services
             </Typography>
-          </Link>{' '}
-          and{' '}
+          </Link>{" "}
+          and{" "}
           <Link href="/privacyPolicy" passHref>
-            <Typography component="span" variant="inherit" sx={{ textDecoration: 'underline' }}>
+            <Typography
+              component="span"
+              variant="inherit"
+              sx={{ textDecoration: "underline" }}
+            >
               Privacy Policy
             </Typography>
           </Link>
@@ -177,7 +202,11 @@ export const Form = () => {
           handleSubmitSigupForm();
         }}
         title="Register"
-        width="80%"
+        width="302px"
+        height="55.8px"
+        color="#000"
+        fontSize="23px"
+        textTransform="none"
       />
 
       <Box
@@ -185,19 +214,19 @@ export const Form = () => {
           display: "flex",
           justifyContent: "space-around",
           alignItems: "center",
-          width: "80%",
+          width: "50%",
           marginY: 3,
         }}
       >
         <div
           style={{
             height: 1,
-            width: "25%",
+            width: "35%",
             backgroundColor: "#000",
           }}
         />
         <div>or</div>
-        <div style={{ height: 1, width: "25%", backgroundColor: "#000" }} />
+        <div style={{ height: 1, width: "35%", backgroundColor: "#000" }} />
       </Box>
 
       <div
@@ -205,7 +234,7 @@ export const Form = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          width: "80%",
+          width: "302px",
         }}
       >
         <FacebookRounded style={{ color: "#1877F2", fontSize: 30 }} />
@@ -214,6 +243,8 @@ export const Form = () => {
           title="Continue with Facebook"
           width="85%"
           backgroundColor="#1877F2"
+          fontSize="14"
+          textTransform="none"
         />
       </div>
       <div
@@ -221,7 +252,7 @@ export const Form = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          width: "80%",
+          width: "302px",
         }}
       >
         <Button
@@ -230,6 +261,7 @@ export const Form = () => {
           width="85%"
           color="#444"
           backgroundColor="#F0F0F0"
+          textTransform="none"
         />
         <Google style={{ color: "#FE2B25", fontSize: 30 }} />
       </div>
@@ -243,21 +275,28 @@ export const Form = () => {
           marginY: 2,
         }}
       >
-        <Typography
-          component="h1"
-          variant="h6"
+        <div
           style={{
-            width: "50%",
+            width: "54%",
+            fontSize: "14px",
+            fontWeight: "700",
+            textAlign: "right",
           }}
         >
           Already Have an account?
-        </Typography>
+        </div>
+
         <div style={{ height: 30, width: 1, backgroundColor: "#000" }} />
         <div
-          style={{ width: "40%", cursor: "pointer" }}
-          onClick={() => {
-            router.push("./signin");
+          style={{
+            width: "40%",
+            cursor: "pointer",
+            textAlign: "left",
+            fontSize: "18px",
+            fontWeight: "700",
+            textDecoration: "underline",
           }}
+          onClick={handleClick}
         >
           Sign In
         </div>
