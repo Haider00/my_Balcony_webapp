@@ -328,19 +328,34 @@ export default function HostWorkSpace({}) {
           }}
           message={<span id="message-id">{message}</span>}
         />
-        <Grid sx={{ justifyContent: "center" }} container spacing={2}>
-          <Grid sx={{marginBottom:10}} item xs={12}>
-            <CustomHeader />
-          </Grid>
-          <LeftWallpaperWb />
-          <FormWb
-            handleInfo={(e) => {
-              setWorkSpace({ ...workSpace, ...e });
-            }}
-          />
-          <WorksapceImages />
+        <Grid sx={{ marginBottom: 10 }} item xs={12}>
+          <CustomHeader />
         </Grid>
         <Grid
+          sx={{ justifyContent: "center", mt: 20, alignItems: "center" }}
+          container
+        >
+          <Grid item xs={12} md={4} lg={4}>
+            <LeftWallpaperWb />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            lg={4}
+            sx={{ borderLeft: 1, borderRight: 1 }}
+          >
+            <FormWb
+              handleInfo={(e) => {
+                setWorkSpace({ ...workSpace, ...e });
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={4} lg={4} sx={{ padding: 5 }}>
+            <WorksapceImages />
+          </Grid>
+        </Grid>
+        {/* <Grid
           sx={{
             margin: 10,
             height: 275,
@@ -351,34 +366,37 @@ export default function HostWorkSpace({}) {
             flexDirection: "column",
           }}
         >
-          {/* {typeof window !== "undefined" && <Map />} */}
-          <Map />
-        </Grid>
-        <Grid sx={{ marginY: 2 }} container>
-          <Typography sx={{ marginY: 1, fontSize: 20, fontWeight: "600" }}>
+           {typeof window !== "undefined" && <Map />} 
+          <Map /></Grid> */}
+        <Grid
+          style={{
+            paddingBottom: 80,
+            borderBottom: "2px solid #ccc",
+            marginTop: "80px",
+            marginBottom: "80px",
+          }}
+        >
+          <Typography sx={{ marginY: 1, fontSize: 31, fontWeight: "600" }}>
             Workspace Amenities
           </Typography>
-          <Amenities
-            handleSelectedAmenities={(e) => {
-              setWorkSpace({ ...workSpace, amenities: e });
-            }}
-          />
+          <Grid container>
+            <Amenities
+              handleSelectedAmenities={(e) => {
+                setWorkSpace({ ...workSpace, amenities: e });
+              }}
+            />
+          </Grid>
         </Grid>
         <Grid sx={{ marginY: 2 }} container>
           <Grid
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItem: "center",
-              flex: 1,
-            }}
             item
             md={12}
             lg={4}
             xs={12}
             sm={12}
+            style={{ padding: "0 30px" }}
           >
-            <Typography sx={{ marginY: 1, fontSize: 18, fontWeight: "500" }}>
+            <Typography sx={{ marginY: 1, fontSize: 23, fontWeight: "600" }}>
               Pricing
             </Typography>
             <FormControl
@@ -608,30 +626,34 @@ export default function HostWorkSpace({}) {
                 size="small"
                 label="Amount"
                 onChange={(e) => {
-                  setWorkSpace({...workSpace, otherFeeAmount: e.target.value});
+                  setWorkSpace({
+                    ...workSpace,
+                    otherFeeAmount: e.target.value,
+                  });
                 }}
                 title="Amount"
               />
             )}
           </Grid>
           <Grid
-            sx={{
-              display: "flex",
-              flex: 1,
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
             item
             md={12}
             lg={4}
             xs={12}
             sm={12}
+            style={{ borderLeft: "1px solid", borderRight: "1px solid" }}
           >
             <Typography
-              sx={{ marginY: 1, marginX: 1.5, fontSize: 16, fontWeight: "600" }}
+              sx={{
+                marginY: 1,
+                marginX: 1.5,
+                fontSize: 23,
+                fontWeight: "600",
+                textDecoration: "underline",
+                textAlign: "center",
+              }}
             >
-              Add Workspace Hours
+              Available WorkSpace Hours
             </Typography>
             <div
               style={{
@@ -690,19 +712,19 @@ export default function HostWorkSpace({}) {
               )}
             </div>
           </Grid>
-          <Grid item md={12} lg={4} xs={12} sm={12}>
-            <div
-              style={{
-                display: "flex",
-                flex: 1,
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
+          <Grid
+            item
+            md={12}
+            lg={4}
+            xs={12}
+            sm={12}
+            style={{ padding: "0 50px" }}
+          >
+            <div>
               <CheckBoxLabel
                 justifyContent="center"
                 title="Coworking WorkSpace"
-                fontSize={16}
+                fontSize={24}
                 fontWeight="bold"
                 handleCheckbox={(e) => {
                   console.log("e", e);
@@ -710,6 +732,7 @@ export default function HostWorkSpace({}) {
                 }}
               />
               <div
+                className="coworking-container"
                 style={{
                   display: "flex",
                   flex: 1,
@@ -745,7 +768,7 @@ export default function HostWorkSpace({}) {
                       display: "flex",
                       height: 100,
                       width: 100,
-                      border: "2px black",
+                      border: "2px solid black",
                       borderRadius: 10,
                       justifyContent: "center",
                       alignItems: "center",
@@ -792,9 +815,11 @@ export default function HostWorkSpace({}) {
                       display: "flex",
                       height: 100,
                       width: 100,
-                      border: "1px black",
+                      border: "2px solid black",
+                      borderRadius: 10,
                       justifyContent: "center",
                       alignItems: "center",
+                      padding: "5px",
                     }}
                   >
                     <Typography
@@ -846,11 +871,19 @@ export default function HostWorkSpace({}) {
           </Grid>
         </Grid>
         <div
-          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "60px",
+          }}
         >
           <Button
+            textTransform="none"
+            fontSize="25px"
             title="List Workspace"
-            width="50%"
+            width="556px"
+            height="69px"
             onClick={() => {
               handleValidations();
             }}
@@ -869,18 +902,29 @@ export default function HostWorkSpace({}) {
         <Grid
           item
           md={3}
-          sm={5}
+          sm={12}
           xs={12}
           sx={{
             marginBottom: 4,
-            marginLeft: 7,
+            marginLeft: 5,
+            marginRight: 5,
           }}
         >
           <MenuSection />
         </Grid>
         <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-          <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <Image src={TableBottom} alt="" />
+          <Box
+            sx={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "flex-end",
+            }}
+          >
+            <Image
+              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
+              src={TableBottom}
+              alt=""
+            />
           </Box>
         </Grid>
       </Grid>

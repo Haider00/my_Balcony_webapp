@@ -38,27 +38,35 @@ export default function PlannerCalendar() {
   }, [auth.user?._id]);
 
   return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}
-    >
-      <Typography variant="h5" sx={{ mb: 2 }}>
-        planner
-      </Typography>
-      <DatePicker
-        selected={selectedDate}
-        onChange={(date) => {
-          const dateStr = moment(date).format("YYYY-MM-DD");
-          setSelectedDate(date);
-          if (messages[dateStr]) {
-            alert(messages[dateStr]);
-          }
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end",
         }}
-        dateFormat="MM/dd/yyyy"
-        inline
-        highlightDates={Object.keys(messages).map((date) =>
-          moment(date, "YYYY-MM-DD").toDate()
-        )}
-      />
-    </Box>
+      >
+        <Typography variant="h5" sx={{ mb: 2, fontSize: 34 }}>
+          planner
+        </Typography>
+      </Box>
+      <div className="planner-calendar">
+        <DatePicker
+          selected={selectedDate}
+          onChange={(date) => {
+            const dateStr = moment(date).format("YYYY-MM-DD");
+            setSelectedDate(date);
+            if (messages[dateStr]) {
+              alert(messages[dateStr]);
+            }
+          }}
+          dateFormat="MM/dd/yyyy"
+          inline
+          highlightDates={Object.keys(messages).map((date) =>
+            moment(date, "YYYY-MM-DD").toDate()
+          )}
+        />
+      </div>
+    </>
   );
 }

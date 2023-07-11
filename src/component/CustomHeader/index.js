@@ -22,17 +22,19 @@ const Header = () => {
 
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [anchorE2, setAnchorE2] = useState(null);
+  const [anchorEl2, setAnchorEl2] = useState(null);
   const handleMenuClick = () => {
     setMenuOpen(!isMenuOpen);
   };
-  const handlesearchClick = () => {
-    if (anchorE2) {
-      setAnchorE2(null);
+  function handlesearchClick(event) {
+    if (!auth?.user?._id) {
+      setAnchorEl2(event.currentTarget);
     } else {
-      setAnchorE2(event.currentTarget); // Open the menu/form
+      // Open the menu/form
+
+      setAnchorEl2(event.currentTarget);
     }
-  };
+  }
 
   function handleClick(event) {
     if (!auth?.user?._id) {
@@ -47,8 +49,8 @@ const Header = () => {
         sx={{
           width: "94%",
           flex: 1,
-          display: { xs: "none", md: "flex" },
-          padding: { xs: 1, md: 2 },
+          display: { xs: "none", lg: "flex" },
+          padding: { xs: 1, lg: 2 },
           marginY: 1,
           alignItems: "center",
           justifyContent: "space-between",
@@ -56,7 +58,7 @@ const Header = () => {
 
           position: "fixed",
           zIndex: 100,
-          top: "10%",
+          top: "55px",
           left: "50%",
           transform: "translate(-50%, -50%)",
         }}
@@ -166,9 +168,9 @@ const Header = () => {
             />
 
             <Menu
-              anchorE2={anchorE2}
-              open={Boolean(anchorE2)}
-              onClose={() => setAnchorE2(null)}
+              anchorE12={anchorEl2}
+              open={Boolean(anchorEl2)}
+              onClose={() => setAnchorEl2(null)}
               anchorOrigin={{
                 vertical: "bottom",
                 horizontal: "right",
@@ -196,7 +198,7 @@ const Header = () => {
           sx={{
             width: "95%",
             flex: 1,
-            display: { xs: "flex", md: "none" },
+            display: { md: "flex", lg: "none" },
             padding: { xs: 1, md: 2 },
             marginX: 3,
             marginY: 1,

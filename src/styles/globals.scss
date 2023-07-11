@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 html,
+
 body {
   padding: 0;
   margin: 0;
@@ -13,6 +16,7 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: Roboto;
 }
 
 img {
@@ -42,4 +46,148 @@ img {
 }
 .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
   display: none;
+}
+
+
+
+.planner-calendar .react-datepicker__month-container {
+  width: 100% ;
+}
+
+.planner-calendar .react-datepicker {
+  width: 100% ;
+}
+
+
+@media only screen  and (min-width: 320px) and (max-width: 479px) {
+
+  .css-vj1n65-MuiGrid-root{
+    border-bottom: 0 !important;
+    padding-bottom: 40px !important;
+  }
+  .css-1qm8set-MuiGrid-root{
+    border-left: 0 !important;
+    border-right: 0 !important;
+    margin: 30px 0;
+
+  }
+
+  .css-f952mg-MuiTypography-root{
+    text-align:center !important;
+    }
+    
+    
+    .css-zlu9x3-MuiTypography-root{
+    text-align:center !important;
+    }
+    
+    
+    .coworking-container{
+    min-height: 100px !important;
+    
+    }
+
+
+
+  .css-193z6fc-MuiGrid-root{
+    border-left: 0 !important;
+    border-right: 0 !important;
+}
+
+.css-ahj2mt-MuiTypography-root{
+text-align:center !important;
+}
+
+
+
+
+.css-c1eoxj-MuiGrid-root{gap:70px;}
+  .css-l8h4b1-MuiPaper-root-MuiCard-root{min-width: fit-content;}
+
+
+ .css-ah6tr4-MuiGrid-root{
+margin: 0 30px;
+
+ }
+
+  .css-qfdd9t{
+    align-items: center,
+   
+  }
+
+  .css-xvr0ng-MuiTypography-root{
+margin-top: 20px;
+    text-align: center;
+  }
+
+  
+.css-1qnbib8-MuiTypography-root{ text-align: center;}
+.css-m6c9p0-MuiTypography-root{ text-align: center;margin-top: 20px;}
+}
+
+
+@media only screen  and (min-width: 480px) and (max-width: 900px) {
+.css-vj1n65-MuiGrid-root{
+  border-bottom: 0 !important;
+  padding-bottom: 40px !important;
+}
+
+  .css-1qm8set-MuiGrid-root{
+    border-left: 0 !important;
+    border-right: 0 !important;
+    margin: 30px 0;
+
+  }
+
+  .css-f952mg-MuiTypography-root{
+    text-align:center !important;
+    }
+    
+    
+    .css-zlu9x3-MuiTypography-root{
+    text-align:center !important;
+    }
+    
+    
+    .coworking-container{
+    min-height: 100px !important;
+    
+    }
+
+
+
+  .css-193z6fc-MuiGrid-root{
+    border-left: 0 !important;
+    border-right: 0 !important;
+}
+
+.css-ahj2mt-MuiTypography-root{
+text-align:center !important;
+}
+
+
+
+
+.css-c1eoxj-MuiGrid-root{gap:70px;}
+
+
+
+  .css-l8h4b1-MuiPaper-root-MuiCard-root{min-width: fit-content;}
+  .planner-calendar .react-datepicker {
+    width: 50% !important;
+  }
+
+.css-1qnbib8-MuiTypography-root{ text-align: center;}
+.css-m6c9p0-MuiTypography-root{ text-align: center;margin-top: 20px;}
+  .css-xvr0ng-MuiTypography-root{
+    margin-top: 20px;
+    text-align: center;
+  }
+  .css-qfdd9t{
+
+    align-items: center
+  }
+
+
+
 }
