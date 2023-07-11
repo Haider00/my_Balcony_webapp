@@ -236,6 +236,7 @@ export const LeftWallpaperWb = () => {
           fontSize: 34,
           color: "#000",
           fontWeight: "600",
+          fontFamily: "Roboto-Regular",
         }}
       >
         We need a few

@@ -36,6 +36,7 @@
     "google-maps-react": "^2.0.6",
     "jsdom-global": "^3.0.2",
     "leaflet": "^1.9.4",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "next": "^13.0.6",
     "next-auth": "^4.19.2",

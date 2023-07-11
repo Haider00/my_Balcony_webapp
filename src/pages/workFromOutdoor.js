@@ -13,7 +13,7 @@ export default function WorkFromOutdoor() {
             <CustomHeader />
             <WebTabs selectedTab={3} />
 
-            <Grid style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} sx={{ marginY: 1, }} container >
+            <Grid style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} container >
                 <Grid
                     marginX={6}
                     sx={{
@@ -23,7 +23,7 @@ export default function WorkFromOutdoor() {
                     }}
                     item
                     md={12}
-                    lg={12}
+                    lg={1}
                     xs={12}
                     sm={12}
                 >
