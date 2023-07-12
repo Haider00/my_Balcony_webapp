@@ -145,41 +145,73 @@ export default function BookingOverviewDetail() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          alignContent: "center",
+          justifyContent: "flex-start",
+          alignItems: "start",
           marginTop: 5,
         }}
       >
-        <Typography variant="h6">
+        <Typography style={{ fontSize: "35px" }} variant="h6">
           {workspaceDetailState?.workspaceDetail?.name}
         </Typography>
         <Rating value={ratingStar} name="simple-controlled" readOnly />
 
-        <Typography sx={{ marginTop: 1 }} variant="body2">
+        <Typography
+          style={{ fontSize: "21px" }}
+          sx={{ marginTop: 1 }}
+          variant="body2"
+        >
           Date of Workspace Checkin: {currentDate()}
         </Typography>
 
-        <Typography sx={{ marginTop: 1 }} variant="body2">
+        <Typography
+          style={{ fontSize: "22px" }}
+          sx={{ marginTop: 1 }}
+          variant="body2"
+        >
           Time Frame of services 8AM - 5PM EST
         </Typography>
 
-        <Typography sx={{ marginTop: 1 }} variant="body2">
+        <Typography
+          style={{ fontSize: "20px" }}
+          sx={{ marginTop: 1 }}
+          variant="body2"
+        >
           MaintenancesFee :{maintenancesFee}
         </Typography>
-        <Typography sx={{ marginTop: 1 }} variant="body2">
+        <Typography
+          style={{ fontSize: "20px" }}
+          sx={{ marginTop: 1 }}
+          variant="body2"
+        >
           OtherFeeAmount : {otherFeeAmount}
         </Typography>
-        <Typography sx={{ marginTop: 1 }} variant="body2">
+        <Typography
+          style={{ fontSize: "20px" }}
+          sx={{ marginTop: 1 }}
+          variant="body2"
+        >
           OtherFeeName : {otherFeeName}
         </Typography>
-        <Typography sx={{ marginTop: 1 }} variant="body2">
+        <Typography
+          style={{ fontSize: "20px" }}
+          sx={{ marginTop: 1 }}
+          variant="body2"
+        >
           Total Number of People : {totalPeople}
         </Typography>
-        <Typography sx={{ marginTop: 1 }} variant="body2">
+        <Typography
+          style={{ fontSize: "20px" }}
+          sx={{ marginTop: 1 }}
+          variant="body2"
+        >
           Number of Days : {selDatesLength}
         </Typography>
-        <Typography sx={{ marginTop: 1 }} variant="h5">
-          Total $ {totalAmount}
+        <Typography
+          style={{ fontSize: "36px" }}
+          sx={{ marginTop: 1 }}
+          variant="h5"
+        >
+          Total: $ {totalAmount}
         </Typography>
       </Box>
 
@@ -191,7 +223,7 @@ export default function BookingOverviewDetail() {
           marginTop: 4,
         }}
       >
-        <Typography variant="h5">
+        <Typography style={{ fontSize: "30px" }} variant="h5">
           Would you like to cancle your order
         </Typography>
       </Box>
@@ -203,16 +235,26 @@ export default function BookingOverviewDetail() {
           alignContent: "flex-start",
         }}
       >
-        <Typography sx={{ mt: 1 }} variant="subtitle1">
+        <Typography
+          style={{ fontSize: "23px" }}
+          sx={{ mt: 1 }}
+          variant="subtitle1"
+        >
           You can cancle before 24 Hours of
         </Typography>
-        <Typography sx={{ mb: 2 }} variant="subtitle1">
+        <Typography
+          style={{ fontSize: "23px" }}
+          sx={{ mb: 2 }}
+          variant="subtitle1"
+        >
           The book start Date/Time for a full refund
         </Typography>
-        <Typography variant="subtitle1">
+        <Typography style={{ fontSize: "23px" }} variant="subtitle1">
           Failure to cancel before 24 results in a
         </Typography>
-        <Typography variant="subtitle1">25% late cancelation charge</Typography>
+        <Typography style={{ fontSize: "23px" }} variant="subtitle1">
+          25% late cancelation charge
+        </Typography>
       </Box>
 
       <Divider

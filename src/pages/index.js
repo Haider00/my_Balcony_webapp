@@ -72,6 +72,16 @@ export default function SignUp() {
 
   return (
     <>
+      <div
+        style={{
+          marginLeft: 20,
+          top: "160px",
+          position: "fixed",
+          zIndex: 10,
+        }}
+      >
+        <WebTabs selectedTab={3} />
+      </div>
       <Box
         style={{
           marginTop: "70px",
@@ -87,22 +97,6 @@ export default function SignUp() {
       <Grid container>
         <Grid
           item
-          xs={1}
-          md={1}
-          lg={1}
-          style={{
-            position: "absolute",
-            marginLeft: 50,
-            marginTop: 66,
-            display: isMediumScreen ? "none" : "block",
-          }}
-        >
-          <WebTabs selectedTab={1} />
-        </Grid>
-        <Grid
-          item
-          xs={6}
-          md={7}
           lg={7}
           style={{ display: isMediumScreen ? "none" : "block" }}
         >
@@ -118,7 +112,7 @@ export default function SignUp() {
           sx={{ justifyContent: "center", alignItems: "center" }}
           item
           xs={12}
-          md={11}
+          md={12}
           lg={4}
           sm={12}
         >

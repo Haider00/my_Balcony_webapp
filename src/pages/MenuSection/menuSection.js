@@ -8,11 +8,11 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/router";
-import PlayStore from "src/assets/images/playStore.png";
+import PlayStore from "src/assets/svg/googleplay.svg";
 import Appstore from "src/assets/images/appStore.png";
-import Instagram from "src/assets/images/instagram.png";
-import Twitter from "src/assets/images/twitter.png";
-import Facebook from "src/assets/images/facebook.png";
+import Instagram from "../../assets/svg/Insta.svg";
+import Twitter from "src/assets/svg/Twitter.svg";
+import Facebook from "src/assets/svg/Facebook.svg";
 import Image from "next/image";
 
 export default function MenuSection() {

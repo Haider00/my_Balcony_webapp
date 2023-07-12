@@ -1,0 +1,31 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="42.62"
+  height="42.62"
+  viewBox="0 0 42.62 42.62"
+>
+  <defs>
+    <filter
+      id="x8gixpukga"
+      x="0"
+      y="0"
+      width="42.62"
+      height="42.62"
+      filterUnits="userSpaceOnUse"
+    >
+      <feOffset dy="3" />
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feFlood flood-opacity=".749" />
+      <feComposite operator="in" in2="blur" />
+      <feComposite in="SourceGraphic" />
+    </filter>
+  </defs>
+  <g style="filter:url(#x8gixpukga)">
+    <path
+      data-name="icons8-instagram"
+      d="M9.839 3A6.84 6.84 0 0 0 3 9.839v10.942a6.84 6.84 0 0 0 6.839 6.839h10.942a6.84 6.84 0 0 0 6.839-6.839V9.839A6.84 6.84 0 0 0 20.781 3zm13.678 2.736A1.368 1.368 0 1 1 22.149 7.1a1.368 1.368 0 0 1 1.368-1.364zM15.31 8.471a6.839 6.839 0 1 1-6.839 6.839 6.84 6.84 0 0 1 6.839-6.839zm0 2.736a4.1 4.1 0 1 0 4.1 4.1 4.1 4.1 0 0 0-4.1-4.1z"
+      transform="translate(6 3)"
+      style="fill:#fff"
+    />
+  </g>
+</svg>;

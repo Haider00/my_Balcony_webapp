@@ -200,79 +200,77 @@ const Header = () => {
             flex: 1,
             display: { md: "flex", lg: "none" },
             padding: { xs: 1, md: 2 },
-            marginX: 3,
-            marginY: 1,
+
             alignItems: "center",
             justifyContent: "space-between",
             border: "1px black",
             position: "fixed",
-            top: 0,
+            top: "55px",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
             zIndex: 9999,
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 1,
-              height: 40,
-              marginRight: 1,
-              // backgroundColor: "red",
-            }}
-          >
-            <TextField
-              className={articleStyles.inputRounded}
-              placeholder="Search"
-              variant="outlined"
-              size="small"
-              sx={{ flex: 1 }}
-            />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                backgroundColor: "#005451",
-                borderRadius: 20,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 30,
-                width: 30,
-              }}
-            >
-              <SearchRounded
-                style={{
-                  backgroundColor: "#005451",
-                  fontSize: 20,
-                  color: "#fff",
-                }}
+          <Box style={{ display: "flex", width: "100%" }}>
+            <div className="mobile-header-search" style={{ width: "80%" }}>
+              <TextField
+                className={articleStyles.inputRounded}
+                placeholder="Search"
+                variant="outlined"
+                size="small"
+                sx={{ width: "100%" }}
               />
             </div>
             <div
+              className="mobile-header-icons"
               style={{
+                width: "20%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: 30,
-                width: 30,
-                marginLeft: 10,
               }}
             >
-              <MenuBox
-                onClick={handleMenuClick}
+              <div
                 style={{
-                  //   backgroundColor: "#005451",
-                  fontSize: 30,
-                  color: "#000",
+                  display: "inline-block",
+                  textAlign: "center",
+                  backgroundColor: "#005451",
+                  borderRadius: 20,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 30,
+                  width: 30,
                 }}
-              />
+              >
+                <SearchRounded
+                  style={{
+                    backgroundColor: "#005451",
+                    fontSize: 20,
+                    color: "#fff",
+                    position: "relative",
+                    top: "3px",
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  display: "inline-block",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 30,
+                  width: 30,
+                  marginLeft: 10,
+                }}
+              >
+                <MenuBox
+                  onClick={handleMenuClick}
+                  style={{
+                    //   backgroundColor: "#005451",
+                    fontSize: 30,
+                    color: "#000",
+                  }}
+                />
+              </div>
             </div>
           </Box>
         </Card>

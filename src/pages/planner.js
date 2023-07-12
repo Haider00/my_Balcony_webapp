@@ -23,19 +23,19 @@ export default function Planner() {
 
   return (
     <>
+      <div
+        style={{
+          marginLeft: 20,
+          top: "160px",
+          position: "fixed",
+          zIndex: 10,
+        }}
+      >
+        <WebTabs selectedTab={3} />
+      </div>
       <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
         <CustomHeader />
         <Grid container sx={{ justifyContent: "space-evenly", mt: 15 }}>
-          <Grid
-            sx={{ textAlign: "center", mt: 5 }}
-            item
-            xs={12}
-            sm={12}
-            md={1}
-            lg={1}
-          >
-            <WebTabs selectedTab={5} />
-          </Grid>
           <Grid
             sx={{ mt: 2, textAlign: "center" }}
             item

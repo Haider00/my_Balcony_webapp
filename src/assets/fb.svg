@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="42.745" height="42.617" viewBox="0 0 42.745 42.617">
+    <defs>
+        <filter id="ldm794crca" x="0" y="0" width="42.745" height="42.617" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feFlood flood-opacity=".749"/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g style="filter:url(#ldm794crca)">
+        <path data-name="icons8-facebook" d="M14.372 2a12.365 12.365 0 0 0-1.85 24.591v-8.94h-3.06V14.4h3.061v-2.166c0-3.583 1.746-5.156 4.724-5.156a17.261 17.261 0 0 1 2.538.153v2.839h-2.033c-1.264 0-1.706 1.2-1.706 2.55v1.78h3.706l-.5 3.253h-3.2v8.966A12.365 12.365 0 0 0 14.372 2z" transform="translate(7 4)" style="fill:#fff"/>
+    </g>
+</svg>

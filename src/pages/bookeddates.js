@@ -93,6 +93,16 @@ export default function bookeddates() {
 
   return (
     <>
+      <div
+        style={{
+          marginLeft: 20,
+          top: "160px",
+          position: "fixed",
+          zIndex: 10,
+        }}
+      >
+        <WebTabs selectedTab={3} />
+      </div>
       <Box
         style={{
           maxWidth: 1400,
@@ -111,9 +121,6 @@ export default function bookeddates() {
             justifyContent: "center",
           }}
         >
-          <Grid style={{ marginTop: 56 }} item xs={1} lg={1} md={1}>
-            <WebTabs selectedTab={4} />
-          </Grid>
           <Grid item xs={12} md={4} lg={4}>
             {auth.userType == "seller" ? (
               <Incomingbooking inComingBooking={inComingBooking} />
@@ -129,7 +136,7 @@ export default function bookeddates() {
             item
             xs={12}
             md={6}
-            lg={6.5}
+            lg={7}
             sx={{
               display: "flex",
               flexDirection: "column",
