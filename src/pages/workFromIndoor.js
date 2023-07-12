@@ -30,7 +30,14 @@ export default function WorkFromIndoor() {
 
         <Grid container>
           <Grid item md={12} lg={12} xs={12} sm={12}>
-            <WorkFromIndoorImage />
+            <Grid container>
+              <Grid item md={12} lg={6} xs={12} sm={12}>
+                <WorkFromIndoorImage />
+              </Grid>
+              <Grid item md={12} lg={6} xs={12} sm={12}>
+                <WorkFromOutdoorImage />
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item md={12} lg={12} xs={12} sm={12}>
             <Grid container>
