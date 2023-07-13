@@ -72,6 +72,16 @@ export default function SignUp() {
 
   return (
     <>
+      <div
+        style={{
+          marginLeft: 20,
+          top: "160px",
+          position: "fixed",
+          zIndex: 10,
+        }}
+      >
+        <WebTabs selectedTab={3} />
+      </div>
       <Box
         style={{
           marginTop: "70px",
@@ -87,22 +97,15 @@ export default function SignUp() {
       <Grid container>
         <Grid
           item
-          xs={1}
-          md={1}
-          lg={1}
-          style={{ position: "absolute", marginLeft: 50, marginTop: 66 }}
-        >
-          <WebTabs selectedTab={1} />
-        </Grid>
-        <Grid
-          item
-          xs={6}
-          md={7}
           lg={7}
           style={{ display: isMediumScreen ? "none" : "block" }}
         >
           <Box>
-            <Image src={Leftewallpaper} alt="" />
+            <Image
+              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
+              src={Leftewallpaper}
+              alt=""
+            />
           </Box>
         </Grid>
         <Grid
@@ -135,7 +138,11 @@ export default function SignUp() {
             }}
           >
             <div className="scrollHomePage">
-              <Typography sx={{ textAlign: "end" }} component="h1" variant="h5">
+              <Typography
+                sx={{ textAlign: "end", fontSize: 33 }}
+                component="h1"
+                variant="h5"
+              >
                 work from outside
               </Typography>
               <ScrollMenu className="scrollMenu" apiRef={menu}>
@@ -166,7 +173,11 @@ export default function SignUp() {
               marginBottom: 10,
             }}
           >
-            <Typography sx={{ marginX: 1 }} component="h1" variant="h5">
+            <Typography
+              sx={{ marginX: 1, fontSize: 33 }}
+              component="h1"
+              variant="h5"
+            >
               work indoor
             </Typography>
 
@@ -200,18 +211,29 @@ export default function SignUp() {
         <Grid
           item
           md={3}
-          sm={5}
+          sm={12}
           xs={12}
           sx={{
             marginBottom: 4,
-            marginLeft: 7,
+            marginLeft: 5,
+            marginRight: 5,
           }}
         >
           <MenuSection />
         </Grid>
         <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-          <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <Image src={TableBottom} alt="" />
+          <Box
+            sx={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "flex-end",
+            }}
+          >
+            <Image
+              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
+              src={TableBottom}
+              alt=""
+            />
           </Box>
         </Grid>
       </Grid>

@@ -24,17 +24,25 @@ export default function PlannerCards() {
       }}
     >
       <Box style={{ width: "100%", paddingLeft: 25 }}>
-        <Typography variant="h5" sx={{ textAlign: "left" }}>
+        <Typography variant="h5" sx={{ textAlign: "left", fontSize: 30 }}>
           scheduled booking
         </Typography>
       </Box>
       {[1, 2].map((item) => {
         return (
-          <Card sx={{ minWidth: 300, minHeight: 100, borderRadius: 5, mt: 3 }}>
+          <Card
+            sx={{
+              minWidth: "100%",
+              minHeight: 100,
+              borderRadius: 5,
+              mt: 3,
+              backgroundColor: "#faf9f6",
+            }}
+          >
             <CardContent>
               <Typography
                 sx={{
-                  fontSize: 16,
+                  fontSize: 22,
                   fontWeight: 600,
                   textAlign: "left",
                   marginTop: 1,
@@ -46,7 +54,7 @@ export default function PlannerCards() {
               <Grid sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Typography
                   sx={{
-                    fontSize: 16,
+                    fontSize: 22,
                     fontWeight: 600,
                     textAlign: "left",
                     marginTop: 1,
@@ -59,7 +67,7 @@ export default function PlannerCards() {
               </Grid>
               <Typography
                 sx={{
-                  fontSize: 16,
+                  fontSize: 22,
                   fontWeight: 600,
                   textAlign: "left",
                   marginTop: 1,
@@ -73,7 +81,10 @@ export default function PlannerCards() {
         );
       })}
       <Box style={{ width: "100%", paddingLeft: 25 }}>
-        <Typography variant="h5" sx={{ mt: 3, textAlign: "left" }}>
+        <Typography
+          variant="h5"
+          sx={{ mt: 3, textAlign: "left", fontSize: 30 }}
+        >
           complete booking
         </Typography>
       </Box>
@@ -81,12 +92,18 @@ export default function PlannerCards() {
         return (
           <>
             <Card
-              sx={{ minWidth: 300, minHeight: 100, borderRadius: 5, mt: 3 }}
+              sx={{
+                minWidth: "100%",
+                minHeight: 100,
+                borderRadius: 5,
+                mt: 3,
+                backgroundColor: "#faf9f6",
+              }}
             >
               <CardContent>
                 <Typography
                   sx={{
-                    fontSize: 16,
+                    fontSize: 22,
                     fontWeight: 600,
                     textAlign: "left",
                     marginTop: 1,
@@ -98,7 +115,7 @@ export default function PlannerCards() {
                 <Grid sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Typography
                     sx={{
-                      fontSize: 16,
+                      fontSize: 22,
                       fontWeight: 600,
                       textAlign: "left",
                       marginTop: 1,
@@ -111,7 +128,7 @@ export default function PlannerCards() {
                 </Grid>
                 <Typography
                   sx={{
-                    fontSize: 16,
+                    fontSize: 22,
                     fontWeight: 600,
                     textAlign: "left",
                     marginTop: 1,
@@ -123,7 +140,9 @@ export default function PlannerCards() {
               </CardContent>
             </Card>
             <Grid sx={{ mt: 1, display: "flex", justifyContent: "flex-start" }}>
-              <Typography sx={{ mr: 1 }}>Rate Experience:</Typography>
+              <Typography sx={{ mr: 1, fontSize: 20 }}>
+                Rate Experience:
+              </Typography>
               <Rating
                 name={`simple-controlled-${index}`}
                 value={values[index]}

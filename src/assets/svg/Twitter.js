@@ -1,0 +1,31 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="45.086"
+  height="40.011"
+  viewBox="0 0 45.086 40.011"
+>
+  <defs>
+    <filter
+      id="tting9gb5a"
+      x="0"
+      y="0"
+      width="45.086"
+      height="40.011"
+      filterUnits="userSpaceOnUse"
+    >
+      <feOffset dy="3" />
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feFlood flood-opacity=".749" />
+      <feComposite operator="in" in2="blur" />
+      <feComposite in="SourceGraphic" />
+    </filter>
+  </defs>
+  <g style="filter:url(#tting9gb5a)">
+    <path
+      data-name="icons8-twitter (1)"
+      d="M27.027 8.222a11.116 11.116 0 0 1-3.194.876 5.571 5.571 0 0 0 2.445-3.074 11.158 11.158 0 0 1-3.53 1.347 5.559 5.559 0 0 0-9.468 5.068A15.779 15.779 0 0 1 1.827 6.633a5.569 5.569 0 0 0 1.72 7.422 5.552 5.552 0 0 1-2.518-.7v.07a5.565 5.565 0 0 0 4.456 5.451 5.561 5.561 0 0 1-1.463.194 5.353 5.353 0 0 1-1.047-.1 5.57 5.57 0 0 0 5.191 3.861 11.14 11.14 0 0 1-6.9 2.377 10.927 10.927 0 0 1-1.324-.078 15.7 15.7 0 0 0 8.518 2.5 15.7 15.7 0 0 0 15.81-15.811c0-.241-.006-.483-.015-.72a11.3 11.3 0 0 0 2.772-2.877z"
+      transform="translate(9.06 .38)"
+      style="fill:#fff"
+    />
+  </g>
+</svg>;

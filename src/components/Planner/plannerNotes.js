@@ -80,7 +80,10 @@ export default function PlannerNotes() {
         message={<span id="message-id">{message1}</span>}
       />
       <Box style={{ width: "100%", paddingLeft: 25 }}>
-        <Typography variant="h5" sx={{ mb: 2, textAlign: "left" }}>
+        <Typography
+          variant="h5"
+          sx={{ mb: 2, textAlign: "left", fontSize: 30 }}
+        >
           date notes
         </Typography>
       </Box>
@@ -92,9 +95,9 @@ export default function PlannerNotes() {
         minDate={new Date()}
       />
       <Card sx={{ minWidth: 300, minHeight: 200, borderRadius: 5, mt: 3 }}>
-        <CardContent sx={{ wordWrap: "break-word" }}>
+        <CardContent sx={{ wordWrap: "break-word", fontSize: 15 }}>
           <TextField
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, fontSize: 15 }}
             id="standard-basic"
             placeholder="Start Typing here (100 Characters Limit)"
             variant="standard"

@@ -23,15 +23,19 @@ export default function Planner() {
 
   return (
     <>
+      <div
+        style={{
+          marginLeft: 20,
+          top: "160px",
+          position: "fixed",
+          zIndex: 10,
+        }}
+      >
+        <WebTabs selectedTab={3} />
+      </div>
       <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
         <CustomHeader />
-        <Grid
-          container
-          sx={{ display: "flex", justifyContent: "space-evenly", mt: 15 }}
-        >
-          <Grid sx={{ textAlign: "center" }} item xs={12} sm={12} md={1} lg={1}>
-            <WebTabs selectedTab={5} />
-          </Grid>
+        <Grid container sx={{ justifyContent: "space-evenly", mt: 15 }}>
           <Grid
             sx={{ mt: 2, textAlign: "center" }}
             item
@@ -83,18 +87,29 @@ export default function Planner() {
         <Grid
           item
           md={3}
-          sm={5}
+          sm={12}
           xs={12}
           sx={{
             marginBottom: 4,
-            marginLeft: 7,
+            marginLeft: 5,
+            marginRight: 5,
           }}
         >
           <MenuSection />
         </Grid>
         <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-          <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <Image src={TableBottom} alt="" />
+          <Box
+            sx={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "flex-end",
+            }}
+          >
+            <Image
+              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
+              src={TableBottom}
+              alt=""
+            />
           </Box>
         </Grid>
       </Grid>

@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import TableTop from "src/assets/svg/TableTop";
 import { useAuthState, useAuthDispatch } from "src/context/auth.context";
 import { Snackbar, Button } from "@mui/material";
-import { capitalize } from 'lodash';
+import { capitalize } from "lodash";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -44,7 +44,14 @@ export const FormWb = () => {
             // justifyContent: "space-between",
           }}
         >
-          <Typography sx={{ fontFamily: "Roboto-Regular", fontSize: "40px", alignSelf: "center" }}>find workspaces</Typography>
+          <Typography
+            sx={{
+              fontSize: "40px",
+              alignSelf: "center",
+            }}
+          >
+            find workspaces
+          </Typography>
           <TextInput
             alignItems="flex-start"
             id="place"
@@ -73,17 +80,19 @@ export const FormWb = () => {
               backgroundColor: "#005451",
               width: "90%",
               alignSelf: "center",
-              borderRadius: '16px',
+              borderRadius: "16px",
               marginBottom: 3,
               "&:hover": {
                 backgroundColor: "#ffff00",
-                color: '#000'
+                color: "#000",
               },
             }}
             onClick={() => {
               router.push("./WorkFromIndoor");
             }}
-          >SEARCH</Button>
+          >
+            SEARCH
+          </Button>
         </Card>
       </Box>
     </Grid>
@@ -113,7 +122,7 @@ export const HostWorkSpaceWb = () => {
   }
 
   function handleHostWorkspaceSignIn() {
-    router.push('./signin')
+    router.push("./signin");
   }
 
   return (
@@ -130,11 +139,11 @@ export const HostWorkSpaceWb = () => {
         message={<span id="message-id">{message}</span>}
       />
       <Grid
-        sx={{ display: { xs: "none", md: "flex" }, marginY: 4 }}
+        sx={{ display: { xs: "none", md: "flex" }, marginY: 4, marginX: 4 }}
         container
         spacing={2}
       >
-        <Grid item md={4} lg={3.5}>
+        <Grid item md={5} lg={5}>
           <img
             src={`${"https://wallpaperaccess.com/full/3678503.png"}`}
             srcSet={`${"https://wallpaperaccess.com/full/38119.jpg"}`}
@@ -147,7 +156,7 @@ export const HostWorkSpaceWb = () => {
             }}
           />
         </Grid>
-        <Grid item md={4} lg={5}>
+        <Grid item md={7} lg={7}>
           <Box
             sx={{
               width: "100%",
@@ -155,13 +164,34 @@ export const HostWorkSpaceWb = () => {
               flexDirection: "column",
             }}
           >
-            <Typography sx={{ fontSize: '80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+            <Typography
+              sx={{
+                fontSize: "80px",
+                fontFamily: "Roboto",
+                marginX: 1,
+              }}
+              variant="h4"
+            >
               host
             </Typography>
-            <Typography sx={{ fontSize: '80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+            <Typography
+              sx={{
+                fontSize: "80px",
+                fontFamily: "Roboto",
+                marginX: 1,
+              }}
+              variant="h4"
+            >
               Your
             </Typography>
-            <Typography sx={{ fontSize: '80px', fontFamily: 'Roboto-Regular', marginX: 1 }} variant="h4">
+            <Typography
+              sx={{
+                fontSize: "80px",
+                fontFamily: "Roboto",
+                marginX: 1,
+              }}
+              variant="h4"
+            >
               Workspace
             </Typography>
           </Box>
@@ -174,69 +204,124 @@ export const HostWorkSpaceWb = () => {
               marginTop: 1,
             }}
           >
-            <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "600" }}>
+            <Typography
+              sx={{
+                marginX: 1,
+                fontSize: 32,
+                fontWeight: "600",
+              }}
+            >
               {"Indoor and Outdoor! Let People"}
             </Typography>
-            <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "600" }}>
+            <Typography
+              sx={{
+                marginX: 1,
+                fontSize: 32,
+                fontWeight: "600",
+              }}
+            >
               {"Discover your worksapce on our"}
             </Typography>
-            <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "600" }}>
+            <Typography
+              sx={{
+                marginX: 1,
+                fontSize: 32,
+                fontWeight: "600",
+              }}
+            >
               {"Platform"}
             </Typography>
           </Box>
-          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300" }}>
+          <Typography
+            sx={{
+              marginX: 1,
+              fontSize: 32,
+              fontWeight: "300",
+            }}
+          >
             {"Learn"}
           </Typography>
-          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300" }}>
+          <Typography
+            sx={{
+              marginX: 1,
+              fontSize: 32,
+              fontWeight: "300",
+            }}
+          >
             {"Study"}
           </Typography>
-          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300" }}>
+          <Typography
+            sx={{
+              marginX: 1,
+              fontSize: 32,
+              fontWeight: "300",
+            }}
+          >
             {"Work"}
           </Typography>
-          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300" }}>
+          <Typography
+            sx={{
+              marginX: 1,
+              fontSize: 32,
+              fontWeight: "300",
+            }}
+          >
             {"Collaborate"}
           </Typography>
-          <Typography sx={{ fontFamily: 'Arial-Regular', marginX: 1, fontSize: 32, fontWeight: "300", mb: 2 }}>
+          <Typography
+            sx={{
+              marginX: 1,
+              fontSize: 32,
+              fontWeight: "300",
+            }}
+          >
             {"& More"}
           </Typography>
 
-          {auth?.user?._id ? <Button
-            variant="contained"
-            sx={{
-              textTransform: 'capitalize',
-              backgroundColor: "#005451",
-              width: "325px",
-              height: '59px',
-              alignSelf: "center",
-              marginBottom: 3,
-              borderRadius: '16px',
-              fontFamily: 'Roboto-Regular',
-              fontSize: '25px',
-              "&:hover": {
-                backgroundColor: "#ffff00",
-                color: '#000'
-              },
-            }}
-            onClick={handleHostWorkspace}
-          >Host Workspace</Button> : <Button
-            variant="contained"
-            sx={{
-              textTransform: 'capitalize',
-              backgroundColor: "#005451",
-              width: "325px",
-              height: '59px',
-              alignSelf: "center",
-              marginBottom: 3,
-              borderRadius: '16px',
-              fontFamily: 'Roboto-Regular',
-              fontSize: '25px',
-              "&:hover": {
-                backgroundColor: "#ffff00",
-                color: '#000'
-              },
-            }}
-            onClick={handleHostWorkspaceSignIn}
-          >Sign In</Button>}
+          {auth?.user?._id ? (
+            <Button
+              variant="contained"
+              sx={{
+                textTransform: "capitalize",
+                backgroundColor: "#005451",
+                width: "325px",
+                height: "59px",
+                alignSelf: "center",
+                marginBottom: 3,
+                borderRadius: "16px",
+                fontSize: "25px",
+                "&:hover": {
+                  backgroundColor: "#ffff00",
+                  color: "#000",
+                },
+              }}
+              onClick={handleHostWorkspace}
+            >
+              Host Workspace
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              sx={{
+                textTransform: "capitalize",
+                backgroundColor: "#005451",
+                width: "325px",
+                height: "59px",
+                alignSelf: "center",
+                marginBottom: 3,
+                borderRadius: "16px",
+                fontFamily: "Roboto-Regular",
+                fontSize: "25px",
+                "&:hover": {
+                  backgroundColor: "#ffff00",
+                  color: "#000",
+                },
+              }}
+              onClick={handleHostWorkspaceSignIn}
+            >
+              Sign In
+            </Button>
+          )}
         </Grid>
       </Grid>
     </>

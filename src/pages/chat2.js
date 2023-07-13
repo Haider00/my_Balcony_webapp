@@ -334,6 +334,16 @@ export default function chat2() {
 
   return (
     <>
+      <div
+        style={{
+          marginLeft: 20,
+          top: "160px",
+          position: "fixed",
+          zIndex: 10,
+        }}
+      >
+        <WebTabs selectedTab={3} />
+      </div>
       <Box
         style={{
           maxWidth: 1400,
@@ -353,9 +363,6 @@ export default function chat2() {
           sx={{ mt: 18, display: "flex", justifyContent: "space-between" }}
           container
         >
-          <Grid style={{ marginTop: 56 }} item xs={1} md={1}>
-            <WebTabs selectedTab={2} />
-          </Grid>
           <Grid
             sx={{ textAlign: "center", minHeight: 200 }}
             item
@@ -420,7 +427,9 @@ export default function chat2() {
                   </Card>
                 ))
               ) : (
-                <Typography sx={{mt:30}} variant="body1">No chats available.</Typography>
+                <Typography sx={{ mt: 30 }} variant="body1">
+                  No chats available.
+                </Typography>
               )}
             </Grid>
           </Grid>
@@ -435,71 +444,77 @@ export default function chat2() {
             md={12}
             lg={5}
           >
-            {chatID && <>
-            <Typography variant="h5">Chat Name</Typography>
-            <Grid
-              sx={{
-                display: "flex",
-                justifyContent: "flex-start",
-                flexDirection: "column-reverse",
-                alignItems: "center",
-                height: 500,
-                marginTop: 3,
-                overflowY: "auto",
-                scrollbarWidth: "thin",
-                "&::-webkit-scrollbar": {
-                  width: "0.6em",
-                },
-                "&::-webkit-scrollbar-track": {
-                  borderRadius: "8px",
-                  backgroundColor: "#e7e7e7",
-                  border: "1px solid #cacaca",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "#363636",
-                  borderRadius: "8px",
-                },
-              }}
-            >
-              {messageArr.length > 0 ? (
-                messageArr.map((item) => (
-                  <div
-                    key={item._id}
-                    className={`${
-                      auth.user?._id === (item.from?._id || item.from)
-                        ? styles.chat_box_right
-                        : styles.chat_box_left
-                    }`}
-                  >
-                    <div className={`${styles.user_input}`}>{item.text}</div>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="https://png.pngtree.com/png-vector/20220817/ourmid/pngtree-cartoon-man-avatar-vector-ilustration-png-image_6111064.png"
-                    />
-                    {/* <div className={`${styles.user_output}`}>
+            {chatID && (
+              <>
+                <Typography variant="h5">Chat Name</Typography>
+                <Grid
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    flexDirection: "column-reverse",
+                    alignItems: "center",
+                    height: 500,
+                    marginTop: 3,
+                    overflowY: "auto",
+                    scrollbarWidth: "thin",
+                    "&::-webkit-scrollbar": {
+                      width: "0.6em",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      borderRadius: "8px",
+                      backgroundColor: "#e7e7e7",
+                      border: "1px solid #cacaca",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      backgroundColor: "#363636",
+                      borderRadius: "8px",
+                    },
+                  }}
+                >
+                  {messageArr.length > 0 ? (
+                    messageArr.map((item) => (
+                      <div
+                        key={item._id}
+                        className={`${
+                          auth.user?._id === (item.from?._id || item.from)
+                            ? styles.chat_box_right
+                            : styles.chat_box_left
+                        }`}
+                      >
+                        <div className={`${styles.user_input}`}>
+                          {item.text}
+                        </div>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src="https://png.pngtree.com/png-vector/20220817/ourmid/pngtree-cartoon-man-avatar-vector-ilustration-png-image_6111064.png"
+                        />
+                        {/* <div className={`${styles.user_output}`}>
                                         {item.from?.firstName || item.from}
                                     </div> */}
-                  </div>
-                ))
-              ) : (
-                <Typography variant="body1">No Messages Available.</Typography>
-              )}
-            </Grid>
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <TextField
-                  id="message"
-                  label="Message"
-                  variant="outlined"
-                  size="small"
-                  onChange={handleMessageText}
-                  sx={{ width: "70%", marginTop: 3, marginRight: 1 }}
-                />
-                <SendIcon
-                  onClick={sendMessage}
-                  sx={{ cursor: "pointer", marginTop: 3 }}
-                />
-              </Box>
-            </>}
+                      </div>
+                    ))
+                  ) : (
+                    <Typography variant="body1">
+                      No Messages Available.
+                    </Typography>
+                  )}
+                </Grid>
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                  <TextField
+                    id="message"
+                    label="Message"
+                    variant="outlined"
+                    size="small"
+                    onChange={handleMessageText}
+                    sx={{ width: "70%", marginTop: 3, marginRight: 1 }}
+                  />
+                  <SendIcon
+                    onClick={sendMessage}
+                    sx={{ cursor: "pointer", marginTop: 3 }}
+                  />
+                </Box>
+              </>
+            )}
           </Grid>
         </Grid>
       </Box>
@@ -515,18 +530,29 @@ export default function chat2() {
         <Grid
           item
           md={3}
-          sm={5}
+          sm={12}
           xs={12}
           sx={{
             marginBottom: 4,
-            marginLeft: 7,
+            marginLeft: 5,
+            marginRight: 5,
           }}
         >
           <MenuSection />
         </Grid>
         <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-          <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <Image src={TableBottom} alt="" />
+          <Box
+            sx={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "flex-end",
+            }}
+          >
+            <Image
+              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
+              src={TableBottom}
+              alt=""
+            />
           </Box>
         </Grid>
       </Grid>

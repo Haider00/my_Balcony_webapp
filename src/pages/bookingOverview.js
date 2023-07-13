@@ -6,15 +6,25 @@ import { Divider } from "@mui/material";
 import BushwickLoftsBookingOverview from "./BookingOverview/bushwickLoftsBookingOverview";
 import BookingOverviewDetail from "./BookingOverview/bookingOverviewDetail";
 import MenuSection from "./MenuSection/menuSection";
-import TableBottom from "src/assets/images/tablebottom.png";
+import TableBottom from "src/assets/images/tablebottom2.png";
 import Image from "next/image";
 
 export default function BookingOverview() {
   return (
     <>
+      <div
+        style={{
+          marginLeft: 20,
+          top: "160px",
+          position: "fixed",
+          zIndex: 10,
+        }}
+      >
+        <WebTabs selectedTab={3} />
+      </div>
       <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
         <CustomHeader />
-        <Grid sx={{marginTop:15}} container>
+        <Grid sx={{ marginTop: 15, alignItems: "start" }} container>
           <Grid
             item
             xs={12}
@@ -23,13 +33,12 @@ export default function BookingOverview() {
             sx={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center",
               alignItems: "center",
             }}
           >
             <BushwickLoftsBookingOverview />
           </Grid>
-          <Divider orientation="vertical" flexItem />
+
           <Grid
             item
             xs={12}
@@ -57,18 +66,29 @@ export default function BookingOverview() {
         <Grid
           item
           md={3}
-          sm={5}
+          sm={12}
           xs={12}
           sx={{
             marginBottom: 4,
-            marginLeft: 7,
+            marginLeft: 5,
+            marginRight: 5,
           }}
         >
           <MenuSection />
         </Grid>
         <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-          <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <Image src={TableBottom} alt="" />
+          <Box
+            sx={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "flex-end",
+            }}
+          >
+            <Image
+              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
+              src={TableBottom}
+              alt=""
+            />
           </Box>
         </Grid>
       </Grid>

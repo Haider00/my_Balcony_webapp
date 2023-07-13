@@ -93,6 +93,16 @@ export default function bookeddates() {
 
   return (
     <>
+      <div
+        style={{
+          marginLeft: 20,
+          top: "160px",
+          position: "fixed",
+          zIndex: 10,
+        }}
+      >
+        <WebTabs selectedTab={3} />
+      </div>
       <Box
         style={{
           maxWidth: 1400,
@@ -108,12 +118,10 @@ export default function bookeddates() {
           container
           style={{
             marginTop: 120,
+            justifyContent: "center",
           }}
         >
-          <Grid style={{ marginTop: 56 }} item xs={1} md={1}>
-            <WebTabs selectedTab={4} />
-          </Grid>
-          <Grid item xs={12} lg={4} md={4}>
+          <Grid item xs={12} md={4} lg={4}>
             {auth.userType == "seller" ? (
               <Incomingbooking inComingBooking={inComingBooking} />
             ) : null}
@@ -127,7 +135,8 @@ export default function bookeddates() {
           <Grid
             item
             xs={12}
-            lg={6}
+            md={6}
+            lg={7}
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -151,18 +160,29 @@ export default function bookeddates() {
         <Grid
           item
           md={3}
-          sm={5}
+          sm={12}
           xs={12}
           sx={{
             marginBottom: 4,
-            marginLeft: 7,
+            marginLeft: 5,
+            marginRight: 5,
           }}
         >
           <MenuSection />
         </Grid>
         <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-          <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <Image src={TableBottom} alt="" />
+          <Box
+            sx={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "flex-end",
+            }}
+          >
+            <Image
+              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
+              src={TableBottom}
+              alt=""
+            />
           </Box>
         </Grid>
       </Grid>

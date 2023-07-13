@@ -15,7 +15,7 @@ const Button = ({
   return (
     <div
       style={{
-        marginLeft:15,
+        marginLeft: 15,
         position: "relative",
         marginTop: 15,
         marginBottom: 15,
@@ -38,7 +38,7 @@ const Button = ({
           backgroundColor: "transparent",
           outline: "1px solid #000",
           width: width,
-          height:"59px"
+          height: "59px",
         }}
       />
 
@@ -53,8 +53,7 @@ const Button = ({
           color: "#000",
           paddingInline: "5px",
           backgroundColor: "#fff",
-          fontFamily:"Roboto-Regular",
-          fontSize:"20px"
+          fontSize: "20px",
         }}
       >
         {label}

@@ -12,6 +12,7 @@ import Resizer from "react-image-file-resizer";
 import { api } from "../../utils/api";
 import styledcomp from "styled-components";
 import Router from "next/router";
+import TextInput2 from "../../component/TextInput2/index";
 
 import { useWorkspaceDispatch } from "src/context/workspace.context";
 import WorkspaceDetail from "../workspaceDetail";
@@ -36,94 +37,120 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
   }, [info]);
 
   return (
-    <Grid item xs={12} md={4}>
-      <Box
-        sx={{
-          display: "flex",
-          bgcolor: "background.paper",
-          alignItems: "center",
-          flexDirection: "column",
-          // width: "80%",
-          flex: 1,
-          height: "100%",
-          padding: { xs: 1, md: 2 },
-          marginX: 3,
-          marginY: 1.5,
-          justifyContent: "space-between",
-        }}
-      >
-        <TextInput
-          width="80%"
-          // sx={{ marginY: 1.5, width: "80%" }}
-          id="name"
-          label="name"
-          // variant="outlined"
-          size="small"
-          onChange={(e) => {
-            setInfo({ ...info, name: e.target.value });
+    <Grid>
+      <Box>
+        <div
+          style={{
+            marginBottom: "30px",
+            width: "355px",
+            marginLeft: "auto",
+            marginRight: "auto",
           }}
-          value={info?.name}
-        />
-        <TextInput
-          width="80%"
-          // sx={{ marginY: 1.5, width: "80%" }}
-          id="address"
-          label="address"
-          // variant="outlined"
-          size="small"
-          onChange={(e) => {
-            setInfo({ ...info, address: e.target.value });
+        >
+          <TextInput2
+            id="name"
+            label="Name of Workspace:"
+            size="small"
+            onChange={(e) => {
+              setInfo({ ...info, name: e.target.value });
+            }}
+            value={info?.name}
+          />
+        </div>
+        <div
+          style={{
+            marginBottom: "30px",
+            width: "355px",
+            marginLeft: "auto",
+            marginRight: "auto",
           }}
-          value={info?.address}
-        />
-        <TextInput
-          width="80%"
-          // sx={{ marginY: 1.5, width: "80%" }}
-          id="address"
-          label="address2"
-          // variant="outlined"
-          size="small"
-          onChange={(e) => {
-            setInfo({ ...info, address2: e.target.value });
+        >
+          <TextInput2
+            id="address"
+            label="Address:"
+            size="small"
+            onChange={(e) => {
+              setInfo({ ...info, address: e.target.value });
+            }}
+            value={info?.address}
+          />
+        </div>
+
+        <div
+          style={{
+            marginBottom: "30px",
+            width: "355px",
+            marginLeft: "auto",
+            marginRight: "auto",
           }}
-          value={info?.address2}
-        />
-        <TextInput
-          width="80%"
-          // sx={{ marginY: 1.5, width: "80%" }}
-          id="city"
-          label="city"
-          // variant="outlined"
-          size="small"
-          onChange={(e) => {
-            setInfo({ ...info, city: e.target.value });
+        >
+          <TextInput2
+            id="address"
+            label="Address2:"
+            size="small"
+            onChange={(e) => {
+              setInfo({ ...info, address2: e.target.value });
+            }}
+            value={info?.address2}
+          />
+        </div>
+
+        <div
+          style={{
+            marginBottom: "30px",
+            width: "355px",
+            marginLeft: "auto",
+            marginRight: "auto",
           }}
-          value={info?.city}
-        />
-        <TextInput
-          width="80%"
-          // sx={{ marginY: 1.5, width: "80%" }}
-          id="state"
-          label="state"
-          // variant="outlined"
-          size="small"
-          onChange={(e) => {
-            setInfo({ ...info, state: e.target.value });
+        >
+          <TextInput2
+            id="city"
+            label="City:"
+            size="small"
+            onChange={(e) => {
+              setInfo({ ...info, city: e.target.value });
+            }}
+            value={info?.city}
+          />
+        </div>
+
+        <div
+          style={{
+            marginBottom: "30px",
+            width: "355px",
+            marginLeft: "auto",
+            marginRight: "auto",
           }}
-          value={info?.state}
-        />
-        <TextInput
-          width="80%"
-          // sx={{ marginY: 1.5, width: "80%" }}
-          id="country"
-          label="country"
-          // variant="outlined"
-          size="small"
-          onChange={(e) => {
-            setInfo({ ...info, country: e.target.value });
+        >
+          <TextInput2
+            id="state"
+            label="State:"
+            size="small"
+            onChange={(e) => {
+              setInfo({ ...info, state: e.target.value });
+            }}
+            value={info?.state}
+          />
+        </div>
+
+        <div
+          style={{
+            marginBottom: "30px",
+            width: "355px",
+            marginLeft: "auto",
+            marginRight: "auto",
           }}
-          value={info?.country}
-        />
+        >
+          <TextInput2
+            id="country"
+            label="Country:"
+            size="small"
+            onChange={(e) => {
+              setInfo({ ...info, country: e.target.value });
+            }}
+            value={info?.country}
+          />
+        </div>
         <Box
           sx={{
             marginY: 1.5,
@@ -138,6 +165,8 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
+              marginLeft: "auto",
+              marginRight: "auto",
             }}
           >
             <div
@@ -156,11 +185,11 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
             <Typography
               style={{
                 width: "100%",
-                fontSize: 14,
+                fontSize: 13,
                 color: "#000",
               }}
             >
-              Host Indoor
+              Hosting Indoor
             </Typography>
           </div>
           <div
@@ -187,11 +216,11 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
             <Typography
               style={{
                 width: "100%",
-                fontSize: 14,
+                fontSize: 13,
                 color: "#000",
               }}
             >
-              Host Outdoor
+              Hosting Outdoor
             </Typography>
           </div>
         </Box>
@@ -201,28 +230,18 @@ export const FormWb = ({ handleInfo = ({}) => {} }) => {
 };
 export const LeftWallpaperWb = () => {
   return (
-    <Grid
-      item
-      xs={12}
-      md={4}
-      sx={{
-        display: "flex",
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        paddingRight: 20,
-      }}
-    >
+    <Grid>
       <Typography
         style={{
-          width: "100%",
           fontSize: 34,
           color: "#000",
           fontWeight: "600",
-          fontFamily:'Roboto-Regular'
         }}
       >
-        We need a few information about you and your workSpace
+        We need a few
+        <br />
+        information about you
+        <br /> and your workspace..
       </Typography>
     </Grid>
   );
@@ -238,7 +257,7 @@ export const WorksapceImages = () => {
   const uploadFileRef = useRef(null);
 
   const handleUploadImage = (e) => {
-    console.log('e',e);
+    console.log("e", e);
     uploadImages(e.target.files[0]);
   };
   const handleUploadImageClick = () => {
@@ -258,7 +277,7 @@ export const WorksapceImages = () => {
         api
           .uploadImage({ image: uri })
           .then((res) => {
-            console.log('FILES>>>>', res)
+            console.log("FILES>>>>", res);
             if (imageType === "main") {
               workSpaceDispatch({
                 type: "SET_WORKSPACE_FIRST_IMAGE",
@@ -281,7 +300,7 @@ export const WorksapceImages = () => {
             // handleUploadProductImage(res.data, product, element.cover);
           })
           .catch((err) => {
-            console.log('FILES>>>>E', err.response)
+            console.log("FILES>>>>E", err.response);
             // setDisplay(true);
             // setMessage("Something Went Wrong While Adding Your Post");
           });

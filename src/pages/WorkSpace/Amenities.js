@@ -140,6 +140,7 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
   };
   return (
     <div
+      className="amenities-container"
       style={{
         display: "flex",
         flexDirection: "row",

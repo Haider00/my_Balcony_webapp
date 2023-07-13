@@ -40,74 +40,76 @@ export default function WorkFromIndoorImage() {
   };
 
   return (
-    <div style={{ width: "100%", marginTop: 150 }}>
-      <div
-        style={{
-          display: "flex",
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          marginBottom: 50,
-        }}
-      >
-        <Typography variant="h5">Work from Outdoor</Typography>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {indoorWorkspace.data?.map((item) => (
-          <div
-            style={{
-              height: 300,
-              width: 325,
-            }}
-          >
+    <>
+      <div style={{ width: "100%", marginTop: 150 }}>
+        <div
+          style={{
+            display: "flex",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            marginBottom: 50,
+          }}
+        >
+          <Typography variant="h5">Work from Outdoor</Typography>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {indoorWorkspace.data?.map((item) => (
             <div
-              onClick={() => {
-                router.push(`./workspaceDetail?wd=${item._id}`);
-              }}
               style={{
-                cursor: "pointer",
-                height: 200,
-                width: "280px",
-                borderRadius: 10,
-                backgroundColor: "#000",
-                justifyContent: "flex-start",
-                alignItems: "flex-end",
-                display: "flex",
+                height: 300,
+                width: 325,
               }}
             >
               <div
+                onClick={() => {
+                  router.push(`./workspaceDetail?wd=${item._id}`);
+                }}
                 style={{
-                  height: 20,
-                  width: "15%",
+                  cursor: "pointer",
+                  height: 200,
+                  width: "280px",
                   borderRadius: 10,
-                  marginBottom: 7,
-                  marginLeft: 7,
-                  backgroundColor: "#fff",
-                  fontSize: 10,
-                  fontWeight: "bold",
-                  textAlign: "center",
-                  lineHeight: 2,
+                  backgroundColor: "#000",
+                  justifyContent: "flex-start",
+                  alignItems: "flex-end",
+                  display: "flex",
                 }}
               >
-                $
-                {parseInt(item.cleaningFee) +
-                  parseInt(item.maintenancesFee) +
-                  parseInt(item.otherFeeAmount) * parseInt(item.perPerson)}
+                <div
+                  style={{
+                    height: 20,
+                    width: "15%",
+                    borderRadius: 10,
+                    marginBottom: 7,
+                    marginLeft: 7,
+                    backgroundColor: "#fff",
+                    fontSize: 10,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    lineHeight: 2,
+                  }}
+                >
+                  $
+                  {parseInt(item.cleaningFee) +
+                    parseInt(item.maintenancesFee) +
+                    parseInt(item.otherFeeAmount) * parseInt(item.perPerson)}
+                </div>
               </div>
+              <Typography sx={{ marginTop: 1 }}>{item.name}</Typography>
+              {hanldeRating(item)}
             </div>
-            <Typography sx={{ marginTop: 1 }}>{item.name}</Typography>
-            {hanldeRating(item)}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Pagination
@@ -117,6 +119,6 @@ export default function WorkFromIndoorImage() {
           onChange={handleChangePage}
         />
       </div>
-    </div>
+    </>
   );
 }

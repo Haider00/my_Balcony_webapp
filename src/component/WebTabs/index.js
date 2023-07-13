@@ -9,15 +9,14 @@ import { useAuthState } from "src/context/auth.context";
 import { useState } from "react";
 import { Snackbar, Typography } from "@mui/material";
 import Image from "next/image";
-import AccountBlack from "src/assets/images/accountBlack.png"
-import AccountWhite from "src/assets/images/accountWhite.png"
-import PlannerWhite from "src/assets/images/calendarWhite.png"
-import PlannerBlack from "src/assets/images/calendarBlack.png"
-import BookedBlack from "src/assets/images/BookedBlack.png"
-import BookedWhite from "src/assets/images/BookedWhite.png"
-import ChatBlack from "src/assets/images/chatBlack.png"
-import ChatWhite from "src/assets/images/chatWhite.png"
-
+import AccountBlack from "src/assets/images/accountBlack.png";
+import AccountWhite from "src/assets/images/accountWhite.png";
+import PlannerWhite from "src/assets/images/calendarWhite.png";
+import PlannerBlack from "src/assets/images/calendarBlack.png";
+import BookedBlack from "src/assets/images/BookedBlack.png";
+import BookedWhite from "src/assets/images/BookedWhite.png";
+import ChatBlack from "src/assets/images/chatBlack.png";
+import ChatWhite from "src/assets/images/chatWhite.png";
 
 const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
   const router = useRouter();
@@ -82,8 +81,8 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
       />
       <Card
         style={{
-          position:'absolute',
-          height: 400,
+          position: "relative",
+          height: "auto",
           width: 80,
           backgroundColor: "#fff",
           borderRadius: 10,
@@ -91,8 +90,8 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingTop: 5,
-          paddingBottom: 5,
+          paddingTop: 40,
+          paddingBottom: 40,
         }}
       >
         <div
@@ -117,7 +116,9 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             }}
           />
         </div>
-        <Typography variant="caption">home</Typography>
+        <Typography sx={{ fontSize: 14 }} variant="caption">
+          home
+        </Typography>
         <div
           style={{
             height: 50,
@@ -129,18 +130,33 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
-          {selectedTab === 2 ? <Image style={{
-              color: selectedTab === 2 ? "#fff" : "#000",
-              fontSize: 35,
-              cursor: "pointer",
-            }} onClick={handleChatClick} src={ChatWhite} alt="" /> : 
-            <Image style={{
-              color: selectedTab === 2 ? "#fff" : "#000",
-              fontSize: 35,
-              cursor: "pointer",
-            }} onClick={handleChatClick} src={ChatBlack} alt="" />}
+          {selectedTab === 2 ? (
+            <Image
+              style={{
+                color: selectedTab === 2 ? "#fff" : "#000",
+                fontSize: 35,
+                cursor: "pointer",
+              }}
+              onClick={handleChatClick}
+              src={ChatWhite}
+              alt=""
+            />
+          ) : (
+            <Image
+              style={{
+                color: selectedTab === 2 ? "#fff" : "#000",
+                fontSize: 35,
+                cursor: "pointer",
+              }}
+              onClick={handleChatClick}
+              src={ChatBlack}
+              alt=""
+            />
+          )}
         </div>
-          <Typography variant="caption">chat</Typography>
+        <Typography sx={{ fontSize: 14 }} variant="caption">
+          chat
+        </Typography>
         <div
           style={{
             height: 50,
@@ -163,7 +179,9 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             }}
           />
         </div>
-        <Typography variant="caption">lists</Typography>
+        <Typography sx={{ fontSize: 14 }} variant="caption">
+          lists
+        </Typography>
         <div
           style={{
             height: 60,
@@ -175,18 +193,33 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
-          {selectedTab === 4 ? <Image style={{
-              color: selectedTab === 4 ? "#fff" : "#000",
-              fontSize: 35,
-              cursor: "pointer",
-            }} onClick={handleBookedDatesClick} src={BookedWhite} alt="" /> : 
-            <Image style={{
-              color: selectedTab === 4 ? "#fff" : "#000",
-              fontSize: 35,
-              cursor: "pointer",
-            }} onClick={handleBookedDatesClick} src={BookedBlack} alt="" />}
+          {selectedTab === 4 ? (
+            <Image
+              style={{
+                color: selectedTab === 4 ? "#fff" : "#000",
+                fontSize: 35,
+                cursor: "pointer",
+              }}
+              onClick={handleBookedDatesClick}
+              src={BookedWhite}
+              alt=""
+            />
+          ) : (
+            <Image
+              style={{
+                color: selectedTab === 4 ? "#fff" : "#000",
+                fontSize: 35,
+                cursor: "pointer",
+              }}
+              onClick={handleBookedDatesClick}
+              src={BookedBlack}
+              alt=""
+            />
+          )}
         </div>
-        <Typography variant="caption">booked</Typography>
+        <Typography sx={{ fontSize: 14 }} variant="caption">
+          booked
+        </Typography>
 
         <div
           style={{
@@ -199,22 +232,37 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
-          {selectedTab === 5 ? <Image style={{
-              color: selectedTab === 5 ? "#fff" : "#000",
-              fontSize: 35,
-              cursor: "pointer",
-            }} onClick={() => {
-              router.push("./planner");
-            }} src={PlannerWhite} alt="" /> : 
-            <Image style={{
-              color: selectedTab === 5 ? "#fff" : "#000",
-              fontSize: 35,
-              cursor: "pointer",
-            }} onClick={() => {
-              router.push("./planner");
-            }} src={PlannerBlack} alt="" />}
+          {selectedTab === 5 ? (
+            <Image
+              style={{
+                color: selectedTab === 5 ? "#fff" : "#000",
+                fontSize: 35,
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                router.push("./planner");
+              }}
+              src={PlannerWhite}
+              alt=""
+            />
+          ) : (
+            <Image
+              style={{
+                color: selectedTab === 5 ? "#fff" : "#000",
+                fontSize: 35,
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                router.push("./planner");
+              }}
+              src={PlannerBlack}
+              alt=""
+            />
+          )}
         </div>
-        <Typography variant="caption">planer</Typography>
+        <Typography sx={{ fontSize: 14 }} variant="caption">
+          planner
+        </Typography>
 
         <div
           style={{
@@ -227,19 +275,33 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
             alignItems: "center",
           }}
         >
-          {selectedTab === 6 ? <Image style={{
-              color: selectedTab === 6 ? "#fff" : "#000",
-              fontSize: 35,
-              cursor: "pointer",
-            }} onClick={handleAccountDashboardClick} src={AccountWhite} alt="" /> : 
-            
-            <Image style={{
-              color: selectedTab === 6 ? "#fff" : "#000",
-              fontSize: 35,
-              cursor: "pointer",
-            }} onClick={handleAccountDashboardClick} src={AccountBlack} alt="" />}
+          {selectedTab === 6 ? (
+            <Image
+              style={{
+                color: selectedTab === 6 ? "#fff" : "#000",
+                fontSize: 35,
+                cursor: "pointer",
+              }}
+              onClick={handleAccountDashboardClick}
+              src={AccountWhite}
+              alt=""
+            />
+          ) : (
+            <Image
+              style={{
+                color: selectedTab === 6 ? "#fff" : "#000",
+                fontSize: 35,
+                cursor: "pointer",
+              }}
+              onClick={handleAccountDashboardClick}
+              src={AccountBlack}
+              alt=""
+            />
+          )}
         </div>
-        <Typography variant="caption">account</Typography>
+        <Typography sx={{ fontSize: 14 }} variant="caption">
+          account
+        </Typography>
       </Card>
     </>
   );
