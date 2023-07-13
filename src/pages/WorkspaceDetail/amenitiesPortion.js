@@ -13,9 +13,9 @@ const ListItem = styledcomp.li`
 list-style: none;
 `;
 
-export default function AmenitiesPortion() {
+export default function  () {
   const workspaceDetailState = useWorkspaceDetailState();
-  // console.log("ame", workspaceDetailState);
+  console.log("ame", workspaceDetailState);
   const perPersons = workspaceDetailState.workspaceDetail.perPerson;
   const sharedWorkSpace = workspaceDetailState.workspaceDetail.sharedWorkSpace;
 

@@ -7,7 +7,7 @@ import { amenitiesArr } from "../../utils/amenities";
 import CheckBoxLabel from "../CheckBoxLabel";
 
 export const Filter = ({
-  onClose = ({}) => {},
+  onClose = ({ }) => { },
   open,
   workSpaceFilterVal = {},
 }) => {
@@ -27,7 +27,7 @@ export const Filter = ({
     if (arr.includes(item)) {
       const index = arr.indexOf(item);
       if (index > -1) {
-        arr.splice(index, 1); // 2nd parameter means remove one item only
+        arr.splice(index, 1);
       }
       setAmenitiesFilter([...arr]);
     } else {
@@ -45,6 +45,9 @@ export const Filter = ({
       }}
     >
       <Icons.CloseOutlined
+        onClick={() => {
+          onClose(workSpaceFilter);
+        }}
         style={{
           color: "#000",
           fontSize: 25,
@@ -162,15 +165,6 @@ export const Filter = ({
             </div>
           ))}
         </div>
-        <Icons.FilterAlt
-          style={{
-            color: "#000",
-            fontSize: 35,
-            margin: 10,
-            marginRight: 10,
-            cursor: "pointer",
-          }}
-        />
       </Box>
     </Drawer>
   );

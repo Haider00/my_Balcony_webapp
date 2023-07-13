@@ -29,7 +29,7 @@ export default function WorkspaceDetail() {
       api
         .getWorkSpace({ query: `?_id=${router.query.wd}` })
         .then((res) => {
-          // console.log("resp>>>", res.data[0]);
+          console.log("resp>>>", res.data[0]);
           setName(res.data[0].name);
 
           const ratings = res.data[0].rating;

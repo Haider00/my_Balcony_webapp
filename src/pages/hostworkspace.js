@@ -125,6 +125,7 @@ export default function HostWorkSpace({}) {
         image: workspaceState?.firstImage?.Location || "",
       })
       .then((res) => {
+        console.log('resssss',res);
         setMessage("workspace hosted successfully");
         setDisplay(true);
         createWorkSpaceTimeAndDay(res);
