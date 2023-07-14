@@ -35,6 +35,16 @@ export default function BookingOverview() {
   }
   return (
     <>
+      <div
+        style={{
+          marginLeft: 20,
+          top: "160px",
+          position: "fixed",
+          zIndex: 10,
+        }}
+      >
+        <WebTabs selectedTab={6} />
+      </div>
       <CustomHeader />
 
       <Snackbar
@@ -48,7 +58,14 @@ export default function BookingOverview() {
         }}
         message={<span id="message-id">{message}</span>}
       />
-      <Box style={{marginTop:120, maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
+      <Box
+        style={{
+          marginTop: 120,
+          maxWidth: 1400,
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+      >
         <Grid
           sx={{
             display: "flex",
@@ -58,9 +75,6 @@ export default function BookingOverview() {
           }}
           container
         >
-          <Grid style={{ marginTop: 56 }} item xs={1} md={1}>
-            <WebTabs selectedTab={6} />
-          </Grid>
           {auth.userType == "seller" ? (
             <Grid
               item
@@ -281,18 +295,29 @@ export default function BookingOverview() {
         <Grid
           item
           md={3}
-          sm={5}
+          sm={12}
           xs={12}
           sx={{
             marginBottom: 4,
-            marginLeft: 7,
+            marginLeft: 5,
+            marginRight: 5,
           }}
         >
           <MenuSection />
         </Grid>
         <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-          <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <Image src={TableBottom} alt="" />
+          <Box
+            sx={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "flex-end",
+            }}
+          >
+            <Image
+              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
+              src={TableBottom}
+              alt=""
+            />
           </Box>
         </Grid>
       </Grid>

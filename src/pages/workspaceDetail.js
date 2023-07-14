@@ -71,7 +71,7 @@ export default function WorkspaceDetail() {
           {!isMediumScreen && (
             <Divider className="divider" orientation="vertical" flexItem />
           )}
-          <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={3}>
+          <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={5} lg={3}>
             <AmenitiesPortion />
           </Grid>
           {!isMediumScreen && (
@@ -111,18 +111,29 @@ export default function WorkspaceDetail() {
         <Grid
           item
           md={3}
-          sm={5}
+          sm={12}
           xs={12}
           sx={{
             marginBottom: 4,
-            marginLeft: 7,
+            marginLeft: 5,
+            marginRight: 5,
           }}
         >
           <MenuSection />
         </Grid>
         <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-          <Box sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}>
-            <Image src={TableBottom} alt="" />
+          <Box
+            sx={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "flex-end",
+            }}
+          >
+            <Image
+              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
+              src={TableBottom}
+              alt=""
+            />
           </Box>
         </Grid>
       </Grid>

@@ -342,7 +342,7 @@ export default function chat2() {
           zIndex: 10,
         }}
       >
-        <WebTabs selectedTab={3} />
+        <WebTabs selectedTab={2} />
       </div>
       <Box
         style={{

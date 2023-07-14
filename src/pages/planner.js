@@ -31,7 +31,7 @@ export default function Planner() {
           zIndex: 10,
         }}
       >
-        <WebTabs selectedTab={3} />
+        <WebTabs selectedTab={5} />
       </div>
       <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
         <CustomHeader />
