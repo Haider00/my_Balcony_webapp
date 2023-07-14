@@ -182,7 +182,7 @@ export const HostWorkSpaceWb = () => {
               }}
               variant="h4"
             >
-              Your
+              your
             </Typography>
             <Typography
               sx={{
@@ -192,7 +192,7 @@ export const HostWorkSpaceWb = () => {
               }}
               variant="h4"
             >
-              Workspace
+              workspace
             </Typography>
           </Box>
           <Box

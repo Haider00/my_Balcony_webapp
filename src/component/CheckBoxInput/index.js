@@ -10,7 +10,6 @@ const CheckBoxInput = ({
   onChangeInput = () => {},
   onbox = () => {},
 }) => {
-  // const workspaceDispatch = useWorkspaceDispatch();
   const [checked, setChecked] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
 
