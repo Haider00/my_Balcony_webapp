@@ -20,21 +20,26 @@ const Header = () => {
   const router = useRouter();
   const auth = useAuthState();
 
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [anchorEl2, setAnchorEl2] = useState(null);
-  const handleMenuClick = () => {
-    setMenuOpen(!isMenuOpen);
+  const [anchorE2, setAnchorE2] = useState(null);
+  const open = Boolean(anchorE2);
+  const mobileopen = Boolean(isMenuOpen);
+  const handleMenuClick = (event) => {
+    setMenuOpen(event.currentTarget);
   };
-  function handlesearchClick(event) {
+  const handlesearchClick = (event) => {
     if (!auth?.user?._id) {
-      setAnchorEl2(event.currentTarget);
-    } else {
-      // Open the menu/form
-
-      setAnchorEl2(event.currentTarget);
+      setAnchorE2(event.currentTarget);
     }
-  }
+  };
+  const handleClose = () => {
+    setAnchorE2(null);
+  };
+
+  const handlemobileClose = () => {
+    setMenuOpen(null);
+  };
 
   function handleClick(event) {
     if (!auth?.user?._id) {
@@ -141,7 +146,7 @@ const Header = () => {
               )}
             </Menu>
           </div>
-          <div
+          <Button
             onClick={handlesearchClick}
             style={{
               display: "flex",
@@ -166,30 +171,29 @@ const Header = () => {
                 color: "#fff",
               }}
             />
-
-            <Menu
-              anchorE12={anchorEl2}
-              open={Boolean(anchorEl2)}
-              onClose={() => setAnchorEl2(null)}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              PaperProps={{
-                style: {
-                  borderRadius: "10px",
-                  paddingTop: "5px",
-                  paddingBottom: "5px",
-                },
-              }}
-            >
-              <FormWb />
-            </Menu>
-          </div>
+          </Button>
+          <Menu
+            anchorE2={anchorE2}
+            open={open}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            PaperProps={{
+              style: {
+                borderRadius: "10px",
+                paddingTop: "5px",
+                paddingBottom: "5px",
+              },
+            }}
+          >
+            <FormWb />
+          </Menu>
         </Box>
       </Card>
 
@@ -252,24 +256,44 @@ const Header = () => {
                   }}
                 />
               </div>
-              <div
-                style={{
-                  display: "inline-block",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 30,
-                  width: 30,
-                  marginLeft: 10,
-                }}
-              >
-                <MenuBox
-                  onClick={handleMenuClick}
-                  style={{
-                    //   backgroundColor: "#005451",
-                    fontSize: 30,
-                    color: "#000",
+              <div className="mobile-dropdown">
+                <Button onClick={handleMenuClick}>
+                  <MenuBox
+                    style={{
+                      fontSize: 30,
+                      color: "#000",
+                    }}
+                  />
+                </Button>
+
+                <Menu
+                  sx={{
+                    padding: "15px",
                   }}
-                />
+                  isMenuOpen={isMenuOpen}
+                  open={mobileopen}
+                  onClose={handlemobileClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  PaperProps={{
+                    style: {
+                      borderRadius: "10px",
+                    },
+                  }}
+                >
+                  <MenuItem>home</MenuItem>
+                  <MenuItem>chat</MenuItem>
+                  <MenuItem>lists</MenuItem>
+                  <MenuItem>booked</MenuItem>
+                  <MenuItem>planner</MenuItem>
+                  <MenuItem>account</MenuItem>
+                </Menu>
               </div>
             </div>
           </Box>

@@ -80,7 +80,7 @@ export default function SignUp() {
           zIndex: 10,
         }}
       >
-        <WebTabs selectedTab={3} />
+        <WebTabs selectedTab={1} />
       </div>
       <Box
         style={{

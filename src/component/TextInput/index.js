@@ -10,6 +10,7 @@ const Button = ({
   size = "small",
   type = "text",
   alignItems = "center",
+  params = "",
   onChange = () => {},
 }) => {
   return (
