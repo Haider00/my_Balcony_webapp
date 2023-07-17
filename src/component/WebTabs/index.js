@@ -13,8 +13,8 @@ import AccountBlack from "src/assets/images/accountBlack.png";
 import AccountWhite from "src/assets/images/accountWhite.png";
 import PlannerWhite from "src/assets/images/calendarWhite.png";
 import PlannerBlack from "src/assets/images/calendarBlack.png";
-import BookedBlack from "src/assets/images/BookedBlack.png";
-import BookedWhite from "src/assets/images/BookedWhite.png";
+import BookedBlack from "src/assets/images/bookedBlack.png";
+import BookedWhite from "src/assets/images/bookedWhite.png";
 import ChatBlack from "src/assets/images/chatBlack.png";
 import ChatWhite from "src/assets/images/chatWhite.png";
 
