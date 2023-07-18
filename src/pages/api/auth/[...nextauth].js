@@ -16,8 +16,9 @@ export default NextAuth({
       clientSecret: process.env.FACEBOOK_SECRET,
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId:
+        "799258105736-e3rbtpankme2mtbpe90hvabt813sb5cq.apps.googleusercontent.com",
+      clientSecret: "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",
     }),
     AppleProvider({
       clientId: process.env.APPLE_ID,
