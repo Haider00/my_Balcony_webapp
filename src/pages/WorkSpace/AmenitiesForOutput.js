@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Commercial from "../../assets/svg/Commercial";
 import Residential from "../../assets/svg/Residential";
-import LargeTable from "../../assets/svg/LargeTable";
-import MediumTable from "../../assets/svg/MediumTable";
-import SmallTable from "../../assets/svg/SmallTable";
-import Chairs from "../../assets/svg/Chairs";
+import LargeTableOutput from "../../assets/svg/LargeTableOutput";
+import MediumTableOutput from "../../assets/svg/MediumTableOutput";
+import SmallTableOutput from "../../assets/svg/SmallTableOutput";
+import ChairsOutput from "../../assets/svg/ChairsOutput";
 import Wifi from "../../assets/svg/Wifi";
 import NoWifi from "../../assets/svg/NoWifi";
 import Ethernet from "../../assets/svg/Ethernet";
@@ -33,32 +33,28 @@ import Billiard from "../../assets/svg/Billiyard";
 import PingPong from "../../assets/svg/PingPong";
 import { Box, Typography, Rating } from "@mui/material";
 import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
-export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
+
+
+export const Amenities = ({ handleSelectedAmenities = ([]) => { } }) => {
+
   const workspaceDetailState = useWorkspaceDetailState();
-  // console.log("cme", workspaceDetailState);
-
-  // useEffect(() => {
-  //   // const amenities = workspaceDetailState.perPerson; // make sure amenities is an array
-  //   // console.log("amenities:", amenities);
-  //   // // const amenityTitles = amenities.map((amenity) => amenity.title);
-
-  //   // // console.log("btao", amenityTitles);
-
-  //   const titles = workspaceDetailState.workspaceDetail.amenities || [];
-  //   const amenitiesTitle = titles.map((amenity) => amenity.title || "");
-  //   console.log("faran", amenitiesTitle);
-  // }, []);
   const [amenitiesTitle, setAmenitiesTitle] = useState([]);
+  const [amenities, setAmenities] = useState([]);
+  console.log("amenities", amenities);
+
   useEffect(() => {
     const titles = workspaceDetailState.workspaceDetail.amenities || [];
+    setAmenities(workspaceDetailState.workspaceDetail.amenities || []);
     const amenitiesTitle = titles.map(
       (amenity) => amenity.title.toLowerCase() || ""
     );
     setAmenitiesTitle(amenitiesTitle);
-    // console.log("faran", amenitiesTitle);
-
-    // setAmenitiesTitle(amenitiesTitle + "".toLowerCase());
   }, [workspaceDetailState]);
+
+  const getAmenity = (title) => {
+    return amenities.find((amenity) => amenity.title.toLowerCase() === title.toLowerCase());
+  }
+
   return (
     <Box
       sx={{
@@ -99,22 +95,22 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
 
       {amenitiesTitle.includes("largeTable".toLowerCase()) && (
         <div style={{ padding: 5 }}>
-          <LargeTable fill="#000" />
+          <LargeTableOutput fill="#000" total={getAmenity("largeTable").total}/>
         </div>
       )}
       {amenitiesTitle.includes("mediumTable".toLowerCase()) && (
         <div style={{ padding: 5 }}>
-          <MediumTable fill="#000" />
+          <MediumTableOutput fill="#000" total={getAmenity("mediumTable").total}/>
         </div>
       )}
       {amenitiesTitle.includes("smallTable".toLowerCase()) && (
         <div style={{ padding: 5 }}>
-          <SmallTable fill="#000" />
+          <SmallTableOutput fill="#000" total={getAmenity("smallTable").total}/>
         </div>
       )}
-      {amenitiesTitle.includes("chairs".toLowerCase()) && (
+      {amenitiesTitle.includes("chair".toLowerCase()) && (
         <div style={{ padding: 5 }}>
-          <Chairs fill="#000" />
+          <ChairsOutput fill="#000" total={getAmenity("chair").total}/>
         </div>
       )}
       {amenitiesTitle.includes("Wifi".toLowerCase()) && (

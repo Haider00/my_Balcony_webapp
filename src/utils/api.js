@@ -1,7 +1,7 @@
 import axios from "axios";
 // const url = "http://192.168.100.61:3000/api";
 // const url = "http://192.168.1.18:3000/api";
-const url = "http://192.168.1.9:4000/api";
+const url = "http://192.168.1.5:3000/api";
 
 const config = {
   headers: {
@@ -17,9 +17,7 @@ class Api {
     return "token";
   }
   async userLogin(payload) {
-    // console.log("DATA.....", payload);
     const { data } = await axios.post("/user/login", payload, config);
-    // console.log("DATA.....", data);
     return data;
   }
   async userRegistration(payload) {

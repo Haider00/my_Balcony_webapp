@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import { Box, Typography } from "@mui/material";
 import { amenitiesArr } from "../../utils/amenities";
 import CheckBoxLabel from "../CheckBoxLabel";
+import { api } from "src/utils/api";
 
 export const Filter = ({
   onClose = ({}) => {},
@@ -13,6 +14,43 @@ export const Filter = ({
 }) => {
   const [workSpaceFilter, setWorkSpaceFilter] = useState({});
   const [amenitiesFilter, setAmenitiesFilter] = useState([]);
+
+  const [workSpaces, setWorkspaces] = useState([]);
+
+  let myQuery = "";
+  const handleFilterClose = (filterValues) => {
+    if (filterValues.workspaceType === "indoor") {
+      myQuery = "?workspaceType=indoor";
+    } else if (filterValues.workspaceType === "outdoor") {
+      myQuery = "?workspaceType=outdoor";
+    }
+    if (filterValues.amenities && filterValues.amenities.length > 0) {
+      // Add amenities to the query string
+      filterValues.amenities.forEach((amenity, index) => {
+        // If it's the first amenity, add "amenities=" before it
+        if (index === 0) {
+          myQuery += "amenities=" + amenity;
+        }
+        // If it's not the first amenity, just add a comma before it
+        else {
+          myQuery += "," + amenity;
+        }
+      });
+    }
+    console.log("filterValues", filterValues);
+    api
+      .getWorkSpace({ query: myQuery })
+      .then((res) => {
+        console.log("res", res);
+        setWorkspaces(res.data);
+      })
+      .catch((err) => {
+        console.warn("auth.accessToken...");
+        console.log("Error WorkSpaceList:", err);
+      });
+    onClose(filterValues);
+  };
+
   useEffect(() => {
     setWorkSpaceFilter(workSpaceFilterVal);
     if (
@@ -27,7 +65,7 @@ export const Filter = ({
     if (arr.includes(item)) {
       const index = arr.indexOf(item);
       if (index > -1) {
-        arr.splice(index, 1); // 2nd parameter means remove one item only
+        arr.splice(index, 1);
       }
       setAmenitiesFilter([...arr]);
     } else {
@@ -41,7 +79,7 @@ export const Filter = ({
       anchor="right"
       open={open}
       onClose={() => {
-        onClose(workSpaceFilter);
+        handleFilterClose(workSpaceFilter);
       }}
     >
       <div
@@ -168,15 +206,6 @@ export const Filter = ({
             </div>
           ))}
         </div>
-        <Icons.FilterAlt
-          style={{
-            color: "#000",
-            fontSize: 35,
-            margin: 10,
-            marginRight: 10,
-            cursor: "pointer",
-          }}
-        />
       </Box>
     </Drawer>
   );

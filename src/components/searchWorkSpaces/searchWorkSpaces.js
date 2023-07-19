@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 export default function WorkFromIndoorImage() {
   const router = useRouter();
-  const [indoorWorkspace, setIndoorWorkSpace] = useState([]);
+  const [workspace, setworkspace] = useState([]);
   const [inComingPage, setInComingPage] = useState(1);
   const [page, setPage] = useState(1);
 
@@ -14,7 +14,7 @@ export default function WorkFromIndoorImage() {
     api
       .getWorkSpace({ query: `?page=${inComingPage}` })
       .then((res) => {
-        setIndoorWorkSpace(res);
+        setworkspace(res);
         setPage(inComingPage);
       })
       .catch((err) => {
@@ -60,7 +60,7 @@ export default function WorkFromIndoorImage() {
           alignItems: "center",
         }}
       >
-        {indoorWorkspace.data?.map((item) => (
+        {workspace.data?.map((item) => (
           <div
             style={{
               height: 300,
@@ -110,7 +110,7 @@ export default function WorkFromIndoorImage() {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Pagination
           page={page}
-          count={Math.ceil(indoorWorkspace.total / indoorWorkspace.limit)}
+          count={Math.ceil(workspace.total / workspace.limit)}
           color="primary"
           onChange={handleChangePage}
         />

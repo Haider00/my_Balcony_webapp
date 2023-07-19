@@ -190,20 +190,20 @@ const SvgComponent = (props, { fillBox = "none"}) => (
         {props.total || "0"}
       </tspan>
     </text>
-    <path
+    {/* <path
       onClick={() => {
         props.onIncrement();
       }}
       data-name="Path 25"
       d="M57 22a10 10 0 1 0 10 10 10 10 0 0 0-10-10zm5 11h-4v4h-2v-4h-4v-2h4v-4h2v4h4z"
-    />
-    <path
+    /> */}
+    {/* <path
       onClick={() => {
         props.onDecrement();
       }}
       data-name="Path 23"
       d="M57 54a10 10 0 1 0 10 10 10 10 0 0 0-10-10zm5 11H52v-2h10z"
-    />
+    /> */}
   </svg>
 );
 
