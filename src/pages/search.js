@@ -35,12 +35,11 @@ export default function WorkFromIndoor() {
         >
           <div onClick={() => {
             router.push("./map");
-          }} style={{ display: 'flex', flexDirection: 'column' }}>
+          }} style={{ display: 'flex', flexDirection: 'column', marginRight:7 }}>
             <Icons.MapOutlined
               style={{
                 color: "#000",
                 fontSize: 35,
-                marginRight: 10,
                 cursor: "pointer",
               }}
             />
@@ -53,7 +52,6 @@ export default function WorkFromIndoor() {
               style={{
                 color: "#000",
                 fontSize: 35,
-                marginRight: 10,
                 cursor: "pointer",
               }}
             />

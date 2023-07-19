@@ -170,7 +170,7 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
         >
           <Icons.GifBoxOutlined
             onClick={() => {
-              router.push("./workFromIndoor");
+              router.push("./search");
             }}
             style={{
               color: selectedTab === 3 ? "#fff" : "#000",
