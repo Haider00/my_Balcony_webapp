@@ -197,10 +197,11 @@ export default function HostWorkSpace({}) {
     //   setMessage("Please select third image");
     //   setDisplay(true);
     // }
-    else if (workspaceState.workSpaceMapCoardinates.length === 0) {
-      setMessage("Please enable your location");
-      setDisplay(true);
-    } else if (!workSpace.amenities || workSpace.amenities.length === 0) {
+    // else if (workspaceState.workSpaceMapCoardinates.length === 0) {
+    //   setMessage("Please enable your location");
+    //   setDisplay(true);
+    // }
+    else if (!workSpace.amenities || workSpace.amenities.length === 0) {
       setMessage("Please select amenities");
       setDisplay(true);
     } else if (!workSpace.currency) {
@@ -410,6 +411,23 @@ export default function HostWorkSpace({}) {
               sm={12}
               style={{ padding: "0 30px" }}
             >
+              <Typography sx={{ marginY: 1, fontSize: 23, fontWeight: "600" }}>
+                Number of people
+              </Typography>
+
+              <TextField
+                sx={{ marginY: 1, width: "100%" }}
+                id="people"
+                label="People"
+                variant="outlined"
+                size="small"
+                onChange={(e) => {
+                  setWorkSpace({ ...workSpace, people: e.target.value });
+                }}
+                value={workSpace?.people}
+                type="number"
+              />
+
               <Typography sx={{ marginY: 1, fontSize: 23, fontWeight: "600" }}>
                 Pricing
               </Typography>

@@ -44,14 +44,20 @@ export const Filter = ({
         onClose(workSpaceFilter);
       }}
     >
-      <Icons.CloseOutlined
-        style={{
-          color: "#000",
-          fontSize: 25,
-          margin: 10,
-          cursor: "pointer",
+      <div
+        onClick={() => {
+          onClose(workSpaceFilter);
         }}
-      />
+      >
+        <Icons.CloseOutlined
+          style={{
+            color: "#000",
+            fontSize: 25,
+            margin: 10,
+            cursor: "pointer",
+          }}
+        />
+      </div>
       <Box
         sx={{
           marginX: 1,
