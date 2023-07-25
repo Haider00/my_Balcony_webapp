@@ -1,7 +1,8 @@
 import axios from "axios";
 // const url = "http://192.168.100.61:3000/api";
 // const url = "http://192.168.1.18:3000/api";
-const url = "http://192.168.1.5:3000/api";
+// const url = "http://192.168.1.9:4000/api";
+const url = "http://172.105.159.234:3000/api";
 
 const config = {
   headers: {
@@ -84,8 +85,14 @@ class Api {
     return data;
   }
   async createWorkSpace(payload) {
-    // console.log("pppppppp>>>", payload);
+    console.log("pppppppp>>>", payload);
     const { data } = await axios.post("/workSpace", payload, config);
+    return data;
+  }
+  async patchtime(payload) {
+    const { body, query } = payload;
+    console.log("payload", payload);
+    const { data } = await axios.patch(`/workSpace/${query.workSpace}`, body);
     return data;
   }
 

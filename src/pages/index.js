@@ -63,6 +63,7 @@ export default function SignUp() {
     api
       .getWorkSpace({ query: "?workspaceType=outdoor" })
       .then((res) => {
+        console.log("outdoor>>>", res.data);
         setOutdoorWorkSpace(res.data);
       })
       .catch((err) => {

@@ -37,6 +37,7 @@ import { useAuthState } from "src/context/auth.context";
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
 
 export default function HostWorkSpace({}) {
+  const [workspaceid, setWorkspaceid] = useState();
   const workspaceState = useWorkspaceState();
   const [PhotoId, setPhotoId] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
@@ -114,10 +115,13 @@ export default function HostWorkSpace({}) {
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
   const [workPlaceDayAndTime, setWorkPlaceDayAndTime] = useState([]);
+  console.log("workPlaceDayAndTime", workPlaceDayAndTime);
   const [workPlaceDay, setWorkPlaceDay] = useState([]);
+  console.log("workPlaceDay", workPlaceDay);
   console.log("workSpace", workSpace);
 
   const handleHostWorkSpace = () => {
+    console.log("workSpacewwwww", workSpace);
     api
       .createWorkSpace({
         ...workSpace,
@@ -126,7 +130,8 @@ export default function HostWorkSpace({}) {
         image: workspaceState?.firstImage?.Location || "",
       })
       .then((res) => {
-        console.log('resssss',res);
+        console.log("resssss", res._id);
+        setWorkspaceid(res._id);
         setMessage("workspace hosted successfully");
         setDisplay(true);
         createWorkSpaceTimeAndDay(res);
@@ -258,7 +263,8 @@ export default function HostWorkSpace({}) {
       api
         .createWorkingTimes({ ...element, workSpace: res._id })
         .then((response) => {
-          // console.log("timeConsole>>>>", response);
+          console.log("oopop", response);
+          pathID(response);
         })
         .catch((err) => {
           console.log("timeConsoleError", err);
@@ -266,6 +272,20 @@ export default function HostWorkSpace({}) {
           setDisplay(true);
         });
     }
+  };
+
+  const pathID = (res) => {
+    api
+      .patchtime({
+        body: { workingTimes: res._id },
+        query: { workSpace: res.workSpace },
+      })
+      .then((res) => {
+        console.log("newpatch", res);
+      })
+      .catch((err) => {
+        console.log("newpatcherror", err);
+      });
   };
 
   const handleWorkSpaceDayAndTime = (info) => {
@@ -306,13 +326,10 @@ export default function HostWorkSpace({}) {
         api
           .uploadImage({ image: uri })
           .then((res) => {
-            console.log("RESPONSE....", res.Location);
             setWorkSpace({ ...workSpace, photoId: res.Location });
             handleUploadProductImage(res.data, product, element.cover);
           })
-          .catch((err) => {
-            console.log("RESPONSE....E", err);
-          });
+          .catch((err) => {});
       },
       "base64"
     );
@@ -423,9 +440,9 @@ export default function HostWorkSpace({}) {
                 variant="outlined"
                 size="small"
                 onChange={(e) => {
-                  setWorkSpace({ ...workSpace, people: e.target.value });
+                  setWorkSpace({ ...workSpace, totalPerson: e.target.value });
                 }}
-                value={workSpace?.people}
+                value={workSpace?.totalPerson}
                 type="number"
               />
 

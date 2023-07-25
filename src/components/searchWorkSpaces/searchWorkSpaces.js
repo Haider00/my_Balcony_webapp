@@ -3,33 +3,108 @@ import { Typography, Rating } from "@mui/material";
 import { api } from "src/utils/api";
 import Pagination from "@mui/material/Pagination";
 import { useRouter } from "next/router";
-
+import { CustomHeader, Filter, WebTabs } from "../../component";
+import * as Icons from "@mui/icons-material";
 export default function WorkFromIndoorImage() {
-  const router = useRouter();
-  const [workspace, setworkspace] = useState([]);
+  const [showFilter, setShowFilter] = useState(false);
+  const [workSpaceFilter, setWorkSpaceFilter] = useState({});
+  console.log("sanan", workSpaceFilter);
   const [inComingPage, setInComingPage] = useState(1);
   const [page, setPage] = useState(1);
+  const [paginationcount, setPaginationcount] = useState({});
+  console.log("paginationcount", paginationcount);
+  console.log("pagesdddd", page);
+  const router = useRouter();
+  const [updatedworkSpaces, setupdatedWorkSpaces] = useState([]);
+  console.log("gngu", updatedworkSpaces);
+  React.useEffect(() => {
+    const { checkin, checkout, people } = router.query;
+    const checkinDate = checkin ? new Date(checkin) : null;
+    const checkoutDate = checkout ? new Date(checkout) : null;
 
-  useEffect(() => {
+    const formatTime = (date) => {
+      if (!date) return null;
+      return date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+    };
+    const from = formatTime(checkinDate);
+    const formattedFrom = from?.replace(/\s+/g, "");
+    const to = formatTime(checkoutDate);
+    const formattedto = to?.replace(/\s+/g, "");
+    const totalPerson = people;
+    console.log("from", formattedFrom);
+    console.log("to", formattedto);
+    console.log("totalPerson", people);
+    let myQuery = "";
+    const conditions = [];
+
+    if (formattedFrom) {
+      conditions.push(`from[$gte]=${formattedFrom}`);
+    }
+
+    if (formattedto) {
+      conditions.push(`to[$lte]=${formattedto}`);
+    }
+
+    if (totalPerson) {
+      conditions.push(`totalPerson[$gte]=${totalPerson}`);
+    }
+    if (
+      workSpaceFilter.workspaceType &&
+      workSpaceFilter.workspaceType === "indoor"
+    ) {
+      conditions.push(`workspaceType=${workSpaceFilter.workspaceType}`);
+    }
+
+    if (
+      workSpaceFilter.workspaceType &&
+      workSpaceFilter.workspaceType === "outdoor"
+    ) {
+      conditions.push(`workspaceType=${workSpaceFilter.workspaceType}`);
+    }
+
+    if (workSpaceFilter.maxFee) {
+      conditions.push(`perPerson[$lte]=${workSpaceFilter.maxFee}`);
+    }
+
+    if (workSpaceFilter.minFee) {
+      conditions.push(`perPerson[$gte]=${workSpaceFilter.minFee}`);
+    }
+
+    if (workSpaceFilter.amenities) {
+      conditions.push(`amenities[$all]=${workSpaceFilter.amenities}`);
+    }
+
+    if (inComingPage) {
+      conditions.push(`page=${inComingPage}`);
+    }
+
+    const queryString = conditions.length > 0 ? `?${conditions.join("&")}` : "";
+    myQuery = `${queryString}`;
+    console.log("query", myQuery);
+
     api
-      .getWorkSpace({ query: `?page=${inComingPage}` })
+      .getWorkSpace({ query: myQuery })
       .then((res) => {
-        setworkspace(res);
+        console.log("res3333", res);
+        setPaginationcount(res);
+        setupdatedWorkSpaces(res.data);
         setPage(inComingPage);
+        console.log("suceesgoonbute:");
       })
       .catch((err) => {
-        // console.log("Error WorkSpaceList:", err);
+        console.log("Error WorkSpaceList:", err);
       });
-  }, [inComingPage]);
+  }, [workSpaceFilter, inComingPage]);
 
   const handleChangePage = (event, value) => {
     setInComingPage(value);
   };
 
-  useEffect(() => {}, []);
-
   const hanldeRating = (item) => {
-    // console.log('item',item.rating)
     const sum = item?.rating
       ?.map((rating) => rating.rating.$numberDecimal)
       .reduce((a, b) => a + b, 0);
@@ -38,7 +113,57 @@ export default function WorkFromIndoorImage() {
   };
 
   return (
-    <div style={{ width: "100%"}}>
+    <div style={{ width: "100%" }}>
+      <div
+        style={{
+          width: "95%",
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          marginTop: "130px",
+        }}
+      >
+        <div
+          onClick={() => {
+            router.push("./map");
+          }}
+          style={{ display: "flex", flexDirection: "column", marginRight: 7 }}
+        >
+          <Icons.MapOutlined
+            style={{
+              color: "#000",
+              fontSize: 35,
+              cursor: "pointer",
+            }}
+          />
+          <Typography
+            sx={{ cursor: "pointer", alignSelf: "center" }}
+            variant="caption"
+          >
+            Map
+          </Typography>
+        </div>
+        <div
+          onClick={() => {
+            setShowFilter(true);
+          }}
+          style={{ display: "flex", flexDirection: "column" }}
+        >
+          <Icons.FilterAlt
+            style={{
+              color: "#000",
+              fontSize: 35,
+              cursor: "pointer",
+            }}
+          />
+          <Typography
+            sx={{ cursor: "pointer", alignSelf: "center" }}
+            variant="caption"
+          >
+            filter
+          </Typography>
+        </div>
+      </div>
       <div
         style={{
           display: "flex",
@@ -60,7 +185,7 @@ export default function WorkFromIndoorImage() {
           alignItems: "center",
         }}
       >
-        {workspace.data?.map((item) => (
+        {updatedworkSpaces.map((item) => (
           <div
             style={{
               height: 300,
@@ -110,11 +235,22 @@ export default function WorkFromIndoorImage() {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Pagination
           page={page}
-          count={Math.ceil(workspace.total / workspace.limit)}
+          count={Math.ceil(paginationcount.total / paginationcount.limit)}
           color="primary"
           onChange={handleChangePage}
         />
       </div>
+      <Filter
+        open={showFilter}
+        workSpaceFilterVal={workSpaceFilter}
+        updatedworkSpaces={updatedworkSpaces}
+        setupdatedWorkSpaces={setupdatedWorkSpaces}
+        onClose={(e) => {
+          console.log("e", e);
+          setWorkSpaceFilter(e);
+          setShowFilter(false);
+        }}
+      />
     </div>
   );
 }

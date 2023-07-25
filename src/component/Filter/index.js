@@ -11,44 +11,24 @@ export const Filter = ({
   onClose = ({}) => {},
   open,
   workSpaceFilterVal = {},
+  updatedworkSpaces,
+  setupdatedWorkSpaces,
 }) => {
   const [workSpaceFilter, setWorkSpaceFilter] = useState({});
   const [amenitiesFilter, setAmenitiesFilter] = useState([]);
-
+  console.log("filter", workSpaceFilter);
   const [workSpaces, setWorkspaces] = useState([]);
-
   let myQuery = "";
+
   const handleFilterClose = (filterValues) => {
-    if (filterValues.workspaceType === "indoor") {
-      myQuery = "?workspaceType=indoor";
-    } else if (filterValues.workspaceType === "outdoor") {
-      myQuery = "?workspaceType=outdoor";
+    const minFee = parseInt(filterValues.minFee);
+    const maxFee = parseInt(filterValues.maxFee);
+
+    if (minFee && maxFee && maxFee < minFee) {
+      console.log("Invalid fee range.");
+    } else {
+      onClose(filterValues);
     }
-    if (filterValues.amenities && filterValues.amenities.length > 0) {
-      // Add amenities to the query string
-      filterValues.amenities.forEach((amenity, index) => {
-        // If it's the first amenity, add "amenities=" before it
-        if (index === 0) {
-          myQuery += "amenities=" + amenity;
-        }
-        // If it's not the first amenity, just add a comma before it
-        else {
-          myQuery += "," + amenity;
-        }
-      });
-    }
-    console.log("filterValues", filterValues);
-    api
-      .getWorkSpace({ query: myQuery })
-      .then((res) => {
-        console.log("res", res);
-        setWorkspaces(res.data);
-      })
-      .catch((err) => {
-        console.warn("auth.accessToken...");
-        console.log("Error WorkSpaceList:", err);
-      });
-    onClose(filterValues);
   };
 
   useEffect(() => {
@@ -84,7 +64,7 @@ export const Filter = ({
     >
       <div
         onClick={() => {
-          onClose(workSpaceFilter);
+          handleFilterClose(workSpaceFilter);
         }}
       >
         <Icons.CloseOutlined

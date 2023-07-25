@@ -25,6 +25,25 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export const FormWb = () => {
+  const [people, setPeople] = useState(null);
+  console.log("poppala", people);
+  const handleIncrement = () => {
+    setPeople((prevCount) => prevCount + 1);
+  };
+
+  const handleChange = (event) => {
+    const newValue = event.target.value;
+    const parsedValue = parseInt(newValue);
+    const updatedValue = isNaN(parsedValue) ? 0 : parsedValue;
+
+    setPeople(updatedValue);
+  };
+
+  const handleDecrement = () => {
+    if (people > 0) {
+      setPeople((prevCount) => prevCount - 1);
+    }
+  };
   const [checkIN, setcheckIN] = useState(null);
   const handleCheckin = (newValue) => {
     setcheckIN(newValue);
@@ -34,7 +53,19 @@ export const FormWb = () => {
   const handleCheckout = (newValue) => {
     setcheckOut(newValue);
   };
+
   const router = useRouter();
+
+  const handleSearch = () => {
+    router.push({
+      pathname: "/search",
+      query: {
+        checkin: checkIN?.toISOString(),
+        checkout: checkOut?.toISOString(),
+        people: people,
+      },
+    });
+  };
   return (
     <Grid item sm={12} xs={12} md={12}>
       <Box
@@ -49,7 +80,7 @@ export const FormWb = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            width: "75%",
+            width: "100%",
             height: "100%",
             padding: { xs: 1, md: 2 },
             marginX: 3.5,
@@ -60,17 +91,17 @@ export const FormWb = () => {
           <Typography
             sx={{
               fontSize: "40px",
-              alignSelf: "center",
+              marginLeft: "15px",
             }}
           >
             find workspaces
           </Typography>
-          <TextInput
+          {/* <TextInput
             alignItems="flex-start"
             id="place"
             label="place"
             size="small"
-          />
+          /> */}
           {/* <TextInput
             alignItems="flex-start"
             id="check-in"
@@ -208,7 +239,12 @@ export const FormWb = () => {
               </div>
             </LocalizationProvider>
           </div>
-          <IncrementalInput />
+          <IncrementalInput
+            count={people}
+            handleIncrement={handleIncrement}
+            handleDecrement={handleDecrement}
+            handleChange={handleChange}
+          />
           <Button
             variant="contained"
             sx={{
@@ -222,9 +258,7 @@ export const FormWb = () => {
                 color: "#000",
               },
             }}
-            onClick={() => {
-              router.push("./search");
-            }}
+            onClick={handleSearch}
           >
             SEARCH
           </Button>

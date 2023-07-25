@@ -5,8 +5,7 @@ import { TextInput } from "../../component";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 
-const Title = () => {
-  const [count, setCount] = useState(null);
+const Title = ({ count, handleIncrement, handleDecrement, handleChange }) => {
   const [hoverIndex, setHoverIndex] = useState(null);
 
   const baseStyle = (index) => ({
@@ -29,22 +28,13 @@ const Title = () => {
     setHoverIndex(null);
   };
 
-  const handleIncrement = () => {
-    setCount((prevCount) => prevCount + 1);
-  };
-
-  const handleDecrement = () => {
-    if (count > 0) {
-      setCount((prevCount) => prevCount - 1);
-    }
-  };
-
   return (
     <Box
       sx={{
         display: "flex",
         width: "100%",
         alignItems: "center",
+        flexWrap: "wrap",
       }}
     >
       {/* <TextField
@@ -81,6 +71,7 @@ const Title = () => {
         </label>
         <input
           value={count?.toString()}
+          onChange={handleChange}
           style={{
             padding: "10px",
             border: "none",
