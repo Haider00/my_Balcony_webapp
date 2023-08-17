@@ -389,7 +389,7 @@ export const HostWorkSpaceWb = () => {
                 fontWeight: "600",
               }}
             >
-              {"Discover your worksapce on our"}
+              {"Discover your workspace on our"}
             </Typography>
             <Typography
               sx={{
