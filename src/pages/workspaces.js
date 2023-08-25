@@ -11,10 +11,13 @@ import Pagination from "@mui/material/Pagination";
 import TableBottom from "src/assets/images/tablebottom.png";
 import { Divider } from "@mui/material";
 // import TableBottom from 'src/assets/svg/TableBottom';
-
+import Head from "next/head";
 export default function WorkFromIndoor() {
   return (
     <>
+      <Head>
+        <title>Workspaces</title>
+      </Head>
       <div
         style={{
           marginLeft: 20,
@@ -39,27 +42,44 @@ export default function WorkFromIndoor() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item md={12} lg={12} xs={12} sm={12}>
-            <Grid container>
-              <Grid
-                item
-                md={3}
-                sm={5}
-                xs={12}
+          <Grid
+            sx={{
+              marginTop: 4,
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
+            container
+            spacing={2}
+          >
+            <Grid
+              item
+              md={3}
+              sm={12}
+              xs={12}
+              sx={{
+                marginBottom: 4,
+                marginLeft: 5,
+                marginRight: 5,
+              }}
+            >
+              <MenuSection />
+            </Grid>
+            <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
+              <Box
                 sx={{
-                  marginBottom: 4,
-                  marginLeft: 7,
+                  display: "flex",
+                  flex: 1,
+                  justifyContent: "flex-end",
                 }}
               >
-                <MenuSection />
-              </Grid>
-              <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-                <Box
-                  sx={{ display: "flex", flex: 1, justifyContent: "flex-end" }}
-                >
-                  <Image src={TableBottom} alt="" />
-                </Box>
-              </Grid>
+                <Image
+                  style={{
+                    width: "100%",
+                  }}
+                  src={TableBottom}
+                  alt=""
+                />
+              </Box>
             </Grid>
           </Grid>
         </Grid>

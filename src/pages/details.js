@@ -17,7 +17,7 @@ import { api } from "../utils/api";
 import { Snackbar } from "@mui/material";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-
+import Head from "next/head";
 export default function HostWorkSpace({}) {
   const [workSpace, setWorkSpace] = useState();
   const [display, setDisplay] = useState(false);
@@ -28,30 +28,36 @@ export default function HostWorkSpace({}) {
   const [map, setMap] = React.useState(null);
 
   return (
-    <Box sx={{ flexGrow: 1, paddingX: 1 }}>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={display}
-        onClose={() => {
-          setDisplay(false);
-        }}
-        ContentProps={{
-          "aria-describedby": "message-id",
-        }}
-        message={<span id="message-id">{message}</span>}
-      />
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <CustomHeader />
-        </Grid>
-        <WorksapceImages/>
-        <LeftWallpaperWb />
-        <FormWb
-          handleInfo={(e) => {
-            setWorkSpace({ ...workSpace, ...e });
+    <>
+      {" "}
+      <Head>
+        <title>Details</title>
+      </Head>
+      <Box sx={{ flexGrow: 1, paddingX: 1 }}>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={display}
+          onClose={() => {
+            setDisplay(false);
           }}
+          ContentProps={{
+            "aria-describedby": "message-id",
+          }}
+          message={<span id="message-id">{message}</span>}
         />
-      </Grid>
-    </Box>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <CustomHeader />
+          </Grid>
+          <WorksapceImages />
+          <LeftWallpaperWb />
+          <FormWb
+            handleInfo={(e) => {
+              setWorkSpace({ ...workSpace, ...e });
+            }}
+          />
+        </Grid>
+      </Box>
+    </>
   );
 }

@@ -241,6 +241,7 @@ import { socket } from "src/utils/socket";
 import TableBottom from "src/assets/images/tablebottom2.png";
 import Image from "next/image";
 import MenuSection from "./MenuSection/menuSection";
+import Head from "next/head";
 export default function chat2() {
   const auth = useAuthState();
   const [chats, setChats] = useState([]);
@@ -334,6 +335,9 @@ export default function chat2() {
 
   return (
     <>
+      <Head>
+        <title>Chat</title>
+      </Head>
       <div
         style={{
           marginLeft: 20,
@@ -548,11 +552,7 @@ export default function chat2() {
               justifyContent: "flex-end",
             }}
           >
-            <Image
-              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
-              src={TableBottom}
-              alt=""
-            />
+            <Image style={{ width: "100%" }} src={TableBottom} alt="" />
           </Box>
         </Grid>
       </Grid>

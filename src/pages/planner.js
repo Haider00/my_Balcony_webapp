@@ -17,12 +17,16 @@ import { usePlannerState } from "src/context/planner.context";
 import { useAuthState } from "src/context/auth.context";
 import Image from "next/image";
 import Box from "@mui/material/Box";
+import Head from "next/head";
 export default function Planner() {
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <>
+      <Head>
+        <title>Planner</title>
+      </Head>
       <div
         style={{
           marginLeft: 20,
@@ -105,11 +109,7 @@ export default function Planner() {
               justifyContent: "flex-end",
             }}
           >
-            <Image
-              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
-              src={TableBottom}
-              alt=""
-            />
+            <Image style={{ width: "100%" }} src={TableBottom} alt="" />
           </Box>
         </Grid>
       </Grid>

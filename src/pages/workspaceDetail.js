@@ -15,6 +15,8 @@ import { useWorkspaceDetailDispatch } from "src/context/workspaceDetail.context"
 import { api } from "src/utils/api";
 import Image from "next/image";
 import Box from "@mui/material/Box";
+import Head from "next/head";
+
 export default function WorkspaceDetail() {
   const dispatch = useWorkspaceDetailDispatch();
   const router = useRouter();
@@ -54,6 +56,9 @@ export default function WorkspaceDetail() {
 
   return (
     <>
+      <Head>
+        <title>Workspace Detail</title>
+      </Head>
       <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
         <CustomHeader />
 
@@ -129,11 +134,7 @@ export default function WorkspaceDetail() {
               justifyContent: "flex-end",
             }}
           >
-            <Image
-              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
-              src={TableBottom}
-              alt=""
-            />
+            <Image style={{ width: "100%" }} src={TableBottom} alt="" />
           </Box>
         </Grid>
       </Grid>

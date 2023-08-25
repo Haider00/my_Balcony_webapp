@@ -3,7 +3,7 @@ import { CustomHeader } from "../component";
 import Grid from "@mui/material/Grid";
 import { Divider } from "@mui/material";
 import MenuSection from "./MenuSection/menuSection";
-import TableBottom from "src/assets/svg/TableBottom";
+import TableBottom from "src/assets/images/tablebottom.png";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -20,7 +20,7 @@ import { useAuthState } from "../context/auth.context";
 import moment from "moment";
 import { Snackbar } from "@mui/material";
 import { set } from "date-fns";
-
+import Head from "next/head";
 export default function BookingOverview() {
   const auth = useAuthState();
 
@@ -88,6 +88,9 @@ export default function BookingOverview() {
 
   return (
     <>
+      <Head>
+        <title>Wallet</title>
+      </Head>
       <CustomHeader />
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -289,26 +292,44 @@ export default function BookingOverview() {
         </Grid>
       </Grid>
 
-      <Grid container spacing={4} sx={{ display: "flex", marginTop: 10 }}>
+      <Grid
+        sx={{
+          marginTop: 4,
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+        container
+        spacing={2}
+      >
         <Grid
-          sx={{ display: "flex", marginTop: 8, justifyContent: "center" }}
           item
-          xs={12}
-          sm={12}
           md={3}
-          lg={3}
+          sm={12}
+          xs={12}
+          sx={{
+            marginBottom: 4,
+            marginLeft: 5,
+            marginRight: 5,
+          }}
         >
           <MenuSection />
         </Grid>
-        <Grid
-          sx={{ display: "flex", justifyContent: "center" }}
-          item
-          xs={12}
-          sm={12}
-          md={7}
-          lg={8}
-        >
-          <TableBottom />
+        <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "flex-end",
+            }}
+          >
+            <Image
+              style={{
+                width: "100%",
+              }}
+              src={TableBottom}
+              alt=""
+            />
+          </Box>
         </Grid>
       </Grid>
     </>

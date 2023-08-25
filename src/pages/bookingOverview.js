@@ -8,10 +8,14 @@ import BookingOverviewDetail from "./BookingOverview/bookingOverviewDetail";
 import MenuSection from "./MenuSection/menuSection";
 import TableBottom from "src/assets/images/tablebottom2.png";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function BookingOverview() {
   return (
     <>
+      <Head>
+        <title>Booking Overview</title>
+      </Head>
       <div
         style={{
           marginLeft: 20,
@@ -84,11 +88,7 @@ export default function BookingOverview() {
               justifyContent: "flex-end",
             }}
           >
-            <Image
-              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
-              src={TableBottom}
-              alt=""
-            />
+            <Image style={{ width: "100%" }} src={TableBottom} alt="" />
           </Box>
         </Grid>
       </Grid>

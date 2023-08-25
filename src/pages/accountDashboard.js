@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import TableBottom from "src/assets/images/tablebottom.png";
 import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
+import Head from "next/head";
 export default function BookingOverview() {
   const { data: session } = useSession();
   console.log("dashbrdsession", session);
@@ -48,6 +49,9 @@ export default function BookingOverview() {
 
   return (
     <>
+      <Head>
+        <title>Account Dashboard</title>
+      </Head>
       <div
         style={{
           marginLeft: 20,
@@ -326,11 +330,7 @@ export default function BookingOverview() {
               justifyContent: "flex-end",
             }}
           >
-            <Image
-              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
-              src={TableBottom}
-              alt=""
-            />
+            <Image style={{ width: "100%" }} src={TableBottom} alt="" />
           </Box>
         </Grid>
       </Grid>

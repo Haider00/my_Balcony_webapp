@@ -8,12 +8,15 @@ import Image from "next/image";
 import Leftewallpaper from "src/assets/images/tabletop.png";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-
+import Head from "next/head";
 export default function SignUp() {
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <>
+      <Head>
+        <title>Sign Up</title>
+      </Head>
       <Box
         style={{
           marginTop: "70px",

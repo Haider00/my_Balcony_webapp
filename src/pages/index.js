@@ -73,81 +73,119 @@ export default function SignUp() {
 
   return (
     <>
-      <div
-        style={{
-          marginLeft: 20,
-          top: "160px",
-          position: "fixed",
-          zIndex: 10,
-        }}
-      >
-        <WebTabs selectedTab={1} />
-      </div>
-      <Box
-        style={{
-          marginTop: "70px",
-          maxWidth: 1400,
-          marginLeft: "auto",
-          marginRight: "auto",
-        }}
-      >
-        <Box>
-          <CustomHeader />
-        </Box>
-      </Box>
-      <Grid container>
-        <Grid
-          item
-          lg={7}
-          style={{ display: isMediumScreen ? "none" : "block" }}
+      <Box style={{}}>
+        <div
+          style={{
+            marginLeft: 20,
+            top: "160px",
+            position: "fixed",
+            zIndex: 10,
+          }}
+        >
+          <WebTabs selectedTab={1} />
+        </div>
+        <Box
+          style={{
+            marginTop: "70px",
+          }}
         >
           <Box>
-            <Image
-              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
-              src={Leftewallpaper}
-              alt=""
-            />
+            <CustomHeader />
           </Box>
-        </Grid>
-        <Grid
-          sx={{ justifyContent: "center", alignItems: "center" }}
-          item
-          xs={12}
-          md={12}
-          lg={4}
-          sm={12}
-        >
-          <FormWb />
-        </Grid>
-      </Grid>
-      <Box
-        style={{
-          marginTop: "70px",
-          maxWidth: 1400,
-          marginLeft: "auto",
-          marginRight: "auto",
-        }}
-      >
-        <Grid className="scrollbar" container xs={12}>
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
-              marginBottom: 10,
-            }}
+        </Box>
+        <Grid container>
+          <Grid
+            item
+            lg={7}
+            style={{ display: isMediumScreen ? "none" : "block" }}
           >
-            <div className="scrollHomePage">
+            <Box>
+              <Image
+                style={{
+                  objectFit: "contain",
+                  width: "100%",
+                  height: "1000px",
+                }}
+                src={Leftewallpaper}
+                alt=""
+              />
+            </Box>
+          </Grid>
+          <Grid
+            sx={{ justifyContent: "center", alignItems: "center" }}
+            item
+            xs={12}
+            md={12}
+            lg={4}
+            sm={12}
+          >
+            <FormWb />
+          </Grid>
+        </Grid>
+        <Box
+          style={{
+            marginTop: "70px",
+            maxWidth: 1300,
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <Grid className="scrollbar" container xs={12}>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-end",
+                marginBottom: 10,
+              }}
+            >
+              <div className="scrollHomePage">
+                <Typography
+                  sx={{ textAlign: "end", fontSize: 33 }}
+                  component="h1"
+                  variant="h5"
+                >
+                  work from outside
+                </Typography>
+                <ScrollMenu className="scrollMenu" apiRef={menu}>
+                  {outdoorWorkSpace?.reverse().map((item, index) => (
+                    <ScrollCard
+                      onClick={() => {
+                        router.push(`./workspaceDetail?wd=${item._id}`);
+                      }}
+                      title={item.name}
+                      itemId={item._id}
+                      key={item._id}
+                      image={item.image}
+                      rating={item.rating}
+                    />
+                  ))}
+                </ScrollMenu>
+              </div>
+            </Box>
+          </Grid>
+
+          <Grid className="scrollbar" container xs={12}>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-end",
+                marginBottom: 10,
+              }}
+            >
               <Typography
-                sx={{ textAlign: "end", fontSize: 33 }}
+                sx={{ marginX: 1, fontSize: 33 }}
                 component="h1"
                 variant="h5"
               >
-                work from outside
+                work indoor
               </Typography>
-              <ScrollMenu className="scrollMenu" apiRef={menu}>
-                {outdoorWorkSpace?.reverse().map((item, index) => (
+
+              <ScrollMenu apiRef={menu}>
+                {indoorWorkSpace?.reverse().map((item, index) => (
                   <ScrollCard
                     onClick={() => {
                       router.push(`./workspaceDetail?wd=${item._id}`);
@@ -160,84 +198,51 @@ export default function SignUp() {
                   />
                 ))}
               </ScrollMenu>
-            </div>
-          </Box>
-        </Grid>
-
-        <Grid className="scrollbar" container xs={12}>
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
-              marginBottom: 10,
-            }}
-          >
-            <Typography
-              sx={{ marginX: 1, fontSize: 33 }}
-              component="h1"
-              variant="h5"
-            >
-              work indoor
-            </Typography>
-
-            <ScrollMenu apiRef={menu}>
-              {indoorWorkSpace?.reverse().map((item, index) => (
-                <ScrollCard
-                  onClick={() => {
-                    router.push(`./workspaceDetail?wd=${item._id}`);
-                  }}
-                  title={item.name}
-                  itemId={item._id}
-                  key={item._id}
-                  image={item.image}
-                  rating={item.rating}
-                />
-              ))}
-            </ScrollMenu>
-          </Box>
-        </Grid>
-        <HostWorkSpaceWb />
-      </Box>
-      <Grid
-        sx={{
-          marginTop: 4,
-          justifyContent: "space-between",
-          alignItems: "flex-end",
-        }}
-        container
-        spacing={2}
-      >
+            </Box>
+          </Grid>
+          <HostWorkSpaceWb />
+        </Box>
         <Grid
-          item
-          md={3}
-          sm={12}
-          xs={12}
           sx={{
-            marginBottom: 4,
-            marginLeft: 5,
-            marginRight: 5,
+            marginTop: 4,
+            justifyContent: "space-between",
+            alignItems: "flex-end",
           }}
+          container
+          spacing={2}
         >
-          <MenuSection />
-        </Grid>
-        <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
-          <Box
+          <Grid
+            item
+            md={3}
+            sm={12}
+            xs={12}
             sx={{
-              display: "flex",
-              flex: 1,
-              justifyContent: "flex-end",
+              marginBottom: 4,
+              marginLeft: 5,
+              marginRight: 5,
             }}
           >
-            <Image
-              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
-              src={TableBottom}
-              alt=""
-            />
-          </Box>
+            <MenuSection />
+          </Grid>
+          <Grid item md={8} sx={{ display: { xs: "none", md: "flex" } }}>
+            <Box
+              sx={{
+                display: "flex",
+                flex: 1,
+                justifyContent: "flex-end",
+              }}
+            >
+              <Image
+                style={{
+                  width: "100%",
+                }}
+                src={TableBottom}
+                alt=""
+              />
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </>
   );
 }

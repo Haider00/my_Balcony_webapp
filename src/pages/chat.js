@@ -8,7 +8,7 @@ import { useAuthState } from "src/context/auth.context";
 import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
 import { CustomHeader } from "src/component";
-
+import Head from "next/head";
 const Wrapper = styled.section`
   .container {
     max-width: 1300px;
@@ -265,6 +265,9 @@ export default function Chat() {
 
   return (
     <>
+      <Head>
+        <title>Chat</title>
+      </Head>
       <CustomHeader />
       <WebTabs selectedTab={2} />
       <Wrapper>

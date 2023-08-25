@@ -1,5 +1,6 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Head from "next/head";
 
 export default function login() {
   const { data: session } = useSession();
@@ -11,6 +12,9 @@ export default function login() {
   if (session) {
     return (
       <div>
+        <Head>
+          <title>Login</title>
+        </Head>
         <p>Welcome, {session.user.email}</p>
 
         {/* <img width="100px" height="100px" src={session.user.image}/> */}
@@ -20,6 +24,9 @@ export default function login() {
   } else {
     return (
       <div>
+        <Head>
+          <title>Login</title>
+        </Head>
         <p>You are not signed-in</p>
         <button onClick={handleGoogleSignin}>SignIn</button>
       </div>

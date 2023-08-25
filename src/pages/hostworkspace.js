@@ -33,6 +33,7 @@ import TableBottom from "src/assets/images/tablebottom.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "src/context/auth.context";
+import Head from "next/head";
 
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
 
@@ -336,6 +337,9 @@ export default function HostWorkSpace({}) {
   };
   return (
     <>
+      <Head>
+        <title>Host Workspace</title>
+      </Head>
       <div
         style={{
           marginLeft: 20,
@@ -977,9 +981,7 @@ export default function HostWorkSpace({}) {
             >
               <Image
                 style={{
-                  objectFit: "contain",
                   width: "100%",
-                  height: "1000px",
                 }}
                 src={TableBottom}
                 alt=""

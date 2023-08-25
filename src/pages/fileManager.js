@@ -8,7 +8,7 @@ import SearchRounded from "@mui/icons-material/Search";
 import FileManagerTable from "@components/FileManagerTable/index";
 import { styled } from "@mui/system";
 import AdminMobileDropDown from "../component/AdminMobileDropDown/index";
-
+import Head from "next/head";
 export default function UsersManager() {
   const StyledGrid = styled(Grid)({
     "@media (max-width: 900px)": {
@@ -18,6 +18,9 @@ export default function UsersManager() {
 
   return (
     <>
+      <Head>
+        <title>File Manager</title>
+      </Head>
       <CustomHeader />
       <AdminMobileDropDown />
       <Grid

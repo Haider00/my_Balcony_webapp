@@ -8,7 +8,7 @@ import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { api } from "../utils/api";
 import * as Icons from "@mui/icons-material";
 import { useRouter } from "next/router";
-
+import Head from "next/head";
 const center = {
   lat: 31.4504,
   lng: 73.135,
@@ -66,6 +66,9 @@ export default function Maplist() {
   return (
     <Box sx={{ width: "100%" }}>
       <>
+        <Head>
+          <title>List</title>
+        </Head>
         <div
           style={{
             width: "99%",

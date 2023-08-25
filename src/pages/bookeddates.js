@@ -12,6 +12,7 @@ import { useAuthState } from "src/context/auth.context";
 import moment from "moment";
 import { api } from "src/utils/api";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function bookeddates() {
   const [bookingHistoryPage, setBookingHistoryPage] = useState(1);
@@ -93,6 +94,9 @@ export default function bookeddates() {
 
   return (
     <>
+      <Head>
+        <title>Booked Dates</title>
+      </Head>
       <div
         style={{
           marginLeft: 20,
@@ -178,11 +182,7 @@ export default function bookeddates() {
               justifyContent: "flex-end",
             }}
           >
-            <Image
-              style={{ objectFit: "contain", width: "100%", height: "1000px" }}
-              src={TableBottom}
-              alt=""
-            />
+            <Image style={{ width: "100%" }} src={TableBottom} alt="" />
           </Box>
         </Grid>
       </Grid>

@@ -65,37 +65,37 @@ export default function MenuSection() {
           }}
         >
           <CardContent>
-            <Typography variant="h6" sx={{ fontSize: 30, mb: 4 }}>
+            <Typography variant="h6" sx={{ marginTop: 1, fontSize: 20 }}>
               read, discover, explore..
             </Typography>
             <Typography
-              sx={{ cursor: "pointer", marginTop: 1, fontSize: 25 }}
+              sx={{ cursor: "pointer", marginTop: 1, fontSize: 20 }}
               variant="subtitle1"
             >
               about us
             </Typography>
             <Typography
               onClick={() => router.push("/termsOfServices")}
-              sx={{ cursor: "pointer", marginTop: 1, fontSize: 25 }}
+              sx={{ cursor: "pointer", marginTop: 1, fontSize: 20 }}
               variant="subtitle1"
             >
               terms of services
             </Typography>
             <Typography
               onClick={() => router.push("/privacyPolicy")}
-              sx={{ cursor: "pointer", marginTop: 1, fontSize: 25 }}
+              sx={{ cursor: "pointer", marginTop: 1, fontSize: 20 }}
               variant="subtitle1"
             >
               privacy policy
             </Typography>
             <Typography
-              sx={{ cursor: "pointer", marginTop: 1, fontSize: 25 }}
+              sx={{ cursor: "pointer", marginTop: 1, fontSize: 20 }}
               variant="subtitle1"
             >
               faq
             </Typography>
             <Typography
-              sx={{ cursor: "pointer", marginTop: 1, fontSize: 25 }}
+              sx={{ cursor: "pointer", marginTop: 1, fontSize: 20 }}
               variant="subtitle1"
             >
               become a workspace Host

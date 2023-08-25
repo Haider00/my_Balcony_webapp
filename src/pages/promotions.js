@@ -8,14 +8,17 @@ import Button from "@mui/material/Button";
 import TextInput from "src/component/TextInput/index";
 import { CheckBoxLabel } from "src/component";
 import { width } from "@mui/system";
-
+import Head from "next/head";
 export default function Promotions() {
   return (
     <>
+      <Head>
+        <title>Promotions</title>
+      </Head>
       <CustomHeader />
       <Grid container sx={{ display: "flex", justifyContent: "center" }}>
         <Grid sx={{ mt: 2 }} item xs={12} sm={12} md={6} lg={3}>
-          <Admin selectedTab={9}/>
+          <Admin selectedTab={9} />
         </Grid>
         <Grid sx={{ mt: 6 }} item xs={12} sm={12} md={6} lg={9}>
           <Grid

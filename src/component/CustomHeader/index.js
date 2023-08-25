@@ -51,8 +51,9 @@ const Header = () => {
   return (
     <>
       <Card
+        style={{ maxWidth: "1300px", margin: "0 auto" }}
         sx={{
-          width: "94%",
+          width: "100%",
           flex: 1,
           display: { xs: "none", lg: "flex" },
           padding: { xs: 1, lg: 2 },

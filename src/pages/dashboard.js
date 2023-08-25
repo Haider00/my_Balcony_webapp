@@ -19,6 +19,7 @@ import {
 import { Card, CardContent } from "@material-ui/core";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import Head from "next/head";
 const datas = [
   { angle: 4, label: "Slice 1", subLabel: "20%" },
   { angle: 3, label: "Slice 2", subLabel: "40%" },
@@ -287,6 +288,9 @@ const SalesStatistic = (props) => {
 
   return (
     <>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
       <Wrapper>
         <Headerwrapper>
           <CustomHeader />

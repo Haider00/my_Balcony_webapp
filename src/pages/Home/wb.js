@@ -308,7 +308,7 @@ export const HostWorkSpaceWb = () => {
         message={<span id="message-id">{message}</span>}
       />
       <Grid
-        sx={{ display: { xs: "none", md: "flex" }, marginY: 4, marginX: 4 }}
+        sx={{ display: { xs: "none", md: "flex" }, marginY: 4, marginX: 0 }}
         container
         spacing={2}
       >
