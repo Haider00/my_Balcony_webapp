@@ -9,7 +9,7 @@ import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import PlayStore from "src/assets/svg/googleplay.svg";
-import Appstore from "src/assets/images/appStore.png";
+import Appstore from "src/assets/images/appStore.svg";
 import Instagram from "../../assets/svg/Insta.svg";
 import Twitter from "src/assets/svg/Twitter.svg";
 import Facebook from "src/assets/svg/Facebook.svg";

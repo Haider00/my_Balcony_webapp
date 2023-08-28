@@ -1,19 +1,23 @@
 import * as React from "react";
 import { useState } from "react";
 import Card from "@mui/material/Card";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import SearchRounded from "@mui/icons-material/Search";
 import articleStyles from "../../styles/Components.module.css";
 import { useRouter } from "next/router";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Button, Menu, MenuItem, Box } from "@mui/material";
 import MenuBox from "@mui/icons-material/Menu";
 import { useAuthState } from "src/context/auth.context";
 import Formsignin from "src/pages/Signin/form";
 import Formsignup from "src/pages/Signup/form";
 import { FormWb } from "src/pages/Home/wb";
 import { Translate } from "@mui/icons-material";
+import AccountBlack from "src/assets/images/accountBlack.png";
+import PlannerBlack from "../../assets/images/calendarBlack.png";
+import Image from "next/image";
+import BookedBlack from "src/assets/images/bookedBlack.png";
+import ChatBlack from "src/assets/images/chatBlack.png";
 
 const Header = () => {
   const [route, setRoute] = useState("signIn");
@@ -199,7 +203,7 @@ const Header = () => {
       </Card>
 
       <div style={{ position: "relative" }}>
-        <Card
+        <Box
           sx={{
             width: "95%",
             flex: 1,
@@ -220,10 +224,11 @@ const Header = () => {
             <div className="mobile-header-search" style={{ width: "80%" }}>
               <TextField
                 className={articleStyles.inputRounded}
-                placeholder="Search"
+                placeholder="Where would you like to work?"
                 variant="outlined"
                 size="small"
-                sx={{ width: "100%" }}
+                sx={{ width: "100%", backgroundColor: "#faf9f6" }}
+                style={{ border: "3px solid #000", borderRadius: 15 }}
               />
             </div>
             <div
@@ -257,6 +262,7 @@ const Header = () => {
                   }}
                 />
               </div>
+
               <div className="mobile-dropdown">
                 <Button onClick={handleMenuClick}>
                   <MenuBox
@@ -269,7 +275,7 @@ const Header = () => {
 
                 <Menu
                   sx={{
-                    padding: "15px",
+                    padding: "0px",
                   }}
                   isMenuOpen={isMenuOpen}
                   open={mobileopen}
@@ -288,17 +294,118 @@ const Header = () => {
                     },
                   }}
                 >
-                  <MenuItem>home</MenuItem>
-                  <MenuItem>chat</MenuItem>
-                  <MenuItem>lists</MenuItem>
-                  <MenuItem>booked</MenuItem>
-                  <MenuItem>planner</MenuItem>
-                  <MenuItem>account</MenuItem>
+                  <MenuItem
+                    onClick={() => router.push("./planner")}
+                    style={{ fontSize: "23px", gap: 10 }}
+                  >
+                    <Image
+                      style={{
+                        color: "#000",
+                        fontSize: 25,
+                        cursor: "pointer",
+
+                        width: "35px",
+                      }}
+                      src={PlannerBlack}
+                      alt=""
+                    />
+                    planner
+                  </MenuItem>
+                  <MenuItem
+                    style={{ fontSize: "23px", gap: 10 }}
+                    onClick={() => router.push("./chat2")}
+                  >
+                    <Image
+                      style={{
+                        color: "#000",
+                        fontSize: 25,
+                        cursor: "pointer",
+
+                        width: "35px",
+                      }}
+                      src={ChatBlack}
+                      alt=""
+                    />
+                    chat
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => router.push("./bookeddates")}
+                    style={{ fontSize: "23px", gap: 10 }}
+                  >
+                    <Image
+                      style={{
+                        color: "#000",
+                        fontSize: 25,
+                        cursor: "pointer",
+
+                        width: "35px",
+                      }}
+                      src={BookedBlack}
+                      alt=""
+                    />
+                    booked
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={handleClick}
+                    style={{ fontSize: "23px", gap: 10 }}
+                  >
+                    <Image
+                      style={{
+                        color: "#000",
+                        fontSize: 25,
+                        cursor: "pointer",
+
+                        width: "35px",
+                      }}
+                      src={AccountBlack}
+                      alt=""
+                    />
+                    account
+                  </MenuItem>
+                  <div className="form-popup">
+                    <Menu
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl)}
+                      onClose={() => setAnchorEl(null)}
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "left",
+                      }}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
+                      }}
+                      PaperProps={{
+                        style: {
+                          borderRadius: "10px",
+                          paddingTop: "5px",
+                          paddingBottom: "5px",
+                        },
+                      }}
+                    >
+                      {route === "signUp" ? (
+                        <Formsignup
+                          from={"header"}
+                          onChangeRoute={(res) => {
+                            setRoute(res);
+                          }}
+                        />
+                      ) : (
+                        <Formsignin
+                          from={"header"}
+                          onChangeRoute={(res) => {
+                            setRoute(res);
+                          }}
+                        />
+                      )}
+                    </Menu>
+                  </div>
                 </Menu>
               </div>
             </div>
           </Box>
-        </Card>
+        </Box>
       </div>
     </>
   );
