@@ -5,7 +5,6 @@ import SendIcon from "@mui/icons-material/Send";
 import { WebTabs } from "src/component";
 import { api } from "../utils/api";
 import { useAuthState } from "src/context/auth.context";
-import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
 import { CustomHeader } from "src/component";
 import Head from "next/head";

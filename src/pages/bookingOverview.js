@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CustomHeader, WebTabs } from "../component";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import { Divider } from "@mui/material";
+import { Divider, Box } from "@mui/material";
 import BushwickLoftsBookingOverview from "./BookingOverview/bushwickLoftsBookingOverview";
 import BookingOverviewDetail from "./BookingOverview/bookingOverviewDetail";
 import MenuSection from "./MenuSection/menuSection";

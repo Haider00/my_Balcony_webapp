@@ -21,6 +21,7 @@ import moment from "moment";
 import { Snackbar } from "@mui/material";
 import { set } from "date-fns";
 import Head from "next/head";
+import Image from "next/image";
 export default function BookingOverview() {
   const auth = useAuthState();
 

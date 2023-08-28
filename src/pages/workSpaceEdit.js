@@ -1,13 +1,14 @@
 import React from "react";
 import { CustomHeader, WebTabs } from "../component";
 import Grid from "@mui/material/Grid";
-import { Divider, Typography } from "@mui/material";
+import { Divider, Box } from "@mui/material";
 import { WorksapceImagesWorkspaceEdit } from "./WorkSpace/wb";
 import WorkspaceDetailBookingOverview from "./BookingOverview/workspaceDetailBookingOverview";
 import BookingOverviewEdit from "./BookingOverview/bookingOverviewEdit";
 import MenuSection from "./MenuSection/menuSection";
 import TableBottom from "src/assets/images/tablebottom.png";
 import Head from "next/head";
+import Image from "next/image";
 export default function BookingOverview() {
   return (
     <>

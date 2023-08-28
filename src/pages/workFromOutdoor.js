@@ -7,6 +7,8 @@ import WorkFromOutdoorImage from "@components/workFromOutdoorImage/workFromoutdo
 import Pagination from "@mui/material/Pagination";
 import TableBottom from "src/assets/images/tablebottom.png";
 import Head from "next/head";
+import Image from "next/image";
+import { Box } from "@mui/material";
 export default function WorkFromOutdoor() {
   return (
     <>
