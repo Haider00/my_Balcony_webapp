@@ -34,9 +34,7 @@ import PingPong from "../../assets/svg/PingPong";
 import { Box, Typography, Rating } from "@mui/material";
 import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
 
-
-export const Amenities = ({ handleSelectedAmenities = ([]) => { } }) => {
-
+export const Amenities = ({ handleSelectedAmenities = ([]) => {} }) => {
   const workspaceDetailState = useWorkspaceDetailState();
   const [amenitiesTitle, setAmenitiesTitle] = useState([]);
   const [amenities, setAmenities] = useState([]);
@@ -52,8 +50,10 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => { } }) => {
   }, [workspaceDetailState]);
 
   const getAmenity = (title) => {
-    return amenities.find((amenity) => amenity.title.toLowerCase() === title.toLowerCase());
-  }
+    return amenities.find(
+      (amenity) => amenity.title.toLowerCase() === title.toLowerCase()
+    );
+  };
 
   return (
     <Box
@@ -61,7 +61,7 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => { } }) => {
         display: "flex",
         flexDirection: "row",
         flexWrap: "wrap",
-        alignItems: "flex-start",
+        alignItems: "center",
         marginLeft: 3,
         marginRight: 3,
         height: "65vh",
@@ -95,22 +95,31 @@ export const Amenities = ({ handleSelectedAmenities = ([]) => { } }) => {
 
       {amenitiesTitle.includes("largeTable".toLowerCase()) && (
         <div style={{ padding: 5 }}>
-          <LargeTableOutput fill="#000" total={getAmenity("largeTable").total}/>
+          <LargeTableOutput
+            fill="#000"
+            total={getAmenity("largeTable").total}
+          />
         </div>
       )}
       {amenitiesTitle.includes("mediumTable".toLowerCase()) && (
         <div style={{ padding: 5 }}>
-          <MediumTableOutput fill="#000" total={getAmenity("mediumTable").total}/>
+          <MediumTableOutput
+            fill="#000"
+            total={getAmenity("mediumTable").total}
+          />
         </div>
       )}
       {amenitiesTitle.includes("smallTable".toLowerCase()) && (
         <div style={{ padding: 5 }}>
-          <SmallTableOutput fill="#000" total={getAmenity("smallTable").total}/>
+          <SmallTableOutput
+            fill="#000"
+            total={getAmenity("smallTable").total}
+          />
         </div>
       )}
       {amenitiesTitle.includes("chair".toLowerCase()) && (
         <div style={{ padding: 5 }}>
-          <ChairsOutput fill="#000" total={getAmenity("chair").total}/>
+          <ChairsOutput fill="#000" total={getAmenity("chair").total} />
         </div>
       )}
       {amenitiesTitle.includes("Wifi".toLowerCase()) && (

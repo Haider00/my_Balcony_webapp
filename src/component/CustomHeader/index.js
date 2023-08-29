@@ -236,35 +236,35 @@ const Header = () => {
               style={{
                 width: "20%",
                 display: "flex",
-                justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <div
-                style={{
-                  display: "inline-block",
-                  textAlign: "center",
-                  backgroundColor: "#005451",
-                  borderRadius: 20,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 30,
-                  width: 30,
-                }}
-              >
-                <SearchRounded
+              <Button onClick={() => router.push("./search")}>
+                <div
                   style={{
+                    display: "inline-block",
+                    textAlign: "center",
                     backgroundColor: "#005451",
-                    fontSize: 20,
-                    color: "#fff",
-                    position: "relative",
-                    top: "3px",
+                    borderRadius: 20,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: 30,
+                    width: 30,
                   }}
-                />
-              </div>
-
+                >
+                  <SearchRounded
+                    style={{
+                      backgroundColor: "#005451",
+                      fontSize: 20,
+                      color: "#fff",
+                      position: "relative",
+                      top: "3px",
+                    }}
+                  />
+                </div>
+              </Button>
               <div className="mobile-dropdown">
-                <Button onClick={handleMenuClick}>
+                <Button style={{ minWidth: "50px" }} onClick={handleMenuClick}>
                   <MenuBox
                     style={{
                       fontSize: 30,

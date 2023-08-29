@@ -56,6 +56,7 @@ export const Filter = ({
   };
   return (
     <Drawer
+      style={{ zIndex: 999999999 }}
       anchor="right"
       open={open}
       onClose={() => {
@@ -77,6 +78,7 @@ export const Filter = ({
         />
       </div>
       <Box
+        style={{ gap: "20px" }}
         sx={{
           marginX: 1,
           width: 300,
@@ -85,7 +87,7 @@ export const Filter = ({
           alignItems: "flex-end",
         }}
       >
-        <Typography sx={{ fontSize: 18, fontWeight: "400" }}>Places</Typography>
+        <Typography sx={{ fontSize: 18, fontWeight: "400" }}>place</Typography>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <CheckBoxLabel
             value={workSpaceFilter.workspaceType === "indoor" ? true : false}
@@ -123,7 +125,7 @@ export const Filter = ({
           />
         </div>
         <Typography sx={{ fontSize: 18, fontWeight: "400" }}>
-          Price Range
+          price range
         </Typography>
         <div
           style={{
@@ -160,7 +162,9 @@ export const Filter = ({
             size="small"
           />
         </div>
-
+        <Typography sx={{ fontSize: 18, fontWeight: "400" }}>
+          workspace amenities
+        </Typography>
         <div
           style={{
             display: "flex",

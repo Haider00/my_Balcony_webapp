@@ -205,6 +205,7 @@ export default function WorkFromIndoorImage() {
                 justifyContent: "flex-start",
                 alignItems: "flex-end",
                 display: "flex",
+                margin: "0 auto",
               }}
             >
               <div
@@ -227,8 +228,15 @@ export default function WorkFromIndoorImage() {
                   parseInt(item.otherFeeAmount) * parseInt(item.perPerson)}
               </div>
             </div>
-            <Typography sx={{ marginTop: 1 }}>{item.name}</Typography>
-            {hanldeRating(item)}
+            <Typography
+              style={{ width: "280px", margin: "0 auto" }}
+              sx={{ marginTop: 1 }}
+            >
+              {item.name}
+            </Typography>
+            <div style={{ width: "280px", margin: "0 auto" }}>
+              {hanldeRating(item)}
+            </div>
           </div>
         ))}
       </div>

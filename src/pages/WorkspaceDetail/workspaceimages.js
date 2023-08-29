@@ -6,21 +6,21 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { api } from "src/utils/api";
 
-
 const Img = styledcomp.img``;
 
 export const WorksapceImages = () => {
-  const [firstImage, setFirstimage] = useState('');
-  const [secondImage, setSecondImage] = useState('');
-  const [thirdImage, setThirdimage] = useState('');
+  const [firstImage, setFirstimage] = useState("");
+  const [secondImage, setSecondImage] = useState("");
+  const [thirdImage, setThirdimage] = useState("");
   const router = useRouter();
 
   useEffect(() => {
-    api.getImages({ query:`?workSpace=${router.query.wd}`})
+    api
+      .getImages({ query: `?workSpace=${router.query.wd}` })
       .then((res) => {
-        setFirstimage(res.data[0].Location)
-        setSecondImage(res.data[1].Location)
-        setThirdimage(res.data[2].Location)
+        setFirstimage(res.data[0].Location);
+        setSecondImage(res.data[1].Location);
+        setThirdimage(res.data[2].Location);
       })
       .catch((err) => {
         console.log("Error3", err);
@@ -60,7 +60,13 @@ export const WorksapceImages = () => {
         }}
       >
         <Img
-          style={{ height: "inherit", width: "auto" }}
+          style={{
+            height: "inherit",
+            width: "auto",
+            objectFit: "cover",
+            aspectRatio: "9/2",
+            borderRadius: "10px",
+          }}
           resizeMode="contain"
           src={firstImage}
           alt="image"
@@ -81,7 +87,13 @@ export const WorksapceImages = () => {
           }}
         >
           <Img
-            style={{ height: "inherit", width: "auto" }}
+            style={{
+              height: "inherit",
+              width: "auto",
+              objectFit: "cover",
+              aspectRatio: "8/2",
+              borderRadius: "10px",
+            }}
             src={secondImage}
             alt="image"
           />
@@ -100,7 +112,13 @@ export const WorksapceImages = () => {
           }}
         >
           <Img
-            style={{ height: "inherit", width: "auto" }}
+            style={{
+              height: "inherit",
+              width: "auto",
+              objectFit: "cover",
+              aspectRatio: "8/2",
+              borderRadius: "10px",
+            }}
             src={thirdImage}
             alt="image"
           />

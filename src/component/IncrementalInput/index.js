@@ -85,31 +85,33 @@ const Title = ({ count, handleIncrement, handleDecrement, handleChange }) => {
           }}
         />
       </div>
-      <div
-        style={baseStyle(0)}
-        onMouseEnter={() => handleMouseEnter(0)}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleDecrement}
-      >
-        <Remove
-          style={{
-            fontSize: 20,
-            color: hoverIndex === 0 ? "#000" : "#fff",
-          }}
-        />
-      </div>
-      <div
-        style={baseStyle(1)}
-        onMouseEnter={() => handleMouseEnter(1)}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleIncrement}
-      >
-        <Add
-          style={{
-            fontSize: 20,
-            color: hoverIndex === 1 ? "#000" : "#fff",
-          }}
-        />
+      <div style={{ display: "flex" }}>
+        <div
+          style={baseStyle(0)}
+          onMouseEnter={() => handleMouseEnter(0)}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleDecrement}
+        >
+          <Remove
+            style={{
+              fontSize: 20,
+              color: hoverIndex === 0 ? "#000" : "#fff",
+            }}
+          />
+        </div>
+        <div
+          style={baseStyle(1)}
+          onMouseEnter={() => handleMouseEnter(1)}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleIncrement}
+        >
+          <Add
+            style={{
+              fontSize: 20,
+              color: hoverIndex === 1 ? "#000" : "#fff",
+            }}
+          />
+        </div>
       </div>
     </Box>
   );

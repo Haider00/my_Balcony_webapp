@@ -95,6 +95,7 @@ export default function MenuSection() {
               faq
             </Typography>
             <Typography
+              onClick={() => router.push("/hostworkspace")}
               sx={{ cursor: "pointer", marginTop: 1, fontSize: 20 }}
               variant="subtitle1"
             >
