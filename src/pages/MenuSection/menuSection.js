@@ -14,12 +14,12 @@ import Instagram from "../../assets/svg/Insta.svg";
 import Twitter from "src/assets/svg/Twitter.svg";
 import Facebook from "src/assets/svg/Facebook.svg";
 import Image from "next/image";
-
+import { useAuthState } from "src/context/auth.context";
 export default function MenuSection() {
   const theme = useTheme();
   const isAndroidView = theme.breakpoints.down("sm");
   const router = useRouter();
-
+  const auth = useAuthState();
   const handleGetOnGooglePlayClick = () => {
     if (typeof window !== "undefined") {
       window.location.href =
@@ -46,7 +46,13 @@ export default function MenuSection() {
       window.location.href = "https://www.instagram.com/balconyworkspaces/";
     }
   };
-
+  function handleClick(event) {
+    if (!auth?.user?._id) {
+      router.push("/signin");
+    } else {
+      router.push("/hostworkspace");
+    }
+  }
   return (
     <Box
       sx={{
@@ -95,7 +101,7 @@ export default function MenuSection() {
               faq
             </Typography>
             <Typography
-              onClick={() => router.push("/hostworkspace")}
+              onClick={handleClick}
               sx={{ cursor: "pointer", marginTop: 1, fontSize: 20 }}
               variant="subtitle1"
             >
