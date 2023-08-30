@@ -134,24 +134,6 @@ export default function BookingOverview() {
               width: 50,
             }}
           >
-            <FormControl
-              sx={{ justifyContent: "flex-start", width: "90px" }}
-              variant="standard"
-            >
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Age"
-                onChange={handleChange}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-
             <Typography
               sx={{
                 width: "300px",
@@ -164,7 +146,13 @@ export default function BookingOverview() {
               Wallet
             </Typography>
 
-            <Card sx={{ minWidth: 350, mt: "20px" }}>
+            <Card
+              sx={{ minWidth: 350, mt: "20px" }}
+              style={{
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px;",
+                borderRadius: "15px",
+              }}
+            >
               <CardContent
                 sx={{
                   display: "flex",
@@ -175,7 +163,12 @@ export default function BookingOverview() {
               >
                 <Typography
                   variant="subtitle2"
-                  sx={{ fontSize: 14, alignSelf: "flex-end", mb: 2 }}
+                  sx={{
+                    fontSize: 15,
+                    alignSelf: "flex-end",
+                    mb: 2,
+                    color: "#000",
+                  }}
                 >
                   Your Card
                 </Typography>
@@ -213,10 +206,19 @@ export default function BookingOverview() {
                   fieldClassName="input"
                 />
                 <TextField
-                  sx={{ alignSelf: "start", mt: 4, width: "80%" }}
+                  style={{
+                    borderBottom: "1px solid #000",
+                    backgroundColor: "#fff",
+                  }}
+                  sx={{
+                    alignSelf: "start",
+                    mt: 4,
+                    width: "80%",
+                    backgroundColor: "#fff",
+                  }}
                   id="outlined-basic"
                   label="Full Name on Card"
-                  variant="outlined"
+                  variant="filled"
                 />
               </CardContent>
             </Card>
@@ -228,10 +230,16 @@ export default function BookingOverview() {
                   setDisplay(true);
                 }
               }}
-              sx={{ width: 150, mt: 5, borderRadius: 20, bgcolor: "#005451" }}
+              sx={{
+                width: 150,
+                mt: 5,
+                borderRadius: 20,
+                bgcolor: "#005451",
+                textTransform: "lowercase",
+              }}
               variant="contained"
             >
-              + Add card
+              + add card
             </Button>
           </Box>
         </Grid>
@@ -247,49 +255,73 @@ export default function BookingOverview() {
             alignItems: "center",
           }}
         >
-          <Divider
-            sx={{ mt: 15, alignSelf: "center" }}
-            className="divider"
-            orientation="horizontal"
-            flexItem
-            style={{ background: "black", width: "50%" }}
-          />
-          {cardArr.map((item) => {
-            return (
+          {cardArr.length > 0 && (
+            <>
+              <Divider
+                sx={{ mt: 15, alignSelf: "center" }}
+                className="divider"
+                orientation="horizontal"
+                flexItem
+                style={{ background: "black", width: "50%" }}
+              />
+              {cardArr.map((item) => {
+                return (
+                  <>
+                    <Box
+                      sx={{
+                        width: "50%",
+                        display: "flex",
+                        justifyContent: "space-around",
+                        mt: 3,
+                      }}
+                    >
+                      <Typography variant="h6">{item.brand}</Typography>
+                      <Typography>****{item.last4}</Typography>
+                      <Typography
+                        style={{ fontSize: "15px", color: "#7a797a" }}
+                      >
+                        (Default)
+                      </Typography>
+                    </Box>
+                    <Button
+                      sx={{
+                        width: 60,
+                        padding: 0,
+                        borderRadius: 20,
+                        bgcolor: "#ea001b",
+                        textTransform: "lowercase",
+                        fontSize: 10,
+                      }}
+                      variant="contained"
+                    >
+                      delete
+                    </Button>
+                  </>
+                );
+              })}
+              <Divider
+                sx={{ mt: 3, alignSelf: "center" }}
+                className="divider"
+                orientation="horizontal"
+                flexItem
+                style={{ background: "black", width: "50%" }}
+              />
               <Box
                 sx={{
                   width: "50%",
                   display: "flex",
-                  justifyContent: "space-around",
-                  mt: 3,
+                  justifyContent: "flex-start",
+                  mt: 5,
                 }}
               >
-                <Typography variant="h6">{item.brand}</Typography>
-                <Typography>****{item.last4}</Typography>
+                <img
+                  width={70}
+                  alt="Pa"
+                  src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c530.png"
+                />
               </Box>
-            );
-          })}
-          <Divider
-            sx={{ mt: 3, alignSelf: "center" }}
-            className="divider"
-            orientation="horizontal"
-            flexItem
-            style={{ background: "black", width: "50%" }}
-          />
-          <Box
-            sx={{
-              width: "50%",
-              display: "flex",
-              justifyContent: "flex-start",
-              mt: 5,
-            }}
-          >
-            <img
-              width={70}
-              alt="Pa"
-              src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c530.png"
-            />
-          </Box>
+            </>
+          )}
         </Grid>
       </Grid>
 
