@@ -46,7 +46,9 @@ export default function BookingOverview() {
       router.push("./signin");
     }
   }
-
+  function walletroute() {
+    router.push("./wallet");
+  }
   return (
     <>
       <Head>
@@ -209,7 +211,11 @@ export default function BookingOverview() {
                   textAlign: "center",
                 }}
               >
-                <Typography variant="h6" sx={{ cursor: "pointer" }}>
+                <Typography
+                  onClick={walletroute}
+                  variant="h6"
+                  sx={{ cursor: "pointer" }}
+                >
                   Wallet
                 </Typography>
               </div>
