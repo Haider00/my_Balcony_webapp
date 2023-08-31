@@ -55,6 +55,7 @@ export default function MenuSection() {
   }
   return (
     <Box
+      style={{ paddingLeft: "74px" }}
       sx={{
         marginBottom: 2,
         display: "flex",

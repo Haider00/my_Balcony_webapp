@@ -33,9 +33,7 @@ const Header = () => {
     setMenuOpen(event.currentTarget);
   };
   const handlesearchClick = (event) => {
-    if (!auth?.user?._id) {
-      setAnchorE2(event.currentTarget);
-    }
+    setAnchorE2(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorE2(null);

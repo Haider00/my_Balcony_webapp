@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CustomHeader, WebTabs } from "../component";
 import Grid from "@mui/material/Grid";
-import { Divider, Typography } from "@mui/material";
+import { Divider, Typography, Card, CardContent } from "@mui/material";
 import MenuSection from "./MenuSection/menuSection";
 import { useAuthDispatch } from "src/context/auth.context";
 import { useAuthState } from "src/context/auth.context";
@@ -9,10 +9,16 @@ import { Snackbar } from "@mui/material";
 import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
 import TableBottom from "src/assets/images/tablebottom.png";
+import Leftewallpaper from "src/assets/images/tabletop.png";
 import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
 import Head from "next/head";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 export default function BookingOverview() {
+  const theme = useTheme();
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   const { data: session } = useSession();
   console.log("dashbrdsession", session);
   const authDispatch = useAuthDispatch();
@@ -77,207 +83,227 @@ export default function BookingOverview() {
         }}
         message={<span id="message-id">{message}</span>}
       />
-      <Box
-        style={{
-          marginTop: 120,
-          maxWidth: 1400,
-          marginLeft: "auto",
-          marginRight: "auto",
-        }}
-      >
+
+      <Grid container>
         <Grid
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            mt: 5,
-          }}
-          container
+          item
+          lg={7}
+          style={{ display: isMediumScreen ? "none" : "block" }}
         >
-          {auth.isLoggedIn && auth.userType == "seller" ? (
-            <Grid
-              item
-              xs={12}
-              lg={10}
-              md={12}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
+          <Box>
+            <Image
+              style={{
+                objectFit: "contain",
+                width: "100%",
+                height: "1000px",
               }}
-            >
-              <div
-                style={{
-                  width: "40%",
-                  padding: 20,
-                  borderBottom: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                <Typography variant="h6" sx={{ cursor: "pointer" }}>
-                  Profile
-                </Typography>
-              </div>
-              <div
-                style={{
-                  width: "40%",
-                  padding: 20,
-                  borderBottom: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                <Typography variant="h6" sx={{ cursor: "pointer" }}>
-                  Payout
-                </Typography>
-              </div>
+              src={Leftewallpaper}
+              alt=""
+            />
+          </Box>
+        </Grid>
+        <Grid
+          sx={{ justifyContent: "center", alignItems: "center" }}
+          item
+          xs={12}
+          md={12}
+          lg={4}
+          sm={12}
+        >
+          <Card
+            style={{ marginTop: "140px" }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
 
-              <div
-                style={{
-                  width: "40%",
-                  padding: 20,
-                  borderBottom: "1px solid black",
-                  textAlign: "center",
+              marginX: 3.5,
+              marginY: 1.5,
+              // justifyContent: "space-between",
+            }}
+          >
+            <Box style={{}}>
+              <Grid
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                  mt: 5,
+                  mb: 5,
                 }}
+                container
               >
-                <Typography variant="h6" sx={{ cursor: "pointer" }}>
-                  Contact
-                  <br /> Support
-                </Typography>
-              </div>
-              <div
-                onClick={() => {
-                  userAccessControl();
-                }}
-                style={{
-                  width: "40%",
-                  padding: 20,
-                  borderBottom: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                <Typography variant="h6" sx={{ cursor: "pointer" }}>
-                  Switch to <br /> user access
-                </Typography>
-              </div>
-              <div
-                style={{
-                  width: "40%",
-                  padding: 20,
-                  borderBottom: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                <Typography
-                  onClick={handleLogout}
-                  variant="h6"
-                  sx={{ cursor: "pointer" }}
-                >
-                  logout
-                </Typography>
-              </div>
-            </Grid>
-          ) : null}
+                {auth.isLoggedIn && auth.userType == "seller" ? (
+                  <Grid
+                    item
+                    xs={12}
+                    lg={10}
+                    md={12}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div
+                      style={{
+                        padding: 15,
 
-          {auth.isLoggedIn && auth.userType == "user" ? (
-            <Grid
-              item
-              xs={12}
-              lg={4}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <div
-                style={{
-                  width: "40%",
-                  padding: 20,
-                  borderBottom: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                <Typography variant="h6" sx={{ cursor: "pointer" }}>
-                  Profile
-                </Typography>
-              </div>
-              <div
-                style={{
-                  width: "40%",
-                  padding: 20,
-                  borderBottom: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                <Typography
-                  onClick={walletroute}
-                  variant="h6"
-                  sx={{ cursor: "pointer" }}
-                >
-                  Wallet
-                </Typography>
-              </div>
-              <div
-                style={{
-                  width: "40%",
-                  padding: 20,
-                  borderBottom: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                <Typography variant="h6" sx={{ cursor: "pointer" }}>
-                  Promotion
-                </Typography>
-              </div>
-              <div
-                style={{
-                  width: "40%",
-                  padding: 20,
-                  borderBottom: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                <Typography variant="h6" sx={{ cursor: "pointer" }}>
-                  Contact
-                  <br /> Support
-                </Typography>
-              </div>
-              <div
-                onClick={() => {
-                  sellerAccessControl();
-                }}
-                style={{
-                  width: "40%",
-                  padding: 20,
-                  borderBottom: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                <Typography variant="h6" sx={{ cursor: "pointer" }}>
-                  Switch to <br /> host access
-                </Typography>
-              </div>
-              <div
-                style={{
-                  width: "40%",
-                  padding: 20,
-                  borderBottom: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                <Typography
-                  onClick={handleLogout}
-                  variant="h6"
-                  sx={{ cursor: "pointer" }}
-                >
-                  logout
-                </Typography>
-              </div>
-            </Grid>
-          ) : null}
-          {/* <Grid
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h6" sx={{ cursor: "pointer" }}>
+                        Profile
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        padding: 15,
+
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h6" sx={{ cursor: "pointer" }}>
+                        Payout
+                      </Typography>
+                    </div>
+
+                    <div
+                      style={{
+                        padding: 15,
+
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h6" sx={{ cursor: "pointer" }}>
+                        Contact Support
+                      </Typography>
+                    </div>
+                    <div
+                      onClick={() => {
+                        userAccessControl();
+                      }}
+                      style={{
+                        padding: 15,
+
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h6" sx={{ cursor: "pointer" }}>
+                        Switch to user access
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        padding: 15,
+
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography
+                        onClick={handleLogout}
+                        variant="h6"
+                        sx={{ cursor: "pointer" }}
+                      >
+                        logout
+                      </Typography>
+                    </div>
+                  </Grid>
+                ) : null}
+
+                {auth.isLoggedIn && auth.userType == "user" ? (
+                  <Grid
+                    item
+                    xs={12}
+                    lg={12}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div
+                      style={{
+                        padding: 15,
+
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h6" sx={{ cursor: "pointer" }}>
+                        Profile
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        padding: 15,
+
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography
+                        onClick={walletroute}
+                        variant="h6"
+                        sx={{ cursor: "pointer" }}
+                      >
+                        Wallet
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        padding: 15,
+
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h6" sx={{ cursor: "pointer" }}>
+                        Promotion
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        padding: 15,
+
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h6" sx={{ cursor: "pointer" }}>
+                        Contact Support
+                      </Typography>
+                    </div>
+                    <div
+                      onClick={() => {
+                        sellerAccessControl();
+                      }}
+                      style={{
+                        padding: 15,
+
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography variant="h6" sx={{ cursor: "pointer" }}>
+                        Host your workspace
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        width: "40%",
+                        padding: 15,
+
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography
+                        onClick={handleLogout}
+                        variant="h6"
+                        sx={{ cursor: "pointer" }}
+                      >
+                        logout
+                      </Typography>
+                    </div>
+                  </Grid>
+                ) : null}
+                {/* <Grid
                     item
                     xs={12}
                     lg={4}
@@ -304,8 +330,12 @@ export default function BookingOverview() {
                         <Typography variant='h6' sx={{ cursor: 'pointer' }}>Logout</Typography>
                     </div>
                 </Grid> */}
+              </Grid>
+            </Box>
+          </Card>
         </Grid>
-      </Box>
+      </Grid>
+
       <Grid
         sx={{
           marginTop: 4,
