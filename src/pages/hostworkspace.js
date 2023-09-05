@@ -34,10 +34,13 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "src/context/auth.context";
 import Head from "next/head";
-
+import GoogleMap from "../component/Googlemap/index";
+import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
 const Map = dynamic(() => import("./WorkSpace/map"), { ssr: false });
 
 export default function HostWorkSpace({}) {
+  const workspaceDetails = useWorkspaceDetailState();
+  console.log("uuuu>>>>", workspaceDetails);
   const [workspaceid, setWorkspaceid] = useState();
   const workspaceState = useWorkspaceState();
   const [PhotoId, setPhotoId] = useState(null);
@@ -112,6 +115,7 @@ export default function HostWorkSpace({}) {
 
   const [res1, setres1] = useState();
   const [workSpace, setWorkSpace] = useState({});
+  console.log("workSpacewwwww", workSpace);
   const [workSpaceAvailability, setWorkSpaceAvailability] = useState();
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
@@ -127,7 +131,7 @@ export default function HostWorkSpace({}) {
       .createWorkSpace({
         ...workSpace,
         owner: auth?.user?._id,
-        coordinates: workspaceState.workSpaceMapCoardinates,
+
         image: workspaceState?.firstImage?.Location || "",
       })
       .then((res) => {
@@ -393,19 +397,23 @@ export default function HostWorkSpace({}) {
                 <WorksapceImages />
               </Grid>
             </Grid>
-            {/* <Grid
-          sx={{
-            margin: 10,
-            height: 275,
-            display: "flex",
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-           {typeof window !== "undefined" && <Map />} 
-          <Map /></Grid> */}
+            <Grid
+              sx={{
+                margin: 10,
+                height: 475,
+                display: "flex",
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <GoogleMap
+                handlecoordinates={(e) => {
+                  setWorkSpace({ ...workSpace, coordinates: e });
+                }}
+              />
+            </Grid>
             <Grid
               style={{
                 paddingBottom: 80,

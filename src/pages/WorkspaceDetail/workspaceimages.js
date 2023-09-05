@@ -31,7 +31,7 @@ export const WorksapceImages = () => {
     <Grid
       item
       xs={12}
-      md={10}
+      md={5}
       sm={12}
       sx={{
         display: "flex",

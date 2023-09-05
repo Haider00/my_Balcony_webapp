@@ -50,8 +50,18 @@ img {
   background-color: #fff !important;
  
 }
-
-
+.gmnoprint {
+  display: none;
+}
+button.gm-control-active.gm-fullscreen-control {
+  display: none;
+}
+.react-horizontal-scrolling-menu--wrapper {
+  overflow-x: scroll;
+}
+.react-horizontal-scrolling-menu--wrapper::-webkit-scrollbar {
+  display: none;
+}
 
 .sc-dicizt.eBLjPJ {
   display: none !important;

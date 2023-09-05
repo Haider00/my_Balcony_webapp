@@ -4,7 +4,15 @@ import Box from "@mui/material/Box";
 // import StarOutline from "@mui/icons-material/StarOutline";
 import Rating from "@mui/material/Rating";
 
-export default function Card({ title, itemId, image, onClick, rating = [] }) {
+export default function Card({
+  title,
+  itemId,
+  image,
+  onClick,
+  rating = [],
+  customWidth,
+  customHeight,
+}) {
   const [ratingStar, setRatingStar] = useState(2);
   const [noOfRating, setNoOfRating] = useState(2);
 
@@ -18,6 +26,8 @@ export default function Card({ title, itemId, image, onClick, rating = [] }) {
     setNoOfRating(rating.length);
     setRatingStar(average);
   }, [rating]);
+  const cardWidth = customWidth || "365px";
+  const cardHeight = customHeight || "302px";
 
   return (
     <div onClick={onClick}>
@@ -25,16 +35,18 @@ export default function Card({ title, itemId, image, onClick, rating = [] }) {
         sx={{
           display: "flex",
           flexDirection: "column",
-          width: "365px",
-          height: "302px",
+          width: cardWidth,
+          height: cardHeight,
           margin: 1,
         }}
       >
         <img
-          src={`${image ? image : "https://wallpaperaccess.com/full/3678503.png"
-            }`}
-          srcSet={`${image ? image : "https://wallpaperaccess.com/full/38119.jpg"
-            }`}
+          src={`${
+            image ? image : "https://wallpaperaccess.com/full/3678503.png"
+          }`}
+          srcSet={`${
+            image ? image : "https://wallpaperaccess.com/full/38119.jpg"
+          }`}
           alt={"Title"}
           style={{
             borderBottomLeftRadius: 4,
@@ -46,7 +58,9 @@ export default function Card({ title, itemId, image, onClick, rating = [] }) {
             objectFit: "cover",
           }}
         />
-        <Typography sx={{fontFamily:'Roboto' ,fontSize: 20, marginX: 1 }}>{title}</Typography>
+        <Typography sx={{ fontFamily: "Roboto", fontSize: 20, marginX: 1 }}>
+          {title}
+        </Typography>
         <div style={{ display: "flex", marginLeft: 7 }}>
           <Rating
             style={{ fontSize: 20 }}
@@ -55,7 +69,7 @@ export default function Card({ title, itemId, image, onClick, rating = [] }) {
             name="simple-controlled"
             readOnly
           />
-          <Typography sx={{fontFamily:'Roboto' ,fontSize: 14, marginX: 1 }}>
+          <Typography sx={{ fontFamily: "Roboto", fontSize: 14, marginX: 1 }}>
             ({noOfRating})
           </Typography>
         </div>
