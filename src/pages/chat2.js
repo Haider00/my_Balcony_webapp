@@ -258,21 +258,15 @@ export default function chat2() {
           .getChats(`?client=${auth.user?._id}`)
           .then((res) => {
             setChats(res.data.data);
-            // console.log("Chats>>>>>>", res.data.data);
           })
-          .catch((err) => {
-            // console.log("Chats>>>>>E", err);
-          });
+          .catch((err) => {});
       } else if (auth.userType === "seller") {
         api
           .getChats(`?owner=${auth.user?._id}`)
           .then((res) => {
             setChats(res.data.data);
-            // console.log("Chats>>>>>1", res.data.data);
           })
-          .catch((err) => {
-            // console.log("Chats>>>>>E1", err);
-          });
+          .catch((err) => {});
       }
     }
   }, [auth.user]);
@@ -287,7 +281,6 @@ export default function chat2() {
       .then((res) => {
         setMessageArr([res.data, ...messageArr]);
         socket.emit("send_msg", res.data);
-        // console.log("message>>>>>>", res.data);
       })
       .catch((err) => {
         console.log("Error", err);
@@ -301,7 +294,6 @@ export default function chat2() {
       .then((res) => {
         setMessageArr(res.data.data);
         setShowForm(true);
-        // console.log("messageAgay>>>>>>>", res.data.data);
       })
       .catch((err) => {
         console.log("Error", err);
@@ -310,7 +302,6 @@ export default function chat2() {
 
   useEffect(() => {
     socket.on("msg_created", (res) => {
-      // console.log("MSG_RECEIVE>>>", res);
       setMessageArr([res, ...messageArr]);
     });
 
@@ -321,7 +312,6 @@ export default function chat2() {
 
   useEffect(() => {
     socket.on("chat_updated", (res) => {
-      // console.log("MSG_UPDATE>>>", res);
       const updatedChats = chats.map((chat) =>
         res._id === chat._id ? res : chat
       );
@@ -350,7 +340,7 @@ export default function chat2() {
       </div>
       <Box
         style={{
-          maxWidth: 1400,
+          maxWidth: 1300,
           marginLeft: "auto",
           marginRight: "auto",
         }}
@@ -364,7 +354,7 @@ export default function chat2() {
           xs={12}
           sm={12}
           lg={12}
-          sx={{ mt: 18, display: "flex", justifyContent: "space-between" }}
+          sx={{ mt: 18, display: "flex", justifyContent: "space-evenly" }}
           container
         >
           <Grid
@@ -373,14 +363,20 @@ export default function chat2() {
             xs={12}
             sm={12}
             md={12}
-            lg={5}
+            lg={3}
           >
-            <Typography variant="h5">Chats</Typography>
+            <Typography
+              style={{ textAlign: "right", marginBottom: "20px" }}
+              variant="h5"
+            >
+              Chats
+            </Typography>
             <Grid
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
+                alignItems: "end",
                 maxHeight: 400,
                 overflowY: "auto",
                 scrollbarWidth: "thin",
@@ -401,6 +397,11 @@ export default function chat2() {
               {chats.length > 0 ? (
                 chats.map((item) => (
                   <Card
+                    style={{
+                      backgroundColor: "#faf9f6",
+                      boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+                      borderRadius: "15px",
+                    }}
                     key={item._id}
                     onClick={() => {
                       setChatID(item._id);
@@ -426,7 +427,11 @@ export default function chat2() {
                       >
                         {item.client.firstName}
                       </Typography>
-                      <Typography sx={{ fontSize: 14 }}>{item.msg}</Typography>
+                      <div className="text-container">
+                        <Typography sx={{ fontSize: 14 }}>
+                          {item.msg}
+                        </Typography>
+                      </div>
                     </CardContent>
                   </Card>
                 ))
@@ -446,17 +451,19 @@ export default function chat2() {
             xs={12}
             sm={12}
             md={12}
-            lg={5}
+            lg={7}
           >
             {chatID && (
               <>
-                <Typography variant="h5">Chat Name</Typography>
+                <Typography style={{ marginBottom: "20px" }} variant="h5">
+                  Chat Name
+                </Typography>
                 <Grid
                   sx={{
                     display: "flex",
                     justifyContent: "flex-start",
                     flexDirection: "column-reverse",
-                    alignItems: "center",
+                    alignItems: "end",
                     height: 500,
                     marginTop: 3,
                     overflowY: "auto",
@@ -503,14 +510,25 @@ export default function chat2() {
                     </Typography>
                   )}
                 </Grid>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "end",
+                    alignItems: "center",
+                  }}
+                >
                   <TextField
                     id="message"
-                    label="Message"
-                    variant="outlined"
+                    label="Typing message here..."
                     size="small"
+                    variant="filled"
                     onChange={handleMessageText}
-                    sx={{ width: "70%", marginTop: 3, marginRight: 1 }}
+                    sx={{ width: "40%", marginTop: 3, marginRight: 1 }}
+                    style={{
+                      border: "2px solid #000",
+                      backgroundColor: "#faf9f6",
+                      borderRadius: "10px",
+                    }}
                   />
                   <SendIcon
                     onClick={sendMessage}

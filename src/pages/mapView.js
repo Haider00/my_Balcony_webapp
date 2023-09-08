@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { CustomHeader } from "../component";
+import { CustomHeader, Filter } from "../component";
 import Map from "@components/Map";
 import { Box } from "@mui/material";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Button } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import FormGroup from "@mui/material/FormGroup";
@@ -19,7 +18,11 @@ import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import { api } from "../utils/api";
 import { ScrollCard } from "../component";
 import GoogleMapView from "../component/GooglemapView/index";
+import * as Icons from "@mui/icons-material";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 export default function MapView() {
+  const [showFilter, setShowFilter] = useState(false);
+  const [workSpaceFilter, setWorkSpaceFilter] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
   const [open, setopen] = useState();
   const [WorkSpace, setWorkSpace] = useState([]);
@@ -88,6 +91,60 @@ export default function MapView() {
   const apiKey = "AIzaSyAmQ5I4ArxGPrvpfT3zY8dsLscVz7muvy4";
   return (
     <>
+      <div
+        style={{
+          width: "95%",
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          marginTop: "130px",
+        }}
+      >
+        <div
+          onClick={() => {
+            router.push("./search");
+          }}
+          style={{ display: "flex", flexDirection: "column", marginRight: 7 }}
+        >
+          <FormatListBulletedIcon
+            style={{
+              color: "#000",
+              fontSize: 35,
+              cursor: "pointer",
+              zIndex: 9999,
+            }}
+          />
+
+          <Typography
+            sx={{ cursor: "pointer", alignSelf: "center", zIndex: 9999 }}
+            variant="caption"
+          >
+            list view
+          </Typography>
+        </div>
+        <div
+          onClick={() => {
+            setShowFilter(true);
+          }}
+          style={{ display: "flex", flexDirection: "column" }}
+        >
+          <Icons.FilterAlt
+            style={{
+              color: "#000",
+              fontSize: 35,
+              cursor: "pointer",
+              zIndex: 9999,
+            }}
+          />
+          <Typography
+            sx={{ cursor: "pointer", alignSelf: "center", zIndex: 9999 }}
+            variant="caption"
+          >
+            filter
+          </Typography>
+        </div>
+      </div>
+
       <Box
         sx={{
           position: "absolute",
@@ -111,7 +168,17 @@ export default function MapView() {
           <CustomHeader page={"map"} />
         </Box>
         <GoogleMapView />
-
+        <Filter
+          open={showFilter}
+          workSpaceFilterVal={workSpaceFilter}
+          WorkSpace={WorkSpace}
+          setWorkSpace={setWorkSpace}
+          onClose={(e) => {
+            console.log("e", e);
+            setWorkSpaceFilter(e);
+            setShowFilter(false);
+          }}
+        />
         {/* <Box
           sx={{
             position: "fixed",

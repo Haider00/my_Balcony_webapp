@@ -39,19 +39,22 @@ export default function Planner() {
       </div>
       <Box style={{ maxWidth: 1400, marginLeft: "auto", marginRight: "auto" }}>
         <CustomHeader />
-        <Grid container sx={{ justifyContent: "space-evenly", mt: 15 }}>
-          <Grid
-            sx={{ mt: 2, textAlign: "center" }}
-            item
-            xs={12}
-            sm={12}
-            md={3}
-            lg={3}
-          >
-            <PlannerCalendar />
-          </Grid>
+        <Box
+          style={{ maxWidth: 1300, marginLeft: "auto", marginRight: "auto" }}
+        >
+          <Grid container sx={{ justifyContent: "space-evenly" }}>
+            <Grid
+              sx={{ textAlign: "center" }}
+              item
+              xs={12}
+              sm={12}
+              md={9}
+              lg={9}
+            >
+              <PlannerCalendar />
+            </Grid>
 
-          {!isMediumScreen && (
+            {/* {!isMediumScreen && (
             <Divider className="divider" orientation="vertical" flexItem />
           )}
           <Grid
@@ -66,18 +69,19 @@ export default function Planner() {
           </Grid>
           {!isMediumScreen && (
             <Divider className="divider" orientation="vertical" flexItem />
-          )}
-          <Grid
-            sx={{ mt: 2, textAlign: "center" }}
-            item
-            xs={12}
-            sm={12}
-            md={3}
-            lg={3}
-          >
-            <PlannerNotes />
+          )} */}
+            <Grid
+              sx={{ textAlign: "center" }}
+              item
+              xs={12}
+              sm={12}
+              md={3}
+              lg={3}
+            >
+              <PlannerNotes />
+            </Grid>
           </Grid>
-        </Grid>
+        </Box>
       </Box>
       <Grid
         sx={{

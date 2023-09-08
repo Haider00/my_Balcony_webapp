@@ -39,6 +39,7 @@ export default function PlannerNotes() {
           date: selectedDate,
         })
         .then((res) => {
+          console.log("PLN", res);
           setMessage("");
           setMessage1("Planner Saved");
           setDisplay(true);
@@ -66,6 +67,7 @@ export default function PlannerNotes() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        mt: 15,
       }}
     >
       <Snackbar

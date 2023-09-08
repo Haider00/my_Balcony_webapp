@@ -23,9 +23,14 @@ img {
   max-width: 100%;
   height: auto;
 }
-
-.css-1ff8729-MuiInputBase-root-MuiFilledInput-root {
-  background-color:#fff !important;
+.text-container {
+  width: 200px; /* Set a fixed width for the container */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Display ellipsis for truncated text */
+}
+.css-1ff8729-MuiInputBase-root-MuiFilledInput-root:after {
+  border-bottom: none !important;
 }
 
 .css-1fsccys {
@@ -70,7 +75,7 @@ button.gm-control-active.gm-fullscreen-control {
   
   div#field-wrapper {
     display: flex;
-      flex-wrap: wrap;
+    
   }
   
   #card-number{
@@ -333,7 +338,7 @@ text-align:center !important;
 .css-5n35g3-MuiPaper-root-MuiCard-root {min-width: 70% !important;}
   .css-l8h4b1-MuiPaper-root-MuiCard-root{  min-width: 70% !important;}
   .planner-calendar .react-datepicker {
-    width: 50% !important;
+    width: 80% !important;
   }
 
 .css-1qnbib8-MuiTypography-root{ text-align: center;}

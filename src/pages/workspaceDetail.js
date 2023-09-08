@@ -16,6 +16,7 @@ import { api } from "src/utils/api";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import Head from "next/head";
+import GoogleMapView from "../component/GooglemapView/index";
 
 export default function WorkspaceDetail() {
   const dispatch = useWorkspaceDetailDispatch();
@@ -100,7 +101,7 @@ export default function WorkspaceDetail() {
               alignItems: "center",
             }}
           >
-            <Mapsection />
+            <GoogleMapView />
           </Grid>
         </Grid>
       </Box>

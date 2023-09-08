@@ -1,58 +1,56 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
-import { api } from "../../utils/api"; // Import your API utility
+import { api } from "../../utils/api";
 
-class GoogleMaps extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      workspaces: [],
-    };
-  }
+const GoogleMaps = () => {
+  const [workspaces, setWorkspaces] = useState([]);
+  console.log("guana", workspaces);
 
-  componentDidMount() {
-    // Fetch your workspace data and set it in the state
-    // Replace this with your actual data fetching logic using your API utility
+  useEffect(() => {
     api
       .getWorkSpace({ query: "" })
       .then((res) => {
-        this.setState({ workspaces: res.data });
+        setWorkspaces(res.data);
       })
       .catch((err) => {
         console.log("Error fetching workspace data:", err);
       });
-  }
+  }, []);
 
-  renderMarkers = (map, maps) => {
-    const { workspaces } = this.state;
-
-    // Create markers for each workspace
+  const renderMarkers = (map, maps) => {
     workspaces.forEach((workspace) => {
       const [lat, lng] = workspace.coordinates;
 
-      new maps.Marker({
+      const marker = new maps.Marker({
         position: { lat, lng },
         map,
         title: workspace.name,
       });
+
+      // Log the marker and workspace information
+      console.log("Marker:PP", marker);
+      console.log("Workspace:PP", workspace);
     });
   };
 
-  render() {
-    return (
-      <div style={{ height: "100vh", width: "100%" }}>
+  // Conditional rendering based on workspaces data
+  return (
+    <div style={{ height: "100vh", width: "100%" }}>
+      {workspaces.length > 0 ? (
         <GoogleMapReact
           bootstrapURLKeys={{
-            key: "AIzaSyAmQ5I4ArxGPrvpfT3zY8dsLscVz7muvy4", // Replace with your Google Maps API key
+            key: "AIzaSyAmQ5I4ArxGPrvpfT3zY8dsLscVz7muvy4",
           }}
-          defaultCenter={{ lat: 40.756795, lng: -73.954298 }}
-          defaultZoom={10}
+          defaultCenter={{ lat: 30.3753, lng: 69.3451 }}
+          defaultZoom={0}
           yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={({ map, maps }) => this.renderMarkers(map, maps)}
+          onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
         />
-      </div>
-    );
-  }
-}
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
+};
 
 export default GoogleMaps;

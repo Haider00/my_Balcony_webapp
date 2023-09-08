@@ -8,7 +8,7 @@ import * as Icons from "@mui/icons-material";
 export default function WorkFromIndoorImage() {
   const [showFilter, setShowFilter] = useState(false);
   const [workSpaceFilter, setWorkSpaceFilter] = useState({});
-  console.log("sanan", workSpaceFilter);
+
   const [inComingPage, setInComingPage] = useState(1);
   const [page, setPage] = useState(1);
   const [paginationcount, setPaginationcount] = useState({});
@@ -125,7 +125,7 @@ export default function WorkFromIndoorImage() {
       >
         <div
           onClick={() => {
-            router.push("./map");
+            router.push("./mapView");
           }}
           style={{ display: "flex", flexDirection: "column", marginRight: 7 }}
         >
