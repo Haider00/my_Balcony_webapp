@@ -13,8 +13,10 @@ import { Snackbar, Button } from "@mui/material";
 import { capitalize } from "lodash";
 import TextField from "@mui/material/TextField";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import DatePicker from "@mui/lab/DatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import GoogleAutoComplete from "../../component/GoogleAutoComplete/index.js";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -23,8 +25,18 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-
+const API_KEY = "AIzaSyAmQ5I4ArxGPrvpfT3zY8dsLscVz7muvy4";
 export const FormWb = () => {
+  const [address, setAddress] = useState("");
+
+  const handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    const latLng = await getLatLng(results[0]);
+    console.log("Selected address:", value);
+    console.log("Lat and Lng:", latLng);
+    setAddress(value);
+  };
+
   const [people, setPeople] = useState(null);
   console.log("poppala", people);
   const handleIncrement = () => {
@@ -66,6 +78,17 @@ export const FormWb = () => {
       },
     });
   };
+  const [selectedcheckinDate, setSelectedcheckinDate] = useState(null);
+
+  const handlecheckinDateChange = (event) => {
+    setSelectedcheckinDate(event.target.value);
+  };
+
+  const [selectedcheckoutDate, setSelectedcheckoutDate] = useState(null);
+
+  const handlecheckoutDateChange = (event) => {
+    setSelectedcheckoutDate(event.target.value);
+  };
   return (
     <Grid item sm={12} xs={12} md={12}>
       <Box
@@ -96,12 +119,15 @@ export const FormWb = () => {
           >
             find workspaces
           </Typography>
-          {/* <TextInput
+          <GoogleAutoComplete />
+
+          <TextInput
             alignItems="flex-start"
             id="place"
             label="place"
             size="small"
-          /> */}
+          />
+
           {/* <TextInput
             alignItems="flex-start"
             id="check-in"
@@ -116,7 +142,7 @@ export const FormWb = () => {
             size="small"
             width="75%"
           /> */}
-          <div
+          {/* <div
             style={{
               marginLeft: 15,
               position: "relative",
@@ -238,7 +264,94 @@ export const FormWb = () => {
                 />
               </div>
             </LocalizationProvider>
+          </div> */}
+          <div
+            style={{
+              marginLeft: 15,
+              position: "relative",
+              marginTop: 15,
+              marginBottom: 15,
+              display: "flex",
+              flexDirection: "column",
+              padding: "10px",
+              border: "none",
+              borderRadius: "10px",
+              font: "inherit",
+              color: "#000",
+              backgroundColor: "transparent",
+              outline: "1px solid #000",
+              width: "75%",
+              height: "59px",
+              justifyContent: "center",
+            }}
+          >
+            <label
+              style={{
+                position: "absolute",
+                left: 28,
+                top: -13,
+                color: "#000",
+                paddingInline: "5px",
+                backgroundColor: "#fff",
+                fontSize: "20px",
+                transform: "scale(0.9)",
+              }}
+              htmlFor="date-picker"
+            >
+              check-in
+            </label>
+            <input
+              style={{ border: "none", outline: "none" }}
+              type="date"
+              id="date-picker"
+              value={selectedcheckinDate}
+              onChange={handlecheckinDateChange}
+            />
           </div>
+          <div
+            style={{
+              marginLeft: 15,
+              position: "relative",
+              marginTop: 15,
+              marginBottom: 15,
+              display: "flex",
+              flexDirection: "column",
+              padding: "10px",
+              border: "none",
+              borderRadius: "10px",
+              font: "inherit",
+              color: "#000",
+              backgroundColor: "transparent",
+              outline: "1px solid #000",
+              width: "75%",
+              height: "59px",
+              justifyContent: "center",
+            }}
+          >
+            <label
+              style={{
+                position: "absolute",
+                left: 28,
+                top: -13,
+                color: "#000",
+                paddingInline: "5px",
+                backgroundColor: "#fff",
+                fontSize: "20px",
+                transform: "scale(0.9)",
+              }}
+              htmlFor="date-picker"
+            >
+              check-out
+            </label>
+            <input
+              style={{ border: "none", outline: "none" }}
+              type="date"
+              id="date-picker"
+              value={selectedcheckoutDate}
+              onChange={handlecheckoutDateChange}
+            />
+          </div>
+
           <IncrementalInput
             count={people}
             handleIncrement={handleIncrement}
