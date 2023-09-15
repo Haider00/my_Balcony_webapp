@@ -25,18 +25,8 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-const API_KEY = "AIzaSyAmQ5I4ArxGPrvpfT3zY8dsLscVz7muvy4";
+
 export const FormWb = () => {
-  const [address, setAddress] = useState("");
-
-  const handleSelect = async (value) => {
-    const results = await geocodeByAddress(value);
-    const latLng = await getLatLng(results[0]);
-    console.log("Selected address:", value);
-    console.log("Lat and Lng:", latLng);
-    setAddress(value);
-  };
-
   const [people, setPeople] = useState(null);
   console.log("poppala", people);
   const handleIncrement = () => {
@@ -75,6 +65,7 @@ export const FormWb = () => {
         checkin: checkIN?.toISOString(),
         checkout: checkOut?.toISOString(),
         people: people,
+        place: placeValue,
       },
     });
   };
@@ -88,6 +79,12 @@ export const FormWb = () => {
 
   const handlecheckoutDateChange = (event) => {
     setSelectedcheckoutDate(event.target.value);
+  };
+
+  const [placeValue, setPlaceValue] = useState("");
+  console.log("place", placeValue);
+  const handlePlaceSelect = (value) => {
+    setPlaceValue(value);
   };
   return (
     <Grid item sm={12} xs={12} md={12}>
@@ -119,14 +116,7 @@ export const FormWb = () => {
           >
             find workspaces
           </Typography>
-          <GoogleAutoComplete />
-
-          <TextInput
-            alignItems="flex-start"
-            id="place"
-            label="place"
-            size="small"
-          />
+          <GoogleAutoComplete onplaceSelect={handlePlaceSelect} />
 
           {/* <TextInput
             alignItems="flex-start"
