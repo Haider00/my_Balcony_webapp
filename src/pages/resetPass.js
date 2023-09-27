@@ -2,11 +2,18 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
 import { CustomHeader } from "../component";
-import { LeftWallpaperWb, FormWb } from "./ResetPass/wb";
+import { FormWb } from "./ResetPass/wb";
 import { Form } from "./ResetPass/form";
 import Head from "next/head";
+import Leftewallpaper from "src/assets/images/tabletop.png";
+import Image from "next/image";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 export default function ResetPass() {
+  const theme = useTheme();
+
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <>
       <Head>
@@ -17,23 +24,38 @@ export default function ResetPass() {
           <Grid item xs={12}>
             <CustomHeader />
           </Grid>
+        </Grid>
 
-          <LeftWallpaperWb />
+        <Grid container>
           <Grid
-            sx={{ display: { xs: "none", md: "block" } }}
             item
-            xs={12}
-            md={5}
+            lg={7}
+            style={{ display: isMediumScreen ? "none" : "block" }}
           >
-            <FormWb />
+            <Box>
+              <Image
+                style={{
+                  objectFit: "contain",
+                  width: "100%",
+                  height: "1000px",
+                }}
+                src={Leftewallpaper}
+                alt=""
+              />
+            </Box>
           </Grid>
           <Grid
-            sx={{ display: { xs: "block", md: "none" } }}
+            style={{
+              marginTop: "100px",
+            }}
+            sx={{ justifyContent: "center", alignItems: "center" }}
             item
             xs={12}
-            md={5}
+            md={12}
+            lg={4}
+            sm={12}
           >
-            <Form />
+            <FormWb />
           </Grid>
         </Grid>
       </Box>
