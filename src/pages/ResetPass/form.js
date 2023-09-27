@@ -15,7 +15,7 @@ export const Form = () => {
   };
 
   const handleSubmit = () => {
-    fetch("http://localhost:4000/api/forgot-password", {
+    fetch(" https://www.api.balcony.ws/api/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -17,7 +17,7 @@ const OtpPopup = ({ email, onClose }) => {
   }, [timer]);
 
   const handleResendClick = () => {
-    fetch("http://localhost:4000/api/forgot-password", {
+    fetch("https://www.api.balcony.ws/api/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const OtpPopup = ({ email, onClose }) => {
   };
 
   const handleVerifyOTP = () => {
-    fetch("http://localhost:4000/api/verify-otp", {
+    fetch("https://www.api.balcony.ws/api/verify-otp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
