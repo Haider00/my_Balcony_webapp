@@ -17,7 +17,7 @@ export const Form = () => {
   const handleSubmit = () => {
     fetch("https://api.balcony.ws/api/forgot-password", {
       method: "POST",
-      mode: "no-cors",
+
       headers: {
         "Content-Type": "application/json",
       },
