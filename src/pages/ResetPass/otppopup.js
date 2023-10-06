@@ -8,6 +8,7 @@ const OtpPopup = ({ email, onClose }) => {
   const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(30);
   const [otpVerified, setotpVerified] = useState(false);
+  const [otpStatus, setotpStatus] = useState(false);
   useEffect(() => {
     if (timer > 0) {
       const countdown = setTimeout(() => setTimer(timer - 1), 1000);
@@ -51,6 +52,7 @@ const OtpPopup = ({ email, onClose }) => {
       })
       .catch((error) => {
         console.error("Error:", error);
+        setotpStatus(true);
       });
   };
 
@@ -129,6 +131,15 @@ const OtpPopup = ({ email, onClose }) => {
               >
                 Verify OTP
               </button>
+              {otpStatus ? (
+                <Typography
+                  sx={{ fontSize: 16, marginBottom: "20px", color: "red" }}
+                  component="h4"
+                  variant="h4"
+                >
+                  Incorrect OTP
+                </Typography>
+              ) : null}
               <Box
                 style={{
                   display: "flex",
