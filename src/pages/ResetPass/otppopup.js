@@ -48,11 +48,13 @@ const OtpPopup = ({ email, onClose }) => {
         console.log("VerifyOTP", data.message);
         if (data.message == "OTP verified successfully.") {
           setotpVerified(true);
+          setotpStatus(false);
+        } else {
+          setotpStatus(true);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
-        setotpStatus(true);
       });
   };
 
