@@ -69,6 +69,7 @@ const OtpPopup = ({ email, onClose }) => {
           width: "100%",
           height: "100%",
           opacity: "0.7",
+          zIndex: 101,
         }}
         className="overlay"
       ></Box>
@@ -81,6 +82,7 @@ const OtpPopup = ({ email, onClose }) => {
           width: "450px",
           borderRadius: "5px",
           background: "#fff",
+          zIndex: 99999,
         }}
       >
         {otpVerified ? (
