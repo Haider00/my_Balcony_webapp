@@ -175,7 +175,7 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
           title="Sign In"
           width="302px"
           height="55.8px"
-          color="#000"
+          color="#fff"
           fontSize="23px"
           textTransform="none"
         />

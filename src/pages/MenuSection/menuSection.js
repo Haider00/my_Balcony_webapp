@@ -76,6 +76,7 @@ export default function MenuSection() {
               read, discover, explore..
             </Typography>
             <Typography
+              onClick={() => router.push("/aboutUs")}
               sx={{ cursor: "pointer", marginTop: 1, fontSize: 20 }}
               variant="subtitle1"
             >
@@ -96,6 +97,7 @@ export default function MenuSection() {
               privacy policy
             </Typography>
             <Typography
+              onClick={() => router.push("/faq")}
               sx={{ cursor: "pointer", marginTop: 1, fontSize: 20 }}
               variant="subtitle1"
             >
