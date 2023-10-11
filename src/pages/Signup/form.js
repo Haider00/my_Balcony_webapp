@@ -18,9 +18,15 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState("");
   const authDispatch = useAuthDispatch();
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setIsCheckboxChecked(event.target.checked);
+  };
 
   const handleSubmitSigupForm = () => {
     if (
+      isCheckboxChecked &&
       info &&
       info.email &&
       info.firstName &&
@@ -46,15 +52,56 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
             setMessage(error.response.data.message);
             setDisplay(true);
           } else {
-            setMessage("something went wrong while registration ");
+            setMessage("Something went wrong while registration.");
             setDisplay(true);
           }
         });
     } else {
-      setMessage("Phone number should be in digits");
+      if (!isCheckboxChecked) {
+        setMessage("You must agree to the terms and privacy policy.");
+      } else {
+        setMessage("Please fill in all the required fields correctly.");
+      }
       setDisplay(true);
     }
   };
+
+  // const handleSubmitSigupForm = () => {
+  //   if (
+  //     info &&
+  //     info.email &&
+  //     info.firstName &&
+  //     info.lastName &&
+  //     info.password &&
+  //     info.phone &&
+  //     /^\d+$/.test(info.phone)
+  //   ) {
+  //     api
+  //       .userRegistration(info)
+  //       .then((res) => {
+  //         setMessage("You have registered successfully");
+  //         setDisplay(true);
+  //         authDispatch({ type: "LOGIN", payload: res });
+  //         router.push("./signin");
+  //       })
+  //       .catch((error) => {
+  //         if (
+  //           error.response &&
+  //           error.response.data &&
+  //           error.response.data.message
+  //         ) {
+  //           setMessage(error.response.data.message);
+  //           setDisplay(true);
+  //         } else {
+  //           setMessage("something went wrong while registration ");
+  //           setDisplay(true);
+  //         }
+  //       });
+  //   } else {
+  //     setMessage("Phone number should be in digits");
+  //     setDisplay(true);
+  //   }
+  // };
 
   const handleSignInWithFacebook = () => {
     signIn("facebook");
@@ -166,7 +213,19 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
           marginY: 2,
         }}
       >
-        <CheckBox style={{ color: "#000", fontSize: 15, margin: 10 }} />
+        <input
+          style={{
+            color: "#000",
+            fontSize: 15,
+            margin: 10,
+            backgroundColor: "#000",
+          }}
+          type="checkbox"
+          id="myCheckbox"
+          name="checkboxName"
+          value="checkboxValue"
+          onChange={handleCheckboxChange}
+        />
         <Typography
           component="h1"
           variant="h6"
@@ -204,7 +263,7 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
         title="Register"
         width="302px"
         height="55.8px"
-        color="#000"
+        color="#fff"
         fontSize="23px"
         textTransform="none"
       />
