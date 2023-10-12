@@ -26,7 +26,6 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
 
   const handleSubmitSigupForm = () => {
     if (
-      isCheckboxChecked &&
       info &&
       info.email &&
       info.firstName &&
@@ -35,33 +34,34 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
       info.phone &&
       /^\d+$/.test(info.phone)
     ) {
-      api
-        .userRegistration(info)
-        .then((res) => {
-          setMessage("You have registered successfully");
-          setDisplay(true);
-          authDispatch({ type: "LOGIN", payload: res });
-          router.push("./signin");
-        })
-        .catch((error) => {
-          if (
-            error.response &&
-            error.response.data &&
-            error.response.data.message
-          ) {
-            setMessage(error.response.data.message);
+      if (isCheckboxChecked) {
+        api
+          .userRegistration(info)
+          .then((res) => {
+            setMessage("You have registered successfully");
             setDisplay(true);
-          } else {
-            setMessage("Something went wrong while registration.");
-            setDisplay(true);
-          }
-        });
-    } else {
-      if (!isCheckboxChecked) {
-        setMessage("You must agree to the terms and privacy policy.");
+            authDispatch({ type: "LOGIN", payload: res });
+            router.push("./signin");
+          })
+          .catch((error) => {
+            if (
+              error.response &&
+              error.response.data &&
+              error.response.data.message
+            ) {
+              setMessage(error.response.data.message);
+              setDisplay(true);
+            } else {
+              setMessage("Something went wrong while registration.");
+              setDisplay(true);
+            }
+          });
       } else {
-        setMessage("Please fill in all the required fields correctly.");
+        setMessage("You must agree to the terms and privacy policy.");
+        setDisplay(true);
       }
+    } else {
+      setMessage("Please fill in all the required fields correctly.");
       setDisplay(true);
     }
   };
