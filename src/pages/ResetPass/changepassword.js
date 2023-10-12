@@ -106,6 +106,7 @@ const Changepassword = ({ email, onClose }) => {
               placeholder="Enter New Password"
               value={newPassword}
               onChange={handleNewPasswordChange}
+              autoComplete="off"
             />
 
             <button
