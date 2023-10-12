@@ -113,10 +113,17 @@ export default function WorkFromIndoorImage() {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div
+      style={{
+        width: "100%",
+        maxWidth: 1300,
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
       <div
         style={{
-          width: "95%",
+          width: "100%",
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "center",
