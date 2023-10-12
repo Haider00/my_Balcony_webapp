@@ -86,7 +86,7 @@ const OtpPopup = ({ email, onClose }) => {
         }}
       >
         {otpVerified ? (
-          <Changepassword onClose={() => setotpVerified(false)} />
+          <Changepassword email={email} onClose={() => setotpVerified(false)} />
         ) : (
           <>
             <Box

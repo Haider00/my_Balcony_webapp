@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-const Changepassword = ({ onClose }) => {
+const Changepassword = ({ email, onClose }) => {
   const [newPassword, setNewPassword] = useState("");
 
   const handleNewPasswordChange = (event) => {
@@ -14,21 +14,19 @@ const Changepassword = ({ onClose }) => {
 
     // Create a data object to send to your backend
     const data = {
+      email: email, // Use the email prop here
       newPassword: newPassword,
     };
 
     // Make a POST request to your backend API to update the password
     try {
-      const response = await fetch(
-        "https://www.api.balcony.ws/api/user/update-password",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch("/user/update-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
       if (response.ok) {
         // Password updated successfully, you can show a success message or redirect.
@@ -92,6 +90,13 @@ const Changepassword = ({ onClose }) => {
           </Typography>
 
           <form onSubmit={handleSubmit}>
+            <TextField
+              sx={{ marginBottom: "20px" }}
+              type="email"
+              placeholder="Enter Email"
+              value={email} // Display the email from the prop
+              readOnly
+            />
             <TextField
               sx={{ marginBottom: "20px" }}
               type="password" // Use type "password" to hide the entered characters
