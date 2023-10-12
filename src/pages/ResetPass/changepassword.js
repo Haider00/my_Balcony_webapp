@@ -3,6 +3,41 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 const Changepassword = ({ onClose }) => {
+  const [newPassword, setNewPassword] = useState("");
+
+  const handleNewPasswordChange = (event) => {
+    setNewPassword(event.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Create a data object to send to your backend
+    const data = {
+      newPassword: newPassword,
+    };
+
+    // Make a POST request to your backend API to update the password
+    try {
+      const response = await fetch("/user/update-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        // Password updated successfully, you can show a success message or redirect.
+        console.log("Password updated successfully");
+      } else {
+        // Handle errors, show an error message to the user, or redirect.
+        console.error("Error updating password");
+      }
+    } catch (error) {
+      console.error("Error updating password", error);
+    }
+  };
   return (
     <>
       <Box
@@ -52,7 +87,33 @@ const Changepassword = ({ onClose }) => {
           >
             Enter New Password
           </Typography>
-          <TextField
+
+          <form onSubmit={handleSubmit}>
+            <TextField
+              sx={{ marginBottom: "20px" }}
+              type="password" // Use type "password" to hide the entered characters
+              placeholder="Enter New Password"
+              value={newPassword}
+              onChange={handleNewPasswordChange}
+            />
+
+            <button
+              type="submit"
+              style={{
+                width: "50%",
+                backgroundColor: "#005451",
+                marginBottom: "20px",
+                color: "#fff",
+                padding: "6px 16px",
+                borderRadius: "10px",
+                cursor: "pointer",
+              }}
+            >
+              Submit
+            </button>
+          </form>
+
+          {/* <TextField
             sx={{ marginBottom: "20px" }}
             type="text"
             placeholder="Enter Password"
@@ -70,7 +131,7 @@ const Changepassword = ({ onClose }) => {
             }}
           >
             Submit
-          </button>
+          </button> */}
         </Box>
       </Box>
     </>
