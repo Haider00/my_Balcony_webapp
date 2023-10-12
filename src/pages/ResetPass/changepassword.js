@@ -12,13 +12,11 @@ const Changepassword = ({ email, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a data object to send to your backend
     const data = {
-      email: email, // Use the email prop here
+      email: email,
       newPassword: newPassword,
     };
 
-    // Make a POST request to your backend API to update the password
     try {
       const response = await fetch(
         "https://www.api.balcony.ws/api/user/update-password",
@@ -32,10 +30,9 @@ const Changepassword = ({ email, onClose }) => {
       );
 
       if (response.ok) {
-        // Password updated successfully, you can show a success message or redirect.
         console.log("Password updated successfully");
+        onClose();
       } else {
-        // Handle errors, show an error message to the user, or redirect.
         console.error("Error updating password");
       }
     } catch (error) {
@@ -97,12 +94,12 @@ const Changepassword = ({ email, onClose }) => {
               sx={{ marginBottom: "20px" }}
               type="email"
               placeholder="Enter Email"
-              value={email} // Display the email from the prop
+              value={email}
               readOnly
             />
             <TextField
               sx={{ marginBottom: "20px" }}
-              type="password" // Use type "password" to hide the entered characters
+              type="password"
               placeholder="Enter New Password"
               value={newPassword}
               onChange={handleNewPasswordChange}
