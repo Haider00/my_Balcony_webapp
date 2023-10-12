@@ -20,13 +20,16 @@ const Changepassword = ({ email, onClose }) => {
 
     // Make a POST request to your backend API to update the password
     try {
-      const response = await fetch("/user/update-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://www.api.balcony.ws/api/user/update-password",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         // Password updated successfully, you can show a success message or redirect.
