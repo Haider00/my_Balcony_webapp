@@ -394,7 +394,7 @@ export const HostWorkSpaceWb = () => {
   }
 
   function handleHostWorkspaceSignIn() {
-    router.push("./signin");
+    router.push("./signup");
   }
 
   return (
