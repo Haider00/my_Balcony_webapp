@@ -590,7 +590,7 @@ export const HostWorkSpaceWb = () => {
               }}
               onClick={handleHostWorkspaceSignIn}
             >
-              Sign In
+              Sign Up
             </Button>
           )}
         </Grid>
