@@ -215,10 +215,9 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
       >
         <input
           style={{
-            color: "#000",
             fontSize: 15,
             margin: 10,
-            backgroundColor: "#000",
+            accentColor: "#000",
           }}
           type="checkbox"
           id="myCheckbox"
