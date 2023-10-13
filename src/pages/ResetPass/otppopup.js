@@ -8,6 +8,7 @@ const OtpPopup = ({ email, onClose }) => {
   const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(30);
   const [otpVerified, setotpVerified] = useState(false);
+  console.log("otpverf", otpVerified);
   const [otpStatus, setotpStatus] = useState(false);
   useEffect(() => {
     if (timer > 0) {
