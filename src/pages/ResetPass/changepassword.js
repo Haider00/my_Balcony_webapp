@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-const Changepassword = ({ email, onClose }) => {
+const Changepassword = ({ email, onClose, onCloseAll }) => {
   const [newPassword, setNewPassword] = useState("");
 
   const handleNewPasswordChange = (event) => {
@@ -71,7 +71,7 @@ const Changepassword = ({ email, onClose }) => {
             paddingRight: 10,
             paddingTop: 10,
           }}
-          onClick={onClose}
+          onClick={onCloseAll}
         >
           ✖
         </Box>
