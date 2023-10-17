@@ -67,19 +67,19 @@ const OtpPopup = ({ email, onClose, onCloseAll }) => {
 
   return (
     <div>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={display}
+        onClose={() => {
+          setDisplay(false);
+        }}
+        ContentProps={{
+          "aria-describedby": "message-id",
+        }}
+        message={<span id="message-id">{message}</span>}
+      />
       {closeAll ? (
         <>
-          <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            open={display}
-            onClose={() => {
-              setDisplay(false);
-            }}
-            ContentProps={{
-              "aria-describedby": "message-id",
-            }}
-            message={<span id="message-id">{message}</span>}
-          />
           <Box
             style={{
               background: "#111",
