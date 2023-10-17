@@ -61,132 +61,134 @@ const OtpPopup = ({ email, onClose, onCloseAll }) => {
   };
 
   return (
-    <>
-      <Box
-        style={{
-          background: "#111",
-          position: "fixed",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "100%",
-          opacity: "0.7",
-          zIndex: 101,
-        }}
-        className="overlay"
-      ></Box>
-      <Box
-        style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "450px",
-          borderRadius: "5px",
-          background: "#fff",
-          zIndex: 99999,
-        }}
-      >
-        {closeAll ? (
-          otpVerified ? (
-            <Changepassword
-              email={email}
-              onClose={() => setotpVerified(false)}
-              onCloseAll={() => setcloseAll(false)}
-            />
-          ) : (
-            <>
-              <Box
-                style={{
-                  cursor: "pointer",
-                  textAlign: "right",
-                  paddingRight: 10,
-                  paddingTop: 10,
-                }}
-                onClick={onClose}
-              >
-                ✖
-              </Box>
-              <Box
-                style={{
-                  padding: "40px",
-                }}
-                className="otp-popup-content"
-              >
-                <Typography
-                  sx={{ fontSize: 24, marginBottom: "20px" }}
-                  component="h1"
-                  variant="h5"
-                >
-                  Enter Your One Time Password
-                </Typography>
-                <TextField
-                  sx={{ marginBottom: "20px" }}
-                  type="text"
-                  placeholder="Enter OTP"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                />
-
-                <button
-                  onClick={handleVerifyOTP}
-                  style={{
-                    width: "50%",
-                    backgroundColor: "#005451",
-                    marginBottom: "20px",
-                    color: "#fff",
-                    padding: "6px 16px",
-                    borderRadius: "10px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Verify OTP
-                </button>
-                {otpStatus ? (
-                  <Typography
-                    sx={{ fontSize: 16, marginBottom: "20px", color: "red" }}
-                    component="h4"
-                    variant="h4"
-                  >
-                    Incorrect OTP
-                  </Typography>
-                ) : null}
+    <div>
+      {closeAll ? (
+        <>
+          <Box
+            style={{
+              background: "#111",
+              position: "fixed",
+              top: "0",
+              left: "0",
+              width: "100%",
+              height: "100%",
+              opacity: "0.7",
+              zIndex: 101,
+            }}
+            className="overlay"
+          ></Box>
+          <Box
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "450px",
+              borderRadius: "5px",
+              background: "#fff",
+              zIndex: 99999,
+            }}
+          >
+            {otpVerified ? (
+              <Changepassword
+                email={email}
+                onClose={() => setotpVerified(false)}
+                onCloseAll={() => setcloseAll(false)}
+              />
+            ) : (
+              <>
                 <Box
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
+                    cursor: "pointer",
+                    textAlign: "right",
+                    paddingRight: 10,
+                    paddingTop: 10,
                   }}
+                  onClick={onClose}
                 >
+                  ✖
+                </Box>
+                <Box
+                  style={{
+                    padding: "40px",
+                  }}
+                  className="otp-popup-content"
+                >
+                  <Typography
+                    sx={{ fontSize: 24, marginBottom: "20px" }}
+                    component="h1"
+                    variant="h5"
+                  >
+                    Enter Your One Time Password
+                  </Typography>
+                  <TextField
+                    sx={{ marginBottom: "20px" }}
+                    type="text"
+                    placeholder="Enter OTP"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                  />
+
                   <button
+                    onClick={handleVerifyOTP}
                     style={{
                       width: "50%",
-                      backgroundColor: timer !== 0 ? "#ccc" : "#005451",
+                      backgroundColor: "#005451",
                       marginBottom: "20px",
                       color: "#fff",
                       padding: "6px 16px",
                       borderRadius: "10px",
                       cursor: "pointer",
-                      "&:hover": {
-                        backgroundColor: timer !== 0 ? "#ffff00" : "#ccc",
-                        color: timer !== 0 ? "#000" : "#fff",
-                      },
                     }}
-                    onClick={handleResendClick}
-                    disabled={timer !== 0}
                   >
-                    Resend OTP
+                    Verify OTP
                   </button>
-                  <Typography style={{ textAlign: "right" }}>
-                    Resend in: {timer} seconds
-                  </Typography>
+                  {otpStatus ? (
+                    <Typography
+                      sx={{ fontSize: 16, marginBottom: "20px", color: "red" }}
+                      component="h4"
+                      variant="h4"
+                    >
+                      Incorrect OTP
+                    </Typography>
+                  ) : null}
+                  <Box
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <button
+                      style={{
+                        width: "50%",
+                        backgroundColor: timer !== 0 ? "#ccc" : "#005451",
+                        marginBottom: "20px",
+                        color: "#fff",
+                        padding: "6px 16px",
+                        borderRadius: "10px",
+                        cursor: "pointer",
+                        "&:hover": {
+                          backgroundColor: timer !== 0 ? "#ffff00" : "#ccc",
+                          color: timer !== 0 ? "#000" : "#fff",
+                        },
+                      }}
+                      onClick={handleResendClick}
+                      disabled={timer !== 0}
+                    >
+                      Resend OTP
+                    </button>
+                    <Typography style={{ textAlign: "right" }}>
+                      Resend in: {timer} seconds
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-            </>
-          )
-        ) : null}
-      </Box>
-    </>
+              </>
+            )}
+          </Box>
+        </>
+      ) : null}
+    </div>
   );
 };
 
