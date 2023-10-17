@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import { Snackbar } from "@mui/material";
 const Changepassword = ({ email, onClose, onCloseAll }) => {
   const [newPassword, setNewPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [display, setDisplay] = useState(false);
 
   const handleNewPasswordChange = (event) => {
     setNewPassword(event.target.value);
@@ -30,17 +33,31 @@ const Changepassword = ({ email, onClose, onCloseAll }) => {
       );
 
       if (response.ok) {
-        console.log("Password updated successfully");
-        onClose();
+        setMessage("Password updated successfully");
+        setDisplay(true);
+        onCloseAll();
       } else {
-        console.error("Error updating password");
+        setMessage("Error updating password");
+        setDisplay(true);
       }
     } catch (error) {
-      console.error("Error updating password", error);
+      setMessage("Error updating password");
+      setDisplay(true);
     }
   };
   return (
     <>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={display}
+        onClose={() => {
+          setDisplay(false);
+        }}
+        ContentProps={{
+          "aria-describedby": "message-id",
+        }}
+        message={<span id="message-id">{message}</span>}
+      />
       <Box
         style={{
           background: "#111",

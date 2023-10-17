@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { Button } from "../../component";
 import Changepassword from "../ResetPass/changepassword";
+import { Snackbar } from "@mui/material";
 const OtpPopup = ({ email, onClose, onCloseAll }) => {
   const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(30);
@@ -11,6 +12,8 @@ const OtpPopup = ({ email, onClose, onCloseAll }) => {
   console.log("otpverf", otpVerified);
   const [closeAll, setcloseAll] = useState(true);
   const [otpStatus, setotpStatus] = useState(false);
+  const [message, setMessage] = useState("");
+  const [display, setDisplay] = useState(false);
   useEffect(() => {
     if (timer > 0) {
       const countdown = setTimeout(() => setTimer(timer - 1), 1000);
@@ -49,6 +52,8 @@ const OtpPopup = ({ email, onClose, onCloseAll }) => {
       .then((data) => {
         console.log("VerifyOTP", data.message);
         if (data.message == "OTP verified successfully.") {
+          setMessage("OTP verified successfully");
+          setDisplay(true);
           setotpVerified(true);
           setotpStatus(false);
         } else {
@@ -64,6 +69,17 @@ const OtpPopup = ({ email, onClose, onCloseAll }) => {
     <div>
       {closeAll ? (
         <>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            open={display}
+            onClose={() => {
+              setDisplay(false);
+            }}
+            ContentProps={{
+              "aria-describedby": "message-id",
+            }}
+            message={<span id="message-id">{message}</span>}
+          />
           <Box
             style={{
               background: "#111",
