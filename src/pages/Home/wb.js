@@ -32,7 +32,11 @@ export const FormWb = () => {
   const handleIncrement = () => {
     setPeople((prevCount) => prevCount + 1);
   };
-
+  const inputStyle = {
+    height: "3em",
+    border: "none",
+    outline: "none",
+  };
   const handleChange = (event) => {
     const newValue = event.target.value;
     const parsedValue = parseInt(newValue);
@@ -65,7 +69,8 @@ export const FormWb = () => {
         checkin: checkIN?.toISOString(),
         checkout: checkOut?.toISOString(),
         people: people,
-        place: placeValue,
+        lat: placeValue.lat,
+        lon: placeValue.lng,
       },
     });
   };
@@ -83,9 +88,10 @@ export const FormWb = () => {
 
   const [placeValue, setPlaceValue] = useState("");
   console.log("place", placeValue);
-  const handlePlaceSelect = (value) => {
-    setPlaceValue(value);
+  const handlePlaceSelect = (location) => {
+    setPlaceValue(location);
   };
+
   return (
     <Grid item sm={12} xs={12} md={12}>
       <Box
@@ -116,145 +122,14 @@ export const FormWb = () => {
           >
             find workspaces
           </Typography>
-          <GoogleAutoComplete onplaceSelect={handlePlaceSelect} />
-
-          {/* <TextInput
-            alignItems="flex-start"
-            id="check-in"
-            label="check-in"
-            size="small"
-            width="75%"
+          <GoogleAutoComplete
+            inputStyle={inputStyle}
+            showLabel={true}
+            placeholderText="Enter a location"
+            outline="1px solid #000"
+            onplaceSelect={handlePlaceSelect}
           />
-          <TextInput
-            alignItems="flex-start"
-            id="check-out"
-            label="check-out"
-            size="small"
-            width="75%"
-          /> */}
-          {/* <div
-            style={{
-              marginLeft: 15,
-              position: "relative",
-              marginTop: 15,
-              marginBottom: 15,
-              display: "flex",
-              flexDirection: "column",
-              padding: "10px",
-              border: "none",
-              borderRadius: "10px",
-              font: "inherit",
-              color: "#000",
-              backgroundColor: "transparent",
-              outline: "1px solid #000",
-              width: "75%",
-              height: "59px",
-              justifyContent: "center",
-            }}
-          >
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <label
-                style={{
-                  position: "absolute",
-                  left: 28,
-                  top: -13,
-                  color: "#000",
-                  paddingInline: "5px",
-                  backgroundColor: "#fff",
-                  fontSize: "20px",
-                  transform: "scale(0.9)",
-                }}
-              >
-                {"check-in"}
-              </label>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <TimePicker
-                  label=""
-                  value={checkIN}
-                  onChange={handleCheckin}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      value={checkIN}
-                      sx={{ width: 80, marginX: 1.5 }}
-                      id="standard-basic"
-                      label=""
-                      variant="standard"
-                      placeholder="hh:mm"
-                    />
-                  )}
-                />
-              </div>
-            </LocalizationProvider>
-          </div>
 
-          <div
-            style={{
-              marginLeft: 15,
-              position: "relative",
-              marginTop: 15,
-              marginBottom: 15,
-              display: "flex",
-              flexDirection: "column",
-              padding: "10px",
-              border: "none",
-              borderRadius: "10px",
-              font: "inherit",
-              color: "#000",
-              backgroundColor: "transparent",
-              outline: "1px solid #000",
-              width: "75%",
-              height: "59px",
-              justifyContent: "center",
-            }}
-          >
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <label
-                style={{
-                  position: "absolute",
-                  left: 28,
-                  top: -13,
-                  color: "#000",
-                  paddingInline: "5px",
-                  backgroundColor: "#fff",
-                  fontSize: "20px",
-                  transform: "scale(0.9)",
-                }}
-              >
-                {"check-out"}
-              </label>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <TimePicker
-                  label=""
-                  value={checkOut}
-                  onChange={handleCheckout}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      value={checkOut}
-                      sx={{ width: 80, marginX: 1.5 }}
-                      id="standard-basic"
-                      label=""
-                      variant="standard"
-                      placeholder="hh:mm"
-                    />
-                  )}
-                />
-              </div>
-            </LocalizationProvider>
-          </div> */}
           <div
             style={{
               marginLeft: 15,

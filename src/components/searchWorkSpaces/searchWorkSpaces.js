@@ -5,6 +5,7 @@ import Pagination from "@mui/material/Pagination";
 import { useRouter } from "next/router";
 import { CustomHeader, Filter, WebTabs } from "../../component";
 import * as Icons from "@mui/icons-material";
+import url from "url";
 export default function WorkFromIndoorImage() {
   const [showFilter, setShowFilter] = useState(false);
   const [workSpaceFilter, setWorkSpaceFilter] = useState({});
@@ -15,6 +16,7 @@ export default function WorkFromIndoorImage() {
   console.log("paginationcount", paginationcount);
   console.log("pagesdddd", page);
   const router = useRouter();
+  const { lat, lon } = router.query;
   const [updatedworkSpaces, setupdatedWorkSpaces] = useState([]);
   console.log("gngu", updatedworkSpaces);
   React.useEffect(() => {
@@ -132,7 +134,13 @@ export default function WorkFromIndoorImage() {
       >
         <div
           onClick={() => {
-            router.push("./mapView");
+            router.push({
+              pathname: "/mapView",
+              query: {
+                lat: lat,
+                lon: lon,
+              },
+            });
           }}
           style={{ display: "flex", flexDirection: "column", marginRight: 7 }}
         >

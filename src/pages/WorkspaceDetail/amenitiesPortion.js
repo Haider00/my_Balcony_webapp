@@ -13,7 +13,7 @@ const ListItem = styledcomp.li`
 list-style: none;
 `;
 
-export default function  () {
+export default function () {
   const workspaceDetailState = useWorkspaceDetailState();
   console.log("ame", workspaceDetailState);
   const perPersons = workspaceDetailState.workspaceDetail.perPerson;
@@ -48,7 +48,7 @@ export default function  () {
           alignItems: "end",
         }}
       >
-        <Typography variant="h6" sx={{ mb: 1, alignSelf:"center" }}>
+        <Typography variant="h6" sx={{ mb: 1, alignSelf: "center" }}>
           <Listcontainer
             style={{
               padding: 0,
@@ -80,17 +80,22 @@ export default function  () {
           <>
             <Typography
               variant="button"
-              sx={{ mb: 1, fontSize: "24px", fontWeight: "400", alignSelf:"center"}}
+              sx={{
+                mb: 1,
+                fontSize: "24px",
+                fontWeight: "400",
+                alignSelf: "center",
+              }}
             >
               Shared Workspace
             </Typography>
-            <GroupIcon sx={{ mb: 1, alignSelf:"center" }} fontSize="large" />
+            <GroupIcon sx={{ mb: 1, alignSelf: "center" }} fontSize="large" />
             <Typography
               sx={{ width: "95%", textAlign: "center" }}
               variant="caption"
             >
               This space is shared with other people such as freelancers,
-              starters, students, etc
+              start-ups, students, etc
             </Typography>
           </>
         )}

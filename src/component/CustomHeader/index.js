@@ -18,12 +18,19 @@ import PlannerBlack from "../../assets/images/calendarBlack.png";
 import Image from "next/image";
 import BookedBlack from "src/assets/images/bookedBlack.png";
 import ChatBlack from "src/assets/images/chatBlack.png";
-
+import GoogleAutoComplete from "../../component/GoogleAutoComplete/index";
 const Header = () => {
   const [route, setRoute] = useState("signIn");
   const router = useRouter();
   const auth = useAuthState();
-
+  const inputStyle = {
+    width: "100%",
+    backgroundColor: "#faf9f6",
+    border: "3px solid #000",
+    borderRadius: 10,
+    height: "4em",
+    padding: "20px",
+  };
   const [isMenuOpen, setMenuOpen] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorE2, setAnchorE2] = useState(null);
@@ -50,6 +57,21 @@ const Header = () => {
       router.push("./accountDashboard");
     }
   }
+
+  const [placeValue, setPlaceValue] = useState("");
+
+  const handlePlaceSelect = (location) => {
+    setPlaceValue(location);
+  };
+  const handleSearch = () => {
+    router.push({
+      pathname: "/search",
+      query: {
+        lat: placeValue.lat,
+        lon: placeValue.lng,
+      },
+    });
+  };
   return (
     <>
       <Card
@@ -220,13 +242,12 @@ const Header = () => {
         >
           <Box style={{ display: "flex", width: "100%" }}>
             <div className="mobile-header-search" style={{ width: "80%" }}>
-              <TextField
-                className={articleStyles.inputRounded}
-                placeholder="Where would you like to work?"
-                variant="outlined"
-                size="small"
-                sx={{ width: "100%", backgroundColor: "#faf9f6" }}
-                style={{ border: "3px solid #000", borderRadius: 15 }}
+              <GoogleAutoComplete
+                inputStyle={inputStyle}
+                showLabel={false}
+                placeholderText="Where would you like to work?"
+                outline="none"
+                onplaceSelect={handlePlaceSelect}
               />
             </div>
             <div
@@ -237,7 +258,7 @@ const Header = () => {
                 alignItems: "center",
               }}
             >
-              <Button onClick={() => router.push("./search")}>
+              <Button onClick={handleSearch}>
                 <div
                   style={{
                     display: "inline-block",
