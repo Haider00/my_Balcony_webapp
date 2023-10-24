@@ -133,7 +133,7 @@ function Autocomplete({
 
   const fetchPredictions = (newInput) => {
     const apiKey = "AIzaSyAmQ5I4ArxGPrvpfT3zY8dsLscVz7muvy4";
-    const endpoint = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${newInput}&key=${apiKey}`;
+    const endpoint = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${newInput}&key=${apiKey}`;
 
     axios
       .get(endpoint)
@@ -148,7 +148,7 @@ function Autocomplete({
 
   const fetchPlaceDetails = (placeId) => {
     const apiKey = "AIzaSyAmQ5I4ArxGPrvpfT3zY8dsLscVz7muvy4";
-    const endpoint = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=${apiKey}`;
+    const endpoint = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=${apiKey}`;
 
     axios
       .get(endpoint)
