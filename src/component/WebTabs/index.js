@@ -33,6 +33,15 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
       router.push("./accountDashboard");
     }
   }
+
+  function handleAdminClick() {
+    if (!auth?.user?._id) {
+      setMessage("You must be logged in first");
+      setDisplay(true);
+    } else {
+      router.push("./fileManager");
+    }
+  }
   function handleBookedDatesClick() {
     if (!auth?.user?._id) {
       setMessage("You must be logged in first");
@@ -304,6 +313,23 @@ const WebTabs = ({ selectedTab = 1, marginLeft = 0 }) => {
           <Typography sx={{ fontSize: 14 }} variant="caption">
             account
           </Typography>
+          {auth.user.usertype === "admin" && (
+            <>
+              <Image
+                style={{
+                  color: selectedTab === 6 ? "#fff" : "#000",
+                  fontSize: 35,
+                  cursor: "pointer",
+                }}
+                onClick={handleAdminClick}
+                src={AccountBlack}
+                alt=""
+              />
+              <Typography sx={{ fontSize: 14 }} variant="caption">
+                admin
+              </Typography>
+            </>
+          )}
         </Card>
       )}
     </>

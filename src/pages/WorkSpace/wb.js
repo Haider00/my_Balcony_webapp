@@ -404,15 +404,16 @@ export const WorksapceImagesBookingOverview = () => {
   useEffect(() => {
     api
       .getImages({
-        query: `?workSpace=${workspaceDetail?.workspaceDetail?._id}`,
+        query: `?workSpace=653bca747349e679a05de17e`,
       })
       .then((res) => {
         setMainImage(res.data[0].Location);
         setSecondImage(res.data[1].Location);
         setThirdImage(res.data[2].Location);
+        console.log("apcheind", res);
       })
       .catch((err) => {
-        console.log("Error3", err);
+        console.log("Error3api", err);
       });
   }, [workspaceDetail?.workspaceDetail?._id]);
 

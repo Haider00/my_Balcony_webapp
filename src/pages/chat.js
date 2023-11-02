@@ -242,11 +242,8 @@ export default function Chat() {
       .createMessage({ chat: chatID, from: auth.user?._id, text: message })
       .then((res) => {
         setMessageArr([res.data, ...messageArr]);
-        // console.log("message>>>>>>", res.data);
       })
-      .catch((err) => {
-        // console.log("Error", err);
-      });
+      .catch((err) => {});
     document.getElementById("message").value = "";
   };
 
@@ -255,11 +252,8 @@ export default function Chat() {
       .getMessages(`?chat=${chatId}`)
       .then((res) => {
         setMessageArr(res.data.data);
-        // console.log("messageAgay>>>>>>>", res.data.data);
       })
-      .catch((err) => {
-        // console.log("Error", err);
-      });
+      .catch((err) => {});
   };
 
   return (

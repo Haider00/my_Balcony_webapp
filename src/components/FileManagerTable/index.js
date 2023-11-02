@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
 import AppleIcon from "@mui/icons-material/Apple";
@@ -15,8 +15,9 @@ import { api } from "../../utils/api";
 import { List, ListItem, ListItemText } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import TextField from "@mui/material/TextField";
-
+import JSZip from "jszip";
 import styled from "styled-components";
+import { useWorkspaceDetailState } from "src/context/workspaceDetail.context";
 
 const Section = styled.div`
   section {
@@ -199,6 +200,71 @@ export default function TableRow() {
   const handleMouseLeavebg = () => {
     setIsHoveredbg(false);
   };
+  const downloadImagesAndFile = (workspace) => {
+    const imageUrls = [
+      workspace.firstImage,
+      workspace.secondImage,
+      workspace.thirdImage,
+    ];
+
+    const zip = new JSZip();
+
+    // Create a folder for the workspace
+    const workspaceFolder = zip.folder(`workspace_files_${workspace.name}`);
+
+    // Create an array to store image and file fetching promises
+    const promises = [];
+
+    // Add each image to the workspace folder if the URL is not empty
+    imageUrls.forEach((imageUrl, i) => {
+      if (imageUrl) {
+        const imagePromise = fetch(imageUrl)
+          .then((response) => response.blob())
+          .then((blob) => {
+            workspaceFolder.file(`image_${i}.jpg`, blob);
+          })
+          .catch((error) => {
+            console.error("Error downloading image:", error);
+          });
+
+        promises.push(imagePromise);
+      }
+    });
+
+    // Fetch and add the file to the workspace folder if the URL is not empty
+    if (workspace.file) {
+      const filePromise = fetch(workspace.file)
+        .then((response) => response.blob())
+        .then((blob) => {
+          workspaceFolder.file(`workspace_file.pdf`, blob);
+        })
+        .catch((error) => {
+          console.error("Error downloading file:", error);
+        });
+
+      promises.push(filePromise);
+    }
+
+    // Wait for all image and file fetching promises to complete
+    Promise.all(promises).then(() => {
+      // Generate the zip folder for the workspace
+      zip
+        .generateAsync({ type: "blob" })
+        .then((content) => {
+          // Create a temporary anchor element to trigger the download
+          const tempAnchor = document.createElement("a");
+          tempAnchor.href = URL.createObjectURL(content);
+          tempAnchor.download = `workspace_files_${workspace.name}.zip`;
+
+          // Trigger the download
+          tempAnchor.click();
+        })
+        .catch((error) => {
+          console.error("Error generating the zip folder:", error);
+        });
+    });
+  };
+
   return (
     <>
       {WorkSpaces.map((workspace, index) => (
@@ -301,7 +367,10 @@ export default function TableRow() {
             {expandedItem === index ? (
               <List sx={{ zIndex: 100, background: "#fff", boxShadow: 3 }}>
                 <ListItem button>
-                  <ListItemText primary="Download" />
+                  <ListItemText
+                    primary="Download"
+                    onClick={() => downloadImagesAndFile(workspace)}
+                  />
                 </ListItem>
 
                 <ListItem button>

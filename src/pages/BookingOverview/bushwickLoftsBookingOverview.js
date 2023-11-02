@@ -13,6 +13,8 @@ export default function BushwickLoftsBookingOverview() {
 
       <Grid sx={{ mt: 2, width: "100%" }}>
         <WorksapceImagesBookingOverview />
+        
+
       </Grid>
     </div>
   );

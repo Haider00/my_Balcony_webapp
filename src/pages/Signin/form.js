@@ -15,10 +15,13 @@ import React from "react";
 import { useSession, signOut } from "next-auth/react";
 import TextInput2 from "../../component/TextInput2/index";
 import { CustomHeader } from "../../component";
+import { useAuthState } from "src/context/auth.context";
 const Form = ({ from = "", onChangeRoute = () => {} }) => {
   const { data: session } = useSession();
   const authDispatch = useAuthDispatch();
-
+  const auth = useAuthState();
+  console.log("auth", auth);
+  const [blocked, setBlocked] = useState(false);
   useEffect(() => {
     if (session) {
       console.log("Sign-in error", session);
@@ -81,8 +84,13 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
       api
         .userLogin(info)
         .then((res) => {
-          authDispatch({ type: "LOGIN", payload: res });
-          router.push("./");
+          if (res.user.status === "blocked") {
+            setBlocked(true);
+          } else if (res.user.status === "active") {
+            authDispatch({ type: "LOGIN", payload: res });
+            router.push("./");
+          }
+          console.log("resplogin", res.user.status);
         })
         .catch((err) => {
           setMessage("InValid email or Password");
@@ -111,6 +119,85 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
 
   return (
     <>
+      {blocked && (
+        <>
+          <Box
+            style={{
+              background: "#111",
+              position: "fixed",
+              top: "0",
+              left: "0",
+              width: "100%",
+              height: "100%",
+              opacity: "0.7",
+              zIndex: 101,
+            }}
+            className="overlay"
+          ></Box>
+          <Box
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "450px",
+              borderRadius: "5px",
+              background: "#fff",
+              zIndex: 99999,
+            }}
+          >
+            <>
+              <Box
+                style={{
+                  cursor: "pointer",
+                  textAlign: "right",
+                  paddingRight: 10,
+                  paddingTop: 10,
+                }}
+                onClick={() => setBlocked(false)}
+              >
+                ✖
+              </Box>
+              <Box
+                style={{
+                  padding: "40px 40px 60px",
+                }}
+                className="otp-popup-content"
+              >
+                <Typography
+                  sx={{ fontSize: 24, marginBottom: "20px" }}
+                  component="h1"
+                  variant="h5"
+                >
+                  Your account is blocked.
+                </Typography>
+
+                <Box
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "15px",
+                  }}
+                >
+                  Please contact support
+                </Box>
+                <Box
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    color: "#005451",
+                    fontWeight: "600",
+                  }}
+                >
+                  <a href="mailto:info@balcony.ws">info@balcony.ws</a>
+                </Box>
+              </Box>
+            </>
+          </Box>
+        </>
+      )}
       <div
         style={{
           width: "100%",

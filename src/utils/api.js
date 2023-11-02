@@ -1,8 +1,8 @@
 import axios from "axios";
 // const url = "http://192.168.100.61:3000/api";
 // const url = "http://192.168.1.18:3000/api";
-// const url = "http://192.168.1.7:4000/api";
-// const url = "http://172.105.159.234:3000/api";
+// const url = "http://192.168.1.12:4000/api";
+// const url = "http://172.20.10.5:4000/api";
 const url = "https://www.api.balcony.ws/api";
 const config = {
   headers: {
@@ -33,6 +33,11 @@ class Api {
 
   async editUser(payload) {
     const { data } = await axios.patch(`/user/${payload._id}`, payload, config);
+    return data;
+  }
+  async getUser(payload) {
+    const { data } = await axios.get(`/user`, payload, config);
+
     return data;
   }
 

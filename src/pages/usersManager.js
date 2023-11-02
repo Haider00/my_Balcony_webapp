@@ -87,33 +87,7 @@ export default function UsersManager() {
                   >
                     User ID
                   </th>
-                  <th
-                    style={{
-                      paddingLeft: "10px",
-                      paddingTop: "10px",
-                      paddingBottom: "10px",
-                    }}
-                  >
-                    Country
-                  </th>
-                  <th
-                    style={{
-                      paddingLeft: "10px",
-                      paddingTop: "10px",
-                      paddingBottom: "10px",
-                    }}
-                  >
-                    Host Percentage
-                  </th>
-                  <th
-                    style={{
-                      paddingLeft: "10px",
-                      paddingTop: "10px",
-                      paddingBottom: "10px",
-                    }}
-                  >
-                    Devices
-                  </th>
+
                   <th
                     style={{
                       paddingLeft: "10px",
@@ -135,9 +109,7 @@ export default function UsersManager() {
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5, 6].map(() => (
-                  <TableRow />
-                ))}
+                <TableRow />
               </tbody>
             </table>
           </Grid>

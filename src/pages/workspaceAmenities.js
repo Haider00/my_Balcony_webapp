@@ -120,9 +120,7 @@ export default function UsersManager() {
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5, 6].map(() => (
-                  <WorkspaceAmenitiesTable />
-                ))}
+                <WorkspaceAmenitiesTable />
               </tbody>
             </table>
           </Grid>

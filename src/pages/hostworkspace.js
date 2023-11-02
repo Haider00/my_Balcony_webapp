@@ -43,12 +43,14 @@ export default function HostWorkSpace({}) {
   console.log("uuuu>>>>", workspaceDetails);
   const [workspaceid, setWorkspaceid] = useState();
   const workspaceState = useWorkspaceState();
+  console.log("uuuu>>pp", workspaceState);
   const [PhotoId, setPhotoId] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [photoName, setphotoName] = useState("+Add photo ID");
   const router = useRouter();
   const auth = useAuthState();
-  // console.log("workspaceState>>>>", workspaceState.firstImage);
+
+  console.log("authcheck>>>>", auth.user);
 
   const handlePhotoSelect = (event) => {
     uploadPhotoID(event.target.files[0]);
@@ -65,20 +67,6 @@ export default function HostWorkSpace({}) {
     "+Add property lease or ownership documents for this properties ***optional"
   );
   const [FileId, setFileId] = useState(null);
-
-  const handleFileSelect = (event) => {
-    setFileId(event.target.files[0]);
-    const selectedFile = event.target.files[0];
-    const fileName = selectedFile ? (
-      <div>
-        <CloudDoneIcon />
-        <div>{selectedFile.name}</div>
-      </div>
-    ) : (
-      ""
-    );
-    setfileName(fileName);
-  };
 
   const [isCheckedfeename, setIsCheckedfeename] = useState(false);
 
@@ -123,7 +111,7 @@ export default function HostWorkSpace({}) {
   console.log("workPlaceDayAndTime", workPlaceDayAndTime);
   const [workPlaceDay, setWorkPlaceDay] = useState([]);
   console.log("workPlaceDay", workPlaceDay);
-  console.log("workSpace", workSpace);
+  console.log("firstimage", workspaceState?.firstImage?.Location);
 
   const handleHostWorkSpace = () => {
     console.log("workSpacewwwww", workSpace);
@@ -132,7 +120,9 @@ export default function HostWorkSpace({}) {
         ...workSpace,
         owner: auth?.user?._id,
 
-        image: workspaceState?.firstImage?.Location || "",
+        firstImage: workspaceState?.firstImage?.Location || "",
+        secondImage: workspaceState?.secondImage?.Location || "",
+        thirdImage: workspaceState?.thirdImage?.Location || "",
       })
       .then((res) => {
         console.log("resssss", res._id);
@@ -164,6 +154,36 @@ export default function HostWorkSpace({}) {
           console.log("res....", err);
         });
     }
+  };
+
+  const handleFileSelect = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+
+      api
+        .uploadImage(formData)
+        .then((response) => {
+          console.log("File uploaded successfully:", response);
+          setWorkSpace({ ...workSpace, file: response.Location });
+        })
+        .catch((error) => {
+          console.error("File upload failed:", error);
+        });
+    }
+    console.log("bingo");
+    setFileId(event.target.files[0]);
+
+    const fileName = selectedFile ? (
+      <div>
+        <CloudDoneIcon />
+        <div>{selectedFile.name}</div>
+      </div>
+    ) : (
+      ""
+    );
+    setfileName(fileName);
   };
 
   const handleValidations = () => {
@@ -333,6 +353,7 @@ export default function HostWorkSpace({}) {
           .then((res) => {
             setWorkSpace({ ...workSpace, photoId: res.Location });
             handleUploadProductImage(res.data, product, element.cover);
+            console.log("pkk", res);
           })
           .catch((err) => {});
       },
