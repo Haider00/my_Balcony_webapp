@@ -45,7 +45,7 @@ const FormWb = () => {
 export const LeftWallpaperWb = () => {
   return (
     <Grid sx={{ display: { xs: "none", md: "block" } }} item xs={12} md={7}>
-      <TableTop/>
+      <TableTop />
     </Grid>
   );
 };

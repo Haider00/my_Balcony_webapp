@@ -26,7 +26,7 @@ export default function BookingOverviewDetail() {
 
   const otherFeeAmount = workspaceDetailState.workspaceDetail.otherFeeAmount;
 
-  // console.log("WWW", workspaceDetailState.workspaceDetail.owner);
+  console.log("WWWdetailstate", workspaceDetailState);
 
   const otherFeeName = workspaceDetailState.workspaceDetail.otherFeeName;
   const totalAmount =
@@ -58,7 +58,7 @@ export default function BookingOverviewDetail() {
           setStripeDetails(res);
         })
         .catch((err) => {
-          toastEvent("something went wrong while getting stripe details");
+          console.log("something went wrong while getting stripe details");
         });
     }
   }, [auth.user]);
@@ -96,7 +96,7 @@ export default function BookingOverviewDetail() {
           setCards(res.data);
         })
         .catch((err) => {
-          toastEvent("something went wrong while getting cards");
+          console.log("something went wrong while getting cards");
         });
     }
   }, [auth.user]);
@@ -110,7 +110,21 @@ export default function BookingOverviewDetail() {
         seller: workspaceDetailState?.workspaceDetail?.owner,
       })
       .then((res) => {
-        // console.log("response>>", res);
+        console.log("response>>booking", res);
+        api
+          .createPayment({
+            amount: totalAmount,
+            buyer: auth?.user?._id,
+            seller: workspaceDetailState?.workspaceDetail?.owner,
+            booking: res._id,
+          })
+          .then((res) => {
+            console.log("paymentsuccess", res);
+          })
+          .catch(() => {
+            console.log("paymenterror");
+          });
+
         setMessage("Booking Completed Successfully");
         setDisplay(true);
         router.push("./");
@@ -284,6 +298,7 @@ export default function BookingOverviewDetail() {
             } else {
               setMessage("Card Not Found. Please Attach Your Card For Payment");
               setDisplay(true);
+              router.push("./wallet");
             }
           }}
           sx={{

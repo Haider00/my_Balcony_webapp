@@ -283,7 +283,7 @@ export default function BookingOverview() {
                         (Default)
                       </Typography>
                     </Box>
-                    <Button
+                    {/* <Button
                       sx={{
                         width: 60,
                         padding: 0,
@@ -295,7 +295,7 @@ export default function BookingOverview() {
                       variant="contained"
                     >
                       delete
-                    </Button>
+                    </Button> */}
                   </>
                 );
               })}

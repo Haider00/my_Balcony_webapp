@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Admin from "../components/Admin/admin";
 import { Grid, Typography } from "@mui/material";
 import CustomHeader from "../component/CustomHeader/index";
@@ -298,7 +298,7 @@ export default function Promotions() {
                       paddingBottom: "10px",
                     }}
                   >
-                    Date
+                    Buyer
                   </th>
                   <th
                     style={{
@@ -307,7 +307,7 @@ export default function Promotions() {
                       paddingBottom: "10px",
                     }}
                   >
-                    Description
+                    Seller
                   </th>
                   <th
                     style={{
@@ -315,13 +315,13 @@ export default function Promotions() {
                       paddingTop: "10px",
                       paddingBottom: "10px",
                     }}
-                  ></th>
+                  >
+                    Booking
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4].map(() => (
-                  <PaymentsTable />
-                ))}
+                <PaymentsTable />
               </tbody>
             </table>
           </Grid>

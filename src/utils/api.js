@@ -1,7 +1,7 @@
 import axios from "axios";
 // const url = "http://192.168.100.61:3000/api";
 // const url = "http://192.168.1.18:3000/api";
-// const url = "http://192.168.1.12:4000/api";
+// const url = "http://192.168.10.7:4000/api";
 // const url = "http://172.20.10.5:4000/api";
 const url = "https://www.api.balcony.ws/api";
 const config = {
@@ -108,12 +108,18 @@ class Api {
   }
   async getWorkingTime(payload) {
     const { query = "" } = payload;
+    console.log("ptabha", query);
     const { data } = await axios.get(`/workingTimes${query}`, config);
     return data;
   }
 
   async createBooking(payload) {
     const { data } = await axios.post("/booking", payload, config);
+    return data;
+  }
+
+  async createPayment(payload) {
+    const { data } = await axios.post("/payment", payload, config);
     return data;
   }
 
@@ -149,6 +155,12 @@ class Api {
     return data;
   }
 
+  async getPayment(payload) {
+    const { query = "" } = payload;
+    const { data } = await axios.get(`/payment${query}`, config);
+    return data;
+  }
+
   async uploadFilesToWorkspace(payload) {
     const { data } = await axios.post("/workspaceFile", payload, config);
     return data;
@@ -179,6 +191,16 @@ class Api {
   async editBooking(payload) {
     const { data } = await axios.patch(
       `/booking/${payload._id}`,
+      payload,
+      config
+    );
+    return data;
+  }
+
+  async editPayment(payload) {
+    console.log("paymentpayload", payload);
+    const { data } = await axios.patch(
+      `/payment/${payload._id}`,
       payload,
       config
     );

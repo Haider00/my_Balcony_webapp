@@ -69,8 +69,8 @@ export const FormWb = () => {
         checkin: checkIN?.toISOString(),
         checkout: checkOut?.toISOString(),
         people: people,
-        lat: placeValue.lat,
-        lon: placeValue.lng,
+        lat: 31.4504,
+        lon: 73.135,
       },
     });
   };

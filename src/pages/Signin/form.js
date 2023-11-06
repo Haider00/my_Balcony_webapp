@@ -231,12 +231,12 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
         <div
           style={{ marginBottom: "30px", width: "355px", textAlign: "left" }}
         >
-          <div style={{ fontSize: "20px", width: "35%", textAlign: "center" }}>
+          {/* <div style={{ fontSize: "20px", width: "35%", textAlign: "center" }}>
             or
-          </div>
+          </div> */}
           <div style={{ width: "65%" }}></div>
         </div>
-        <div style={{ marginBottom: "30px", width: "355px" }}>
+        {/* <div style={{ marginBottom: "30px", width: "355px" }}>
           <TextInput2
             // onChange={(e) => {
             //   setInfo({ ...info, email: e.target.value });
@@ -244,7 +244,7 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
             id="phone"
             label="phone:"
           />
-        </div>
+        </div> */}
         <div style={{ marginBottom: "30px", width: "355px" }}>
           <TextInput2
             onChange={(e) => {
@@ -275,7 +275,7 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
             marginY: 3,
           }}
         >
-          <div
+          {/* <div
             style={{
               height: 1,
               width: "35%",
@@ -283,10 +283,10 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
             }}
           />
           <div>or</div>
-          <div style={{ height: 1, width: "35%", backgroundColor: "#000" }} />
+          <div style={{ height: 1, width: "35%", backgroundColor: "#000" }} /> */}
         </Box>
 
-        <div
+        {/* <div
           style={{
             display: "flex",
             alignItems: "center",
@@ -303,8 +303,8 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
             fontSize="14"
             textTransform="none"
           />
-        </div>
-        <div
+        </div> */}
+        {/* <div
           style={{
             display: "flex",
             alignItems: "center",
@@ -321,7 +321,7 @@ const Form = ({ from = "", onChangeRoute = () => {} }) => {
             textTransform="none"
           />
           <Google style={{ color: "#FE2B25", fontSize: 30 }} />
-        </div>
+        </div> */}
 
         <Box
           sx={{

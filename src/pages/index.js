@@ -104,7 +104,7 @@ export default function SignUp() {
                 style={{
                   objectFit: "contain",
                   width: "100%",
-                  height: "1000px",
+                  height: "auto",
                 }}
                 src={Leftewallpaper}
                 alt=""

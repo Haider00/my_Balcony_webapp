@@ -22,12 +22,12 @@ export default function UsersManager() {
   const router = useRouter();
   const isUserAdmin = auth.user && auth.user.usertype === "admin";
   const [loading, setLoading] = React.useState(true);
-
+  console.log("isUserAdmin", isUserAdmin);
   React.useEffect(() => {
-    if (!isUserAdmin) {
-      router.push("/");
-    } else {
+    if (isUserAdmin) {
       setLoading(false);
+    } else {
+      router.push("/");
     }
   }, [isUserAdmin, router]);
 

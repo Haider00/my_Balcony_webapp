@@ -81,24 +81,30 @@ export default function HoursOfServices() {
   };
 
   useEffect(() => {
-    api
-      .getWorkingTime({
-        query: `?workSpace=${workspaceDetailState.workspaceDetail._id}`,
-      })
-      .then((res) => {
-        // console.log('res>>>', res.data);
-        if (res.data) {
-          dispatch({
-            type: "WORKSPACE_DAY_AND_TIME",
-            payload: res.data,
-          });
-          setDayTime(res.data);
-        }
-      })
-      .catch((err) => {
-        console.log("error2", err);
-      });
-  }, [workspaceDetailState.workspaceDetail]);
+    if (workspaceDetailState.workspaceDetail._id) {
+      api
+        .getWorkingTime({
+          query: `?workSpace=${workspaceDetailState.workspaceDetail._id}`,
+        })
+        .then((res) => {
+          console.log("res>>>saisai", res.data);
+          console.log(
+            "workspaceDetailState.workspaceDetail._id",
+            workspaceDetailState.workspaceDetail._id
+          );
+          if (res.data) {
+            dispatch({
+              type: "WORKSPACE_DAY_AND_TIME",
+              payload: res.data,
+            });
+            setDayTime(res.data);
+          }
+        })
+        .catch((err) => {
+          console.log("error23", err);
+        });
+    }
+  }, [workspaceDetailState.workspaceDetail._id]);
 
   return (
     <Box

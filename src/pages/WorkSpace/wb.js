@@ -404,7 +404,7 @@ export const WorksapceImagesBookingOverview = () => {
   useEffect(() => {
     api
       .getImages({
-        query: `?workSpace=653bca747349e679a05de17e`,
+        query: `?workSpace=${workspaceDetail?.workspaceDetail?._id}`,
       })
       .then((res) => {
         setMainImage(res.data[0].Location);
