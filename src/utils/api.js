@@ -1,7 +1,7 @@
 import axios from "axios";
 // const url = "http://192.168.100.61:3000/api";
 // const url = "http://192.168.1.18:3000/api";
-// const url = "http://192.168.10.7:4000/api";
+// const url = "http://192.168.1.12:4000/api";
 // const url = "http://172.20.10.5:4000/api";
 const url = "https://www.api.balcony.ws/api";
 const config = {

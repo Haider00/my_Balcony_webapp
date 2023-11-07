@@ -111,6 +111,7 @@ export default function SignUp() {
               />
             </Box>
           </Grid>
+
           <Grid
             sx={{ justifyContent: "center", alignItems: "center" }}
             item
