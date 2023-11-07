@@ -116,7 +116,11 @@ button.gm-control-active.gm-fullscreen-control {
 
     top:100px !important
   }
-
+  @media screen and (max-width: 769px) {
+   .comingsoon{
+    width:300px !important;
+   }
+}
 
 
 

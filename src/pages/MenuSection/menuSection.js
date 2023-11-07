@@ -72,6 +72,7 @@ export default function MenuSection() {
             className="overlay"
           ></Box>
           <Box
+            className="comingsoon"
             style={{
               position: "fixed",
               top: "50%",
