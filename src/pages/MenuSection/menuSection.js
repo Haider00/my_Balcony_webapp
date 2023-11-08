@@ -151,7 +151,7 @@ export default function MenuSection() {
                 sx={{ cursor: "pointer", marginTop: 1, fontSize: 20 }}
                 variant="subtitle1"
               >
-                terms of services
+                terms & conditions
               </Typography>
               <Typography
                 onClick={() => router.push("/privacyPolicy")}
@@ -214,7 +214,7 @@ export default function MenuSection() {
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", p: 1 }}>
               <Typography sx={{ fontSize: 16 }}>
-                © homework workspaces LLC {new Date().getFullYear()}
+                © homework workspaces LLC
               </Typography>
             </Box>
           </Card>

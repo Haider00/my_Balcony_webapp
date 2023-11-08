@@ -17,6 +17,8 @@ import DatePicker from "@mui/lab/DatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import GoogleAutoComplete from "../../component/GoogleAutoComplete/index.js";
+import Image from "next/image";
+import Hostworkspaceplaceholder from "../../assets/images/hostworkspace-placeholder.png";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -229,8 +231,13 @@ export const FormWb = () => {
               backgroundColor: "#005451",
               width: "90%",
               alignSelf: "center",
-              borderRadius: "16px",
+              borderRadius: "10px",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              marginTop: 2,
               marginBottom: 3,
+              fontSize: "20px",
+              textTransform: "none",
               "&:hover": {
                 backgroundColor: "#ffff00",
                 color: "#000",
@@ -238,7 +245,7 @@ export const FormWb = () => {
             }}
             onClick={handleSearch}
           >
-            SEARCH
+            Search
           </Button>
         </Card>
       </Box>
@@ -286,21 +293,21 @@ export const HostWorkSpaceWb = () => {
         message={<span id="message-id">{message}</span>}
       />
       <Grid
-        sx={{ display: { xs: "none", md: "flex" }, marginY: 4, marginX: 0 }}
+        sx={{ display: { xs: "flex", md: "flex" }, marginY: 4, marginX: 0 }}
         container
         spacing={2}
       >
         <Grid item md={5} lg={5}>
-          <img
-            src={`${"https://wallpaperaccess.com/full/3678503.png"}`}
-            srcSet={`${"https://wallpaperaccess.com/full/38119.jpg"}`}
-            alt={"Title"}
+          <Image
             style={{
               display: "block",
               width: 654,
               height: 772,
               borderRadius: 5,
+              objectFit: "cover",
             }}
+            src={Hostworkspaceplaceholder}
+            alt=""
           />
         </Grid>
         <Grid item md={7} lg={7}>
@@ -313,7 +320,8 @@ export const HostWorkSpaceWb = () => {
           >
             <Typography
               sx={{
-                fontSize: "80px",
+                fontSize: { xs: "40px", md: "80px" },
+                fontWeight: { xs: "700", md: "500" },
                 fontFamily: "Roboto",
                 marginX: 1,
               }}
@@ -323,7 +331,8 @@ export const HostWorkSpaceWb = () => {
             </Typography>
             <Typography
               sx={{
-                fontSize: "80px",
+                fontSize: { xs: "40px", md: "80px" },
+                fontWeight: { xs: "700", md: "500" },
                 fontFamily: "Roboto",
                 marginX: 1,
               }}
@@ -333,7 +342,8 @@ export const HostWorkSpaceWb = () => {
             </Typography>
             <Typography
               sx={{
-                fontSize: "80px",
+                fontSize: { xs: "40px", md: "80px" },
+                fontWeight: { xs: "700", md: "500" },
                 fontFamily: "Roboto",
                 marginX: 1,
               }}
@@ -434,7 +444,7 @@ export const HostWorkSpaceWb = () => {
                 width: "325px",
                 height: "59px",
                 alignSelf: "center",
-                marginBottom: 3,
+                marginTop: 2,
                 borderRadius: "16px",
                 fontSize: "25px",
                 "&:hover": {
@@ -455,7 +465,7 @@ export const HostWorkSpaceWb = () => {
                 width: "325px",
                 height: "59px",
                 alignSelf: "center",
-                marginBottom: 3,
+                marginTop: 2,
                 borderRadius: "16px",
                 fontSize: "25px",
                 "&:hover": {

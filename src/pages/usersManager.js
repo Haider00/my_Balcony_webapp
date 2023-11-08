@@ -9,14 +9,21 @@ import TableRow from "@components/UsersManagerTable";
 import { styled } from "@mui/system";
 import AdminMobileDropDown from "../component/AdminMobileDropDown/index";
 import Head from "next/head";
-
+import { useAuthState } from "src/context/auth.context";
 export default function UsersManager() {
   const StyledGrid = styled(Grid)({
     "@media (max-width: 900px)": {
       display: "none",
     },
   });
-
+  const auth = useAuthState();
+  if (auth?.user?.usertype === "user") {
+    router.push("/");
+  }
+  React.useEffect(() => {
+    if (auth?.user?.usertype === "admin") {
+    }
+  }, [auth?.user]);
   return (
     <>
       <Head>
