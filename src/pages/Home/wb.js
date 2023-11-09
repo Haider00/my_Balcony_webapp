@@ -18,7 +18,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import GoogleAutoComplete from "../../component/GoogleAutoComplete/index.js";
 import Image from "next/image";
-import Hostworkspaceplaceholder from "../../assets/images/hostworkspace-placeholder.png";
+import Hostworkspaceplaceholder from "../../assets/images/hostworkspace-placeholder.jpg";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -293,7 +293,11 @@ export const HostWorkSpaceWb = () => {
         message={<span id="message-id">{message}</span>}
       />
       <Grid
-        sx={{ display: { xs: "flex", md: "flex" }, marginY: 4, marginX: 0 }}
+        sx={{
+          display: { xs: "flex", md: "flex", justifyContent: "center" },
+          marginY: 4,
+          marginX: 0,
+        }}
         container
         spacing={2}
       >
@@ -308,6 +312,7 @@ export const HostWorkSpaceWb = () => {
             }}
             src={Hostworkspaceplaceholder}
             alt=""
+            className="Hostworkspaceplaceholderimage"
           />
         </Grid>
         <Grid item md={7} lg={7}>
