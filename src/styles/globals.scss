@@ -117,6 +117,9 @@ button.gm-control-active.gm-fullscreen-control {
     top:100px !important
   }
   @media screen and (max-width: 769px) {
+    .hostworkspace-col{
+      padding: 0 !important;
+    }
    .comingsoon{
     width:300px !important;
    }

@@ -73,7 +73,7 @@ export default function SignUp() {
 
   return (
     <>
-      <Box style={{}}>
+      <Box style={{ paddingLeft: "20px", paddingRight: "20px" }}>
         <div
           style={{
             marginLeft: 20,
@@ -97,7 +97,9 @@ export default function SignUp() {
           <Grid
             item
             lg={7}
-            style={{ display: isMediumScreen ? "none" : "block" }}
+            style={{
+              display: isMediumScreen ? "none" : "block",
+            }}
           >
             <Box>
               <Image

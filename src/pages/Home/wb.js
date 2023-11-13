@@ -294,9 +294,12 @@ export const HostWorkSpaceWb = () => {
       />
       <Grid
         sx={{
-          display: { xs: "flex", md: "flex", justifyContent: "center" },
+          display: {
+            xs: "flex",
+            md: "flex",
+            justifyContent: "center",
+          },
           marginY: 4,
-          marginX: 0,
         }}
         container
       >
@@ -308,13 +311,20 @@ export const HostWorkSpaceWb = () => {
               height: 772,
               borderRadius: 5,
               objectFit: "cover",
+              marginBottom: "40px",
             }}
             src={Hostworkspaceplaceholder}
             alt=""
             className="Hostworkspaceplaceholderimage"
           />
         </Grid>
-        <Grid item md={7} lg={7}>
+        <Grid
+          item
+          md={7}
+          lg={7}
+          style={{ paddingLeft: 40 }}
+          className="hostworkspace-col"
+        >
           <Box
             sx={{
               width: "100%",
