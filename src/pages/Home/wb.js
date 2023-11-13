@@ -299,7 +299,6 @@ export const HostWorkSpaceWb = () => {
           marginX: 0,
         }}
         container
-        spacing={2}
       >
         <Grid item md={5} lg={5}>
           <Image
