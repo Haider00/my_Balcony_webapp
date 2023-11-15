@@ -105,6 +105,7 @@ export const FormWb = () => {
         }}
       >
         <Card
+          className="home-findworkspaces"
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -121,6 +122,7 @@ export const FormWb = () => {
               fontSize: "40px",
               marginLeft: "15px",
             }}
+            className="cardtitle"
           >
             find workspaces
           </Typography>
